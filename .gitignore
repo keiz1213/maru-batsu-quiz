@@ -1,0 +1,44 @@
+/.env
+
+/front/node_modules
+/front/*.log*
+/front/.nuxt
+/front/.nitro
+/front/.cache
+/front/.output
+/front/.env
+/front/dist
+/front/.DS_Store
+/front/app
+/front/cypress/videos
+/front/cypress/screenshots
+
+# Ignore bundler config.
+/api/.bundle
+
+# Ignore all logfiles and tempfiles.
+/api/log/*
+/api/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# Ignore pidfiles, but keep the directory.
+/api/tmp/pids/*
+!/tmp/pids/
+!/tmp/pids/.keep
+
+# Ignore uploaded files in development.
+/api/storage/*
+!/storage/.keep
+/api/tmp/storage/*
+!/tmp/storage/
+!/tmp/storage/.keep
+
+# api/Ignore master key for decrypting credentials and more.
+/api/config/master.key
+
+# rubocop
+/api/.cache
+
+#redis
+data
