@@ -34,6 +34,7 @@ services:
     build:
       context: ./front
       args:
+        WORKDIR: /front
         CONTAINER_PORT: $CONTAINER_PORT
         API_URL: "http://localhost:$API_PORT"
         FIREBASE_API_KEY: $FIREBASE_API_KEY

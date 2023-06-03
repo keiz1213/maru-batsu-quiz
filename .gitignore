@@ -9,7 +9,7 @@
 /front/.env
 /front/dist
 /front/.DS_Store
-/front/app
+/front/.npm
 /front/cypress/videos
 /front/cypress/screenshots
 
