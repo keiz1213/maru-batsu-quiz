@@ -9,7 +9,7 @@
 
 <template>
   <div>
-    <button @click="getHello">Get Hello</button>
+    <button class="getHello" @click="getHello">Get Hello</button>
     <ul>
       <li v-for="(msg, index) in messages" :key="index">
         {{ msg }}
