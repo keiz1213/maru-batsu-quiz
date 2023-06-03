@@ -6,5 +6,6 @@
   <div>
     <input v-model="name" type="text" />
     <Helloworld :name="name" />
+    <GetHello />
   </div>
 </template>
