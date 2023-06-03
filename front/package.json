@@ -3,15 +3,18 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
+    "start": "node .output/server/index.mjs",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
+    "test:unit": "vitest",
+    "test:e2e": "cypress run",
+    "test:browser": "cypress open",
     "lint:js": "eslint --ext \".ts,.vue\" --ignore-path .prettierignore",
     "lint:prettier": "prettier --check .",
     "lint": "npm run lint:js && npm run lint:prettier",
-    "lintfix": "prettier --write --list-different . && npm run lint:js --fix",
-    "test:unit": "vitest"
+    "lintfix": "prettier --write --list-different . && npm run lint:js --fix"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
