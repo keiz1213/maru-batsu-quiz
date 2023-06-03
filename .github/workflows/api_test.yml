@@ -1,0 +1,54 @@
+name: Run rspec, rubocop
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: verify
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: app_test
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    container:
+      image: ruby:3.2.2
+      env:
+        RAILS_ENV: test
+        POSTGRES_PASSWORD: password
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: bundler set up
+        run: |
+          cd api
+          gem install bundler
+          bundle install
+
+      - name: install node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: db migrate
+        run: |
+          cd api
+          bundle exec rails db:migrate
+
+      - name: verify
+        run: |
+          cd api
+          bundle exec rspec
+          bundle exec rubocop
