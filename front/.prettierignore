@@ -1,0 +1,12 @@
+node_modules
+*.log*
+.nuxt
+.nitro
+.cache
+.output
+.env
+.npm
+.nuxt
+dist
+.DS_Store
+cypress/videos

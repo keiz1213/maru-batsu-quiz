@@ -42,7 +42,7 @@ services:
         FIREBASE_PROJECT_ID: $FIREBASE_PROJECT_ID
     command: npm run dev
     volumes:
-      - "./front:/app"
+      - "./front:/front"
     ports:
       - "$FRONT_PORT:$CONTAINER_PORT"
       - "24678:24678"
