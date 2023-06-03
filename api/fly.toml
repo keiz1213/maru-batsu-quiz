@@ -1,0 +1,25 @@
+# fly.toml app configuration file generated for marubatsu-quiz on 2023-06-04T01:08:48+09:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "marubatsu-quiz"
+primary_region = "nrt"
+console_command = "/rails/bin/rails console"
+
+[env]
+  RAILS_ENV = "production"
+  RAILS_LOG_TO_STDOUT = "true"
+[deploy]
+  release_command = "bin/rails fly:release"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+
+[[statics]]
+  guest_path = "/app/public"
+  url_prefix = "/"
