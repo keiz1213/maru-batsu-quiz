@@ -4,9 +4,11 @@
     layout: 'mbq-after-login'
   })
   const { currentUser } = useAuth()
-  const games = currentUser.value.games
+  const userId = currentUser.value.id
+  const route = useRoute()
+  const gameId = route.params.id
 </script>
 
 <template>
-  <MbqHome :games="games" />
+  <MbqGameEdit :userId="userId" :gameId="gameId" />
 </template>

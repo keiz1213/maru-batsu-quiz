@@ -4,9 +4,9 @@
     layout: 'mbq-after-login'
   })
   const { currentUser } = useAuth()
-  const games = currentUser.value.games
+  const userId = currentUser.value.id
 </script>
 
 <template>
-  <MbqHome :games="games" />
+  <MbqGameNew :userId="userId" />
 </template>

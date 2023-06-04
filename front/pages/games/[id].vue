@@ -3,10 +3,11 @@
     middleware: 'auth',
     layout: 'mbq-after-login'
   })
-  const { currentUser } = useAuth()
-  const games = currentUser.value.games
+
+  const route = useRoute()
+  const gameId = route.params.id
 </script>
 
 <template>
-  <MbqHome :games="games" />
+  <MbqGameShow :gameId="gameId" />
 </template>
