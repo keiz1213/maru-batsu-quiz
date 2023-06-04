@@ -14,6 +14,11 @@
     <input v-model="name" type="text" />
     <Helloworld :name="name" />
     <GetHello />
-    <button @click="login">Githubでログイン</button>
+    <button
+      class="text-white rounded-md bg-green-600 py-4 px-4 text-sm shadow-md hover:opacity-70 w-48"
+      @click="login"
+    >
+      Githubでログイン
+    </button>
   </div>
 </template>
