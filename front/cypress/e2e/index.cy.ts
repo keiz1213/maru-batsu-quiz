@@ -3,7 +3,6 @@ describe('indexページ', () => {
   //   cy.visit('/')
   //   cy.contains('Hello, World').should('be.visible')
   // })
-
   // it('Get Helloボタンを押すとHelloWorldが返ってくる', () => {
   //   cy.visit('/')
   //   cy.wait(1500)
