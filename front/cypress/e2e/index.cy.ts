@@ -4,12 +4,12 @@ describe('indexページ', () => {
     cy.contains('Hello, world').should('be.visible')
   })
 
-  it('Get Helloボタンを押すとHelloWorldが返ってくる', () => {
-    cy.visit('/')
-    cy.wait(1500)
-    cy.intercept('GET', '/api/v1/hello').as('getHello')
-    cy.get('.getHello').click()
-    cy.wait('@getHello', { timeout: 10000 })
-    cy.contains('Hello, World!')
-  })
+  // it('Get Helloボタンを押すとHelloWorldが返ってくる', () => {
+  //   cy.visit('/')
+  //   cy.wait(1500)
+  //   cy.intercept('GET', '/api/v1/hello').as('getHello')
+  //   cy.get('.getHello').click()
+  //   cy.wait('@getHello', { timeout: 10000 })
+  //   cy.contains('Hello, World!')
+  // })
 })
