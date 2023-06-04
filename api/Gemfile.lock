@@ -77,6 +77,8 @@ GEM
       irb (>= 1.5.0)
       reline (>= 0.3.1)
     diff-lcs (1.5.0)
+    dockerfile-rails (1.4.1)
+      rails
     erubi (1.12.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -225,6 +227,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   debug
+  dockerfile-rails
   factory_bot_rails
   pg (~> 1.1)
   puma (~> 5.0)
