@@ -51,3 +51,7 @@ group :development do
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
 end
+
+gem 'firebase_id_token', '~> 3.0.0'
+gem 'redis-rails'
+gem 'whenever', require: false
