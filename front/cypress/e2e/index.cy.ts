@@ -1,7 +1,7 @@
 describe('indexページ', () => {
   it('/にアクセスするとHello, worldが表示されている', () => {
     cy.visit('/')
-    cy.contains('Hello, world').should('be.visible')
+    cy.contains('Hello, World').should('be.visible')
   })
 
   // it('Get Helloボタンを押すとHelloWorldが返ってくる', () => {
