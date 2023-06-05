@@ -2,7 +2,7 @@
   import { Game } from '@/types/Game'
 
   defineProps<{
-    games: Game[]
+    games: Game[] | null
   }>()
 </script>
 
