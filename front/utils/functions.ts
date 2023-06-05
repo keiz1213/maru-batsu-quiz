@@ -63,9 +63,7 @@ export async function createMember(
   return member
 }
 
-export async function createTestMember(
-  channel: P2PRoom
-): Promise<Member> {
+export async function createTestMember(channel: P2PRoom): Promise<Member> {
   const data = await SkyWayStreamFactory.createDataStream()
   const memberCertificates = await channel.join()
   const myPublication = await memberCertificates.publish(data)

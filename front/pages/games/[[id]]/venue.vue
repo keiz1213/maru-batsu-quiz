@@ -22,7 +22,7 @@
   const gameId = route.params.id
   const game = await getGame(String(gameId))
   let skywayToken
-  if(currentUser) {
+  if (currentUser) {
     skywayToken = await getSkywayToken(currentUser.value.token)
   } else {
     const config = useRuntimeConfig()
@@ -37,12 +37,12 @@
   const skywayContext = await createSkyWayContext(skywayToken)
   const channel = await findOrCreateChannel(skywayContext, channelName)
   let member: Member
-  if(currentUser) {
+  if (currentUser) {
     member = await createMember(currentUser.value, channel)
   } else {
     member = await createTestMember(channel)
   }
-  
+
   const myId = member.id
 
   const writer = new DataStreamWriter(member)
