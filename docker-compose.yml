@@ -21,7 +21,7 @@ services:
       context: ./api
     environment:
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
-      API_DOMAIN: "localhost:$FRONT_PORT"
+      FRONT_DOMAIN: "localhost:$FRONT_PORT"
       FIREBASE_PROJECT_ID: $FIREBASE_PROJECT_ID
       REDIS_URL: "redis://redis"
       SKYWAY_ID: $SKYWAY_ID
@@ -39,6 +39,7 @@ services:
         WORKDIR: /front
         CONTAINER_PORT: $CONTAINER_PORT
         API_URL: "http://localhost:$API_PORT"
+        FRONT_URL: "http://localhost:$FRONT_PORT"
         FIREBASE_API_KEY: $FIREBASE_API_KEY
         FIREBASE_AUTH_DOMAIN: $FIREBASE_AUTH_DOMAIN
         FIREBASE_PROJECT_ID: $FIREBASE_PROJECT_ID

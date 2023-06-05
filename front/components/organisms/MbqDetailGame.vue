@@ -5,6 +5,8 @@
     gameId: string
   }>()
 
+  const config = useRuntimeConfig()
+  const frontUrl = config.public.frontURL
   const gameId = props.gameId
 
   const removeGame = async (gameId: string): Promise<void> => {
@@ -15,7 +17,7 @@
   }
 
   const game = await getGame(gameId)
-  const gameVenueUrl = `http://localhost:3000/games/${gameId}/venue?title=${game.title}`
+  const gameVenueUrl = `${frontUrl}/games/${gameId}/venue?title=${game.title}`
 
   // onBeforeMount(() => {
   // })
