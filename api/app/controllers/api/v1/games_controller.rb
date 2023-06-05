@@ -22,7 +22,6 @@ class Api::V1::GamesController < ApplicationController
     game.destroy
   end
 
-
   private
 
   def game_params
@@ -35,7 +34,7 @@ class Api::V1::GamesController < ApplicationController
     )
   end
 
-  def buildQuizzes(game)
+  def build_quizzes(game)
     params.require(:quizzes).each do |quiz|
       permitted_params = quiz.permit(
         :question,
@@ -46,7 +45,7 @@ class Api::V1::GamesController < ApplicationController
     end
   end
 
-  def rebuildQuizzes(game)
+  def rebuild_quizzes(game)
     game.quizzes.destroy_all
     params.require(:quizzes).each do |quiz|
       permitted_params = quiz.permit(
