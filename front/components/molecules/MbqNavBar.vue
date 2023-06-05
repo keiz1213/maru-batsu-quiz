@@ -1,4 +1,8 @@
 <script setup lang="ts">
+  const props = defineProps<{
+    avatarUrl: string
+  }>()
+
   const emits = defineEmits<{
     (e: 'logout'): void
     (e: 'withdrawal'): void
@@ -24,7 +28,7 @@
       <div class="h-16 flex items-center justify-between">
         <MbqBrand :href="'/home'">○✗クイズオンライン</MbqBrand>
         <MbqUserIcon
-          :src="'https://avatars.githubusercontent.com/u/72614612?v=4'"
+          :src="props.avatarUrl"
           v-model:modelValue="isOpen"
           @click="toggleIsopen"
         ></MbqUserIcon>

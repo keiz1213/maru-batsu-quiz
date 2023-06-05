@@ -1,5 +1,6 @@
 <script setup lang="ts">
   const { signOut, currentUser } = useAuth()
+  const avatarUrl = currentUser.value.avatar_url
 
   const logout = async (): Promise<void> => {
     await signOut()
@@ -17,7 +18,7 @@
 </script>
 
 <template>
-  <MbqNavBar @logout="logout"></MbqNavBar>
+  <MbqNavBar @logout="logout" :avatarUrl="avatarUrl"></MbqNavBar>
   <slot />
   <MbqFooter @withdrawal="withdrawal"></MbqFooter>
 </template>
