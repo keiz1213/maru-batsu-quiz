@@ -6,14 +6,14 @@ class Api::V1::GamesController < ApplicationController
 
   def create
     game = Game.new(game_params)
-    buildQuizzes(game)
+    build_quizzes(game)
     game.save
     render json: game.as_json(include: :quizzes)
   end
 
   def update
     game = Game.find(params[:id])
-    rebuildQuizzes(game)
+    rebuild_quizzes(game)
     game.update(game_params)
   end
 
