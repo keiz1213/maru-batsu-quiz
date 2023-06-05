@@ -5,7 +5,7 @@
   })
 
   const route = useRoute()
-  const gameId = route.params.id
+  const gameId = route.params.id as string
 </script>
 
 <template>
