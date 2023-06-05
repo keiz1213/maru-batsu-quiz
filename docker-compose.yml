@@ -24,6 +24,8 @@ services:
       API_DOMAIN: "localhost:$FRONT_PORT"
       FIREBASE_PROJECT_ID: $FIREBASE_PROJECT_ID
       REDIS_URL: "redis://redis"
+      SKYWAY_ID: $SKYWAY_ID
+      SKYWAY_SECRET: $SKYWAY_SECRET
     volumes:
       - "./api:/app"
     depends_on:
