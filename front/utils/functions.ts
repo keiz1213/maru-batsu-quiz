@@ -16,9 +16,10 @@ function createTestUser(numberOfMembers: number): User {
     id: numberOfMembers + addForId,
     uid: `testUid${numberOfMembers}`,
     name: `testUserName${numberOfMembers}`,
-    avatar_url: `http://localhost:3000/_nuxt/assets/images/${
-      numberOfMembers - subtractForUrl
-    }.svg`,
+    avatar_url: new URL(
+      `@/assets/images/${numberOfMembers - subtractForUrl}.svg`,
+      import.meta.url
+    ).href,
     games: null,
     token: 'test'
   }
