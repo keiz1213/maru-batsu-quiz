@@ -262,7 +262,6 @@
   <div id="modal2" class="modal2">
     <div class="modal-content">
       <p>募集中・・・</p>
-      <button @click="sendAvatar">送る</button>
       <Hiring v-if="member.id === ownerId" :members="members" />
       <div v-if="member.id === ownerId" class="flex">
         <button @click="deadline(0)" class="btn btn-primary m-2">
