@@ -53,17 +53,32 @@ export async function createMember(
   const numberOfMembers = channel.members.length
   let member: Member
   let indexAndData = {
+    myIndex: numberOfMembers - 1,
+    myData: data,
+    memberCertificates: memberCertificates,
+    myPublication: myPublication
+  }
+  member = Object.assign({}, currentUser, indexAndData)
+
+  return member
+}
+
+export async function createTestMember(
+  channel: P2PRoom
+): Promise<Member> {
+  const data = await SkyWayStreamFactory.createDataStream()
+  const memberCertificates = await channel.join()
+  const myPublication = await memberCertificates.publish(data)
+  const numberOfMembers = channel.members.length
+  let member: Member
+  let indexAndData = {
     myIndex: numberOfMembers - 2,
     myData: data,
     memberCertificates: memberCertificates,
     myPublication: myPublication
   }
-  if (numberOfMembers > 1) {
-    const testUser = createTestUser(numberOfMembers)
-    member = Object.assign({}, testUser, indexAndData)
-  } else {
-    indexAndData.myIndex = numberOfMembers - 1
-    member = Object.assign({}, currentUser, indexAndData)
-  }
+  const testUser = createTestUser(numberOfMembers)
+  member = Object.assign({}, testUser, indexAndData)
+
   return member
 }

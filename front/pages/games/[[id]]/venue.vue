@@ -3,6 +3,7 @@
   import {
     createSkyWayContext,
     createMember,
+    createTestMember,
     findOrCreateChannel
   } from '~/utils/functions'
   import { getSkywayToken, getGame } from '~/utils/getters'
@@ -20,7 +21,14 @@
   const route = useRoute()
   const gameId = route.params.id
   const game = await getGame(String(gameId))
-  const skywayToken = await getSkywayToken(currentUser.value.token)
+  let skywayToken
+  if(currentUser) {
+    skywayToken = await getSkywayToken(currentUser.value.token)
+  } else {
+    const config = useRuntimeConfig()
+    const firebaseIdTokenForTestUser = config.public.firebaseIdTokenForTestUser
+    skywayToken = await getSkywayToken(firebaseIdTokenForTestUser)
+  }
   const ownerId = game.user_id
   const title = game.title
   const channelName = game.channel_name
@@ -28,8 +36,13 @@
 
   const skywayContext = await createSkyWayContext(skywayToken)
   const channel = await findOrCreateChannel(skywayContext, channelName)
-  const member = await createMember(currentUser.value, channel)
-
+  let member: Member
+  if(currentUser) {
+    member = await createMember(currentUser.value, channel)
+  } else {
+    member = await createTestMember(channel)
+  }
+  
   const myId = member.id
 
   const writer = new DataStreamWriter(member)
