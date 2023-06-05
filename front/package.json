@@ -36,6 +36,7 @@
     "vitest": "^0.31.4"
   },
   "dependencies": {
+    "@skyway-sdk/room": "^1.4.0",
     "firebase": "^9.22.1"
   }
 }
