@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { Game } from '@/types/Game'
+  import { getGame } from '~/utils/getters'
 
   const props = defineProps<{
     gameId: string
@@ -7,16 +7,8 @@
 
   const gameId = props.gameId
 
-  const getGame = async (gameId: string): Promise<Game> => {
-    const { data } = await useFetch(
-      `http://localhost:3001/api/v1/games/${gameId}`
-    )
-    const game = data.value as Game
-    return game
-  }
-
   const removeGame = async (gameId: string): Promise<void> => {
-    await useFetch(`http://localhost:3001/api/v1/games/${gameId}`, {
+    await useMyFetch(`/api/v1/games/${gameId}`, {
       method: 'delete'
     })
     navigateTo('/home')

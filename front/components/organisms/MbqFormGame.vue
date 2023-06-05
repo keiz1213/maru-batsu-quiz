@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { Game } from '@/types/Game'
   import { Quiz } from '@/types/Quiz'
+  import { getGame } from '~/utils/getters'
 
   const props = defineProps<{
     actionType: string
@@ -13,16 +14,8 @@
 
   const isNewAction = (): boolean => props.actionType === 'new'
 
-  const getGame = async (gameId: string): Promise<Game> => {
-    const { data } = await useFetch(
-      `http://localhost:3001/api/v1/games/${gameId}`
-    )
-    const game = data.value as Game
-    return game
-  }
-
   const postGame = async (game: Game, userId: number): Promise<void> => {
-    const { data } = await useFetch('http://localhost:3001/api/v1/games', {
+    const { data } = await useMyFetch('/api/v1/games', {
       method: 'post',
       body: {
         user_id: userId,
@@ -38,7 +31,7 @@
   }
 
   const putGame = async (game: Game, gameId: string): Promise<void> => {
-    await useFetch(`http://localhost:3001/api/v1/games/${gameId}`, {
+    await useMyFetch(`/api/v1/games/${gameId}`, {
       method: 'put',
       body: {
         title: game.title,

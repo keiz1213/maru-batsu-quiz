@@ -7,10 +7,9 @@
     console.log('logoutしました')
   }
   const withdrawal = async (): Promise<void> => {
-    await useFetch(
-      `http://localhost:3001/api/v1/users/${currentUser.value.id}`,
-      { method: 'delete' }
-    )
+    await useMyFetch(`/api/v1/users/${currentUser.value.id}`, {
+      method: 'delete'
+    })
     await signOut()
     navigateTo('/withdrawal', { replace: true })
     console.log('退会しました')
