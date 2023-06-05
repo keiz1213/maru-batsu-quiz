@@ -1,5 +1,5 @@
 require 'jwt'
-require "securerandom"
+require 'securerandom'
 
 module SkywayAuth
   class AuthToken
@@ -24,7 +24,7 @@ module SkywayAuth
     end
 
     def exp
-      Time.now.to_i + 36000 # 60*60*10
+      Time.now.to_i + 36_000 # 60*60*10
     end
 
     def algorithm
@@ -32,52 +32,54 @@ module SkywayAuth
     end
 
     def header_fields
-      { typ: "JWT" }
+      { typ: 'JWT' }
     end
 
+    # rubocop:disable Metrics/MethodLength
     def payload
       {
         jti: SecureRandom.uuid,
-        iat: iat,
-        exp: exp,
+        iat:,
+        exp:,
         scope: {
           app: {
             id: skyway_id,
             turn: true,
-            actions: ["read"],
+            actions: ['read'],
             channels: [
               {
-                id: "*",
-                name: "*",
-                actions: ["write"],
+                id: '*',
+                name: '*',
+                actions: ['write'],
                 members: [
                   {
-                    id: "*",
-                    name: "*",
-                    actions: ["write"],
+                    id: '*',
+                    name: '*',
+                    actions: ['write'],
                     publication: {
-                      actions: ["write"],
+                      actions: ['write']
                     },
                     subscription: {
-                      actions: ["write"],
-                    },
-                  },
+                      actions: ['write']
+                    }
+                  }
                 ],
                 sfuBots: [
                   {
-                    actions: ["write"],
+                    actions: ['write'],
                     forwardings: [
                       {
-                        actions: ["write"]
+                        actions: ['write']
                       }
                     ]
                   }
                 ]
-              },
-            ],
-          },
-        },
+              }
+            ]
+          }
+        }
       }
     end
+    # rubocop:enable Metrics/MethodLength
   end
 end
