@@ -55,3 +55,4 @@ end
 gem 'firebase_id_token', '~> 3.0.0'
 gem 'redis-rails'
 gem 'whenever', require: false
+gem 'jwt'
