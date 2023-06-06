@@ -25,8 +25,6 @@
   if (currentUser.value.id != 0) {
     skywayToken = await getSkywayToken(currentUser.value.token)
   } else {
-    const config = useRuntimeConfig()
-    // const firebaseIdTokenForTestUser = config.public.firebaseIdTokenForTestUser
     skywayToken = await getSkywayToken('firebaseIdTokenForTestUser')
   }
   const ownerId = game.user_id

@@ -43,7 +43,6 @@ services:
         FIREBASE_API_KEY: $FIREBASE_API_KEY
         FIREBASE_AUTH_DOMAIN: $FIREBASE_AUTH_DOMAIN
         FIREBASE_PROJECT_ID: $FIREBASE_PROJECT_ID
-        FIREBASE_ID_TOKEN_FOR_TEST_USER: $FIREBASE_ID_TOKEN_FOR_TEST_USER
     command: npm run dev
     volumes:
       - "./front:/front"

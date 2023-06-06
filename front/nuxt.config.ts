@@ -14,7 +14,6 @@ export default defineNuxtConfig({
       firebaseApiKey: process.env.FIREBASE_API_KEY,
       firebaseAuthDomain: process.env.FIREBASE_AUTH_DOMAIN,
       firebaseProjectId: process.env.FIREBASE_PROJECT_ID,
-      firebaseIdTokenForTestUser: process.env.FIREBASE_ID_TOKEN_FOR_TEST_USER
     }
   },
   css: ['~/assets/css/main.css'],
