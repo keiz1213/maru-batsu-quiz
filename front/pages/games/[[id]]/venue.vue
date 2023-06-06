@@ -26,8 +26,8 @@
     skywayToken = await getSkywayToken(currentUser.value.token)
   } else {
     const config = useRuntimeConfig()
-    const firebaseIdTokenForTestUser = config.public.firebaseIdTokenForTestUser
-    skywayToken = await getSkywayToken(firebaseIdTokenForTestUser)
+    // const firebaseIdTokenForTestUser = config.public.firebaseIdTokenForTestUser
+    skywayToken = await getSkywayToken('firebaseIdTokenForTestUser')
   }
   const ownerId = game.user_id
   const title = game.title

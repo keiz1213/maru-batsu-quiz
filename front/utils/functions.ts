@@ -17,7 +17,7 @@ function createTestUser(numberOfMembers: number): User {
     uid: `testUid${numberOfMembers}`,
     name: `testUserName${numberOfMembers}`,
     avatar_url: new URL(
-      `@/assets/images/${numberOfMembers - subtractForUrl}.svg`,
+      `../assets/images/${numberOfMembers - subtractForUrl}.svg`,
       import.meta.url
     ).href,
     games: null,
