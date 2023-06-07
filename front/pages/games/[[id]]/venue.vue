@@ -272,7 +272,12 @@
 <template>
   <div id="modal2" class="modal2">
     <div class="modal-content">
-      <p>募集中・・・</p>
+      <p class="text-center">接続確認中のため少々お待ち下さい</p>
+      <div class="flex justify-center my-3" aria-label="読み込み中">
+        <div class="animate-ping h-2 w-2 bg-blue-600 rounded-full"></div>
+        <div class="animate-ping h-2 w-2 bg-blue-600 rounded-full mx-4"></div>
+        <div class="animate-ping h-2 w-2 bg-blue-600 rounded-full"></div>
+      </div>
       <Hiring v-if="member.id === ownerId" :members="members" />
       <div v-if="member.id === ownerId" class="flex">
         <button @click="deadline(0)" class="btn btn-primary m-2">
