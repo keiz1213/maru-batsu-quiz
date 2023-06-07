@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_05_042434) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_07_115236) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,7 +22,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_042434) do
     t.string "channel_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_games_on_user_id", unique: true
+    t.index ["user_id"], name: "index_games_on_user_id"
   end
 
   create_table "quizzes", force: :cascade do |t|
