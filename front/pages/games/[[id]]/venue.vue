@@ -95,9 +95,11 @@
     const target = document.getElementById(avatarParams.id) as HTMLElement
     const x = avatarParams.x
     const y = avatarParams.y
+    const answer = avatarParams.answer
     target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
     target.setAttribute('data-x', x)
     target.setAttribute('data-y', y)
+    target.setAttribute('data-answer', answer)
   }
 
   const announceAction = (announceText: string): void => {
@@ -231,8 +233,8 @@
     })
   } else {
     draggable.setDraggable(member.uid)
-    draggable.setDropzone('maru', member.uid)
-    draggable.setDropzone('batsu', member.uid)
+    draggable.setDropzone('◯', member.uid)
+    draggable.setDropzone('✕', member.uid)
     await ownnerSubscribe()
   }
 

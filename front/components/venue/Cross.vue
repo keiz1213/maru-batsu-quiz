@@ -6,7 +6,7 @@
 
 <template>
   <div
-    id="batsu"
+    id="✕"
     class="w-[520px] h-96 max-w bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700 break-all"
   >
     <img

@@ -14,8 +14,9 @@ export class SyncDraggable {
     const dataY = target.getAttribute('data-y') as string
     const x = (parseFloat(dataX) || 0) + event.dx
     const y = (parseFloat(dataY) || 0) + event.dy
+    const answer = target.getAttribute('data-answer') as string
 
-    this.writer.writeMyAvatarParams(target.id, x, y)
+    this.writer.writeMyAvatarParams(target.id, x, y, answer)
 
     target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
     target.setAttribute('data-x', x)
@@ -32,13 +33,12 @@ export class SyncDraggable {
     })
   }
 
-  setDropzone(id: string, uid: string): void {
-    interact(`#${id}`).dropzone({
+  setDropzone(answer: string, uid: string): void {
+    interact(`#${answer}`).dropzone({
       accept: `#${uid}`,
       overlap: 0.5,
       ondragenter: function (event) {
         const draggableElement = event.relatedTarget
-        const answer = id
         draggableElement.dataset.answer = answer
       },
       ondragleave: function (event) {

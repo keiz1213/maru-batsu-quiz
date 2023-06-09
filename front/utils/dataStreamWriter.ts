@@ -27,14 +27,15 @@ export class DataStreamWriter {
     )
   }
 
-  writeMyAvatarParams(id: string, x: string, y: string): void {
+  writeMyAvatarParams(id: string, x: string, y: string, answer: string): void {
     this.member.myData?.write(
       JSON.stringify({
         tag: 'moveAvatar',
         params: {
           id: id,
           x: x,
-          y: y
+          y: y,
+          answer: answer
         }
       })
     )

@@ -35,25 +35,11 @@ export const useReferee = (initialNumberOfWinner: number) => {
     members.value[index] = dummyMember
   }
 
-  const isIncorrectArea = (
-    avatarY: number,
-    avatarX: number,
-    correctAnswer: string
-  ): boolean => {
-    const minX = correctAnswer === '◯' ? 520 : 0
-    const maxX = correctAnswer === '◯' ? 1040 : 520
-    return 330 < avatarY && avatarY < 700 && minX < avatarX && avatarX < maxX
-      ? true
-      : false
-  }
-
   const isLoser = (member: Member, correctAnswer: string): boolean => {
     const uid = member.uid
     const avatar = document.getElementById(uid) as HTMLElement
-    const clientRect = avatar.getBoundingClientRect()
-    const avatarY = clientRect.top + window.scrollY + 44 // 中心にするため
-    const avatarX = clientRect.left + window.scrollX + 44 // 中心にするため
-    return isIncorrectArea(avatarY, avatarX, correctAnswer)
+    const answer = avatar.dataset.answer
+    return correctAnswer != answer
   }
 
   const moveLoser = (loser: Member): void => {
