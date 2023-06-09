@@ -6,9 +6,8 @@
 </script>
 
 <template>
-  <div class="avatar" data-answer="" :id="memberObject.uid">
+  <div v-if="memberObject.id != ''" class="avatar" data-answer="" :id="memberObject.uid">
     <div
-      v-if="memberObject.id != ''"
       :class="[
         'w-16',
         'rounded-full',
@@ -22,8 +21,9 @@
     >
       <img :src="memberObject.avatar_url" />
     </div>
+  </div>
+  <div v-else class="avatar z-0">
     <div
-      v-else
       class="w-16 rounded-full ring-offset-base-100 ring-offset-2 m-3 cursor-default z-0"
     ></div>
   </div>
