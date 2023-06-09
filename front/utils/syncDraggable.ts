@@ -31,4 +31,23 @@ export class SyncDraggable {
       }
     })
   }
+
+  setDropzone(id: string, uid: string): void {
+    interact(`#${id}`).dropzone({
+      accept: `#${uid}`,
+      overlap: 0.5,
+      ondragenter: function(event) {
+        const draggableElement = event.relatedTarget
+        const dropzoneElement = event.target
+
+        console.log(dropzoneElement.id)
+        draggableElement.classList.add('w-32')
+      },
+      ondragleave: function (event) {
+        // remove the drop feedback style
+        event.target.classList.remove('bg-indigo-700')
+        event.relatedTarget.classList.remove('w-32')
+      },
+    })
+  }
 }

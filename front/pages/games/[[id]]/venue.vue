@@ -231,6 +231,8 @@
     })
   } else {
     draggable.setDraggable(member.uid)
+    draggable.setDropzone('maru', member.uid)
+    draggable.setDropzone('batsu', member.uid)
     await ownnerSubscribe()
   }
 
