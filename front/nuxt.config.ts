@@ -13,7 +13,7 @@ export default defineNuxtConfig({
       frontURL: process.env.FRONT_URL,
       firebaseApiKey: process.env.FIREBASE_API_KEY,
       firebaseAuthDomain: process.env.FIREBASE_AUTH_DOMAIN,
-      firebaseProjectId: process.env.FIREBASE_PROJECT_ID,
+      firebaseProjectId: process.env.FIREBASE_PROJECT_ID
     }
   },
   css: ['~/assets/css/main.css'],

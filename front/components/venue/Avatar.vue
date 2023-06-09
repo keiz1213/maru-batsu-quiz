@@ -6,7 +6,12 @@
 </script>
 
 <template>
-  <div v-if="memberObject.id != ''" class="avatar" data-answer="" :id="memberObject.uid">
+  <div
+    v-if="memberObject.id != ''"
+    class="avatar"
+    data-answer=""
+    :id="memberObject.uid"
+  >
     <div
       :class="[
         'w-16',
