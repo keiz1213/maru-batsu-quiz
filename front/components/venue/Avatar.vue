@@ -6,7 +6,7 @@
 </script>
 
 <template>
-  <div class="avatar" :id="memberObject.uid">
+  <div class="avatar" data-answer="" :id="memberObject.uid">
     <div
       v-if="memberObject.id != ''"
       :class="[
