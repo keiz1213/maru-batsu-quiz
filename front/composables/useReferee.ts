@@ -43,6 +43,9 @@ export const useReferee = (initialNumberOfWinner: number) => {
   }
 
   const moveLoser = (loser: Member): void => {
+    const writer = new DataStreamWriter(loser)
+    const draggable = new SyncDraggable(writer)
+    draggable.unsetDraggable(loser.uid)
     losers.value.push(loser)
     const index = loser.myIndex as number
     injectDummyMember(index)
@@ -68,6 +71,9 @@ export const useReferee = (initialNumberOfWinner: number) => {
   }
 
   const moveWinner = (winner: Member) => {
+    const writer = new DataStreamWriter(winner)
+    const draggable = new SyncDraggable(writer)
+    draggable.unsetDraggable(winner.uid)
     winners.value.push(winner)
     const index = winner.myIndex as number
     injectDummyMember(index)

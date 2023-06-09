@@ -33,6 +33,12 @@ export class SyncDraggable {
     })
   }
 
+  unsetDraggable(uid: string): void {
+    interact(`#${uid}`).unset()
+    const avatar = document.getElementById(uid) as HTMLElement
+    avatar.classList.add('opacity-20')
+  }
+
   setDropzone(answer: string, uid: string): void {
     interact(`#${answer}`).dropzone({
       accept: `#${uid}`,
@@ -46,5 +52,10 @@ export class SyncDraggable {
         draggableElement.dataset.answer = ''
       }
     })
+  }
+
+  removeOpacityClass(uid: string): void {
+    const avatar = document.getElementById(uid) as HTMLElement
+    avatar.classList.remove('opacity-20')
   }
 }

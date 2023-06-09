@@ -106,9 +106,14 @@
     announcement.value = announceText
     if (announceText === 'スタート！') {
       startTimer()
+    } else if (announceText === 'ストップ！') {
+      draggable.unsetDraggable(member.uid)
     } else if (announceText === '正解は・・') {
       resetTimer()
-    }
+    } else if (announceText === quizzes[currentQuizNumber.value].explanation) {
+      draggable.setDraggable(member.uid)
+      draggable.removeOpacityClass(member.uid)
+    } 
   }
 
   const judgeAction = (): void => {
