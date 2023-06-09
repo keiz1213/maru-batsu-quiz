@@ -99,10 +99,7 @@ export const useReferee = (initialNumberOfWinner: number) => {
         moveWinner(survivor)
       }
       // もし勝者の人数が、設定した勝ち抜き人数に満たない場合、このクイズの不正解者を復活させる
-      if (
-        0 < winners.value.length &&
-        winners.value.length <= numberOfWinner.value
-      ) {
+      if (numberOfWinner.value != winners.value.length) {
         resurrecteLosers(beforeJudgeMembers, survivors)
       }
       numberOfWinner.value -= survivors.length
