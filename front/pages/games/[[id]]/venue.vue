@@ -113,7 +113,7 @@
     } else if (announceText === quizzes[currentQuizNumber.value].explanation) {
       draggable.setDraggable(member.uid)
       draggable.removeOpacityClass(member.uid)
-    } 
+    }
   }
 
   const judgeAction = (): void => {
