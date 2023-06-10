@@ -51,7 +51,7 @@ export const useReferee = (initialNumberOfWinner: number) => {
     const uid = member.uid
     const avatar = document.getElementById(uid) as HTMLElement
     const answer = avatar.dataset.answer
-    return correctAnswer != answer
+    return correctAnswer != answer || answer === ''
   }
 
   const isWinner = (member: Member, correctAnswer: string): boolean => {
