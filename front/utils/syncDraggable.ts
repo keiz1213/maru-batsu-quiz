@@ -21,6 +21,7 @@ export class SyncDraggable {
     target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
     target.setAttribute('data-x', x)
     target.setAttribute('data-y', y)
+    target.setAttribute('data-draggable', 'draggable')
   }
 
   setDraggable(uid: string): void {
@@ -35,8 +36,11 @@ export class SyncDraggable {
 
   unsetDraggable(uid: string): void {
     interact(`#${uid}`).unset()
+  }
+
+  setNonDraggableAttribute(uid: string): void {
     const avatar = document.getElementById(uid) as HTMLElement
-    avatar.classList.add('opacity-20')
+    avatar.setAttribute('data-draggable', 'non-draggable')
   }
 
   setDropzone(answer: string, uid: string): void {

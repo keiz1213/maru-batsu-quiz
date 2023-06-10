@@ -110,8 +110,10 @@
     } else if (announceText === '正解は・・') {
       resetTimer()
     } else if (announceText === quizzes[currentQuizNumber.value].explanation) {
-      draggable.setDraggable(member.uid)
-      draggable.removeOpacityClass(member.uid)
+      const myAvatar = document.getElementById(member.uid) as HTMLElement
+      if(myAvatar.getAttribute('data-draggable') != '') {
+        draggable.setDraggable(member.uid)
+      }
     }
   }
 

@@ -66,6 +66,7 @@ export const useReferee = (initialNumberOfWinner: number) => {
     const draggable = new SyncDraggable(writer)
     draggable.unsetDraggable(loser.uid)
     addLoser(loser)
+    draggable.setNonDraggableAttribute(loser.uid)
     const index = loser.myIndex as number
     injectDummyMember(index)
   }
@@ -75,6 +76,7 @@ export const useReferee = (initialNumberOfWinner: number) => {
     const draggable = new SyncDraggable(writer)
     draggable.unsetDraggable(winner.uid)
     addWinner(winner)
+    draggable.setNonDraggableAttribute(winner.uid)
     const index = winner.myIndex as number
     injectDummyMember(index)
   }

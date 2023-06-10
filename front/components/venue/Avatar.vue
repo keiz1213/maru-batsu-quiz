@@ -10,6 +10,7 @@
     v-if="memberObject.id != ''"
     class="avatar"
     data-answer=""
+    data-draggable=""
     :id="memberObject.uid"
   >
     <div
