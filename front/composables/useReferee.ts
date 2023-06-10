@@ -111,15 +111,15 @@ export const useReferee = (initialNumberOfWinner: number) => {
     const winnersInMembers = getWinnersFromMembers(correctAnswer)
     const losersInMembers = getLosersFromMembers(correctAnswer)
     const countOfWinners = winnersInMembers.length
-    if(countOfWinners === numberOfWinner.value) {
-      winnersInMembers.forEach(winner => moveWinner(winner))
-      losersInMembers.forEach(loser => moveLoser(loser))
+    if (countOfWinners === numberOfWinner.value) {
+      winnersInMembers.forEach((winner) => moveWinner(winner))
+      losersInMembers.forEach((loser) => moveLoser(loser))
       subtractNumberOfWinner(countOfWinners)
-    } else if(countOfWinners < numberOfWinner.value) {
-      winnersInMembers.forEach(winner => moveWinner(winner))
+    } else if (countOfWinners < numberOfWinner.value) {
+      winnersInMembers.forEach((winner) => moveWinner(winner))
       subtractNumberOfWinner(countOfWinners)
-    } else if(countOfWinners > numberOfWinner.value) {
-      losersInMembers.forEach(loser => moveLoser(loser))
+    } else if (countOfWinners > numberOfWinner.value) {
+      losersInMembers.forEach((loser) => moveLoser(loser))
     }
   }
 
