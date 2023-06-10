@@ -54,7 +54,6 @@
     addMember,
     setAllMembers,
     judge,
-    checkWinner,
     createDummyMember
   } = useReferee(game.number_of_winner)
 
@@ -117,10 +116,8 @@
   }
 
   const judgeAction = (): void => {
-    const beforeJudge = [...members.value] as Member[]
     const correctAnswer = quizzes[currentQuizNumber.value].correct_answer
     judge(correctAnswer)
-    checkWinner(beforeJudge)
     currentQuizNumber.value++
   }
 
@@ -259,7 +256,6 @@
     await announceCorrectAnswer(correctAnswer)
     const explanation = quizzes[currentQuizNumber.value].explanation
     await announceExplanation(explanation)
-    const beforeJudgeMembers = [...members.value] as Member[]
     member.myData?.write(
       JSON.stringify({
         tag: 'judge',
@@ -267,7 +263,6 @@
       })
     )
     judge(correctAnswer)
-    checkWinner(beforeJudgeMembers)
     currentQuizNumber.value++
   }
 

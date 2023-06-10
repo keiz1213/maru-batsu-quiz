@@ -10,8 +10,20 @@ export const useReferee = (initialNumberOfWinner: number) => {
     members.value.push(member)
   }
 
+  const addLoser = (loser: Member) => {
+    losers.value.push(loser)
+  }
+
+  const addWinner = (winner: Member) => {
+    winners.value.push(winner)
+  }
+
   const setAllMembers = (allMembers: Member[]) => {
     members.value = allMembers
+  }
+
+  const subtractNumberOfWinner = (subtractBy: number) => {
+    numberOfWinner.value -= subtractBy
   }
 
   const createDummyMember = (): Member => {
@@ -42,73 +54,72 @@ export const useReferee = (initialNumberOfWinner: number) => {
     return correctAnswer != answer
   }
 
+  const isWinner = (member: Member, correctAnswer: string): boolean => {
+    const uid = member.uid
+    const avatar = document.getElementById(uid) as HTMLElement
+    const answer = avatar.dataset.answer
+    return correctAnswer === answer
+  }
+
   const moveLoser = (loser: Member): void => {
     const writer = new DataStreamWriter(loser)
     const draggable = new SyncDraggable(writer)
     draggable.unsetDraggable(loser.uid)
-    losers.value.push(loser)
+    addLoser(loser)
     const index = loser.myIndex as number
     injectDummyMember(index)
-  }
-
-  const judge = (correctAnswer: string) => {
-    for (let i = 0; i < members.value.length; i++) {
-      if (members.value[i].uid === '') {
-        continue
-      }
-      const currentMember = members.value[i] as Member
-      if (isLoser(currentMember, correctAnswer)) {
-        moveLoser(currentMember)
-      }
-    }
-  }
-
-  const getSurvivors = (): Member[] => {
-    const survivors = members.value.filter((member) => {
-      return member.uid != ''
-    }) as Member[]
-    return survivors
   }
 
   const moveWinner = (winner: Member) => {
     const writer = new DataStreamWriter(winner)
     const draggable = new SyncDraggable(writer)
     draggable.unsetDraggable(winner.uid)
-    winners.value.push(winner)
+    addWinner(winner)
     const index = winner.myIndex as number
     injectDummyMember(index)
   }
 
-  const resurrecteLosers = (
-    beforeJudgeMembers: Member[],
-    survivors: Member[]
-  ) => {
-    members.value = beforeJudgeMembers
-    for (let i = 0; i < survivors.length; i++) {
-      const winner = survivors[i]
-      const index = winner.myIndex as number
-      injectDummyMember(index)
+  const getWinnersFromMembers = (correctAnswer: string): Member[] => {
+    let winnersInMembers: Member[] = []
+    for (let i = 0; i < members.value.length; i++) {
+      if (members.value[i].uid === '') continue
+      const member = members.value[i] as Member
+      if (isWinner(member, correctAnswer)) {
+        const index = member.myIndex as number
+        const winner = members.value[index] as Member
+        winnersInMembers.push(winner)
+      }
     }
-    const resurrectedLosers = members.value.filter((loser) => {
-      return loser.myIndex != null
-    })
-    losers.value = losers.value.filter(
-      (loser) => !resurrectedLosers.includes(loser)
-    )
+    return winnersInMembers
   }
 
-  const checkWinner = async (beforeJudgeMembers: Member[]) => {
-    const survivors = getSurvivors()
-    if (survivors.length <= numberOfWinner.value) {
-      for (let i = 0; i < survivors.length; i++) {
-        const survivor = survivors[i]
-        moveWinner(survivor)
+  const getLosersFromMembers = (correctAnswer: string): Member[] => {
+    let losersInMembers: Member[] = []
+    for (let i = 0; i < members.value.length; i++) {
+      if (members.value[i].uid === '') continue
+      const member = members.value[i] as Member
+      if (isLoser(member, correctAnswer)) {
+        const index = member.myIndex as number
+        const loser = members.value[index] as Member
+        losersInMembers.push(loser)
       }
-      // もし勝者の人数が、設定した勝ち抜き人数に満たない場合、このクイズの不正解者を復活させる
-      if (numberOfWinner.value != winners.value.length) {
-        resurrecteLosers(beforeJudgeMembers, survivors)
-      }
-      numberOfWinner.value -= survivors.length
+    }
+    return losersInMembers
+  }
+
+  const judge = (correctAnswer: string) => {
+    const winnersInMembers = getWinnersFromMembers(correctAnswer)
+    const losersInMembers = getLosersFromMembers(correctAnswer)
+    const countOfWinners = winnersInMembers.length
+    if(countOfWinners === numberOfWinner.value) {
+      winnersInMembers.forEach(winner => moveWinner(winner))
+      losersInMembers.forEach(loser => moveLoser(loser))
+      subtractNumberOfWinner(countOfWinners)
+    } else if(countOfWinners < numberOfWinner.value) {
+      winnersInMembers.forEach(winner => moveWinner(winner))
+      subtractNumberOfWinner(countOfWinners)
+    } else if(countOfWinners > numberOfWinner.value) {
+      losersInMembers.forEach(loser => moveLoser(loser))
     }
   }
 
@@ -120,7 +131,6 @@ export const useReferee = (initialNumberOfWinner: number) => {
     addMember,
     setAllMembers,
     judge,
-    checkWinner,
     createDummyMember
   }
 }
