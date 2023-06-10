@@ -107,12 +107,15 @@
       startTimer()
     } else if (announceText === 'ストップ！') {
       draggable.unsetDraggable(member.uid)
+      const avatar = document.getElementById(member.uid) as HTMLElement
+      avatar.classList.add('opacity-30')
     } else if (announceText === '正解は・・') {
       resetTimer()
     } else if (announceText === quizzes[currentQuizNumber.value].explanation) {
       const myAvatar = document.getElementById(member.uid) as HTMLElement
       if(myAvatar.getAttribute('data-draggable') != '') {
         draggable.setDraggable(member.uid)
+        myAvatar.classList.remove('opacity-30')
       }
     }
   }
