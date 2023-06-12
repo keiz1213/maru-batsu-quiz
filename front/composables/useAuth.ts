@@ -8,6 +8,8 @@ import {
 import { User } from '@/types/User'
 
 export const useAuth = () => {
+  const { setToast } = useToast()
+
   const getUser = async (firebaseToken: string): Promise<User> => {
     const { data } = await useMyFetch('/api/v1/users', {
       method: 'post',
@@ -59,12 +61,14 @@ export const useAuth = () => {
     const firebaseToken = await result.user.getIdToken()
     const user = await getUser(firebaseToken)
     setCurrentUser(user, firebaseToken)
+    setToast('ログインしました！', 'success')
   }
 
   const signOut = async (): Promise<void> => {
     const auth = getAuth()
     await firebaseSignOut(auth)
     initializeCurrentUser()
+    setToast('ログアウトしました!', 'success')
   }
 
   const checkAuthState = async (): Promise<void> => {

@@ -41,6 +41,7 @@
     "@skyway-sdk/room": "^1.4.0",
     "firebase": "^9.22.1",
     "interactjs": "^1.10.17",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "vue3-toastify": "^0.1.11"
   }
 }
