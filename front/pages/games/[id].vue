@@ -15,5 +15,4 @@
 
 <template>
   <MbqGameShow :gameId="gameId" />
-  {{ toast }}
 </template>

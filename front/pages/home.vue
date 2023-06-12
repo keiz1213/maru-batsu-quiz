@@ -15,5 +15,4 @@
 
 <template>
   <MbqHome :games="games" />
-  {{ toast }}
 </template>

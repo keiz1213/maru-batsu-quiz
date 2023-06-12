@@ -10,5 +10,4 @@
 
 <template>
   <MbqGameNew :userId="userId" />
-  {{ toast }}
 </template>

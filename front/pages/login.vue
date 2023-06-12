@@ -16,6 +16,5 @@
 <template>
   <TheContainer>
     <MbqButtonPrimary :onClick="login">GitHubでログイン</MbqButtonPrimary>
-    {{ toast }}
   </TheContainer>
 </template>
