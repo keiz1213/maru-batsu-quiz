@@ -1,4 +1,7 @@
 <script setup lang="ts">
+  defineProps<{
+    buttonType: 'button' | 'submit' | 'reset'
+  }>()
   const emits = defineEmits<{
     (e: 'click'): void
   }>()
@@ -12,6 +15,7 @@
   <button
     class="text-white rounded-md bg-rose-500 py-4 px-4 text-sm shadow-md hover:opacity-70"
     @click="handleClick()"
+    :type="buttonType"
   >
     <slot />
   </button>

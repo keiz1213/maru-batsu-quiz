@@ -1,4 +1,7 @@
 <script setup lang="ts">
+  defineProps<{
+    buttonType: 'button' | 'submit' | 'reset'
+  }>()
   const emits = defineEmits<{
     (e: 'click'): void
   }>()
@@ -9,7 +12,11 @@
 </script>
 
 <template>
-  <button class="h-8 w-8 rounded-full bg-white shadow-md" @click="handleClick">
+  <button
+    class="h-8 w-8 rounded-full bg-white shadow-md"
+    @click="handleClick"
+    :type="buttonType"
+  >
     ✕
   </button>
 </template>

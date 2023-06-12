@@ -92,8 +92,9 @@
     quizzes.value.splice(index, 1)
   }
 
-  // onBeforeMount(async () => {
-  // })
+  const onSubmit = () => {
+    isNewAction() ? postGame(game, props.userId) : putGame(game, props.gameId)
+  }
 
   isNewAction() ? initializeNewGame() : await initializeCreatedGame()
 </script>
@@ -101,43 +102,41 @@
 <template>
   <TheContainer>
     <MbqH1>ゲーム{{ isNewAction() ? '作成' : '編集' }}</MbqH1>
-    <MbqFormGameTitle
-      :id="'new-game-name'"
-      v-model:modelValue="game.title"
-    ></MbqFormGameTitle>
+    <VeeForm @submit="onSubmit()">
+      <MbqFormGameTitle
+        :id="'new-game-name'"
+        v-model:modelValue="game.title"
+      ></MbqFormGameTitle>
 
-    <MbqFormGameDescription
-      :id="'new-description'"
-      v-model:modelValue="game.description"
-    ></MbqFormGameDescription>
+      <MbqFormGameDescription
+        :id="'new-description'"
+        v-model:modelValue="game.description"
+      ></MbqFormGameDescription>
 
-    <MbqFormQuiz
-      v-for="(quiz, index) in quizzes"
-      :key="index"
-      :index="index"
-      v-model:question="quiz.question"
-      v-model:correctAnswer="quiz.correct_answer"
-      v-model:explanation="quiz.explanation"
-      @removeQuiz="removeQuiz"
-    ></MbqFormQuiz>
-    <MbqButtonSecondary @click="addQuiz">+ クイズを追加する</MbqButtonSecondary>
+      <MbqFormQuiz
+        v-for="(quiz, index) in quizzes"
+        :key="index"
+        :index="index"
+        v-model:question="quiz.question"
+        v-model:correctAnswer="quiz.correct_answer"
+        v-model:explanation="quiz.explanation"
+        @removeQuiz="removeQuiz"
+      ></MbqFormQuiz>
+      <MbqButtonSecondary @click="addQuiz" :button-type="'button'"
+        >+ クイズを追加する</MbqButtonSecondary
+      >
 
-    <MbqFormGameNumberOfWinner
-      :id="'new-number-of-winner'"
-      v-model:modelValue="game.number_of_winner"
-    ></MbqFormGameNumberOfWinner>
+      <MbqFormGameNumberOfWinner
+        :id="'new-number-of-winner'"
+        v-model:modelValue="game.number_of_winner"
+      ></MbqFormGameNumberOfWinner>
 
-    <MbqButtonPrimary
-      v-if="isNewAction()"
-      @click="postGame(game, props.userId)"
-    >
-      作成
-    </MbqButtonPrimary>
-    <MbqButtonPrimary
-      v-else="!isNewAction()"
-      @click="putGame(game, props.gameId)"
-    >
-      更新
-    </MbqButtonPrimary>
+      <MbqButtonPrimary v-if="isNewAction()" :button-type="'submit'">
+        作成
+      </MbqButtonPrimary>
+      <MbqButtonPrimary v-else="!isNewAction()" :button-type="'submit'">
+        更新
+      </MbqButtonPrimary>
+    </VeeForm>
   </TheContainer>
 </template>

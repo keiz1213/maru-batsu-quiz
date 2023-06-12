@@ -9,7 +9,9 @@
             <h2 class="block mt-2 mb-2 text-2xl">新しいゲームを作成する</h2>
           </div>
           <div class="text-center">
-            <MbqButtonCirculePlus></MbqButtonCirculePlus>
+            <MbqButtonCirculePlus
+              :button-type="'button'"
+            ></MbqButtonCirculePlus>
           </div>
         </div>
       </div>

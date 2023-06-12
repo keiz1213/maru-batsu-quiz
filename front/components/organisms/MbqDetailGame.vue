@@ -42,11 +42,13 @@
       :id="'show-game-venue-url'"
     />
     <NuxtLink :to="gameVenueUrl">
-      <MbqButtonPrimary>会場へ</MbqButtonPrimary>
+      <MbqButtonPrimary :buttonType="'button'">会場へ</MbqButtonPrimary>
     </NuxtLink>
     <NuxtLink :to="`/games/${gameId}/edit`">
-      <MbqButtonSecondary>編集</MbqButtonSecondary>
+      <MbqButtonSecondary :buttonType="'button'">編集</MbqButtonSecondary>
     </NuxtLink>
-    <MbqButtonDanger @click="removeGame(gameId)">削除</MbqButtonDanger>
+    <MbqButtonDanger @click="removeGame(gameId)" :buttonType="'button'"
+      >削除</MbqButtonDanger
+    >
   </TheContainer>
 </template>
