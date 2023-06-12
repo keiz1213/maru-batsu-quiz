@@ -8,19 +8,18 @@
   const config = useRuntimeConfig()
   const frontUrl = config.public.frontURL
   const gameId = props.gameId
+  const { setToast } = useToast()
 
   const removeGame = async (gameId: string): Promise<void> => {
     await useMyFetch(`/api/v1/games/${gameId}`, {
       method: 'delete'
     })
+    setToast('ゲームを削除しました!', 'success')
     navigateTo('/home')
   }
 
   const game = await getGame(gameId)
   const gameVenueUrl = `${frontUrl}/games/${gameId}/venue?title=${game.title}`
-
-  // onBeforeMount(() => {
-  // })
 </script>
 
 <template>

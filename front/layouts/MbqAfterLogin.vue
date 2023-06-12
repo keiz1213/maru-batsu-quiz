@@ -1,6 +1,5 @@
 <script setup lang="ts">
   const { signOut, currentUser } = useAuth()
-  const { toast, unsetToast, notify } = useToast()
   const avatarUrl = currentUser.value.avatar_url
 
   const logout = async (): Promise<void> => {
@@ -16,11 +15,6 @@
     await signOut()
     navigateTo('/withdrawal', { replace: true })
     console.log('退会しました')
-  }
-
-  if (toast.value.isSet) {
-    notify(toast.value.message, toast.value.type)
-    unsetToast()
   }
 </script>
 

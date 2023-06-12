@@ -9,6 +9,7 @@
     gameId: string
   }>()
 
+  const { setToast } = useToast()
   let quizzes: Ref<Quiz[]>
   let game: Game
 
@@ -27,6 +28,7 @@
       }
     })
     const createdGame = data.value as Game
+    setToast('ゲームを作成しました!', 'success')
     navigateTo(`/games/${createdGame.id}`)
   }
 
@@ -40,6 +42,7 @@
         quizzes: game.quizzes
       }
     })
+    setToast('ゲームを更新しました!', 'success')
     navigateTo(`/games/${gameId}`)
   }
 

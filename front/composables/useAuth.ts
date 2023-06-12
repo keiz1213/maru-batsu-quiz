@@ -8,7 +8,7 @@ import {
 import { User } from '@/types/User'
 
 export const useAuth = () => {
-  const { setToast } = useToast()
+  const { toast, setToast, unsetToast, notify } = useToast()
 
   const getUser = async (firebaseToken: string): Promise<User> => {
     const { data } = await useMyFetch('/api/v1/users', {
@@ -55,13 +55,19 @@ export const useAuth = () => {
   })
 
   const githubLogin = async (): Promise<void> => {
-    const auth = getAuth()
-    const provider = new GithubAuthProvider()
-    const result = await signInWithPopup(auth, provider)
-    const firebaseToken = await result.user.getIdToken()
-    const user = await getUser(firebaseToken)
-    setCurrentUser(user, firebaseToken)
-    setToast('ログインしました！', 'success')
+    try {
+      const auth = getAuth()
+      const provider = new GithubAuthProvider()
+      const result = await signInWithPopup(auth, provider)
+      const firebaseToken = await result.user.getIdToken()
+      const user = await getUser(firebaseToken)
+      setCurrentUser(user, firebaseToken)
+      setToast('ログインしました！', 'success')
+    } catch {
+      setToast('ログインに失敗しました', 'error')
+      notify(toast.value.message, toast.value.type)
+      unsetToast()
+    }
   }
 
   const signOut = async (): Promise<void> => {
