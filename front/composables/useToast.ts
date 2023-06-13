@@ -30,25 +30,25 @@ export const useToast = () => {
       case 'success':
         toast.success(message, {
           position: toast.POSITION.TOP_CENTER,
-          transition: toast.TRANSITIONS.FLIP,
+          transition: toast.TRANSITIONS.FLIP
         })
         break
       case 'info':
         toast.info(message, {
           position: toast.POSITION.TOP_CENTER,
-          transition: toast.TRANSITIONS.FLIP,
+          transition: toast.TRANSITIONS.FLIP
         })
         break
       case 'warning':
         toast.warning(message, {
           position: toast.POSITION.TOP_CENTER,
-          transition: toast.TRANSITIONS.FLIP,
+          transition: toast.TRANSITIONS.FLIP
         })
         break
       case 'error':
         toast.error(message, {
           position: toast.POSITION.TOP_CENTER,
-          transition: toast.TRANSITIONS.FLIP,
+          transition: toast.TRANSITIONS.FLIP
         })
         break
     }
