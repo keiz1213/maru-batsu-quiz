@@ -13,7 +13,7 @@
 
 <template>
   <button
-    class="h-8 w-8 rounded-full bg-white shadow-md"
+    class="h-8 w-8 rounded-full bg-gray-200 shadow-md"
     @click="handleClick"
     :type="buttonType"
   >

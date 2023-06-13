@@ -1,6 +1,7 @@
 <script setup lang="ts">
   const props = defineProps<{
     index: number
+    quizzesLength: number
     question: string
     correctAnswer: string
     explanation: string
@@ -32,6 +33,10 @@
     emits('removeQuiz', index)
   }
 
+  const isLastQuiz = () => {
+    return props.quizzesLength === 1
+  }
+
   const quizNumber = props.index + 1
 </script>
 
@@ -41,6 +46,7 @@
     <MbqFlameMd :id="`new-quiz-${quizNumber}`">
       <div class="flex justify-end">
         <MbqButtonCirculeCross
+          v-show="!isLastQuiz()"
           @click="remove(props.index)"
           :button-type="'button'"
         />

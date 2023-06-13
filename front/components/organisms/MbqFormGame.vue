@@ -117,6 +117,7 @@
         v-for="(quiz, index) in quizzes"
         :key="index"
         :index="index"
+        v-model:quizzesLength="quizzes.length"
         v-model:question="quiz.question"
         v-model:correctAnswer="quiz.correct_answer"
         v-model:explanation="quiz.explanation"
