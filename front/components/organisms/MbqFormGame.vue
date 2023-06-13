@@ -9,7 +9,8 @@
     gameId: string
   }>()
 
-  const { setToast } = useToast()
+  const { toast, setToast, unsetToast, notify } = useToast()
+
   let quizzes: Ref<Quiz[]>
   let game: Game
 
@@ -92,6 +93,12 @@
     quizzes.value.splice(index, 1)
   }
 
+  const onInvalidSubmit = () => {
+    setToast('入力内容を確認してください', 'error')
+    notify(toast.value.message, toast.value.type)
+    unsetToast()
+  }
+
   const onSubmit = () => {
     isNewAction() ? postGame(game, props.userId) : putGame(game, props.gameId)
   }
@@ -102,7 +109,7 @@
 <template>
   <TheContainer>
     <MbqH1>ゲーム{{ isNewAction() ? '作成' : '編集' }}</MbqH1>
-    <VeeForm @submit="onSubmit()">
+    <VeeForm @submit="onSubmit" @invalid-submit="onInvalidSubmit">
       <MbqFormGameTitle
         :id="'new-game-name'"
         v-model:modelValue="game.title"
