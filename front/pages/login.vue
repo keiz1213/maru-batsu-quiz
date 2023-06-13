@@ -15,6 +15,8 @@
 
 <template>
   <TheContainer>
-    <MbqButtonPrimary :onClick="login" :buttonType="'button'">GitHubでログイン</MbqButtonPrimary>
+    <MbqButtonPrimary :onClick="login" :buttonType="'button'"
+      >GitHubでログイン</MbqButtonPrimary
+    >
   </TheContainer>
 </template>
