@@ -17,6 +17,21 @@
     window.removeEventListener('beforeunload', confirmSave)
   })
 
+  onBeforeRouteLeave((to, from, next) => {
+    if (isEditing.value) {
+      let answer = window.confirm(
+        '編集した内容が破棄されますがよろしいですか？'
+      )
+      if (answer) {
+        next()
+      } else {
+        next(false)
+      }
+    } else {
+      next()
+    }
+  })
+
   const isEditing = ref(false)
   const confirmSave = (event: BeforeUnloadEvent) => {
     if (isEditing.value) {
@@ -119,6 +134,7 @@
   }
 
   const onSubmit = () => {
+    isEditing.value = false
     isNewAction() ? postGame(game, props.userId) : putGame(game, props.gameId)
   }
 
