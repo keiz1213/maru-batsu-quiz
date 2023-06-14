@@ -9,6 +9,22 @@
     gameId: string
   }>()
 
+  onMounted(() => {
+    window.addEventListener('beforeunload', confirmSave)
+  })
+
+  onUnmounted(() => {
+    window.removeEventListener('beforeunload', confirmSave)
+  })
+
+  const isEditing = ref(false)
+  const confirmSave = (event: BeforeUnloadEvent) => {
+    if (isEditing.value) {
+      event.preventDefault()
+      event.returnValue = '編集した内容が破棄されますがよろしいですか？'
+    }
+  }
+
   const { toast, setToast, unsetToast, notify } = useToast()
 
   let quizzes: Ref<Quiz[]>
@@ -49,6 +65,9 @@
 
   const setGame = (editableGame: Game): void => {
     game = reactive<Game>(editableGame)
+    watch(game, () => {
+      isEditing.value = true
+    })
   }
 
   const setQuizzes = (editableQuizzes: Quiz[] | []): void => {
