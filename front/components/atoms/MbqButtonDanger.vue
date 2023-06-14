@@ -12,11 +12,13 @@
 </script>
 
 <template>
-  <button
-    class="text-white rounded-md bg-rose-500 py-4 px-4 text-sm shadow-md hover:opacity-70"
-    @click="handleClick()"
-    :type="buttonType"
-  >
-    <slot />
-  </button>
+  <MbqItemContainer>
+    <button
+      class="text-white rounded-md bg-rose-500 px-4 p-4 text-sm shadow-md hover:opacity-70 w-48"
+      @click="handleClick()"
+      :type="buttonType"
+    >
+      <slot />
+    </button>
+  </MbqItemContainer>
 </template>

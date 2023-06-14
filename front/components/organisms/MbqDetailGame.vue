@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { getGame } from '~/utils/getters'
+  import ModalConfirm from '@/components/ModalConfirm.vue'
 
   const props = defineProps<{
     gameId: string
@@ -20,6 +21,14 @@
 
   const game = await getGame(gameId)
   const gameVenueUrl = `${frontUrl}/games/${gameId}/venue?title=${game.title}`
+
+  const showModal = ref(false)
+  const confirm = () => {
+    removeGame(gameId)
+  }
+  const cancel = () => {
+    showModal.value = false
+  }
 </script>
 
 <template>
@@ -50,9 +59,18 @@
       </NuxtLink>
     </div>
     <div class="flex justify-end">
-      <MbqButtonDanger @click="removeGame(gameId)" :buttonType="'button'"
-        >削除</MbqButtonDanger
+      <p
+        @click="showModal = true"
+        class="underline hover:cursor-pointer text-red-600"
       >
+        削除
+      </p>
     </div>
+    <ModalConfirm
+      v-model="showModal"
+      title="本当に削除してもいいですか？"
+      @confirm="confirm"
+      @cancel="cancel"
+    />
   </TheContainer>
 </template>
