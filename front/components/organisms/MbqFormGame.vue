@@ -139,12 +139,14 @@
         v-model:modelValue="game.number_of_winner"
       ></MbqFormGameNumberOfWinner>
 
-      <MbqButtonPrimary v-if="isNewAction()" :button-type="'submit'">
-        作成
-      </MbqButtonPrimary>
-      <MbqButtonPrimary v-else="!isNewAction()" :button-type="'submit'">
-        更新
-      </MbqButtonPrimary>
+      <div class="flex justify-center">
+        <MbqButtonPrimary v-if="isNewAction()" :button-type="'submit'">
+          作成
+        </MbqButtonPrimary>
+        <MbqButtonPrimary v-else="!isNewAction()" :button-type="'submit'">
+          更新
+        </MbqButtonPrimary>
+      </div>
     </VeeForm>
   </TheContainer>
 </template>

@@ -41,14 +41,18 @@
       :labelName="'ゲーム会場URL'"
       :id="'show-game-venue-url'"
     />
-    <NuxtLink :to="gameVenueUrl">
-      <MbqButtonPrimary :buttonType="'button'">会場へ</MbqButtonPrimary>
-    </NuxtLink>
-    <NuxtLink :to="`/games/${gameId}/edit`">
-      <MbqButtonSecondary :buttonType="'button'">編集</MbqButtonSecondary>
-    </NuxtLink>
-    <MbqButtonDanger @click="removeGame(gameId)" :buttonType="'button'"
-      >削除</MbqButtonDanger
-    >
+    <div class="flex justify-evenly">
+      <NuxtLink :to="gameVenueUrl">
+        <MbqButtonPrimary :buttonType="'button'">会場へ</MbqButtonPrimary>
+      </NuxtLink>
+      <NuxtLink :to="`/games/${gameId}/edit`">
+        <MbqButtonSecondary :buttonType="'button'">編集</MbqButtonSecondary>
+      </NuxtLink>
+    </div>
+    <div class="flex justify-end">
+      <MbqButtonDanger @click="removeGame(gameId)" :buttonType="'button'"
+        >削除</MbqButtonDanger
+      >
+    </div>
   </TheContainer>
 </template>
