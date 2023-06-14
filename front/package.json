@@ -45,6 +45,7 @@
     "firebase": "^9.22.1",
     "interactjs": "^1.10.17",
     "lodash": "^4.17.21",
+    "vue-clipboard3": "^2.0.0",
     "vue3-toastify": "^0.1.11"
   }
 }
