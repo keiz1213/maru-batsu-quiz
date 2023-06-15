@@ -1,13 +1,15 @@
-<script setup>
-  defineProps({
-    memberObject: Object,
-    gameStart: Boolean
-  })
+<script setup lang="ts">
+  import { Member } from '@/types/Member'
+
+  defineProps<{
+    memberObject: Member
+    gameStart?: Boolean
+  }>()
 </script>
 
 <template>
   <div
-    v-if="memberObject.id != ''"
+    v-if="memberObject.id != 0"
     class="avatar"
     data-answer=""
     data-draggable=""

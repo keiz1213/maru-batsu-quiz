@@ -5,6 +5,7 @@ export const useReferee = (initialNumberOfWinner: number) => {
   const losers = ref<Member[]>([])
   const winners = ref<Member[]>([])
   const numberOfWinner = ref<number>(initialNumberOfWinner)
+  const isEndOfGame = ref(false)
 
   const addMember = (member: Member) => {
     members.value.push(member)
@@ -24,6 +25,12 @@ export const useReferee = (initialNumberOfWinner: number) => {
 
   const subtractNumberOfWinner = (subtractBy: number) => {
     numberOfWinner.value -= subtractBy
+  }
+
+  const checkEndOfGame = () => {
+    if (numberOfWinner.value === 0) {
+      isEndOfGame.value = true
+    }
   }
 
   const createDummyMember = (): Member => {
@@ -123,6 +130,7 @@ export const useReferee = (initialNumberOfWinner: number) => {
     } else if (countOfWinners > numberOfWinner.value) {
       losersInMembers.forEach((loser) => moveLoser(loser))
     }
+    checkEndOfGame()
   }
 
   return {
@@ -130,6 +138,7 @@ export const useReferee = (initialNumberOfWinner: number) => {
     losers,
     winners,
     numberOfWinner,
+    isEndOfGame,
     addMember,
     setAllMembers,
     judge,

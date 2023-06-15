@@ -10,6 +10,7 @@
   import { Member } from '@/types/Member'
   import { AvatarParams } from '@/types/AvatarParams'
   import { ChatMessage } from '@/types/ChatMessage'
+  import ModalEndOfGame from '@/components/ModalEndOfGame.vue'
 
   definePageMeta({
     middleware: 'auth'
@@ -51,6 +52,7 @@
     losers,
     winners,
     numberOfWinner,
+    isEndOfGame,
     addMember,
     setAllMembers,
     judge,
@@ -279,6 +281,12 @@
 </script>
 
 <template>
+  <ModalEndOfGame
+    v-model="isEndOfGame"
+    :winners="winners"
+    :quizzes="game.quizzes"
+    :background="'interactive'"
+  />
   <div id="modal2" class="modal2">
     <div class="modal-content">
       <p class="text-center">接続確認中のため少々お待ち下さい</p>
