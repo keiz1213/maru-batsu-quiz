@@ -10,20 +10,24 @@
 <template>
   <VueFinalModal
     class="flex justify-center items-center"
-    content-class="flex flex-col max-w-xl mx-4 p-4 bg-white rounded-lg space-y-2"
+    content-class=" w-3/4 mx-auto my-6 p-4 bg-white rounded-lg space-y-2 absolute inset-0"
+    content-transition="vfm-fade"
+    overlay-transition="vfm-fade"
   >
-    <h1 class="text-xl text-center mb-6">おめでとうございます！</h1>
-    <slot />
-    <div class="flex justify-center">
-      <Avatar
-        v-for="(winner, index) in winners"
-        :key="index"
-        :memberObject="winner"
-        :gameStart="true"
-      />
-    </div>
-    <div>
-      <MbqTableQuiz :quizzes="quizzes" />
+    <div class="absolute inset-0 h-full overflow-auto px-12">
+      <h1 class="text-xl text-center my-6">Congratulations!</h1>
+      <slot />
+      <div class="flex justify-center">
+        <Avatar
+          v-for="(winner, index) in winners"
+          :key="index"
+          :memberObject="winner"
+          :gameStart="true"
+        />
+      </div>
+      <div>
+        <MbqTableQuiz :quizzes="quizzes" />
+      </div>
     </div>
   </VueFinalModal>
 </template>
