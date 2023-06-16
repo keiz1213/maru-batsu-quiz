@@ -1,13 +1,7 @@
-<script setup>
-  defineProps({
-    question: String
-  })
-</script>
-
 <template>
   <div
     id="✕"
-    class="w-[520px] h-96 max-w bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700 break-all"
+    class="w-[520px] h-96 max-w bg-white border border-gray-200 rounded-lg break-all"
   >
     <img
       class="mx-[120px] my-[50px]"

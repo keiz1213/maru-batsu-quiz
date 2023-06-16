@@ -327,13 +327,22 @@
           />
         </div>
       </div>
-      <div id="public-container">
+      <div id="public-container" class="flex">
         <div id="answer-container">
-          <div id="circle-area"></div>
-          <div id="cross-area"></div>
+          <div id="answer-area">
+            <Answer />
+          </div>
         </div>
         <div id="chat-container">
-          <div id="chat-area"></div>
+          <div id="chat-area">
+            <Chat
+              :chatVisible="chatVisible"
+              :myId="myId"
+              :messages="chatMessages"
+              @update:messages="chat.updateChatMessages"
+              @update:chatVisible="chat.updateChatVisible"
+            />
+          </div>
         </div>
       </div>
       <div id="player-container">
@@ -348,12 +357,8 @@
             <div id="board" class="flex">
               <div id="message-board"></div>
               <div id="info-board">
-                <div id="questioner">
-                  
-                </div>
-                <div id="timelimit">
-                  
-                </div>
+                <div id="questioner"></div>
+                <div id="timelimit"></div>
               </div>
             </div>
             <div id="answer">

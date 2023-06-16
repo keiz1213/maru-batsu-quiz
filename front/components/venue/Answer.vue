@@ -1,13 +1,6 @@
-<script setup>
-  defineProps({
-    question: String
-  })
-</script>
-
 <template>
   <div
-    id="description"
-    class="flex w-[1050px] max-w bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700 break-all"
+    class="flex justify-center w-[1050px] bg-white border border-gray-200 rounded-lg break-all"
   >
     <Circle />
     <Cross />
