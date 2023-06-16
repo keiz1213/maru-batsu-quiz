@@ -320,7 +320,7 @@
       <div id="ownner-container" class="flex justify-center">
         <div id="board-container">
           <div id="board-area">
-            <QuestionBoard
+            <Board
               :announcement="announcement"
               :gameStart="gameStart"
               :elapsed="timeElapsed"
