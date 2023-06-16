@@ -373,7 +373,7 @@
         </div>
         <div id="loser-container" class="mb-7">
           <div id="loser-area" class="flex justify-center">
-            <Loser :losers="losers" />
+            <Losers :losers="losers" />
           </div>
         </div>
       </div>
