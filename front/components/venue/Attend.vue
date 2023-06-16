@@ -7,7 +7,7 @@
 <template>
   <div
     id="description"
-    class="w-full max-w p-4 bg-white border border-gray-200 rounded-lg sm:p-6 md:p-8 break-all"
+    class="w-full max-w p-4 bg-white border border-gray-200 rounded-lg break-all"
   >
     <div>
       <Avatar

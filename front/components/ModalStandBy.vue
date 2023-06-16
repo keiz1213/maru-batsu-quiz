@@ -25,7 +25,7 @@
       <div class="animate-ping h-2 w-2 bg-blue-600 rounded-full"></div>
     </div>
     <slot />
-    <Hiring :members="members" />
+    <Attend :members="members" />
     <div class="flex justify-center">
       <MbqButtonPrimary
         v-if="isOwner"
