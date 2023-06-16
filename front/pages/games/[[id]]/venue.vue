@@ -363,7 +363,7 @@
       <div id="player-container">
         <div id="challenger-container">
           <div id="challenger-area" class="flex justify-center">
-            <Start :members="members" :gameStart="gameStart" />
+            <Challengers :members="members" :gameStart="gameStart" />
           </div>
         </div>
         <div id="winner-container">
