@@ -307,6 +307,29 @@
       <div id="title-container">
         <GameTitle :title="title"></GameTitle>
       </div>
+      <div id="ownner-container" class="flex">
+        <div id="board-area">
+          
+        </div>
+        <div id="questioner-area">
+         
+        </div>
+      </div>
+      <div id="public-container">
+        <div id="answer-container">
+          <div id="circle-area"></div>
+          <div id="cross-area"></div>
+        </div>
+        <div id="chat-container">
+          <div id="chat-area"></div>
+        </div>
+      </div>
+      <div id="player-container">
+        <div id="player-area"></div>
+        <div id="winner-area"></div>
+        <div id="loser-area"></div>
+      </div>
+
       <div id="main-container">
         <div id="game-container" class="flex">
           <div id="left-container">
