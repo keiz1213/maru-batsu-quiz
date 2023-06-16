@@ -368,7 +368,7 @@
         </div>
         <div id="winner-container">
           <div id="winner-area" class="flex justify-center">
-            <Winner :numberOfWinner="numberOfWinner" :winners="winners" />
+            <Winners :numberOfWinner="numberOfWinner" :winners="winners" />
           </div>
         </div>
         <div id="loser-container" class="mb-7">
