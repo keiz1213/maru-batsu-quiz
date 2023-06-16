@@ -26,7 +26,7 @@
         :memberObject="owner"
       />
     </div>
-    <SetQuestion
+    <OwnerMenu
       v-if="isOwner"
       :quizzes="quizzes"
       :currentQuizNumber="currentQuizNumber"
