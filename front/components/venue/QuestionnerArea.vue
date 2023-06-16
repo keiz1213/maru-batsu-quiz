@@ -2,7 +2,7 @@
   import { Quiz } from '@/types/Quiz'
 
   defineProps<{
-    questioner: object
+    owners: object
     quizzes: Quiz[]
     currentQuizNumber: number
     isOwner: boolean
@@ -16,7 +16,7 @@
 
 <template>
   <div
-    class="w-[370px] h-[110px] max-w p-4 bg-white border border-gray-400 rounded-lg"
+    class="w-[370px] h-[220px] max-w p-4 bg-white border border-gray-200 rounded-lg"
   >
     <SetQuestion
       v-if="isOwner"

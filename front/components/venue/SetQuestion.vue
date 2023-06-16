@@ -16,11 +16,13 @@
   <div
     class="w-80 p-2 bg-white border border-gray-200 rounded-lg flex justify-center"
   >
-    <MbqButtonPrimary :button-type="'button'" @click="emit('question')"
-      >{{ currentQuizNumber + 1 }} 問目を出題する</MbqButtonPrimary
-    >
-    <MbqButtonSecondary :button-type="'button'" @click="emit('check-question')"
-      >問題を確認する
-    </MbqButtonSecondary>
+    <div>
+      <MbqButtonPrimary :button-type="'button'" @click="emit('question')"
+        >{{ currentQuizNumber + 1 }} 問目を出題する</MbqButtonPrimary
+      >
+      <MbqButtonSecondary :button-type="'button'" @click="emit('check-question')"
+        >問題を確認する
+      </MbqButtonSecondary>
+    </div>
   </div>
 </template>

@@ -48,11 +48,13 @@
   const draggable = new SyncDraggable(writer)
 
   const {
+    owners,
     members,
     losers,
     winners,
     numberOfWinner,
     isEndOfGame,
+    addOwner,
     addMember,
     setAllMembers,
     judge,
@@ -83,15 +85,13 @@
   const chatMessages = chat.chatMessages
   const chatVisible = chat.chatVisible
 
-  const owner = ref(createDummyMember())
-
   const currentQuizNumber = ref(0)
   const gameStart = ref(false)
 
   const setAvatarAction = (member: Member): void => {
     if (!document.getElementById(member.uid)) {
       if (isOwner(member.id)) {
-        owner.value = member
+        addOwner(member)
       } else {
         addMember(member)
       }
@@ -238,7 +238,7 @@
 
   if (myId === ownerId) {
     draggable.setDraggable(member.uid)
-    owner.value = member
+    addOwner(member)
     channel.onPublicationListChanged.add(async (e) => {
       const publicationId = channel.publications.slice(-1)[0].id
       await subscribe(publicationId)
@@ -309,10 +309,20 @@
       </div>
       <div id="ownner-container" class="flex">
         <div id="board-area">
-          
+          <QuestionBoard
+            :announcement="announcement"
+            :gameStart="gameStart"
+          />
         </div>
         <div id="questioner-area">
-         
+          <QuestionnerArea
+            :owners="owners"
+            :isOwner="isOwner(myId)"
+            :quizzes="quizzes"
+            :currentQuizNumber="currentQuizNumber"
+            @question="sendAnnouncement"
+            @check-question="openQuestion"
+          />
         </div>
       </div>
       <div id="public-container">
@@ -334,13 +344,11 @@
         <div id="game-container" class="flex">
           <div id="left-container">
             <div id="board" class="flex">
-              <div id="message-board">
-                <QuestionBoard :announcement="announcement" />
-              </div>
+              <div id="message-board"></div>
               <div id="info-board">
                 <div id="questioner">
                   <QuestionnerAvatarArea
-                    :questioner="owner"
+                    :owners="owners"
                     :gameStart="gameStart"
                   />
                 </div>
@@ -355,14 +363,7 @@
           </div>
           <div id="right-container">
             <div id="menu">
-              <QuestionnerArea
-                :questioner="owner"
-                :isOwner="isOwner(myId)"
-                :quizzes="quizzes"
-                :currentQuizNumber="currentQuizNumber"
-                @question="sendAnnouncement"
-                @check-question="openQuestion"
-              />
+
             </div>
             <div id="chat-container">
               <Chat
