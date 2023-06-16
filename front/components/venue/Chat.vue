@@ -1,9 +1,11 @@
-<script setup>
-  const prop = defineProps({
-    messages: Array,
-    chatVisible: Boolean,
-    myId: Number
-  })
+<script setup lang="ts">
+  import { ChatMessage } from '@/types/ChatMessage'
+
+  defineProps<{
+    messages: Array<ChatMessage>
+    chatVisible: boolean
+    myId: number
+  }>()
 
   const emit = defineEmits(['update:messages', 'update:chatVisible'])
 
@@ -17,7 +19,6 @@
 
 <template>
   <div
-    id="chat-area"
     class="w-[370px] h-[420px] bg-white border border-gray-200 rounded-lg break-all"
   >
     <div class="flex justify-end m-2">
@@ -35,7 +36,7 @@
         class="h-[300px] px-4 pt-4 pb-14 mx-3 bg-white border border-gray-200 rounded-lg break-all overflow-y-scroll"
       >
         <div v-for="(chatMessage, index) in messages" :key="index">
-          <div v-if="chatMessage.memberId != prop.myId" class="chat chat-start">
+          <div v-if="chatMessage.memberId != myId" class="chat chat-start">
             <div class="chat-image avatar">
               <div class="w-10 rounded-full">
                 <img :src="chatMessage.avatarUrl" />
@@ -45,7 +46,7 @@
               {{ chatMessage.content }}
             </div>
           </div>
-          <div v-if="chatMessage.memberId === prop.myId" class="chat chat-end">
+          <div v-if="chatMessage.memberId === myId" class="chat chat-end">
             <div class="chat-bubble">{{ chatMessage.content }}</div>
           </div>
         </div>

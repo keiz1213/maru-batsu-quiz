@@ -81,9 +81,14 @@
     isCheckQuestion.value = true
   }
 
-  const chat = useChat(member, writer)
-  const chatMessages = chat.chatMessages
-  const chatVisible = chat.chatVisible
+  const {
+    chatMessages,
+    chatVisible,
+    addChatMessage,
+    adjustScrollTop,
+    updateChatMessages,
+    updateChatVisible
+  } = useChat(member, writer)
 
   const currentQuizNumber = ref(0)
   const gameStart = ref(false)
@@ -135,8 +140,8 @@
   }
 
   const chatAction = (chatMessage: ChatMessage): void => {
-    chat.addChatMessage(chatMessage)
-    chat.adjustScrollTop()
+    addChatMessage(chatMessage)
+    adjustScrollTop()
   }
 
   const startGameAction = (members: Member[]): void => {
@@ -339,8 +344,8 @@
               :chatVisible="chatVisible"
               :myId="myId"
               :messages="chatMessages"
-              @update:messages="chat.updateChatMessages"
-              @update:chatVisible="chat.updateChatVisible"
+              @update:messages="updateChatMessages"
+              @update:chatVisible="updateChatVisible"
             />
           </div>
         </div>
@@ -372,8 +377,8 @@
                 :chatVisible="chatVisible"
                 :myId="myId"
                 :messages="chatMessages"
-                @update:messages="chat.updateChatMessages"
-                @update:chatVisible="chat.updateChatVisible"
+                @update:messages="updateChatMessages"
+                @update:chatVisible="updateChatVisible"
               />
             </div>
           </div>
