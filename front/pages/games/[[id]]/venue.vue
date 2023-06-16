@@ -302,63 +302,67 @@
 
   <ModalCheckQuestion v-model="isCheckQuestion" :quizzes="quizzes" />
 
-  <div id="title-container" class="w-96 h-20 left-[550px] relative">
-    <GameTitle :title="title"></GameTitle>
-  </div>
-  <div id="main-container">
-    <div id="game-container" class="flex">
-      <div id="left-container">
-        <div id="board" class="flex">
-          <div id="message-board">
-            <QuestionBoard :announcement="announcement" />
+  <div class="flex justify-center">
+    <div>
+      <div id="title-container" class="w-96 h-20 left-[550px] relative">
+        <GameTitle :title="title"></GameTitle>
+      </div>
+      <div id="main-container">
+        <div id="game-container" class="flex">
+          <div id="left-container">
+            <div id="board" class="flex">
+              <div id="message-board">
+                <QuestionBoard :announcement="announcement" />
+              </div>
+              <div id="info-board">
+                <div id="questioner">
+                  <QuestionnerAvatarArea
+                    :questioner="owner"
+                    :gameStart="gameStart"
+                  />
+                </div>
+                <div id="timelimit">
+                  <Timelimit :elapsed="timeElapsed" :limit="timeLimit" />
+                </div>
+              </div>
+            </div>
+            <div id="answer">
+              <Answer />
+            </div>
           </div>
-          <div id="info-board">
-            <div id="questioner">
-              <QuestionnerAvatarArea
+          <div id="right-container">
+            <div id="menu">
+              <QuestionnerArea
                 :questioner="owner"
-                :gameStart="gameStart"
+                :isOwner="isOwner(myId)"
+                :quizzes="quizzes"
+                :currentQuizNumber="currentQuizNumber"
+                @question="sendAnnouncement"
+                @check-question="openQuestion"
               />
             </div>
-            <div id="timelimit">
-              <Timelimit :elapsed="timeElapsed" :limit="timeLimit" />
+            <div id="chat-container">
+              <Chat
+                :chatVisible="chatVisible"
+                :myId="myId"
+                :messages="chatMessages"
+                @update:messages="chat.updateChatMessages"
+                @update:chatVisible="chat.updateChatVisible"
+              />
             </div>
           </div>
         </div>
-        <div id="answer">
-          <Answer />
+        <div id="avatar-container">
+          <div id="winners">
+            <Winner :numberOfWinner="numberOfWinner" :winners="winners" />
+          </div>
+          <div id="challengers">
+            <Start :members="members" :gameStart="gameStart" />
+          </div>
+          <div id="losers">
+            <Loser :losers="losers" />
+          </div>
         </div>
-      </div>
-      <div id="right-container">
-        <div id="menu">
-          <QuestionnerArea
-            :questioner="owner"
-            :isOwner="isOwner(myId)"
-            :quizzes="quizzes"
-            :currentQuizNumber="currentQuizNumber"
-            @question="sendAnnouncement"
-            @check-question="openQuestion"
-          />
-        </div>
-        <div id="chat-container">
-          <Chat
-            :chatVisible="chatVisible"
-            :myId="myId"
-            :messages="chatMessages"
-            @update:messages="chat.updateChatMessages"
-            @update:chatVisible="chat.updateChatVisible"
-          />
-        </div>
-      </div>
-    </div>
-    <div id="avatar-container">
-      <div id="winners">
-        <Winner :numberOfWinner="numberOfWinner" :winners="winners" />
-      </div>
-      <div id="challengers">
-        <Start :members="members" :gameStart="gameStart" />
-      </div>
-      <div id="losers">
-        <Loser :losers="losers" />
       </div>
     </div>
   </div>
