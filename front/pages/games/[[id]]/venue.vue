@@ -74,6 +74,10 @@
   } = useAnnouncer(writer)
 
   const isStandBy = ref(true)
+  const isCheckQuestion = ref(false)
+  const openQuestion = () => {
+    isCheckQuestion.value = true
+  }
 
   const chat = useChat(member, writer)
   const chatMessages = chat.chatMessages
@@ -296,6 +300,8 @@
     @start="deadline(0)"
   />
 
+  <ModalCheckQuestion v-model="isCheckQuestion" :quizzes="quizzes" />
+
   <div id="title-container" class="w-96 h-20 left-[550px] relative">
     <GameTitle :title="title"></GameTitle>
   </div>
@@ -326,10 +332,11 @@
         <div id="menu">
           <QuestionnerArea
             :questioner="owner"
+            :isOwner="isOwner(myId)"
             :quizzes="quizzes"
             :currentQuizNumber="currentQuizNumber"
             @question="sendAnnouncement"
-            :myId="myId"
+            @check-question="openQuestion"
           />
         </div>
         <div id="chat-container">

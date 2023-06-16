@@ -1,10 +1,12 @@
 <script setup lang="ts">
   import { VueFinalModal } from 'vue-final-modal'
+
   defineProps<{
     title: string
     members: object
     isOwner: boolean
   }>()
+
   const emit = defineEmits<{
     (e: 'start'): void
   }>()
