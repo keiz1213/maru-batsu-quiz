@@ -304,7 +304,7 @@
 
   <div class="flex justify-center">
     <div>
-      <div id="title-container" class="w-96 h-20 left-[550px] relative">
+      <div id="title-container">
         <GameTitle :title="title"></GameTitle>
       </div>
       <div id="main-container">
