@@ -6,6 +6,7 @@
     quizzes: Quiz[]
     currentQuizNumber: number
     isOwner: boolean
+    description: string
   }>()
 
   const emit = defineEmits<{
@@ -32,5 +33,11 @@
       @question="emit('question')"
       @check-question="emit('check-question')"
     />
+    <div
+      v-else
+      class="bg-white border border-gray-200 rounded-lg w-full h-[175px] overflow-auto p-3"
+    >
+      {{ description }}
+    </div>
   </div>
 </template>

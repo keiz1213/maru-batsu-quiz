@@ -30,6 +30,7 @@
   }
   const ownerId = game.user_id
   const title = game.title
+  const description = game.description
   const channelName = game.channel_name
   const quizzes = game.quizzes
 
@@ -336,6 +337,7 @@
               :currentQuizNumber="currentQuizNumber"
               @question="sendAnnouncement"
               @check-question="openQuestion"
+              :description="description"
             />
           </div>
         </div>
