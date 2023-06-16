@@ -16,8 +16,15 @@
 
 <template>
   <div
-    class="w-[370px] h-[220px] max-w p-4 bg-white border border-gray-200 rounded-lg"
+    class="w-[370px] h-[270px] max-w bg-white border border-gray-200 rounded-lg"
   >
+    <div class="bg-white border border-gray-200 rounded-lg flex justify-center">
+      <Avatar
+        v-for="(owner, index) in owners"
+        :key="index"
+        :memberObject="owner"
+      />
+    </div>
     <SetQuestion
       v-if="isOwner"
       :quizzes="quizzes"

@@ -312,6 +312,8 @@
           <QuestionBoard
             :announcement="announcement"
             :gameStart="gameStart"
+            :elapsed="timeElapsed"
+            :limit="timeLimit"
           />
         </div>
         <div id="questioner-area">
@@ -347,13 +349,10 @@
               <div id="message-board"></div>
               <div id="info-board">
                 <div id="questioner">
-                  <QuestionnerAvatarArea
-                    :owners="owners"
-                    :gameStart="gameStart"
-                  />
+                  
                 </div>
                 <div id="timelimit">
-                  <Timelimit :elapsed="timeElapsed" :limit="timeLimit" />
+                  
                 </div>
               </div>
             </div>
@@ -362,9 +361,7 @@
             </div>
           </div>
           <div id="right-container">
-            <div id="menu">
-
-            </div>
+            <div id="menu"></div>
             <div id="chat-container">
               <Chat
                 :chatVisible="chatVisible"

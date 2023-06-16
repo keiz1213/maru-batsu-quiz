@@ -14,7 +14,7 @@
 
 <template>
   <div
-    class="w-80 p-2 bg-white border border-gray-200 rounded-lg flex justify-center"
+    class=" bg-white border border-gray-200 rounded-lg flex justify-center"
   >
     <div>
       <MbqButtonPrimary :button-type="'button'" @click="emit('question')"
