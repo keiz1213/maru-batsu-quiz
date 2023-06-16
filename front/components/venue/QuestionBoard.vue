@@ -8,7 +8,7 @@
 
 <template>
   <div
-    class="w-[950px] h-[270px] p-4 bg-white border border-gray-200 rounded-lg break-all overflow-y-scroll"
+    class="w-[950px] h-[270px] p-4 bg-white border border-gray-200 rounded-lg break-all overflow-auto"
   >
     <div class="flex">
       <div id="announce-container" class="w-[885px]">
