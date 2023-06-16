@@ -1,10 +1,10 @@
-<script setup>
-  const props = defineProps({
-    elapsed: Number,
-    limit: Number
-  })
+<script setup lang="ts">
+  const props = defineProps<{
+    elapsed: number
+    limit: number
+  }>()
 
-  const padToTwo = (num) => {
+  const padToTwo = (num: number) => {
     return String(num).padStart(2, '0')
   }
 
