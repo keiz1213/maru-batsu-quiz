@@ -1,12 +1,12 @@
-<script setup>
-  defineProps({
-    losers: Array
-  })
+<script setup lang="ts">
+  defineProps<{
+    losers: object
+  }>()
 </script>
 
 <template>
   <div
-    class="w-[1320px] max-w h-60 p-4 bg-white border border-gray-200 rounded-lg break-all flex"
+    class="w-[1320px] h-60 p-4 bg-white border border-gray-200 rounded-lg break-all flex"
   >
     <div>
       <p>losers</p>

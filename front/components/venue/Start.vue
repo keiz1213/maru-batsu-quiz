@@ -1,8 +1,8 @@
-<script setup>
-  defineProps({
-    members: Array,
-    gameStart: Boolean
-  })
+<script setup lang="ts">
+  defineProps<{
+    members: object,
+    gameStart: boolean
+  }>()
 </script>
 
 <template>
