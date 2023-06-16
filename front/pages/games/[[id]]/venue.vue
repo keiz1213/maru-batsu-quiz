@@ -312,8 +312,8 @@
     <div>
       <div id="top-container">
         <div id="title-container">
-          <div id="title-area">
-            <GameTitle :title="title"></GameTitle>
+          <div id="title-area" class="flex justify-center my-6 break-all">
+            <h1 class="text-5xl">{{ title }}</h1>
           </div>
         </div>
       </div>
