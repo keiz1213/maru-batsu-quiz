@@ -17,7 +17,7 @@
         </div>
       </div>
       <div id="timer-container">
-        <Timelimit :elapsed="elapsed" :limit="limit" />
+        <Timer :elapsed="elapsed" :limit="limit" />
       </div>
     </div>
   </div>
