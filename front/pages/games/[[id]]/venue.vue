@@ -330,7 +330,7 @@
         </div>
         <div id="questioner-container">
           <div id="questioner-area">
-            <QuestionnerArea
+            <OwnerArea
               :owners="owners"
               :isOwner="isOwner(myId)"
               :quizzes="quizzes"
