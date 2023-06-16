@@ -307,32 +307,40 @@
 
   <ModalCheckQuestion v-model="isCheckQuestion" :quizzes="quizzes" />
 
-  <div class="flex justify-center">
+  <div>
     <div>
-      <div id="title-container">
-        <GameTitle :title="title"></GameTitle>
-      </div>
-      <div id="ownner-container" class="flex">
-        <div id="board-area">
-          <QuestionBoard
-            :announcement="announcement"
-            :gameStart="gameStart"
-            :elapsed="timeElapsed"
-            :limit="timeLimit"
-          />
-        </div>
-        <div id="questioner-area">
-          <QuestionnerArea
-            :owners="owners"
-            :isOwner="isOwner(myId)"
-            :quizzes="quizzes"
-            :currentQuizNumber="currentQuizNumber"
-            @question="sendAnnouncement"
-            @check-question="openQuestion"
-          />
+      <div id="top-container">
+        <div id="title-container">
+          <div id="title-area">
+            <GameTitle :title="title"></GameTitle>
+          </div>
         </div>
       </div>
-      <div id="public-container" class="flex">
+      <div id="ownner-container" class="flex justify-center">
+        <div id="board-container">
+          <div id="board-area">
+            <QuestionBoard
+              :announcement="announcement"
+              :gameStart="gameStart"
+              :elapsed="timeElapsed"
+              :limit="timeLimit"
+            />
+          </div>
+        </div>
+        <div id="questioner-container">
+          <div id="questioner-area">
+            <QuestionnerArea
+              :owners="owners"
+              :isOwner="isOwner(myId)"
+              :quizzes="quizzes"
+              :currentQuizNumber="currentQuizNumber"
+              @question="sendAnnouncement"
+              @check-question="openQuestion"
+            />
+          </div>
+        </div>
+      </div>
+      <div id="public-container" class="flex justify-center">
         <div id="answer-container">
           <div id="answer-area">
             <Answer />
@@ -351,46 +359,18 @@
         </div>
       </div>
       <div id="player-container">
-        <div id="player-area"></div>
-        <div id="winner-area"></div>
-        <div id="loser-area"></div>
-      </div>
-
-      <div id="main-container">
-        <div id="game-container" class="flex">
-          <div id="left-container">
-            <div id="board" class="flex">
-              <div id="message-board"></div>
-              <div id="info-board">
-                <div id="questioner"></div>
-                <div id="timelimit"></div>
-              </div>
-            </div>
-            <div id="answer">
-              <Answer />
-            </div>
-          </div>
-          <div id="right-container">
-            <div id="menu"></div>
-            <div id="chat-container">
-              <Chat
-                :chatVisible="chatVisible"
-                :myId="myId"
-                :messages="chatMessages"
-                @update:messages="updateChatMessages"
-                @update:chatVisible="updateChatVisible"
-              />
-            </div>
-          </div>
-        </div>
-        <div id="avatar-container">
-          <div id="winners">
-            <Winner :numberOfWinner="numberOfWinner" :winners="winners" />
-          </div>
-          <div id="challengers">
+        <div id="challenger-container">
+          <div id="challenger-area" class="flex justify-center">
             <Start :members="members" :gameStart="gameStart" />
           </div>
-          <div id="losers">
+        </div>
+        <div id="winner-container">
+          <div id="winner-area" class="flex justify-center">
+            <Winner :numberOfWinner="numberOfWinner" :winners="winners" />
+          </div>
+        </div>
+        <div id="loser-container">
+          <div id="loser-area" class="flex justify-center">
             <Loser :losers="losers" />
           </div>
         </div>
