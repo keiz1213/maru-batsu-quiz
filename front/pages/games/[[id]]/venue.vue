@@ -73,6 +73,8 @@
     announceReset
   } = useAnnouncer(writer)
 
+  const isStandBy = ref(true)
+
   const chat = useChat(member, writer)
   const chatMessages = chat.chatMessages
   const chatVisible = chat.chatVisible
@@ -84,7 +86,7 @@
 
   const setAvatarAction = (member: Member): void => {
     if (!document.getElementById(member.uid)) {
-      if (isOwner(member)) {
+      if (isOwner(member.id)) {
         owner.value = member
       } else {
         addMember(member)
@@ -169,8 +171,8 @@
     writer.deadline(index)
   }
 
-  const isOwner = (member: Member) => {
-    return member.id === ownerId
+  const isOwner = (membeId: number) => {
+    return membeId === ownerId
   }
 
   const handleWriteData = (stream: RemoteDataStream) => {
@@ -194,15 +196,15 @@
       } else if (tag === 'closeModal') {
         closeModal()
       } else if (tag === 'start') {
-        if (isOwner(member)) return
+        if (isOwner(member.id)) return
         let avatars = JSON.parse(message).params
         startGameAction(avatars)
       } else if (tag === 'deadline') {
-        if (isOwner(member)) return
+        if (isOwner(member.id)) return
         let index = JSON.parse(message).params.index
         closeRecruitmentAction(index)
       } else if (tag === 'over') {
-        if (!isOwner(member)) return
+        if (!isOwner(member.id)) return
         let index = JSON.parse(message).params.index
         overAction(index)
       }
@@ -274,9 +276,7 @@
   }
 
   const closeModal = () => {
-    const modal = document.getElementById('modal2') as HTMLElement
-    modal.style.display = 'none'
-    gameStart.value = true
+    isStandBy.value = false
   }
 </script>
 
@@ -287,22 +287,14 @@
     :quizzes="game.quizzes"
     :background="'interactive'"
   />
-  <div id="modal2" class="modal2">
-    <div class="modal-content">
-      <p class="text-center">接続確認中のため少々お待ち下さい</p>
-      <div class="flex justify-center my-3" aria-label="読み込み中">
-        <div class="animate-ping h-2 w-2 bg-blue-600 rounded-full"></div>
-        <div class="animate-ping h-2 w-2 bg-blue-600 rounded-full mx-4"></div>
-        <div class="animate-ping h-2 w-2 bg-blue-600 rounded-full"></div>
-      </div>
-      <Hiring v-if="member.id === ownerId" :members="members" />
-      <div v-if="member.id === ownerId" class="flex">
-        <button @click="deadline(0)" class="btn btn-primary m-2">
-          締め切る</button
-        ><br />
-      </div>
-    </div>
-  </div>
+  <ModalStandBy
+    v-model="isStandBy"
+    :isOwner="isOwner(myId)"
+    :title="'接続確認中です、そのままお待ち下さい'"
+    :members="members"
+    :background="'interactive'"
+    @start="deadline(0)"
+  />
 
   <div id="title-container" class="w-96 h-20 left-[550px] relative">
     <GameTitle :title="title"></GameTitle>
@@ -364,39 +356,3 @@
     </div>
   </div>
 </template>
-
-<style>
-  .modal2 {
-    display: block; /* 最初に表示 */
-    position: fixed; /* スクロールに追従 */
-    z-index: 1; /* 最前面に表示 */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto; /* スクロール可能にする */
-    background-color: rgba(0, 0, 0, 0.4); /* 背景色を半透明にする */
-  }
-
-  .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 上下左右に余白を設定 */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* モダールの幅を設定 */
-  }
-
-  .close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
-
-  .close:hover,
-  .close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-  }
-</style>
