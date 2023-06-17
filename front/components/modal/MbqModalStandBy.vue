@@ -5,6 +5,7 @@
     title: string
     members: object
     isOwner: boolean
+    ids: string[]
   }>()
 
   const emit = defineEmits<{
@@ -25,6 +26,9 @@
       <div class="animate-ping h-2 w-2 bg-blue-600 rounded-full"></div>
     </div>
     <slot />
+    <ul>
+      <li v-for="(id, index) in ids" :key="index">{{ id }}</li>
+    </ul>
     <MbqAttend :members="members" />
     <div class="flex justify-center">
       <MbqButtonPrimary

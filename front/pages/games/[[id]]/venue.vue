@@ -33,6 +33,9 @@
   const channelName = game.channel_name
   const quizzes = game.quizzes
 
+  const publicationIds = ref<string[]>([])
+  const memberNames = ref<string[]>([])
+
   const skywayContext = await createSkyWayContext(skywayToken)
   const channel = await findOrCreateChannel(skywayContext, channelName)
   let member: Member
@@ -246,16 +249,17 @@
     addOwner(member)
     channel.onPublicationListChanged.add(async (e) => {
       const publicationId = channel.publications.slice(-1)[0].id
-      await subscribe(publicationId)
-      setTimeout(() => {
-        writer.writeMember()
-      }, 1000)
+      publicationIds.value.push(publicationId)
+      // await subscribe(publicationId)
+      // setTimeout(() => {
+      //   writer.writeMember()
+      // }, 1000)
     })
   } else {
-    draggable.setDraggable(member.uid)
-    draggable.setDropzone('◯', member.uid)
-    draggable.setDropzone('✕', member.uid)
-    await ownnerSubscribe()
+    // draggable.setDraggable(member.uid)
+    // draggable.setDropzone('◯', member.uid)
+    // draggable.setDropzone('✕', member.uid)
+    // await ownnerSubscribe()
   }
 
   const sendAnnouncement = async () => {
@@ -303,6 +307,7 @@
     :members="members"
     :background="'interactive'"
     @start="deadline(0)"
+    :ids="publicationIds"
   />
 
   <MbqModalCheck v-model="isCheckQuestion" :quizzes="quizzes" />
