@@ -30,7 +30,13 @@ export class SyncDraggable {
       autoScroll: true,
       listeners: {
         move: this.dragMoveListener.bind(this)
-      }
+      },
+      modifiers: [
+        interact.modifiers.restrict({
+          restriction: '#main-container',
+          endOnly: true
+        })
+      ]
     })
   }
 

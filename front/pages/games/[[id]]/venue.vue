@@ -308,7 +308,7 @@
   <MbqModalCheck v-model="isCheckQuestion" :quizzes="quizzes" />
 
   <div>
-    <div>
+    <div id="main-container">
       <div id="top-container">
         <div id="title-container">
           <div id="title-area" class="flex justify-center my-6 break-all">
