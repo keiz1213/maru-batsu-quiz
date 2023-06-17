@@ -10,7 +10,6 @@
   import { Member } from '@/types/Member'
   import { AvatarParams } from '@/types/AvatarParams'
   import { ChatMessage } from '@/types/ChatMessage'
-  import ModalEndOfGame from '@/components/ModalEndOfGame.vue'
 
   definePageMeta({
     middleware: 'auth'
@@ -291,13 +290,13 @@
 </script>
 
 <template>
-  <ModalEndOfGame
+  <MbqModalEnd
     v-model="isEndOfGame"
     :winners="winners"
     :quizzes="game.quizzes"
     :background="'interactive'"
   />
-  <ModalStandBy
+  <MbqModalStandBy
     v-model="isStandBy"
     :isOwner="isOwner(myId)"
     :title="'接続確認中です、そのままお待ち下さい'"
@@ -306,7 +305,7 @@
     @start="deadline(0)"
   />
 
-  <ModalCheckQuestion v-model="isCheckQuestion" :quizzes="quizzes" />
+  <MbqModalCheck v-model="isCheckQuestion" :quizzes="quizzes" />
 
   <div>
     <div>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
   import { getGame } from '~/utils/getters'
-  import ModalConfirm from '@/components/ModalConfirm.vue'
 
   const props = defineProps<{
     gameId: string
@@ -66,7 +65,7 @@
         削除
       </p>
     </div>
-    <ModalConfirm
+    <MbqModalConfirm
       v-model="showModal"
       title="本当に削除してもいいですか？"
       @confirm="confirm"
