@@ -1,6 +1,6 @@
 <script setup lang="ts">
   defineProps<{
-    members: object,
+    members: object
     gameStart: boolean
   }>()
 </script>
