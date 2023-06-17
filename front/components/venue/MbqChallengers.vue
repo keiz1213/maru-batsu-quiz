@@ -1,19 +1,21 @@
 <script setup lang="ts">
   defineProps<{
-    members: object
+    members: object,
+    gameStart: boolean
   }>()
 </script>
 
 <template>
   <div
-    id="description"
-    class="w-full max-w p-4 bg-white border border-gray-200 rounded-lg break-all"
+    class="w-[1320px] h-60 p-4 bg-white border border-gray-200 rounded-lg break-all flex"
   >
     <div>
-      <Avatar
+      <p>challenger</p>
+      <MbqAvatar
         v-for="(member, index) in members"
         :key="index"
         :memberObject="member"
+        :gameStart="gameStart"
       />
     </div>
   </div>

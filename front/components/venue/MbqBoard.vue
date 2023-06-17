@@ -17,7 +17,7 @@
         </div>
       </div>
       <div id="timer-container">
-        <Timer :elapsed="elapsed" :limit="limit" />
+        <MbqTimer :elapsed="elapsed" :limit="limit" />
       </div>
     </div>
   </div>

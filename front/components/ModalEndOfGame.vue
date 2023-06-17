@@ -18,7 +18,7 @@
       <h1 class="text-xl text-center my-6">Congratulations!</h1>
       <slot />
       <div class="flex justify-center">
-        <Avatar
+        <MbqAvatar
           v-for="(winner, index) in winners"
           :key="index"
           :memberObject="winner"

@@ -11,7 +11,7 @@
   >
     <div>
       <p>winner: 残り{{ numberOfWinner }}人</p>
-      <Avatar
+      <MbqAvatar
         v-for="(winner, index) in winners"
         :key="index"
         :memberObject="winner"

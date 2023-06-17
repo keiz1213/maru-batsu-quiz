@@ -20,13 +20,13 @@
     class="w-[370px] h-[270px] max-w bg-white border border-gray-200 rounded-lg"
   >
     <div class="bg-white border border-gray-200 rounded-lg flex justify-center">
-      <Avatar
+      <MbqAvatar
         v-for="(owner, index) in owners"
         :key="index"
         :memberObject="owner"
       />
     </div>
-    <OwnerMenu
+    <MbqOwnerMenu
       v-if="isOwner"
       :quizzes="quizzes"
       :currentQuizNumber="currentQuizNumber"

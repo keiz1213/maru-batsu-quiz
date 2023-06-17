@@ -320,7 +320,7 @@
       <div id="ownner-container" class="flex justify-center">
         <div id="board-container">
           <div id="board-area">
-            <Board
+            <MbqBoard
               :announcement="announcement"
               :gameStart="gameStart"
               :elapsed="timeElapsed"
@@ -330,7 +330,7 @@
         </div>
         <div id="questioner-container">
           <div id="questioner-area">
-            <OwnerArea
+            <MbqOwnerArea
               :owners="owners"
               :isOwner="isOwner(myId)"
               :quizzes="quizzes"
@@ -345,12 +345,12 @@
       <div id="public-container" class="flex justify-center">
         <div id="answer-container">
           <div id="answer-area">
-            <Answer />
+            <MbqAnswer />
           </div>
         </div>
         <div id="chat-container">
           <div id="chat-area">
-            <Chat
+            <MbqChat
               :chatVisible="chatVisible"
               :myId="myId"
               :messages="chatMessages"
@@ -363,17 +363,17 @@
       <div id="player-container">
         <div id="challenger-container">
           <div id="challenger-area" class="flex justify-center">
-            <Challengers :members="members" :gameStart="gameStart" />
+            <MbqChallengers :members="members" :gameStart="gameStart" />
           </div>
         </div>
         <div id="winner-container">
           <div id="winner-area" class="flex justify-center">
-            <Winners :numberOfWinner="numberOfWinner" :winners="winners" />
+            <MbqWinners :numberOfWinner="numberOfWinner" :winners="winners" />
           </div>
         </div>
         <div id="loser-container" class="mb-7">
           <div id="loser-area" class="flex justify-center">
-            <Losers :losers="losers" />
+            <MbqLosers :losers="losers" />
           </div>
         </div>
       </div>
