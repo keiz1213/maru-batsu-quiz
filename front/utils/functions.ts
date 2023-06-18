@@ -7,19 +7,12 @@ import {
   P2PRoom
 } from '@skyway-sdk/room'
 
-function createTestUser(numberOfMembers: number): User {
-  let addForId: number
-  let subtractForUrl: number
-  addForId = numberOfMembers <= 3 ? 0 : 1
-  subtractForUrl = 1
+function createTestUser(): User {
   const testUser = {
-    id: numberOfMembers + addForId,
-    uid: `testUid${numberOfMembers}`,
-    name: `testUserName${numberOfMembers}`,
-    avatar_url: new URL(
-      `../assets/images/${numberOfMembers - subtractForUrl}.svg`,
-      import.meta.url
-    ).href,
+    id: 0,
+    uid: '',
+    name: '',
+    avatar_url: '',
     games: null,
     token: 'test'
   }
@@ -66,17 +59,18 @@ export async function createMember(
 
 export async function createTestMember(channel: P2PRoom): Promise<Member> {
   const data = await SkyWayStreamFactory.createDataStream()
-  const memberCertificates = await channel.join()
+  const memberCertificates = await channel.join({metadata: 'unsubscribe'})
   const myPublication = await memberCertificates.publish(data)
   const numberOfMembers = channel.members.length
   let member: Member
   let indexAndData = {
-    myIndex: numberOfMembers - 2,
+    myIndex: null,
     myData: data,
     memberCertificates: memberCertificates,
     myPublication: myPublication
   }
-  const testUser = createTestUser(numberOfMembers)
+  console.log(`私が入室したときの部屋の人数${numberOfMembers}`)
+  const testUser = createTestUser()
   member = Object.assign({}, testUser, indexAndData)
 
   return member

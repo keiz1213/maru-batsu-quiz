@@ -170,4 +170,47 @@ export class DataStreamWriter {
       })
     )
   }
+
+  test(): void {
+    this.member.myData?.write(
+      JSON.stringify({
+        tag: 'test',
+        params: ''
+      })
+    )
+  }
+
+  invite(index: number): void {
+    this.member.myData?.write(
+      JSON.stringify({
+        tag: 'invite',
+        params: {
+          index: index
+        }
+      })
+    )
+  }
+
+  passToNext2(index: number): void {
+    this.member.myData?.write(
+      JSON.stringify({
+        tag: 'passToNext2',
+        params: {
+          index: index
+        }
+      })
+    )
+  }
+
+  addIndex(index: number, publicationId: string): void {
+    this.member.myData?.write(
+      JSON.stringify({
+        tag: 'addIndex',
+        params: {
+          index: index,
+          publicationId: publicationId
+        }
+      })
+    )
+  }
 }

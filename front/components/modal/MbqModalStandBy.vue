@@ -10,6 +10,8 @@
 
   const emit = defineEmits<{
     (e: 'start'): void
+    (e: 'join'): void
+    (e: 'test'): void
   }>()
 </script>
 <template>
@@ -31,11 +33,23 @@
     </ul>
     <MbqAttend :members="members" />
     <div class="flex justify-center">
+      <MbqButtonSecondary
+        v-if="isOwner"
+        :button-type="'button'"
+        @click="emit('join')"
+        >受け入れる</MbqButtonSecondary
+      >
       <MbqButtonPrimary
         v-if="isOwner"
         :button-type="'button'"
         @click="emit('start')"
         >接続開始</MbqButtonPrimary
+      >
+      <MbqButtonPrimary
+        v-if="isOwner"
+        :button-type="'button'"
+        @click="emit('test')"
+        >test</MbqButtonPrimary
       >
     </div>
   </VueFinalModal>

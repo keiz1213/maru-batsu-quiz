@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { RemoteDataStream } from '@skyway-sdk/room'
+  import { RemoteDataStream, RoomPublication } from '@skyway-sdk/room'
   import {
     createSkyWayContext,
     createMember,
@@ -34,7 +34,6 @@
   const quizzes = game.quizzes
 
   const publicationIds = ref<string[]>([])
-  const memberNames = ref<string[]>([])
 
   const skywayContext = await createSkyWayContext(skywayToken)
   const channel = await findOrCreateChannel(skywayContext, channelName)
@@ -178,7 +177,84 @@
     }
   }
 
-  const deadline = (index: number) => {
+  const join = async () => {
+    for (const [index, publicationId] of publicationIds.value.entries()) {
+      if (publicationId === publicationIds.value[0]) continue
+      await subscribe(publicationId)
+    }
+    await allUpdateMetadata()
+
+    setTimeout(async () => {
+      for (const [index, publicationId] of publicationIds.value.entries()) {
+        if (publicationId === publicationIds.value[0]) continue
+        await addIndex(index, publicationIds.value[index])
+        console.log(`addIndex: ${index - 1} to: ${publicationIds.value[index]}`)
+      }
+    }, 5000)
+
+    setTimeout(() => {
+      test()
+    }, 10000)
+
+    setTimeout(() => {
+      writer.invite(0)
+    }, 15000)
+  }
+
+  const updateToSubscribed = async (publication: RoomPublication) => {
+    await new Promise<void>((resolve) => {
+      publication.publisher.updateMetadata('subscribed')
+      resolve()
+    })
+  }
+
+  const allUpdateMetadata = async () => {
+    for (const publication of channel.publications) {
+      if (publication === member.myPublication) continue
+      await updateToSubscribed(publication)
+      console.log(`${publication} のmetaDataを更新しました`)
+    }
+  }
+
+  const inviteAction = async (index: number): Promise<void> => {
+    console.log(`送られてきたindex: ${index}`)
+    console.log(`私のindex: ${member.myIndex}`)
+    if (index === member.myIndex) {
+      console.log(
+        `index: ${index} のアバターはオーナーにアバターを送信しました`
+      )
+      writer.writeMember()
+      setTimeout(() => {
+        writer.passToNext2(index)
+      }, 5000)
+    }
+  }
+
+  const overAction2 = (index: number) => {
+    index++
+    if (index === channel.members.length - 1) {
+      console.log('完了')
+    } else {
+      setTimeout(() => {
+        writer.invite(index)
+      }, 5000)
+    }
+  }
+
+  const addIndex = async (index: number, publicationId: string) => {
+    await new Promise<void>((resolve) => {
+      writer.addIndex(index - 1, publicationId)
+      resolve()
+    })
+  }
+
+  const test = () => {
+    console.log('hello')
+    writer.writeMember()
+  }
+
+  const deadline = async (index: number) => {
+    writer.writeMember()
     writer.allWrite(members.value)
     writer.deadline(index)
   }
@@ -219,6 +295,35 @@
         if (!isOwner(member.id)) return
         let index = JSON.parse(message).params.index
         overAction(index)
+      } else if (tag === 'test') {
+        console.log('test')
+      } else if (tag === 'invite') {
+        if (isOwner(member.id)) return
+        let index = JSON.parse(message).params.index
+        console.log('inviteaction')
+        inviteAction(index)
+      } else if (tag === 'passToNext2') {
+        if (!isOwner(member.id)) return
+        let index = JSON.parse(message).params.index
+        overAction2(index)
+      } else if (tag === 'addIndex') {
+        if (isOwner(member.id)) return
+        let publicationId = JSON.parse(message).params.publicationId
+        if (publicationId === member.myPublication?.id) {
+          let index = JSON.parse(message).params.index
+          member.id = index + 2
+          member.uid = `testUid-${index + 1}`
+          member.name = `testName-${index + 1}`
+          member.avatar_url = `/_nuxt/assets/images/${index + 1}.svg`
+          draggable.setDraggable(member.uid)
+          draggable.setDropzone('◯', member.uid)
+          draggable.setDropzone('✕', member.uid)
+          member.myIndex = index
+          console.log(`myIndex: ${member.myIndex}`)
+          console.log(`myId: ${member.id}`)
+          console.log(`myUid: ${member.uid}`)
+          console.log(`myUrl: ${member.avatar_url}`)
+        }
       }
     })
   }
@@ -232,9 +337,6 @@
   const ownnerSubscribe = async () => {
     await subscribe(channel.publications[0].id)
     console.log('オーナーをサブスクしました')
-    setTimeout(() => {
-      writer.writeMember()
-    }, 1000)
   }
 
   const allSubscribe = async () => {
@@ -247,19 +349,17 @@
   if (myId === ownerId) {
     draggable.setDraggable(member.uid)
     addOwner(member)
+    publicationIds.value.push(channel.publications[0].id)
     channel.onPublicationListChanged.add(async (e) => {
       const publicationId = channel.publications.slice(-1)[0].id
       publicationIds.value.push(publicationId)
-      // await subscribe(publicationId)
-      // setTimeout(() => {
-      //   writer.writeMember()
-      // }, 1000)
     })
   } else {
-    // draggable.setDraggable(member.uid)
-    // draggable.setDropzone('◯', member.uid)
-    // draggable.setDropzone('✕', member.uid)
-    // await ownnerSubscribe()
+    const memberAsChannel = member.memberCertificates
+    console.log(`私のpublicationId: ${member.myPublication?.id}`)
+    memberAsChannel?.onMetadataUpdated.add(async () => {
+      await ownnerSubscribe()
+    })
   }
 
   const sendAnnouncement = async () => {
@@ -307,6 +407,8 @@
     :members="members"
     :background="'interactive'"
     @start="deadline(0)"
+    @join="join"
+    @test="test"
     :ids="publicationIds"
   />
 
