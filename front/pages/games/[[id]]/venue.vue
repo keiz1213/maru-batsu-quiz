@@ -180,30 +180,11 @@
   const join = async () => {
     await allSubscribeToMember()
     await checkSubscriptionsOfOwner()
-
-    console.log(
-      `オーナーが全メンバーをサブスクした直後のサブスク数: ${channel.subscriptions.length}`
-    )
-
     await allUpdateMetadata()
-    console.log(
-      `オーナーが全メンバーのmetaData更新完了した後のサブスク数: ${channel.subscriptions.length}`
-    )
-
     await checkSubscriptionsOfMembers()
-
-    for (const [index, publicationId] of publicationIds.value.entries()) {
-      if (publicationId === publicationIds.value[0]) continue
-      await addIndex(index, publicationIds.value[index])
-      console.log(`addIndex: ${index - 1} to: ${publicationIds.value[index]}`)
-    }
-    setTimeout(() => {
-      test()
-    }, 10000)
-
-    setTimeout(() => {
-      writer.invite(0)
-    }, 15000)
+    await allMemberAddIndex()
+    writer.writeMember()
+    writer.invite(0)
   }
 
   const allSubscribeToMember = async () => {
@@ -299,11 +280,6 @@
       writer.addIndex(index - 1, publicationId)
       resolve()
     })
-  }
-
-  const test = () => {
-    console.log('hello')
-    writer.writeMember()
   }
 
   const deadline = async (index: number) => {
@@ -461,7 +437,6 @@
     :background="'interactive'"
     @start="deadline(0)"
     @join="join"
-    @test="test"
     :ids="publicationIds"
   />
 
