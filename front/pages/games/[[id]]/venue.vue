@@ -214,7 +214,7 @@
   const checkSubscriptionsOfOwner = async () => {
     await new Promise<void>(async (resolve) => {
       while (channel.subscriptions.length != publicationIds.value.length - 1) {
-        console.log(`ループの中のサブスク数: ${channel.subscriptions.length}`)
+        console.log('オーナーの状態を確認中・・・')
         await delay(1000)
       }
       resolve()
@@ -227,7 +227,7 @@
         channel.subscriptions.length !=
         (publicationIds.value.length - 1) * 2
       ) {
-        console.log(`ループの中のサブスク数: ${channel.subscriptions.length}`)
+        console.log('参加者の状態を確認中・・・')
         await delay(1000)
       }
       resolve()
@@ -434,7 +434,6 @@
   <MbqModalStandBy
     v-model="isStandBy"
     :isOwner="isOwner(myId)"
-    :title="'接続確認中です、そのままお待ち下さい'"
     :members="members"
     :background="'interactive'"
     @join="join"

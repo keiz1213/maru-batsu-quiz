@@ -2,7 +2,6 @@
   import { VueFinalModal } from 'vue-final-modal'
 
   defineProps<{
-    title: string
     members: object
     isOwner: boolean
     publisherNames: string[]
@@ -17,8 +16,11 @@
     class="flex justify-center items-center"
     content-class="flex flex-col max-w-xl mx-4 p-4 bg-white rounded-lg space-y-2"
   >
-    <h1 class="text-xl text-center">
-      {{ title }}
+    <h1 v-if="isOwner" class="text-center">
+      参加予定者が全員待機中になったら「接続開始」を押してください
+    </h1>
+    <h1 v-else class="text-center">
+      接続確認中です。そのままお待ち下さい・・・
     </h1>
     <div class="flex justify-center" aria-label="読み込み中">
       <div class="animate-ping h-2 w-2 bg-blue-600 rounded-full"></div>
