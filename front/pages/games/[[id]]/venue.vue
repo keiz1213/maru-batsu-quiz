@@ -250,17 +250,12 @@
     }
   }
 
-  const inviteAction = async (index: number): Promise<void> => {
+  const inviteAction = async (index: number) => {
     console.log(`送られてきたindex: ${index}`)
     console.log(`私のindex: ${member.myIndex}`)
     if (index === member.myIndex) {
-      console.log(
-        `index: ${index} のアバターはオーナーにアバターを送信しました`
-      )
       writer.writeMember()
-      setTimeout(() => {
-        writer.passToNext2(index)
-      }, 5000)
+      writer.passToNext2(index)
     }
   }
 
@@ -269,9 +264,7 @@
     if (index === channel.members.length - 1) {
       console.log('完了')
     } else {
-      setTimeout(() => {
-        writer.invite(index)
-      }, 5000)
+      writer.invite(index)
     }
   }
 
