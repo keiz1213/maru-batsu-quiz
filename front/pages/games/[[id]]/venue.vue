@@ -178,20 +178,29 @@
   }
 
   const join = async () => {
+    console.log(`初期サブスク数: ${channel.subscriptions.length}`)
+
     for (const [index, publicationId] of publicationIds.value.entries()) {
       if (publicationId === publicationIds.value[0]) continue
       await subscribe(publicationId)
     }
+
+    console.log(
+      `オーナーが全メンバーをサブスクした直後のサブスク数: ${channel.subscriptions.length}`
+    )
+
     await allUpdateMetadata()
+    console.log(
+      `オーナーが全メンバーのmetaData更新完了した後のサブスク数: ${channel.subscriptions.length}`
+    )
 
-    setTimeout(async () => {
-      for (const [index, publicationId] of publicationIds.value.entries()) {
-        if (publicationId === publicationIds.value[0]) continue
-        await addIndex(index, publicationIds.value[index])
-        console.log(`addIndex: ${index - 1} to: ${publicationIds.value[index]}`)
-      }
-    }, 5000)
+    await checkSubscriptions()
 
+    for (const [index, publicationId] of publicationIds.value.entries()) {
+      if (publicationId === publicationIds.value[0]) continue
+      await addIndex(index, publicationIds.value[index])
+      console.log(`addIndex: ${index - 1} to: ${publicationIds.value[index]}`)
+    }
     setTimeout(() => {
       test()
     }, 10000)
@@ -199,6 +208,34 @@
     setTimeout(() => {
       writer.invite(0)
     }, 15000)
+  }
+
+  const delay = (ms: number) => {
+    return new Promise((resolve) => setTimeout(resolve, ms))
+  }
+
+  const checkSubscriptions = async () => {
+    await new Promise<void>(async (resolve) => {
+      while (
+        channel.subscriptions.length !=
+        (publicationIds.value.length - 1) * 2
+      ) {
+        console.log(`ループの中のサブスク数: ${channel.subscriptions.length}`)
+        await delay(1000)
+      }
+      resolve()
+    })
+  }
+
+  const allMemberAddIndex = async () => {
+    await new Promise<void>(async (resolve) => {
+      for (const [index, publicationId] of publicationIds.value.entries()) {
+        if (publicationId === publicationIds.value[0]) continue
+        await addIndex(index, publicationIds.value[index])
+        console.log(`addIndex: ${index - 1} to: ${publicationIds.value[index]}`)
+      }
+      resolve()
+    })
   }
 
   const updateToSubscribed = async (publication: RoomPublication) => {
