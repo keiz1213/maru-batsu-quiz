@@ -262,7 +262,7 @@
   const overAction2 = (index: number) => {
     index++
     if (index === channel.members.length - 1) {
-      console.log('完了')
+      deadline(0)
     } else {
       writer.invite(index)
     }
@@ -428,7 +428,6 @@
     :title="'接続確認中です、そのままお待ち下さい'"
     :members="members"
     :background="'interactive'"
-    @start="deadline(0)"
     @join="join"
     :ids="publicationIds"
   />

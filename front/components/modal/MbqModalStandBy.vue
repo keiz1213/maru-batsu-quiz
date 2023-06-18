@@ -9,7 +9,6 @@
   }>()
 
   const emit = defineEmits<{
-    (e: 'start'): void
     (e: 'join'): void
   }>()
 </script>
@@ -36,13 +35,7 @@
         v-if="isOwner"
         :button-type="'button'"
         @click="emit('join')"
-        >受け入れる</MbqButtonSecondary
-      >
-      <MbqButtonPrimary
-        v-if="isOwner"
-        :button-type="'button'"
-        @click="emit('start')"
-        >接続開始</MbqButtonPrimary
+        >接続開始</MbqButtonSecondary
       >
     </div>
   </VueFinalModal>
