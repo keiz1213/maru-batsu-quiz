@@ -34,6 +34,7 @@
   const quizzes = game.quizzes
 
   const publicationIds = ref<string[]>([])
+  const publisherNames = ref<string[]>([])
 
   const skywayContext = await createSkyWayContext(skywayToken)
   const channel = await findOrCreateChannel(skywayContext, channelName)
@@ -161,12 +162,13 @@
 
   const overAction = (index: number) => {
     //allSubscribeが終わったメンバーから連絡を受信する
-    console.log(`index: ${index} のアバターは全メンバーをサブスクしました`)
+    console.log(`index: ${index} のアバターは全メンバーとの接続が完了しました`)
     // 次のメンバーのindexにする
     index++
     // 全員がallSubscribeし終えるとモーダルを消す
     // (indexは0から始まるのでこの条件で良い)
     if (index === members.value.length) {
+      console.log('全参加者同士の接続完了。ゲームを開始します')
       closeModal()
       writer.closeModal2()
     } else {
@@ -178,12 +180,20 @@
   }
 
   const join = async () => {
+    console.log('全参加者のデータを受信できるようにしています・・・')
     await allSubscribeToMember()
     await checkSubscriptionsOfOwner()
+    console.log('全参加者のデータを受信できる状態になりました')
+    console.log('全参加者がオーナーのデータを受信できるようにしています・・・')
     await allUpdateMetadata()
     await checkSubscriptionsOfMembers()
+    console.log('全参加者がオーナーのデータを受信できるようになりました')
+    console.log('全参加者がアバターを生成できるようにしています・・・')
     await allMemberAddIndex()
+    console.log('全参加者がアバターを生成できるようになりました')
     writer.writeMember()
+    console.log('全参加者に対してオーナーのアバターを送信しました')
+    console.log('全参加者のアバターを取得しています・・・')
     writer.invite(0)
   }
 
@@ -229,7 +239,6 @@
       for (const [index, publicationId] of publicationIds.value.entries()) {
         if (publicationId === publicationIds.value[0]) continue
         await addIndex(index, publicationIds.value[index])
-        console.log(`addIndex: ${index - 1} to: ${publicationIds.value[index]}`)
       }
       resolve()
     })
@@ -246,13 +255,10 @@
     for (const publication of channel.publications) {
       if (publication === member.myPublication) continue
       await updateToSubscribed(publication)
-      console.log(`${publication} のmetaDataを更新しました`)
     }
   }
 
   const inviteAction = async (index: number) => {
-    console.log(`送られてきたindex: ${index}`)
-    console.log(`私のindex: ${member.myIndex}`)
     if (index === member.myIndex) {
       writer.writeMember()
       writer.passToNext2(index)
@@ -262,6 +268,7 @@
   const overAction2 = (index: number) => {
     index++
     if (index === channel.members.length - 1) {
+      console.log('全参加者のアバターの取得取得完了。参加者同士の接続を開始します・・・')
       deadline(0)
     } else {
       writer.invite(index)
@@ -374,7 +381,9 @@
     publicationIds.value.push(channel.publications[0].id)
     channel.onPublicationListChanged.add(async (e) => {
       const publicationId = channel.publications.slice(-1)[0].id
+      const publisherName = channel.publications.slice(-1)[0].publisher.name as string
       publicationIds.value.push(publicationId)
+      publisherNames.value.push(publisherName)
     })
   } else {
     const memberAsChannel = member.memberCertificates
@@ -429,7 +438,7 @@
     :members="members"
     :background="'interactive'"
     @join="join"
-    :ids="publicationIds"
+    :publisherNames="publisherNames"
   />
 
   <MbqModalCheck v-model="isCheckQuestion" :quizzes="quizzes" />

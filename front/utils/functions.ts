@@ -57,9 +57,24 @@ export async function createMember(
   return member
 }
 
+const generateUniqueName = () => {
+  const adjectives = ['Happy', 'Silly', 'Brave', 'Crazy', 'Lucky', 'Wise']
+  const nouns = ['Cat', 'Dog', 'Monkey', 'Tiger', 'Elephant', 'Lion']
+
+  const randomAdjective =
+    adjectives[Math.floor(Math.random() * adjectives.length)]
+  const randomNoun = nouns[Math.floor(Math.random() * nouns.length)]
+  const randomNum = Math.floor(Math.random() * 1001)
+  return `${randomAdjective}-${randomNoun}-${randomNum}`
+}
+
 export async function createTestMember(channel: P2PRoom): Promise<Member> {
   const data = await SkyWayStreamFactory.createDataStream()
-  const memberCertificates = await channel.join({metadata: 'unsubscribe'})
+  const uniqueName = generateUniqueName()
+  const memberCertificates = await channel.join({
+    name: uniqueName,
+    metadata: 'unsubscribe'
+  })
   const myPublication = await memberCertificates.publish(data)
   const numberOfMembers = channel.members.length
   let member: Member
