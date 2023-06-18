@@ -178,12 +178,8 @@
   }
 
   const join = async () => {
-    console.log(`初期サブスク数: ${channel.subscriptions.length}`)
-
-    for (const [index, publicationId] of publicationIds.value.entries()) {
-      if (publicationId === publicationIds.value[0]) continue
-      await subscribe(publicationId)
-    }
+    await allSubscribeToMember()
+    await checkSubscriptionsOfOwner()
 
     console.log(
       `オーナーが全メンバーをサブスクした直後のサブスク数: ${channel.subscriptions.length}`
@@ -194,7 +190,7 @@
       `オーナーが全メンバーのmetaData更新完了した後のサブスク数: ${channel.subscriptions.length}`
     )
 
-    await checkSubscriptions()
+    await checkSubscriptionsOfMembers()
 
     for (const [index, publicationId] of publicationIds.value.entries()) {
       if (publicationId === publicationIds.value[0]) continue
@@ -210,11 +206,31 @@
     }, 15000)
   }
 
+  const allSubscribeToMember = async () => {
+    await new Promise<void>(async (resolve) => {
+      for (const publicationId of publicationIds.value) {
+        if (publicationId === publicationIds.value[0]) continue
+        await subscribe(publicationId)
+      }
+      resolve()
+    })
+  }
+
   const delay = (ms: number) => {
     return new Promise((resolve) => setTimeout(resolve, ms))
   }
 
-  const checkSubscriptions = async () => {
+  const checkSubscriptionsOfOwner = async () => {
+    await new Promise<void>(async (resolve) => {
+      while (channel.subscriptions.length != publicationIds.value.length - 1) {
+        console.log(`ループの中のサブスク数: ${channel.subscriptions.length}`)
+        await delay(1000)
+      }
+      resolve()
+    })
+  }
+
+  const checkSubscriptionsOfMembers = async () => {
     await new Promise<void>(async (resolve) => {
       while (
         channel.subscriptions.length !=
