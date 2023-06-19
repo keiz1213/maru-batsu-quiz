@@ -90,7 +90,7 @@
   .time-left-label {
     font-size: 30px;
     font-family: 'Segoe UI';
-    color: black;
+    color: rgb(1,249,65);
   }
 
   .time-left-path {

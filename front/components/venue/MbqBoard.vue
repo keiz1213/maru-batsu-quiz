@@ -8,12 +8,13 @@
 
 <template>
   <div
-    class="w-[950px] h-[270px] p-4 bg-white border border-gray-200 rounded-lg break-all overflow-auto"
+    class="w-[950px] h-[270px] bg-black border border-gray-200 rounded-lg break-all overflow-auto"
   >
+    <MbqMacBar :title="'Question'" />
     <div class="flex">
       <div id="announce-container" class="w-[885px]">
-        <div class="text-3xl break-words whitespace-pre-wrap">
-          {{ announcement }}
+        <div class="text-3xl break-words whitespace-pre-wrap text-bash">
+          $ {{ announcement }}
         </div>
       </div>
       <div id="timer-container">
