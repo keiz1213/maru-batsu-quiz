@@ -52,13 +52,11 @@
   const draggable = new SyncDraggable(writer)
 
   const {
-    owners,
     members,
     losers,
     winners,
     numberOfWinner,
     isEndOfGame,
-    addOwner,
     addMember,
     setAllMembers,
     judge,
@@ -100,8 +98,7 @@
   const setAvatarAction = (member: Member): void => {
     if (!document.getElementById(member.uid)) {
       if (isOwner(member.id)) {
-        addOwner(member)
-        owner = owners.value[0] as Member
+        owner = member
       } else {
         addMember(member)
       }
@@ -384,8 +381,7 @@
 
   if (myId === ownerId) {
     draggable.setDraggable(member.uid)
-    addOwner(member)
-    owner = owners.value[0] as Member
+    owner = member
     publicationIds.value.push(channel.publications[0].id)
     channel.onPublicationListChanged.add(async (e) => {
       const publicationId = channel.publications.slice(-1)[0].id

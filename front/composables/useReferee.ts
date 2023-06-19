@@ -1,16 +1,12 @@
 import { Member } from '@/types/Member'
 
 export const useReferee = (initialNumberOfWinner: number) => {
-  const owners = ref<Member[]>([])
   const members = ref<Member[]>([])
   const losers = ref<Member[]>([])
   const winners = ref<Member[]>([])
   const numberOfWinner = ref<number>(initialNumberOfWinner)
   const isEndOfGame = ref(false)
 
-  const addOwner = (member: Member) => {
-    owners.value.push(member)
-  }
   const addMember = (member: Member) => {
     members.value.push(member)
   }
@@ -138,13 +134,11 @@ export const useReferee = (initialNumberOfWinner: number) => {
   }
 
   return {
-    owners,
     members,
     losers,
     winners,
     numberOfWinner,
     isEndOfGame,
-    addOwner,
     addMember,
     setAllMembers,
     judge,
