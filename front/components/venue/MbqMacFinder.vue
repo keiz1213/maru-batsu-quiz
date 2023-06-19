@@ -19,12 +19,12 @@
       <div class="w-[508px] h-[50px] bg-mac-finder-top rounded-tr-lg">
         <div class="flex pl-5 pt-3">
           <div>
-            <p>~/marubatsu-quiz/{{ title }}</p>
+            <p>{{ title }}</p>
           </div>
         </div>
         <div></div>
       </div>
-      <div class="w-[450px] h-[600px] p-4 rounded-br-lg break-all flex">
+      <div class="w-[508px] h-[600px] rounded-br-lg break-all">
         <div>
           <MbqAvatar
             v-for="(member, index) in members"
