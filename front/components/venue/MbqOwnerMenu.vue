@@ -13,7 +13,7 @@
 </script>
 
 <template>
-  <div class="w-[270px] h-[270px] border border-gray-200 rounded-lg">
+  <div class="w-[370px] h-[270px] border border-gray-200 rounded-lg">
     <MbqMacBar :title="'Menu'" :isChat="false" />
     <div class="text-center">
       <MbqButtonPrimary :button-type="'button'" @click="emit('question')"

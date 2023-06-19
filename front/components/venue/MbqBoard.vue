@@ -8,7 +8,7 @@
 
 <template>
   <div
-    class="w-[900px] h-[270px] bg-black border border-gray-200 rounded-lg break-all overflow-auto"
+    class="w-[950px] h-[270px] bg-black border border-gray-200 rounded-lg break-all overflow-auto"
   >
     <MbqMacBar :title="'Question'" :isChat="false" />
     <div class="flex">

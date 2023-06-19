@@ -18,7 +18,7 @@
 
 <template>
   <div
-    class="w-[420px] h-[270px] bg-white border border-gray-200 rounded-lg flex"
+    class="w-[370px] h-[270px] bg-white border border-gray-200 rounded-lg flex"
   >
     <MbqOwnerMenu
       v-if="isOwner"
@@ -29,14 +29,14 @@
     />
     <div
       v-else
-      class="w-[270px] h-full bg-white border border-gray-200 rounded-lg overflow-auto"
+      class="w-[370px] h-full bg-white border border-gray-200 rounded-lg overflow-auto"
     >
       <MbqMacBar :title="'Explanation'" :isChat="false" />
       <div class="p-2">
         {{ description }}
       </div>
     </div>
-    <div class="w-[180px] border border-gray-200 rounded-lg">
+    <!-- <div class="w-[180px] border border-gray-200 rounded-lg">
       <MbqMacBar :title="'Owner'" :isChat="false" />
       <div class="flex justify-center my-12">
         <div v-if="owner">
@@ -44,6 +44,6 @@
           <p class="text-center mb-2">{{ owner.name }}</p>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
