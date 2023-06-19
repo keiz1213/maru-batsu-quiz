@@ -500,19 +500,25 @@
         </div>
       </div>
       <div id="player-container">
-        <div id="challenger-container">
-          <div id="challenger-area" class="flex justify-center">
-            <MbqChallengers :members="members" :gameStart="gameStart" />
+        <div id="challenger-container" class="flex justify-center">
+          <div id="challenger-area">
+            <MbqMacFinder
+              :members="members"
+              :gameStart="gameStart"
+              :title="'challengers'"
+            />
+          </div>
+          <div id="loser-area">
+            <MbqMacFinder
+              :members="losers"
+              :gameStart="gameStart"
+              :title="'losers'"
+            />
           </div>
         </div>
         <div id="winner-container">
           <div id="winner-area" class="flex justify-center">
             <MbqWinners :numberOfWinner="numberOfWinner" :winners="winners" />
-          </div>
-        </div>
-        <div id="loser-container" class="mb-7">
-          <div id="loser-area" class="flex justify-center">
-            <MbqLosers :losers="losers" />
           </div>
         </div>
       </div>
