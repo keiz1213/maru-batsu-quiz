@@ -7,7 +7,10 @@
     myId: number
   }>()
 
-  const emit = defineEmits(['update:messages', 'update:chatVisible'])
+  const emit = defineEmits<{
+    (e: 'update:messages', message: string): void
+    (e: 'update:chatVisible'): void
+  }>()
 
   const message = ref('')
 
@@ -21,19 +24,15 @@
   <div
     class="w-[370px] h-[420px] bg-white border border-gray-200 rounded-lg break-all"
   >
-    <div class="flex justify-end m-2">
-      <span class="label-text">チャット表示</span>
-      <input
-        @change="$emit('update:chatVisible')"
-        type="checkbox"
-        class="toggle toggle-primary"
-        checked
-      />
-    </div>
+    <MbqMacBar
+      :title="'Chat'"
+      :isChat="true"
+      @update:chatVisible="emit('update:chatVisible')"
+    />
     <div v-show="chatVisible">
       <div
         id="chat"
-        class="h-[300px] px-4 pt-4 pb-14 mx-3 bg-white border border-gray-200 rounded-lg break-all overflow-auto"
+        class="h-[300px] px-4 pt-4 pb-14 mx-3 mt-3 bg-white border border-gray-200 rounded-lg break-all overflow-auto"
       >
         <div v-for="(chatMessage, index) in messages" :key="index">
           <div v-if="chatMessage.memberId != myId" class="chat chat-start">

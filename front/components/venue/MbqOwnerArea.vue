@@ -31,13 +31,13 @@
       v-else
       class="w-[270px] h-full bg-white border border-gray-200 rounded-lg overflow-auto"
     >
-      <MbqMacBar :title="'Explanation'" />
+      <MbqMacBar :title="'Explanation'" :isChat="false" />
       <div class="p-2">
         {{ description }}
       </div>
     </div>
     <div class="w-[180px] border border-gray-200 rounded-lg">
-      <MbqMacBar :title="'Owner'" />
+      <MbqMacBar :title="'Owner'" :isChat="false" />
       <div class="flex justify-center my-12">
         <div v-if="owner">
           <MbqAvatar :member="owner" />

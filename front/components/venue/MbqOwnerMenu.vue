@@ -14,7 +14,7 @@
 
 <template>
   <div class="w-[270px] h-[270px] border border-gray-200 rounded-lg">
-    <MbqMacBar :title="'Menu'" />
+    <MbqMacBar :title="'Menu'" :isChat="false" />
     <div class="text-center">
       <MbqButtonPrimary :button-type="'button'" @click="emit('question')"
         >{{ currentQuizNumber + 1 }} 問目を出題する</MbqButtonPrimary
