@@ -18,15 +18,8 @@
 
 <template>
   <div
-    class="w-[370px] h-[270px] max-w bg-white border border-gray-200 rounded-lg"
+    class="w-[420px] h-[270px] bg-white border border-gray-200 rounded-lg flex"
   >
-    <div class="bg-white border border-gray-200 rounded-lg">
-      <MbqMacBar :title="'Explanation'" />
-      <div class="flex justify-center">
-        <MbqAvatar v-if="owner" :member="owner" />
-        <!-- <p>{{ owner.name }}</p> -->
-      </div>
-    </div>
     <MbqOwnerMenu
       v-if="isOwner"
       :quizzes="quizzes"
@@ -36,9 +29,21 @@
     />
     <div
       v-else
-      class="bg-white border border-gray-200 rounded-lg w-full h-[175px] overflow-auto p-3"
+      class="w-[270px] h-full bg-white border border-gray-200 rounded-lg overflow-auto"
     >
-      {{ description }}
+      <MbqMacBar :title="'Explanation'" />
+      <div class="p-2">
+        {{ description }}
+      </div>
+    </div>
+    <div class="w-[180px] border border-gray-200 rounded-lg">
+      <MbqMacBar :title="'Owner'" />
+      <div class="flex justify-center my-12">
+        <div v-if="owner">
+          <MbqAvatar :member="owner" />
+          <p class="text-center mb-2">{{ owner.name }}</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
