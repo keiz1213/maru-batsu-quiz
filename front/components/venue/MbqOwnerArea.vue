@@ -1,8 +1,9 @@
 <script setup lang="ts">
   import { Quiz } from '@/types/Quiz'
+  import { Member } from '@/types/Member'
 
   defineProps<{
-    owners: object
+    owner: Member
     quizzes: Quiz[]
     currentQuizNumber: number
     isOwner: boolean
@@ -19,12 +20,12 @@
   <div
     class="w-[370px] h-[270px] max-w bg-white border border-gray-200 rounded-lg"
   >
-    <div class="bg-white border border-gray-200 rounded-lg flex justify-center">
-      <MbqAvatar
-        v-for="(owner, index) in owners"
-        :key="index"
-        :memberObject="owner"
-      />
+    <div class="bg-white border border-gray-200 rounded-lg">
+      <MbqMacBar :title="'Explanation'" />
+      <div class="flex justify-center">
+        <MbqAvatar v-if="owner" :member="owner" />
+        <!-- <p>{{ owner.name }}</p> -->
+      </div>
     </div>
     <MbqOwnerMenu
       v-if="isOwner"

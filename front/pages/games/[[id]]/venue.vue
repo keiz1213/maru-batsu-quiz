@@ -38,6 +38,7 @@
 
   const skywayContext = await createSkyWayContext(skywayToken)
   const channel = await findOrCreateChannel(skywayContext, channelName)
+  let owner: Member
   let member: Member
   if (currentUser.value.id != 0) {
     member = await createMember(currentUser.value, channel)
@@ -100,6 +101,7 @@
     if (!document.getElementById(member.uid)) {
       if (isOwner(member.id)) {
         addOwner(member)
+        owner = owners.value[0] as Member
       } else {
         addMember(member)
       }
@@ -383,6 +385,7 @@
   if (myId === ownerId) {
     draggable.setDraggable(member.uid)
     addOwner(member)
+    owner = owners.value[0] as Member
     publicationIds.value.push(channel.publications[0].id)
     channel.onPublicationListChanged.add(async (e) => {
       const publicationId = channel.publications.slice(-1)[0].id
@@ -471,7 +474,7 @@
         <div id="questioner-container">
           <div id="questioner-area">
             <MbqOwnerArea
-              :owners="owners"
+              :owner="owner"
               :isOwner="isOwner(myId)"
               :quizzes="quizzes"
               :currentQuizNumber="currentQuizNumber"

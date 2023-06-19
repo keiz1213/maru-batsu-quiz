@@ -13,7 +13,7 @@
       <MbqAvatar
         v-for="(loser, index) in losers"
         :key="index"
-        :memberObject="loser"
+        :member="loser"
       />
     </div>
   </div>

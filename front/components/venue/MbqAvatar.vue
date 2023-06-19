@@ -2,18 +2,18 @@
   import { Member } from '@/types/Member'
 
   defineProps<{
-    memberObject: Member
+    member: Member
     gameStart?: Boolean
   }>()
 </script>
 
 <template>
   <div
-    v-if="memberObject.id != 0"
+    v-if="member.id != 0"
     class="avatar"
     data-answer=""
     data-draggable=""
-    :id="memberObject.uid"
+    :id="member.uid"
   >
     <div
       :class="[
@@ -27,7 +27,7 @@
         { 'z-10': gameStart }
       ]"
     >
-      <img :src="memberObject.avatar_url" />
+      <img :src="member.avatar_url" />
     </div>
   </div>
   <div v-else class="avatar z-0">

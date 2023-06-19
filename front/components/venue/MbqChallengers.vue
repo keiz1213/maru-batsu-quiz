@@ -14,7 +14,7 @@
       <MbqAvatar
         v-for="(member, index) in members"
         :key="index"
-        :memberObject="member"
+        :member="member"
         :gameStart="gameStart"
       />
     </div>
