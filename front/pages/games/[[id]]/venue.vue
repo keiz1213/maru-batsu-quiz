@@ -268,7 +268,9 @@
   const overAction2 = (index: number) => {
     index++
     if (index === channel.members.length - 1) {
-      console.log('全参加者のアバターの取得取得完了。参加者同士の接続を開始します・・・')
+      console.log(
+        '全参加者のアバターの取得取得完了。参加者同士の接続を開始します・・・'
+      )
       deadline(0)
     } else {
       writer.invite(index)
@@ -343,7 +345,7 @@
           member.id = index + 2
           member.uid = `testUid-${index + 1}`
           member.name = `testName-${index + 1}`
-          member.avatar_url = `/_nuxt/assets/images/${index + 1}.svg`
+          member.avatar_url += `/${index + 1}.svg`
           draggable.setDraggable(member.uid)
           draggable.setDropzone('◯', member.uid)
           draggable.setDropzone('✕', member.uid)
@@ -381,7 +383,8 @@
     publicationIds.value.push(channel.publications[0].id)
     channel.onPublicationListChanged.add(async (e) => {
       const publicationId = channel.publications.slice(-1)[0].id
-      const publisherName = channel.publications.slice(-1)[0].publisher.name as string
+      const publisherName = channel.publications.slice(-1)[0].publisher
+        .name as string
       publicationIds.value.push(publicationId)
       publisherNames.value.push(publisherName)
     })
