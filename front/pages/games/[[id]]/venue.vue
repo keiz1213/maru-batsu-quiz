@@ -345,7 +345,10 @@
           member.id = index + 2
           member.uid = `testUid-${index + 1}`
           member.name = `testName-${index + 1}`
-          member.avatar_url += `/${index + 1}.svg`
+          member.avatar_url = new URL(
+            `../../../assets/images/${index + 1}.svg`,
+            import.meta.url
+          ).href
           draggable.setDraggable(member.uid)
           draggable.setDropzone('◯', member.uid)
           draggable.setDropzone('✕', member.uid)
