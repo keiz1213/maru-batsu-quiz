@@ -11,9 +11,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'bash': '#01F941',
+        bash: '#01F941',
         'mac-finder-side': '#D0C8C7',
-        'mac-finder-top' : '#FAF2F1'
+        'mac-finder-top': '#FAF2F1'
       }
     }
   },

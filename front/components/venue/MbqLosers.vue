@@ -6,10 +6,9 @@
 
 <template>
   <div
-    class="w-[1320px] h-60 p-4 bg-white border border-gray-200 rounded-lg break-all flex"
+    class="w-[1320px] pt-2 pl-2 h-56 backdrop-blur-sm bg-white/30 rounded-lg break-all my-4"
   >
-    <div>
-      <p>losers</p>
+    <div class="">
       <MbqAvatar
         v-for="(loser, index) in losers"
         :key="index"

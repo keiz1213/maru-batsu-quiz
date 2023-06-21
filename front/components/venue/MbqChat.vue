@@ -21,9 +21,7 @@
 </script>
 
 <template>
-  <div
-    class="w-[370px] h-[420px] bg-white border border-gray-200 rounded-lg break-all"
-  >
+  <div class="w-[350px] h-[420px] bg-white rounded-lg mx-2 flex flex-col">
     <MbqMacBar
       :title="'Chat'"
       :isChat="true"
@@ -31,8 +29,8 @@
     />
     <div v-show="chatVisible">
       <div
-        id="chat"
-        class="h-[300px] px-4 pt-4 pb-14 mx-3 mt-3 bg-white border border-gray-200 rounded-lg break-all overflow-auto"
+        id="chat-show"
+        class="h-[300px] border-b overflow-auto px-4 pt-4 pb-14 break-all"
       >
         <div v-for="(chatMessage, index) in messages" :key="index">
           <div v-if="chatMessage.memberId != myId" class="chat chat-start">
@@ -50,15 +48,14 @@
           </div>
         </div>
       </div>
-      <div class="flex justify-center">
+      <div id="chat-input" class="h-[90px] flex justify-around items-center">
         <input
           v-model="message"
           type="text"
-          class="input input-bordered w-[275px] mt-4"
+          class="input input-bordered w-[250px] bg-mac-finder-top"
+          placeholder="Hello World!"
         />
-        <button @click="send" class="btn btn-active btn-accent mt-4 ml-2">
-          送信
-        </button>
+        <button @click="send" class="btn btn-primary">送信</button>
       </div>
     </div>
   </div>

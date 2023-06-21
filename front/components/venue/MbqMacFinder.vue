@@ -7,9 +7,13 @@
 </script>
 
 <template>
-  <div class="w-[660px] h-[600px] rounded-lg flex border border-gray-200">
+  <div
+    class="w-[650px] h-[600px] rounded-lg flex mx-2 border border-mac-finder-side"
+  >
     <div id="left">
-      <div class="w-[150px] bg-mac-finder-side h-[600px] rounded-l-lg relative">
+      <div
+        class="w-[140px] bg-mac-finder-side h-[598px] rounded-l-lg relative z-0"
+      >
         <div class="h-[50px]">
           <MbqMacButtons />
         </div>
@@ -24,8 +28,8 @@
         </div>
         <div></div>
       </div>
-      <div class="w-[508px] h-[600px] rounded-br-lg break-all">
-        <div>
+      <div class="w-[508px] h-[548px] rounded-br-lg break-all bg-white">
+        <div class="grid grid-cols-4 gap-x-3 p-6">
           <MbqAvatar
             v-for="(member, index) in members"
             :key="index"

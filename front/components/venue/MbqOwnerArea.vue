@@ -17,33 +17,38 @@
 </script>
 
 <template>
-  <div
-    class="w-[370px] h-[270px] bg-white border border-gray-200 rounded-lg flex"
-  >
-    <MbqOwnerMenu
-      v-if="isOwner"
-      :quizzes="quizzes"
-      :currentQuizNumber="currentQuizNumber"
-      @question="emit('question')"
-      @check-question="emit('check-question')"
-    />
-    <div
-      v-else
-      class="w-[370px] h-full bg-white border border-gray-200 rounded-lg overflow-auto"
-    >
-      <MbqMacBar :title="'Explanation'" :isChat="false" />
-      <div class="p-2">
-        {{ description }}
-      </div>
+  <div class="w-[350px] h-[350px] bg-white rounded-lg flex flex-col mx-2">
+    <MbqMacBar :title="'Owner'" :isChat="false" />
+    <div v-if="owner" class="flex justify-center mt-2">
+      <MbqAvatar :member="owner" />
     </div>
-    <!-- <div class="w-[180px] border border-gray-200 rounded-lg">
-      <MbqMacBar :title="'Owner'" :isChat="false" />
-      <div class="flex justify-center my-12">
-        <div v-if="owner">
-          <MbqAvatar :member="owner" />
-          <p class="text-center mb-2">{{ owner.name }}</p>
+    <div class="w-[350px] h-full bg-white rounded-lg">
+      <div v-if="isOwner">
+        <div
+          class="flex flex-col justify-center items-center gap-4 bg-mac-finder-top min-h-[185px] rounded-lg m-3 mt-0"
+        >
+          <div>
+            <MbqButtonPrimary :button-type="'button'" @click="emit('question')"
+              >{{ currentQuizNumber + 1 }} 問目を出題する</MbqButtonPrimary
+            >
+          </div>
+          <div>
+            <MbqButtonSecondary
+              :button-type="'button'"
+              @click="emit('check-question')"
+              >問題を確認する
+            </MbqButtonSecondary>
+          </div>
         </div>
       </div>
-    </div> -->
+      <div
+        v-else
+        class="overflow-auto h-[185px] bg-mac-finder-top p-3 m-3 mt-0 rounded-lg"
+      >
+        <p class="leading-loose break-words whitespace-pre-wrap">
+          {{ description }}
+        </p>
+      </div>
+    </div>
   </div>
 </template>

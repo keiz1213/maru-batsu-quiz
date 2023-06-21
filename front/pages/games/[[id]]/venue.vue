@@ -348,9 +348,6 @@
             `../../../assets/images/${index + 1}.svg`,
             import.meta.url
           ).href
-          draggable.setDraggable(member.uid)
-          draggable.setDropzone('◯', member.uid)
-          draggable.setDropzone('✕', member.uid)
           member.myIndex = index
           console.log(`myIndex: ${member.myIndex}`)
           console.log(`myId: ${member.id}`)
@@ -425,7 +422,11 @@
   }
 
   const closeModal = () => {
+    draggable.setDraggable(member.uid)
+    draggable.setDropzone('◯', member.uid)
+    draggable.setDropzone('✕', member.uid)
     isStandBy.value = false
+    gameStart.value = true
   }
 </script>
 
@@ -448,15 +449,17 @@
   <MbqModalCheck v-model="isCheckQuestion" :quizzes="quizzes" />
 
   <div>
-    <div id="main-container">
-      <div id="top-container">
-        <div id="title-container">
-          <div id="title-area" class="flex justify-center my-6 break-all">
-            <h1 class="text-5xl">{{ title }}</h1>
-          </div>
-        </div>
+    <div
+      id="main-container"
+      class="bg-gradient-to-r from-violet-500 to-fuchsia-500 min-w-full w-[1350px]"
+    >
+      <div class="backdrop-blur-sm bg-white/30 px-3 py-0 w-full z-10 h-6">
+        <ul class="flex">
+          <li class="font-bold">{{ game.title }}</li>
+          <li class="ml-3">残勝者枠: {{ numberOfWinner }} 枠</li>
+        </ul>
       </div>
-      <div id="ownner-container" class="flex justify-center">
+      <div id="ownner-container" class="flex justify-center my-12">
         <div id="board-container">
           <div id="board-area">
             <MbqBoard
@@ -481,7 +484,7 @@
           </div>
         </div>
       </div>
-      <div id="public-container" class="flex justify-center">
+      <div id="public-container" class="flex justify-center mb-12">
         <div id="answer-container">
           <div id="answer-area">
             <MbqAnswer />
@@ -500,25 +503,25 @@
         </div>
       </div>
       <div id="player-container">
-        <div id="challenger-container" class="flex justify-center">
-          <div id="challenger-area">
+        <div id="challengers-winners-container" class="flex justify-center">
+          <div id="challengers-area">
             <MbqMacFinder
               :members="members"
               :gameStart="gameStart"
               :title="'challengers'"
             />
           </div>
-          <div id="loser-area">
+          <div id="winners-area">
             <MbqMacFinder
-              :members="losers"
+              :members="winners"
               :gameStart="gameStart"
-              :title="'losers'"
+              :title="'winners'"
             />
           </div>
         </div>
-        <div id="winner-container">
-          <div id="winner-area" class="flex justify-center">
-            <MbqWinners :numberOfWinner="numberOfWinner" :winners="winners" />
+        <div id="losers-container">
+          <div id="losers-area" class="flex justify-center">
+            <MbqLosers :numberOfWinner="numberOfWinner" :losers="losers" />
           </div>
         </div>
       </div>
