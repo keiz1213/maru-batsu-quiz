@@ -36,6 +36,80 @@ class PlayerAvatar extends Avatar {
       metadata
     )
   }
+
+  setHandleWriteData = async (stream: RemoteDataStream) => {
+    await new Promise<void>(async (resolve) => {
+      stream.onData.add(async (message) => {
+        const { reaction, data } = JSON.parse(message as string)
+
+        switch (reaction) {
+          case 'placeAvatar':
+            this.reaction?.placeAvatar(data)
+            break
+          case 'startGame':
+            this.reaction?.startTheGame()
+            break
+          case 'moveOtherAvatar':
+            this.reaction?.moveOtherAvatar(data)
+            break
+          case 'acceptAnnounce':
+            this.reaction?.acceptAnnounce(data)
+            break
+          case 'startQuiz':
+            this.reaction?.startQuiz(data)
+            break
+          case 'stopTimer':
+            this.reaction?.stopTimer(data)
+            break
+          case 'updateChat':
+            this.reaction?.updateChat(data)
+            break
+          case 'executeJudge':
+            this.reaction?.executeJudge()
+            break
+          case 'subscribeAll':
+            this.subscribeAllPlayers(data)
+            break
+          default:
+            break
+        }
+      })
+      resolve()
+    })
+  }
+
+  updateOwnerMetadata = async (
+    ownerPublication: RoomPublication,
+    myIndex: number
+  ) => {
+    await ownerPublication.publisher.updateMetadata(myIndex.toString())
+  }
+
+  subscribeOwner = async () => {
+    const myIndex = this.index as number
+    const ownerPublication = this.channel?.publications[0] as RoomPublication
+    const ownerPublicationId = ownerPublication?.id as string
+    const stream = await this.subscribe(ownerPublicationId)
+    await this.setHandleWriteData(stream)
+    const writer = new DataStreamWriter(this)
+    writer.writeAvatar()
+    await this.updateOwnerMetadata(ownerPublication, myIndex)
+  }
+
+  subscribeAllPlayers = async (index: number) => {
+    const myIndex = this.index as number
+    if (index === myIndex) {
+      const numberOfPlayers = (this.channel?.publications.length as number) - 1
+      for (let i = 1; i < numberOfPlayers; i++) {
+        if (this.channel?.publications[i] === this.publication) continue
+        const playerPublicationId = this.channel?.publications[i].id as string
+        const stream = await this.subscribe(playerPublicationId)
+        await this.setHandleWriteData(stream)
+      }
+      const writer = new DataStreamWriter(this)
+      writer.writeReportSubscribed(myIndex)
+    }
+  }
 }
 
 export default PlayerAvatar
