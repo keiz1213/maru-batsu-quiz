@@ -1,216 +1,99 @@
 import { cloneDeep } from 'lodash'
-import { Member } from '@/types/Member'
 import { ChatMessage } from '@/types/ChatMessage'
+import Avatar from './Avatar'
+import { AvatarParams } from '~/types/AvatarParams'
 
 export class DataStreamWriter {
-  member: Member
+  avatar: Avatar
 
-  constructor(member: Member) {
-    this.member = member
+  constructor(avatar: Avatar) {
+    this.avatar = avatar
   }
 
-  disableUnsendableProperty(member: Member): Member {
-    member.myData = null
-    member.memberCertificates = null
-    member.myPublication = null
-    return member
-  }
-
-  writeMember(): void {
-    const clonedMember = cloneDeep(this.member)
-    const sendableMember = this.disableUnsendableProperty(clonedMember)
-    this.member.myData?.write(
+  write(
+    reaction: string,
+    data: string | number | Avatar | ChatMessage | AvatarParams | Object
+  ): void {
+    this.avatar.localDataStream?.write(
       JSON.stringify({
-        tag: 'setAvatar',
-        params: sendableMember
+        reaction: reaction,
+        data: data
       })
     )
+  }
+
+  makeWritableAvatar(avatar: Avatar): Avatar {
+    avatar.localDataStream = null
+    avatar.agent = null
+    avatar.publication = null
+    return avatar
+  }
+
+  writeAvatar(): void {
+    const clonedAvatar = cloneDeep(this.avatar)
+    const writableAvatar = this.makeWritableAvatar(clonedAvatar)
+    this.write('placeAvatar', writableAvatar)
+  }
+
+  writeAllPlayers(players: Object): void {
+    this.write('startGame', players)
   }
 
   writeMyAvatarParams(id: string, x: string, y: string, answer: string): void {
-    this.member.myData?.write(
-      JSON.stringify({
-        tag: 'moveAvatar',
-        params: {
-          id: id,
-          x: x,
-          y: y,
-          answer: answer
-        }
-      })
-    )
-  }
-
-  writeQuiz(quiz: string): void {
-    this.member.myData?.write(
-      JSON.stringify({
-        tag: 'announcement',
-        params: quiz
-      })
-    )
+    const avatarParams = {
+      id: id,
+      answer: answer,
+      x: x,
+      y: y
+    }
+    this.write('moveOtherAvatar', avatarParams)
   }
 
   writeQuizNumber(quizNumber: number): void {
-    this.member.myData?.write(
-      JSON.stringify({
-        tag: 'announcement',
-        params: `${quizNumber}問目！`
-      })
-    )
+    this.write('setQuizNumber', `${quizNumber}問目！`)
   }
 
-  writeStartQuiz(): void {
-    this.member.myData?.write(
-      JSON.stringify({
-        tag: 'announcement',
-        params: 'スタート！'
-      })
-    )
+  writeQuiz(quiz: string): void {
+    this.write('setQuiz', quiz)
   }
 
-  writeStopQuiz(): void {
-    this.member.myData?.write(
-      JSON.stringify({
-        tag: 'announcement',
-        params: 'ストップ！'
-      })
-    )
+  writeStartTimer(): void {
+    this.write('startTimer', 'スタート！')
   }
 
-  writePreparation(): void {
-    this.member.myData?.write(
-      JSON.stringify({
-        tag: 'announcement',
-        params: '正解は・・'
-      })
-    )
+  writeStopTimer(): void {
+    this.write('stopTimer', 'ストップ！')
+  }
+
+  writeSuspense(): void {
+    this.write('setSuspense', '正解は・・')
   }
 
   writeCorrectAnswer(correctAnswer: string): void {
-    this.member.myData?.write(
-      JSON.stringify({
-        tag: 'announcement',
-        params: correctAnswer
-      })
-    )
+    this.write('setCorrectAnswer', correctAnswer)
   }
 
   writeExplanation(explanation: string): void {
-    this.member.myData?.write(
-      JSON.stringify({
-        tag: 'announcement',
-        params: explanation
-      })
-    )
+    this.write('setExplanation', explanation)
   }
 
-  writeEmpty(): void {
-    this.member.myData?.write(
-      JSON.stringify({
-        tag: 'announcement',
-        params: ''
-      })
-    )
+  writeResetQuiz(): void {
+    this.write('resetQuiz', '')
   }
 
   writeChatMessage(chatMessage: ChatMessage): void {
-    this.member.myData?.write(
-      JSON.stringify({
-        tag: 'chat',
-        params: chatMessage
-      })
-    )
+    this.write('updateChatMessages', chatMessage)
   }
 
   writeJudge(): void {
-    this.member.myData?.write(
-      JSON.stringify({
-        tag: 'judge',
-        params: ''
-      })
-    )
+    this.write('judge', '')
   }
 
-  passToNext(index: number): void {
-    this.member.myData?.write(
-      JSON.stringify({
-        tag: 'over',
-        params: {
-          index: index
-        }
-      })
-    )
+  writeCheckSubscribed(index: number): void {
+    this.write('subscribeAll', index)
   }
 
-  allWrite(members: Object): void {
-    this.member.myData?.write(
-      JSON.stringify({
-        tag: 'start',
-        params: members
-      })
-    )
-  }
-
-  deadline(index: number): void {
-    this.member.myData?.write(
-      JSON.stringify({
-        tag: 'deadline',
-        params: {
-          index: index
-        }
-      })
-    )
-  }
-
-  closeModal2(): void {
-    this.member.myData?.write(
-      JSON.stringify({
-        tag: 'closeModal',
-        params: ''
-      })
-    )
-  }
-
-  test(): void {
-    this.member.myData?.write(
-      JSON.stringify({
-        tag: 'test',
-        params: ''
-      })
-    )
-  }
-
-  invite(index: number): void {
-    this.member.myData?.write(
-      JSON.stringify({
-        tag: 'invite',
-        params: {
-          index: index
-        }
-      })
-    )
-  }
-
-  passToNext2(index: number): void {
-    this.member.myData?.write(
-      JSON.stringify({
-        tag: 'passToNext2',
-        params: {
-          index: index
-        }
-      })
-    )
-  }
-
-  addIndex(index: number, publicationId: string): void {
-    this.member.myData?.write(
-      JSON.stringify({
-        tag: 'addIndex',
-        params: {
-          index: index,
-          publicationId: publicationId
-        }
-      })
-    )
+  writeReportSubscribed(index: number): void {
+    this.write('checkSubscribed', index)
   }
 }

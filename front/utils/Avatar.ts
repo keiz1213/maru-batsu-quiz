@@ -11,7 +11,7 @@ class Avatar {
   name: string
   avatarUrl: string
   index: number | null
-  dataStream: LocalDataStream | null
+  localDataStream: LocalDataStream | null
   agent: LocalP2PRoomMember | null
   publication: RoomPublication<LocalDataStream> | null
   metadata: string
@@ -32,7 +32,7 @@ class Avatar {
     this.name = name
     this.avatarUrl = avatarUrl
     this.index = index
-    this.dataStream = localDataStream
+    this.localDataStream = localDataStream
     this.agent = agent
     this.publication = publication
     this.metadata = metadata
