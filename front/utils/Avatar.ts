@@ -1,8 +1,10 @@
+import Reaction from '@/utils/Reaction'
 import {
   LocalDataStream,
   LocalP2PRoomMember,
   RoomPublication,
-  RemoteDataStream
+  RemoteDataStream,
+  P2PRoom
 } from '@skyway-sdk/room'
 
 class Avatar {
@@ -11,6 +13,8 @@ class Avatar {
   name: string
   avatarUrl: string
   index: number | null
+  reaction: Reaction | null
+  channel: P2PRoom | null
   localDataStream: LocalDataStream | null
   agent: LocalP2PRoomMember | null
   publication: RoomPublication<LocalDataStream> | null
@@ -22,6 +26,8 @@ class Avatar {
     name: string,
     avatarUrl: string,
     index: number | null,
+    reaction: Reaction | null,
+    channel: P2PRoom | null,
     localDataStream: LocalDataStream | null,
     agent: LocalP2PRoomMember | null,
     publication: RoomPublication<LocalDataStream> | null,
@@ -32,6 +38,8 @@ class Avatar {
     this.name = name
     this.avatarUrl = avatarUrl
     this.index = index
+    this.reaction = reaction
+    this.channel = channel
     this.localDataStream = localDataStream
     this.agent = agent
     this.publication = publication

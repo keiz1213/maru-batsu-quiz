@@ -39,7 +39,19 @@ export const useJudge = (initialNumberOfWinner: number) => {
   }
 
   const createDummyAvatar = (): Avatar => {
-    const avatar = new Avatar(0, '', '', '', null, null, null, null, '')
+    const avatar = new Avatar(
+      0,
+      '',
+      '',
+      '',
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      ''
+    )
     return avatar
   }
 
