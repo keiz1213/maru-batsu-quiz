@@ -82,11 +82,11 @@ export class DataStreamWriter {
   }
 
   writeChatMessage(chatMessage: ChatMessage): void {
-    this.write('updateChatMessages', chatMessage)
+    this.write('updateChat', chatMessage)
   }
 
   writeJudge(): void {
-    this.write('judge', '')
+    this.write('executeJudge', '')
   }
 
   writeCheckSubscribed(index: number): void {
