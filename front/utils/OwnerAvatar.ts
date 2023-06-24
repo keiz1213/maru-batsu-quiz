@@ -31,3 +31,5 @@ class OwnerAvatar extends Avatar {
     )
   }
 }
+
+export default OwnerAvatar

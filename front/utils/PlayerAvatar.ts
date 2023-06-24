@@ -31,3 +31,5 @@ class PlayerAvatar extends Avatar {
     )
   }
 }
+
+export default PlayerAvatar
