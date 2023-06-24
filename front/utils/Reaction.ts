@@ -7,6 +7,7 @@ class Reaction {
   addOwner: Function
   addMember: Function
   setAllMembers: Function
+  startGame: Function
   startTimer: Function
   resetTimer: Function
   judge: Function
@@ -17,6 +18,7 @@ class Reaction {
     addOwner: Function,
     addMember: Function,
     setAllMembers: Function,
+    startGame: Function,
     startTimer: Function,
     resetTimer: Function,
     judge: Function,
@@ -26,6 +28,7 @@ class Reaction {
     this.addOwner = addOwner
     this.addMember = addMember
     this.setAllMembers = setAllMembers
+    this.startGame = startGame
     this.startTimer = startTimer
     this.resetTimer = resetTimer
     this.judge = judge
@@ -43,7 +46,9 @@ class Reaction {
     }
   }
 
-  startGame = () => {}
+  startTheGame = (): void => {
+    this.startGame
+  }
 
   moveOtherAvatar = (avatarParams: AvatarParams): void => {
     const target = document.getElementById(avatarParams.id) as HTMLElement
