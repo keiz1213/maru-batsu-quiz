@@ -6,6 +6,7 @@ export const useJudge = (initialNumberOfWinner: number) => {
   const losers = ref<Avatar[]>([])
   const winners = ref<Avatar[]>([])
   const numberOfWinner = ref<number>(initialNumberOfWinner)
+  const isStandByGame = ref(true)
   const isEndOfGame = ref(false)
 
   const addOwner = (owner: Avatar) => {
@@ -30,6 +31,10 @@ export const useJudge = (initialNumberOfWinner: number) => {
 
   const subtractNumberOfWinner = (subtractBy: number) => {
     numberOfWinner.value -= subtractBy
+  }
+
+  const startGame = () => {
+    isStandByGame.value = false
   }
 
   const checkEndOfGame = () => {
@@ -145,10 +150,12 @@ export const useJudge = (initialNumberOfWinner: number) => {
     losers,
     winners,
     numberOfWinner,
+    isStandByGame,
     isEndOfGame,
     addOwner,
     addPlayer,
     setAllPlayers,
+    startGame,
     judge
   }
 }
