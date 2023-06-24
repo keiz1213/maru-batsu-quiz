@@ -44,3 +44,5 @@ class Avatar {
     return remoteDataStream
   }
 }
+
+export default Avatar
