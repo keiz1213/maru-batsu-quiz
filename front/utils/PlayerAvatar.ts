@@ -7,6 +7,8 @@ import {
   RemoteDataStream,
   P2PRoom
 } from '@skyway-sdk/room'
+import { AvatarParams } from '@/types/AvatarParams'
+import { ChatMessage } from '@/types/ChatMessage'
 
 class PlayerAvatar extends Avatar {
   constructor(
@@ -20,7 +22,6 @@ class PlayerAvatar extends Avatar {
     localDataStream: LocalDataStream | null,
     agent: LocalP2PRoomMember | null,
     publication: RoomPublication<LocalDataStream> | null,
-    metadata: string
   ) {
     super(
       id,
@@ -33,42 +34,56 @@ class PlayerAvatar extends Avatar {
       localDataStream,
       agent,
       publication,
-      metadata
     )
+  }
+
+  setHandleMetaDataUpdate = async () => {
+    this.agent?.onMetadataUpdated.add(async () => {
+      await this.subscribeOwner()
+    })
   }
 
   setHandleWriteData = async (stream: RemoteDataStream) => {
     await new Promise<void>(async (resolve) => {
       stream.onData.add(async (message) => {
         const { reaction, data } = JSON.parse(message as string)
+        const announceText: string = data
 
         switch (reaction) {
-          case 'placeAvatar':
-            this.reaction?.placeAvatar(data)
-            break
-          case 'startGame':
+          case 'startTheGame':
             this.reaction?.startTheGame()
             break
+          case 'placeAvatar':
+            const avatar: Avatar = data
+            this.reaction?.placeAvatar(avatar)
+            break
+          case 'placeAllPlayerAvatar':
+            const players: Avatar[] = data
+            this.reaction?.placeAllPlayerAvatar(players)
+            break
           case 'moveOtherAvatar':
-            this.reaction?.moveOtherAvatar(data)
+            const avatarParams: AvatarParams = data
+            this.reaction?.moveOtherAvatar(avatarParams)
             break
           case 'acceptAnnounce':
-            this.reaction?.acceptAnnounce(data)
+            this.reaction?.acceptAnnounce(announceText)
             break
           case 'startQuiz':
-            this.reaction?.startQuiz(data)
+            this.reaction?.startQuiz(announceText)
             break
           case 'stopTimer':
-            this.reaction?.stopTimer(data)
+            this.reaction?.stopTimer(announceText)
             break
           case 'updateChat':
-            this.reaction?.updateChat(data)
+            const chatMessage: ChatMessage = data
+            this.reaction?.updateChat(chatMessage)
             break
           case 'executeJudge':
             this.reaction?.executeJudge()
             break
-          case 'subscribeAll':
-            this.subscribeAllPlayers(data)
+          case 'subscribeAllPlayers':
+            const index: number = data
+            await this.subscribeAllPlayers(index)
             break
           default:
             break
@@ -80,34 +95,33 @@ class PlayerAvatar extends Avatar {
 
   updateOwnerMetadata = async (
     ownerPublication: RoomPublication,
-    myIndex: number
+    myIndex: string
   ) => {
-    await ownerPublication.publisher.updateMetadata(myIndex.toString())
+    await ownerPublication.publisher.updateMetadata(myIndex)
   }
 
   subscribeOwner = async () => {
-    const myIndex = this.index as number
+    const myIndex = this.publication?.publisher.metadata as string
+    this.index = parseInt(myIndex)
     const ownerPublication = this.channel?.publications[0] as RoomPublication
     const ownerPublicationId = ownerPublication?.id as string
     const stream = await this.subscribe(ownerPublicationId)
     await this.setHandleWriteData(stream)
-    const writer = new DataStreamWriter(this)
-    writer.writeAvatar()
     await this.updateOwnerMetadata(ownerPublication, myIndex)
   }
 
   subscribeAllPlayers = async (index: number) => {
     const myIndex = this.index as number
     if (index === myIndex) {
-      const numberOfPlayers = (this.channel?.publications.length as number) - 1
-      for (let i = 1; i < numberOfPlayers; i++) {
+      const numberOfParticipant = (this.channel?.publications.length as number)
+      for (let i = 1; i < numberOfParticipant; i++) {
         if (this.channel?.publications[i] === this.publication) continue
         const playerPublicationId = this.channel?.publications[i].id as string
         const stream = await this.subscribe(playerPublicationId)
         await this.setHandleWriteData(stream)
       }
       const writer = new DataStreamWriter(this)
-      writer.writeReportSubscribed(myIndex)
+      writer.writeReportSubscribed(myIndex + 1)
     }
   }
 }

@@ -5,8 +5,8 @@ import { ChatMessage } from '@/types/ChatMessage'
 
 class Reaction {
   addOwner: Function
-  addMember: Function
-  setAllMembers: Function
+  addPlayer: Function
+  setAllPlayers: Function
   startGame: Function
   startTimer: Function
   resetTimer: Function
@@ -16,8 +16,8 @@ class Reaction {
 
   constructor(
     addOwner: Function,
-    addMember: Function,
-    setAllMembers: Function,
+    addPlayer: Function,
+    setAllPlayers: Function,
     startGame: Function,
     startTimer: Function,
     resetTimer: Function,
@@ -26,8 +26,8 @@ class Reaction {
     addChatMessage: Function
   ) {
     this.addOwner = addOwner
-    this.addMember = addMember
-    this.setAllMembers = setAllMembers
+    this.addPlayer = addPlayer
+    this.setAllPlayers = setAllPlayers
     this.startGame = startGame
     this.startTimer = startTimer
     this.resetTimer = resetTimer
@@ -36,18 +36,22 @@ class Reaction {
     this.addChatMessage = addChatMessage
   }
 
+  startTheGame = (): void => {
+    this.startGame
+  }
+
   placeAvatar = (avatar: Avatar): void => {
     if (!document.getElementById(avatar.uid)) {
       if (avatar instanceof OwnerAvatar) {
         this.addOwner(avatar)
       } else {
-        this.addMember(avatar)
+        this.addPlayer(avatar)
       }
     }
   }
 
-  startTheGame = (): void => {
-    this.startGame
+  placeAllPlayerAvatar = (players: Avatar[]): void => {
+    this.setAllPlayers(players)
   }
 
   moveOtherAvatar = (avatarParams: AvatarParams): void => {

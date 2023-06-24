@@ -18,7 +18,6 @@ class Avatar {
   localDataStream: LocalDataStream | null
   agent: LocalP2PRoomMember | null
   publication: RoomPublication<LocalDataStream> | null
-  metadata: string
 
   constructor(
     id: number,
@@ -31,7 +30,6 @@ class Avatar {
     localDataStream: LocalDataStream | null,
     agent: LocalP2PRoomMember | null,
     publication: RoomPublication<LocalDataStream> | null,
-    metadata: string
   ) {
     this.id = id
     this.uid = uid
@@ -43,13 +41,16 @@ class Avatar {
     this.localDataStream = localDataStream
     this.agent = agent
     this.publication = publication
-    this.metadata = metadata
   }
 
   subscribe = async (publicationId: string): Promise<RemoteDataStream> => {
     const remote = await this.agent?.subscribe(publicationId)
     const remoteDataStream = remote?.stream as RemoteDataStream
     return remoteDataStream
+  }
+
+  delay = (ms: number) => {
+    return new Promise((resolve) => setTimeout(resolve, ms))
   }
 }
 

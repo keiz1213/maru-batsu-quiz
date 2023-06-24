@@ -29,14 +29,18 @@ export class DataStreamWriter {
     return avatar
   }
 
+  writeStartGame(): void {
+    this.write('startTheGame', '')
+  }
+
   writeAvatar(): void {
     const clonedAvatar = cloneDeep(this.avatar)
     const writableAvatar = this.makeWritableAvatar(clonedAvatar)
     this.write('placeAvatar', writableAvatar)
   }
 
-  writeAllPlayers(players: Object): void {
-    this.write('startGame', players)
+  writeAllPlayer(players: Object): void {
+    this.write('placeAllPlayerAvatar', players)
   }
 
   writeMyAvatarParams(id: string, x: string, y: string, answer: string): void {
@@ -94,6 +98,6 @@ export class DataStreamWriter {
   }
 
   writeReportSubscribed(index: number): void {
-    this.write('checkSubscribed', index)
+    this.write('checkSubscribedAll', index)
   }
 }
