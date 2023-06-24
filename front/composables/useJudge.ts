@@ -1,11 +1,16 @@
 import Avatar from '~/utils/Avatar'
 
 export const useJudge = (initialNumberOfWinner: number) => {
+  const gameOwner = ref<Avatar>()
   const players = ref<Avatar[]>([])
   const losers = ref<Avatar[]>([])
   const winners = ref<Avatar[]>([])
   const numberOfWinner = ref<number>(initialNumberOfWinner)
   const isEndOfGame = ref(false)
+
+  const addOwner = (owner: Avatar) => {
+    gameOwner.value = owner
+  }
 
   const addPlayer = (player: Avatar) => {
     players.value.push(player)
@@ -123,11 +128,13 @@ export const useJudge = (initialNumberOfWinner: number) => {
   }
 
   return {
+    gameOwner,
     players,
     losers,
     winners,
     numberOfWinner,
     isEndOfGame,
+    addOwner,
     addPlayer,
     setAllPlayers,
     judge
