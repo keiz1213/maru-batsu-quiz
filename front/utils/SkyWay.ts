@@ -1,5 +1,3 @@
-import { User } from '@/types/User'
-import { Game } from '@/types/Game'
 import {
   SkyWayRoom,
   SkyWayContext,
@@ -11,15 +9,7 @@ import {
 } from '@skyway-sdk/room'
 
 class SkyWay {
-  currentUser: User
-  game: Game
-
-  constructor(currentUser: User, game: Game) {
-    this.currentUser = currentUser
-    this.game = game
-  }
-
-  getSkyWayToken = async (firebaseIdToken: string): Promise<string> => {
+  static getSkyWayToken = async (firebaseIdToken: string): Promise<string> => {
     const { data } = await useMyFetch('/api/v1/skyway_token', {
       method: 'post',
       headers: {
@@ -30,12 +20,14 @@ class SkyWay {
     return skyWayToken
   }
 
-  createSkyWayContext = async (skyWayToken: string): Promise<SkyWayContext> => {
+  static createSkyWayContext = async (
+    skyWayToken: string
+  ): Promise<SkyWayContext> => {
     const context = await SkyWayContext.Create(skyWayToken)
     return context
   }
 
-  findOrCreateChannel = async (
+  static findOrCreateChannel = async (
     context: SkyWayContext,
     channelName: string
   ): Promise<P2PRoom> => {
@@ -46,20 +38,23 @@ class SkyWay {
     return channel
   }
 
-  createLocalDataStream = async (): Promise<LocalDataStream> => {
+  static createLocalDataStream = async (): Promise<LocalDataStream> => {
     const localDataStream = await SkyWayStreamFactory.createDataStream()
     return localDataStream
   }
 
-  createAgent = async (channel: P2PRoom): Promise<LocalP2PRoomMember> => {
+  static createAgent = async (
+    channel: P2PRoom,
+    userName: string
+  ): Promise<LocalP2PRoomMember> => {
     const agent = await channel.join({
       metadata: '',
-      name: this.currentUser.name
+      name: userName
     })
     return agent
   }
 
-  createPublication = async (
+  static createPublication = async (
     localDataStream: LocalDataStream,
     agent: LocalP2PRoomMember
   ): Promise<RoomPublication> => {
@@ -67,5 +62,16 @@ class SkyWay {
     return publication
   }
 
-  
+  static generateUniqueName = () => {
+    const adjectives = ['Happy', 'Silly', 'Brave', 'Crazy', 'Lucky', 'Wise']
+    const nouns = ['Cat', 'Dog', 'Monkey', 'Tiger', 'Elephant', 'Lion']
+
+    const randomAdjective =
+      adjectives[Math.floor(Math.random() * adjectives.length)]
+    const randomNoun = nouns[Math.floor(Math.random() * nouns.length)]
+    const randomNum = Math.floor(Math.random() * 1001)
+    return `${randomAdjective}-${randomNoun}-${randomNum}`
+  }
 }
+
+export default SkyWay

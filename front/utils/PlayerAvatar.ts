@@ -5,7 +5,8 @@ import {
   LocalP2PRoomMember,
   RoomPublication,
   RemoteDataStream,
-  P2PRoom
+  P2PRoom,
+  LocalStream
 } from '@skyway-sdk/room'
 import { AvatarParams } from '@/types/AvatarParams'
 import { ChatMessage } from '@/types/ChatMessage'
@@ -21,7 +22,7 @@ class PlayerAvatar extends Avatar {
     channel: P2PRoom | null,
     localDataStream: LocalDataStream | null,
     agent: LocalP2PRoomMember | null,
-    publication: RoomPublication<LocalDataStream> | null,
+    publication: RoomPublication<LocalStream> | null
   ) {
     super(
       id,
@@ -33,12 +34,24 @@ class PlayerAvatar extends Avatar {
       channel,
       localDataStream,
       agent,
-      publication,
+      publication
     )
   }
 
   setHandleMetaDataUpdate = async () => {
     this.agent?.onMetadataUpdated.add(async () => {
+      const myIndx = this.agent?.metadata as string
+      this.index = parseInt(myIndx)
+
+      // ----------ここからtestUser用。後で消す。testUserは自分のindexが確定するまではuserに関するプロパティが初期化できないのでここで初期化する
+      this.id = this.index + 2
+      this.uid = `testUid-${this.index + 1}`
+      this.name = `testName-${this.index + 1}`
+      this.avatarUrl = new URL(
+        `../assets/images/${this.index + 1}.svg`,
+        import.meta.url
+      ).href
+      // ---------ここまで
       await this.subscribeOwner()
     })
   }
@@ -51,7 +64,7 @@ class PlayerAvatar extends Avatar {
 
         switch (reaction) {
           case 'startTheGame':
-            this.reaction?.startTheGame()
+            this.reaction?.startTheGame(this)
             break
           case 'placeAvatar':
             const avatar: Avatar = data
@@ -101,19 +114,20 @@ class PlayerAvatar extends Avatar {
   }
 
   subscribeOwner = async () => {
-    const myIndex = this.agent?.metadata as string
-    this.index = parseInt(myIndex)
+    const myIndex = this.index as number
     const ownerPublication = this.channel?.publications[0] as RoomPublication
     const ownerPublicationId = ownerPublication?.id as string
     const stream = await this.subscribe(ownerPublicationId)
+    this.sendMyAvatar()
+    await this.delay(1000)
     await this.setHandleWriteData(stream)
-    await this.updateOwnerMetadata(ownerPublication, myIndex)
+    await this.updateOwnerMetadata(ownerPublication, myIndex.toString())
   }
 
   subscribeAllPlayers = async (index: number) => {
     const myIndex = this.index as number
     if (index === myIndex) {
-      const numberOfParticipant = (this.channel?.publications.length as number)
+      const numberOfParticipant = this.channel?.publications.length as number
       for (let i = 1; i < numberOfParticipant; i++) {
         if (this.channel?.publications[i] === this.publication) continue
         const playerPublicationId = this.channel?.publications[i].id as string

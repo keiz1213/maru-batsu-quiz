@@ -1,6 +1,6 @@
 <script setup lang="ts">
   defineProps<{
-    announcement: string
+    announceText: string
     elapsed: number
     limit: number
   }>()
@@ -16,7 +16,7 @@
         <div
           class="text-3xl break-words whitespace-pre-wrap text-bash leading-relaxed"
         >
-          $ {{ announcement }}
+          $ {{ announceText }}
         </div>
       </div>
       <div id="timer-container">

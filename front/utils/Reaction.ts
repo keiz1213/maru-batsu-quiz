@@ -42,8 +42,8 @@ class Reaction {
     this.addPublisherName = addPublisherName
   }
 
-  startTheGame = (): void => {
-    this.startGame
+  startTheGame = (avatar: Avatar): void => {
+    this.startGame(avatar)
   }
 
   placeAvatar = (avatar: Avatar): void => {

@@ -1,9 +1,9 @@
 <script setup lang="ts">
+  import Avatar from '@/utils/Avatar'
   import { Quiz } from '@/types/Quiz'
-  import { Member } from '@/types/Member'
 
   defineProps<{
-    owner: Member
+    owner: Avatar
     quizzes: Quiz[]
     currentQuizNumber: number
     isOwner: boolean
@@ -20,7 +20,7 @@
   <div class="w-[350px] h-[350px] bg-white rounded-lg flex flex-col mx-2">
     <MbqMacBar :title="'Owner'" :isChat="false" />
     <div v-if="owner" class="flex justify-center mt-2">
-      <MbqAvatar :member="owner" />
+      <MbqAvatar :avatar="owner" />
     </div>
     <div class="w-[350px] h-full bg-white rounded-lg">
       <div v-if="isOwner">

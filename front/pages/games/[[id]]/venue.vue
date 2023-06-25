@@ -1,15 +1,10 @@
 <script setup lang="ts">
-  import { RemoteDataStream, RoomPublication } from '@skyway-sdk/room'
-  import {
-    createSkyWayContext,
-    createMember,
-    createTestMember,
-    findOrCreateChannel
-  } from '~/utils/functions'
-  import { getSkywayToken, getGame } from '~/utils/getters'
-  import { Member } from '@/types/Member'
-  import { AvatarParams } from '@/types/AvatarParams'
-  import { ChatMessage } from '@/types/ChatMessage'
+  import { useJudge } from '~/composables/useJudge'
+  import { usePublication } from '~/composables/usePublication'
+  import OwnerAvatar from '~/utils/OwnerAvatar'
+  import PlayerAvatar from '~/utils/PlayerAvatar'
+  import Reaction from '~/utils/Reaction'
+  import SkyWay from '~/utils/SkyWay'
 
   definePageMeta({
     middleware: 'auth'
@@ -17,416 +12,148 @@
   })
 
   const { currentUser } = useAuth()
-
   const route = useRoute()
   const gameId = route.params.id
   const game = await getGame(String(gameId))
-  let skywayToken
-  if (currentUser.value.id != 0) {
-    skywayToken = await getSkywayToken(currentUser.value.token)
-  } else {
-    skywayToken = await getSkywayToken('firebaseIdTokenForTestUser')
-  }
   const ownerId = game.user_id
-  const title = game.title
-  const description = game.description
-  const channelName = game.channel_name
-  const quizzes = game.quizzes
-
-  const publicationIds = ref<string[]>([])
-  const publisherNames = ref<string[]>([])
-
-  const skywayContext = await createSkyWayContext(skywayToken)
-  const channel = await findOrCreateChannel(skywayContext, channelName)
-  let owner: Member
-  let member: Member
-  if (currentUser.value.id != 0) {
-    member = await createMember(currentUser.value, channel)
-  } else {
-    member = await createTestMember(channel)
-  }
-
-  const myId = member.id
-
-  const writer = new DataStreamWriter(member)
-  const draggable = new SyncDraggable(writer)
+  const myId = currentUser.value.id
+  const isCheckQuestion = ref(false)
+  const chatVisible = ref(true)
+  let ownerAvatar: OwnerAvatar
+  let playerAvatar: PlayerAvatar
+  let skyWayToken
+  let userName
 
   const {
-    members,
+    owner,
+    players,
     losers,
     winners,
     numberOfWinner,
+    currentQuizNumber,
+    isStandByGame,
     isEndOfGame,
-    addMember,
-    setAllMembers,
-    judge,
-    createDummyMember
-  } = useReferee(game.number_of_winner)
-
+    addOwner,
+    addPlayer,
+    setAllPlayers,
+    startGame,
+    judge
+  } = useJudge(game.number_of_winner)
+  const { announceText, updateAnnounceText } = useAnnounce()
+  const { chatMessages, addChatMessage } = useChat()
+  const { publicationIds, publisherNames, addPublicationId, addPublisherName } =
+    usePublication()
   const { timeElapsed, timeLimit, startTimer, resetTimer } = useTimer()
 
-  const {
-    announcement,
-    announceSetQuestion,
-    announceQuestion,
-    announceStart,
-    announceStop,
-    announcePreparation,
-    announceCorrectAnswer,
-    announceExplanation,
-    announceReset
-  } = useAnnouncer(writer)
+  if (currentUser.value.id === 0) {
+    skyWayToken = await SkyWay.getSkyWayToken('testUserToken')
+    userName = SkyWay.generateUniqueName()
+  } else {
+    skyWayToken = await SkyWay.getSkyWayToken(currentUser.value.token)
+    userName = currentUser.value.name
+  }
+  const skyWayContext = await SkyWay.createSkyWayContext(skyWayToken)
+  const skyWayChannel = await SkyWay.findOrCreateChannel(
+    skyWayContext,
+    game.channel_name
+  )
+  const localDataStream = await SkyWay.createLocalDataStream()
+  const agent = await SkyWay.createAgent(skyWayChannel, userName)
+  const publication = await SkyWay.createPublication(localDataStream, agent)
 
-  const isStandBy = ref(true)
-  const isCheckQuestion = ref(false)
+  const reaction = new Reaction(
+    addOwner,
+    addPlayer,
+    setAllPlayers,
+    startGame,
+    startTimer,
+    resetTimer,
+    judge,
+    updateAnnounceText,
+    addChatMessage,
+    addPublicationId,
+    addPublisherName
+  )
+
+  const initialAvatarParams = [
+    currentUser.value.id,
+    currentUser.value.uid,
+    currentUser.value.name,
+    currentUser.value.avatar_url,
+    null,
+    reaction,
+    skyWayChannel,
+    localDataStream,
+    agent,
+    publication
+  ] as const
+
+  const initialTestAvatarParams = [
+    0,
+    '',
+    '',
+    '',
+    null,
+    reaction,
+    skyWayChannel,
+    localDataStream,
+    agent,
+    publication
+  ] as const
+
+  if (currentUser.value.id === ownerId) {
+    ownerAvatar = new OwnerAvatar(...initialAvatarParams)
+    addOwner(ownerAvatar)
+    const writer = new DataStreamWriter(ownerAvatar)
+    const draggable = new SyncDraggable(writer)
+    draggable.setDraggable(ownerAvatar.uid)
+    addPublicationId(ownerAvatar.publication?.id as string)
+    ownerAvatar.setHandlePublishListChanged()
+  } else {
+    playerAvatar = new PlayerAvatar(...initialTestAvatarParams)
+    addPlayer(playerAvatar)
+    const writer = new DataStreamWriter(playerAvatar)
+    const draggable = new SyncDraggable(writer)
+    // draggable.setDraggable(playerAvatar.uid)
+    playerAvatar.setHandleMetaDataUpdate()
+  }
+
+  const isOwner = (id: number) => {
+    return ownerId === id
+  }
+
+  const sendAnnounce = async () => {
+    await ownerAvatar.announce(
+      currentQuizNumber.value,
+      game.quizzes[currentQuizNumber.value]
+    )
+  }
+
   const openQuestion = () => {
     isCheckQuestion.value = true
   }
 
-  const {
-    chatMessages,
-    chatVisible,
-    addChatMessage,
-    adjustScrollTop,
-    updateChatMessages,
-    updateChatVisible
-  } = useChat(member, writer)
-
-  const currentQuizNumber = ref(0)
-  const gameStart = ref(false)
-
-  const setAvatarAction = (member: Member): void => {
-    if (!document.getElementById(member.uid)) {
-      if (isOwner(member.id)) {
-        owner = member
-      } else {
-        addMember(member)
-      }
-    }
+  const updateChatVisible = () => {
+    chatVisible.value = false
   }
 
-  const moveAvatarAction = (avatarParams: AvatarParams): void => {
-    const target = document.getElementById(avatarParams.id) as HTMLElement
-    const x = avatarParams.x
-    const y = avatarParams.y
-    const answer = avatarParams.answer
-    target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
-    target.setAttribute('data-x', x)
-    target.setAttribute('data-y', y)
-    target.setAttribute('data-answer', answer)
-  }
-
-  const announceAction = (announceText: string): void => {
-    announcement.value = announceText
-    if (announceText === 'スタート！') {
-      startTimer()
-    } else if (announceText === 'ストップ！') {
-      draggable.unsetDraggable(member.uid)
-      const avatar = document.getElementById(member.uid) as HTMLElement
-      avatar.classList.add('opacity-30')
-    } else if (announceText === '正解は・・') {
-      resetTimer()
-    } else if (announceText === quizzes[currentQuizNumber.value].explanation) {
-      const myAvatar = document.getElementById(member.uid) as HTMLElement
-      if (myAvatar.getAttribute('data-draggable') != '') {
-        draggable.setDraggable(member.uid)
-        myAvatar.classList.remove('opacity-30')
-      }
-    }
-  }
-
-  const judgeAction = (): void => {
-    const correctAnswer = quizzes[currentQuizNumber.value].correct_answer
-    judge(correctAnswer)
-    currentQuizNumber.value++
-  }
-
-  const chatAction = (chatMessage: ChatMessage): void => {
-    addChatMessage(chatMessage)
-    adjustScrollTop()
-  }
-
-  const startGameAction = (members: Member[]): void => {
-    setAllMembers(members)
-  }
-
-  const closeRecruitmentAction = async (index: number): Promise<void> => {
-    if (index === member.myIndex) {
-      // 自分とオーナー以外の全員をサブスクする
-      await allSubscribe()
-      // 終わったらオーナーに対して自分のindexを添えて終わったことを連絡
-      writer.passToNext(index)
-    }
-  }
-
-  const overAction = (index: number) => {
-    //allSubscribeが終わったメンバーから連絡を受信する
-    console.log(`index: ${index} のアバターは全メンバーとの接続が完了しました`)
-    // 次のメンバーのindexにする
-    index++
-    // 全員がallSubscribeし終えるとモーダルを消す
-    // (indexは0から始まるのでこの条件で良い)
-    if (index === members.value.length) {
-      console.log('全参加者同士の接続完了。ゲームを開始します')
-      closeModal()
-      writer.closeModal2()
+  const sendChatMessage = (newMessage: string) => {
+    if (ownerAvatar) {
+      ownerAvatar.sendChatMessage(newMessage)
     } else {
-      // 全員が終わってなければ再度次のメンバーに対して連絡
-      setTimeout(() => {
-        deadline(index)
-      }, 2000)
+      playerAvatar.sendChatMessage(newMessage)
     }
   }
 
   const join = async () => {
-    console.log('全参加者のデータを受信できるようにしています・・・')
-    await allSubscribeToMember()
-    await checkSubscriptionsOfOwner()
-    console.log('全参加者のデータを受信できる状態になりました')
-    console.log('全参加者がオーナーのデータを受信できるようにしています・・・')
-    await allUpdateMetadata()
-    await checkSubscriptionsOfMembers()
-    console.log('全参加者がオーナーのデータを受信できるようになりました')
-    console.log('全参加者がアバターを生成できるようにしています・・・')
-    await allMemberAddIndex()
-    console.log('全参加者がアバターを生成できるようになりました')
-    writer.writeMember()
-    console.log('全参加者に対してオーナーのアバターを送信しました')
-    console.log('全参加者のアバターを取得しています・・・')
-    writer.invite(0)
-  }
-
-  const allSubscribeToMember = async () => {
-    await new Promise<void>(async (resolve) => {
-      for (const publicationId of publicationIds.value) {
-        if (publicationId === publicationIds.value[0]) continue
-        await subscribe(publicationId)
-      }
-      resolve()
-    })
-  }
-
-  const delay = (ms: number) => {
-    return new Promise((resolve) => setTimeout(resolve, ms))
-  }
-
-  const checkSubscriptionsOfOwner = async () => {
-    await new Promise<void>(async (resolve) => {
-      while (channel.subscriptions.length != publicationIds.value.length - 1) {
-        console.log('オーナーの状態を確認中・・・')
-        await delay(1000)
-      }
-      resolve()
-    })
-  }
-
-  const checkSubscriptionsOfMembers = async () => {
-    await new Promise<void>(async (resolve) => {
-      while (
-        channel.subscriptions.length !=
-        (publicationIds.value.length - 1) * 2
-      ) {
-        console.log('参加者の状態を確認中・・・')
-        await delay(1000)
-      }
-      resolve()
-    })
-  }
-
-  const allMemberAddIndex = async () => {
-    await new Promise<void>(async (resolve) => {
-      for (const [index, publicationId] of publicationIds.value.entries()) {
-        if (publicationId === publicationIds.value[0]) continue
-        await addIndex(index, publicationIds.value[index])
-      }
-      resolve()
-    })
-  }
-
-  const updateToSubscribed = async (publication: RoomPublication) => {
-    await new Promise<void>((resolve) => {
-      publication.publisher.updateMetadata('subscribed')
-      resolve()
-    })
-  }
-
-  const allUpdateMetadata = async () => {
-    for (const publication of channel.publications) {
-      if (publication === member.myPublication) continue
-      await updateToSubscribed(publication)
-    }
-  }
-
-  const inviteAction = async (index: number) => {
-    if (index === member.myIndex) {
-      writer.writeMember()
-      writer.passToNext2(index)
-    }
-  }
-
-  const overAction2 = (index: number) => {
-    index++
-    if (index === channel.members.length - 1) {
-      console.log(
-        '全参加者のアバターの取得取得完了。参加者同士の接続を開始します・・・'
-      )
-      deadline(0)
-    } else {
-      writer.invite(index)
-    }
-  }
-
-  const addIndex = async (index: number, publicationId: string) => {
-    await new Promise<void>((resolve) => {
-      writer.addIndex(index - 1, publicationId)
-      resolve()
-    })
-  }
-
-  const deadline = async (index: number) => {
-    writer.writeMember()
-    writer.allWrite(members.value)
-    writer.deadline(index)
-  }
-
-  const isOwner = (membeId: number) => {
-    return membeId === ownerId
-  }
-
-  const handleWriteData = (stream: RemoteDataStream) => {
-    stream.onData.add(async (data) => {
-      const message = data as string
-      const tag = JSON.parse(message).tag as string
-      if (tag === 'setAvatar') {
-        const member = JSON.parse(message).params
-        setAvatarAction(member)
-      } else if (tag === 'moveAvatar') {
-        const avatarParams = JSON.parse(message).params
-        moveAvatarAction(avatarParams)
-      } else if (tag === 'announcement') {
-        const announceText = JSON.parse(message).params
-        announceAction(announceText)
-      } else if (tag === 'judge') {
-        judgeAction()
-      } else if (tag === 'chat') {
-        let text = JSON.parse(message).params
-        chatAction(text)
-      } else if (tag === 'closeModal') {
-        closeModal()
-      } else if (tag === 'start') {
-        if (isOwner(member.id)) return
-        let avatars = JSON.parse(message).params
-        startGameAction(avatars)
-      } else if (tag === 'deadline') {
-        if (isOwner(member.id)) return
-        let index = JSON.parse(message).params.index
-        closeRecruitmentAction(index)
-      } else if (tag === 'over') {
-        if (!isOwner(member.id)) return
-        let index = JSON.parse(message).params.index
-        overAction(index)
-      } else if (tag === 'test') {
-        console.log('test')
-      } else if (tag === 'invite') {
-        if (isOwner(member.id)) return
-        let index = JSON.parse(message).params.index
-        console.log('inviteaction')
-        inviteAction(index)
-      } else if (tag === 'passToNext2') {
-        if (!isOwner(member.id)) return
-        let index = JSON.parse(message).params.index
-        overAction2(index)
-      } else if (tag === 'addIndex') {
-        if (isOwner(member.id)) return
-        let publicationId = JSON.parse(message).params.publicationId
-        if (publicationId === member.myPublication?.id) {
-          let index = JSON.parse(message).params.index
-          member.id = index + 2
-          member.uid = `testUid-${index + 1}`
-          member.name = `testName-${index + 1}`
-          member.avatar_url = new URL(
-            `../../../assets/images/${index + 1}.svg`,
-            import.meta.url
-          ).href
-          member.myIndex = index
-          console.log(`myIndex: ${member.myIndex}`)
-          console.log(`myId: ${member.id}`)
-          console.log(`myUid: ${member.uid}`)
-          console.log(`myUrl: ${member.avatar_url}`)
-        }
-      }
-    })
-  }
-
-  const subscribe = async (publicationId: string) => {
-    const remote = await member.memberCertificates?.subscribe(publicationId)
-    const stream = remote?.stream as RemoteDataStream
-    handleWriteData(stream)
-  }
-
-  const ownnerSubscribe = async () => {
-    await subscribe(channel.publications[0].id)
-    console.log('オーナーをサブスクしました')
-  }
-
-  const allSubscribe = async () => {
-    for (let i = 1; i < channel.publications.length; i++) {
-      if (channel.publications[i] === member.myPublication) continue
-      subscribe(channel.publications[i].id)
-    }
-  }
-
-  if (myId === ownerId) {
-    draggable.setDraggable(member.uid)
-    owner = member
-    publicationIds.value.push(channel.publications[0].id)
-    channel.onPublicationListChanged.add(async (e) => {
-      const publicationId = channel.publications.slice(-1)[0].id
-      const publisherName = channel.publications.slice(-1)[0].publisher
-        .name as string
-      publicationIds.value.push(publicationId)
-      publisherNames.value.push(publisherName)
-    })
-  } else {
-    const memberAsChannel = member.memberCertificates
-    console.log(`私のpublicationId: ${member.myPublication?.id}`)
-    memberAsChannel?.onMetadataUpdated.add(async () => {
-      await ownnerSubscribe()
-    })
-  }
-
-  const sendAnnouncement = async () => {
-    const quizNumber = currentQuizNumber.value + 1
-    announceSetQuestion(quizNumber)
-    await announceReset()
-    const question = quizzes[currentQuizNumber.value].question
-    await announceQuestion(question)
-    await announceStart()
-    startTimer()
-    await announceQuestion(question)
-    await announceStop()
-    await announcePreparation()
-    resetTimer()
-    const correctAnswer = quizzes[currentQuizNumber.value].correct_answer
-    await announceCorrectAnswer(correctAnswer)
-    const explanation = quizzes[currentQuizNumber.value].explanation
-    await announceExplanation(explanation)
-    member.myData?.write(
-      JSON.stringify({
-        tag: 'judge',
-        params: ''
-      })
-    )
-    judge(correctAnswer)
-    currentQuizNumber.value++
-  }
-
-  const closeModal = () => {
-    draggable.setDraggable(member.uid)
-    draggable.setDropzone('◯', member.uid)
-    draggable.setDropzone('✕', member.uid)
-    isStandBy.value = false
-    gameStart.value = true
+    await ownerAvatar.subscribeAllPlayers()
+    await ownerAvatar.updateAllPlayerMetaData()
+    ownerAvatar.sendMyAvatar()
+    ownerAvatar.sendAllPlayerAvatar(players.value)
+    ownerAvatar.checkPlayerSubscribedAll(0)
+    const writer = new DataStreamWriter(ownerAvatar)
+    startGame(ownerAvatar)
+    writer.writeStartGame()
   }
 </script>
 
@@ -438,15 +165,15 @@
     :background="'interactive'"
   />
   <MbqModalStandBy
-    v-model="isStandBy"
+    v-model="isStandByGame"
     :isOwner="isOwner(myId)"
-    :members="members"
+    :players="players"
     :background="'interactive'"
     @join="join"
     :publisherNames="publisherNames"
   />
 
-  <MbqModalCheck v-model="isCheckQuestion" :quizzes="quizzes" />
+  <MbqModalCheck v-model="isCheckQuestion" :quizzes="game.quizzes" />
 
   <div>
     <div
@@ -463,8 +190,7 @@
         <div id="board-container">
           <div id="board-area">
             <MbqBoard
-              :announcement="announcement"
-              :gameStart="gameStart"
+              :announceText="announceText"
               :elapsed="timeElapsed"
               :limit="timeLimit"
             />
@@ -473,13 +199,13 @@
         <div id="questioner-container">
           <div id="questioner-area">
             <MbqOwnerArea
-              :owner="owner"
+              :owner="(owner as OwnerAvatar)"
               :isOwner="isOwner(myId)"
-              :quizzes="quizzes"
+              :quizzes="game.quizzes"
               :currentQuizNumber="currentQuizNumber"
-              @question="sendAnnouncement"
+              @question="sendAnnounce"
               @check-question="openQuestion"
-              :description="description"
+              :description="game.description"
             />
           </div>
         </div>
@@ -496,7 +222,7 @@
               :chatVisible="chatVisible"
               :myId="myId"
               :messages="chatMessages"
-              @update:messages="updateChatMessages"
+              @update:messages="sendChatMessage"
               @update:chatVisible="updateChatVisible"
             />
           </div>
@@ -506,15 +232,15 @@
         <div id="challengers-winners-container" class="flex justify-center">
           <div id="challengers-area">
             <MbqMacFinder
-              :members="members"
-              :gameStart="gameStart"
+              :avatars="players"
+              :gameStart="true"
               :title="'challengers'"
             />
           </div>
           <div id="winners-area">
             <MbqMacFinder
-              :members="winners"
-              :gameStart="gameStart"
+              :avatars="winners"
+              :gameStart="true"
               :title="'winners'"
             />
           </div>

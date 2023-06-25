@@ -2,7 +2,7 @@
   import { VueFinalModal } from 'vue-final-modal'
 
   defineProps<{
-    members: object
+    players: object
     isOwner: boolean
     publisherNames: string[]
   }>()
@@ -51,9 +51,9 @@
         </div>
         <div class="grid grid-cols-4 gap-x-3 p-6">
           <MbqAvatar
-            v-for="(member, index) in members"
+            v-for="(player, index) in players"
             :key="index"
-            :member="member"
+            :avatar="player"
             :gameStart="false"
           />
         </div>

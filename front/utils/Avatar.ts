@@ -4,8 +4,10 @@ import {
   LocalP2PRoomMember,
   RoomPublication,
   RemoteDataStream,
-  P2PRoom
+  P2PRoom,
+  LocalStream
 } from '@skyway-sdk/room'
+import { writer } from 'repl'
 import { ChatMessage } from '~/types/ChatMessage'
 
 class Avatar {
@@ -18,7 +20,7 @@ class Avatar {
   channel: P2PRoom | null
   localDataStream: LocalDataStream | null
   agent: LocalP2PRoomMember | null
-  publication: RoomPublication<LocalDataStream> | null
+  publication: RoomPublication<LocalStream> | null
 
   constructor(
     id: number,
@@ -30,7 +32,7 @@ class Avatar {
     channel: P2PRoom | null,
     localDataStream: LocalDataStream | null,
     agent: LocalP2PRoomMember | null,
-    publication: RoomPublication<LocalDataStream> | null
+    publication: RoomPublication<LocalStream> | null
   ) {
     this.id = id
     this.uid = uid
@@ -48,6 +50,11 @@ class Avatar {
     const remote = await this.agent?.subscribe(publicationId)
     const remoteDataStream = remote?.stream as RemoteDataStream
     return remoteDataStream
+  }
+
+  sendMyAvatar = () => {
+    const writer = new DataStreamWriter(this)
+    writer.writeAvatar()
   }
 
   playGame = () => {

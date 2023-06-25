@@ -78,6 +78,6 @@ export class DataStreamWriter {
   }
 
   writeReportSubscribed(index: number): void {
-    this.write('checkSubscribedAll', index)
+    this.write('checkPlayerSubscribedAll', index)
   }
 }

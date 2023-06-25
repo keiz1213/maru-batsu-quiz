@@ -1,6 +1,6 @@
 <script setup lang="ts">
   defineProps<{
-    members: object
+    avatars: object
     gameStart: boolean
     title: string
   }>()
@@ -31,9 +31,9 @@
       <div class="w-[508px] h-[548px] rounded-br-lg break-all bg-white">
         <div class="grid grid-cols-4 gap-x-3 p-6">
           <MbqAvatar
-            v-for="(member, index) in members"
+            v-for="(avatar, index) in avatars"
             :key="index"
-            :member="member"
+            :avatar="avatar"
             :gameStart="gameStart"
           />
         </div>

@@ -38,7 +38,10 @@ export const useJudge = (initialNumberOfWinner: number) => {
     currentQuizNumber.value++
   }
 
-  const startGame = () => {
+  const startGame = (avatar: Avatar) => {
+    const writer = new DataStreamWriter(avatar)
+    const draggable = new SyncDraggable(writer)
+    draggable.setDraggable(avatar.uid)
     isStandByGame.value = false
   }
 

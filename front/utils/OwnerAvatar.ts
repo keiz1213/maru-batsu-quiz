@@ -5,7 +5,8 @@ import {
   LocalP2PRoomMember,
   RoomPublication,
   RemoteDataStream,
-  P2PRoom
+  P2PRoom,
+  LocalStream
 } from '@skyway-sdk/room'
 import { AvatarParams } from '@/types/AvatarParams'
 import { ChatMessage } from '@/types/ChatMessage'
@@ -22,7 +23,7 @@ class OwnerAvatar extends Avatar {
     channel: P2PRoom | null,
     localDataStream: LocalDataStream | null,
     agent: LocalP2PRoomMember | null,
-    publication: RoomPublication<LocalDataStream> | null
+    publication: RoomPublication<LocalStream> | null
   ) {
     super(
       id,
@@ -36,6 +37,11 @@ class OwnerAvatar extends Avatar {
       agent,
       publication
     )
+  }
+
+  sendAllPlayerAvatar = (players: object) => {
+    const writer = new DataStreamWriter(this)
+    writer.writeAllPlayer(players)
   }
 
   addMyPublicationId = () => {
@@ -91,9 +97,9 @@ class OwnerAvatar extends Avatar {
           case 'executeJudge':
             this.reaction?.executeJudge()
             break
-          case 'checkSubscribed':
+          case 'checkPlayerSubscribedAll':
             const index: number = data
-            this.checkSubscribedAll(index)
+            this.checkPlayerSubscribedAll(index)
             break
           default:
             break
@@ -112,11 +118,13 @@ class OwnerAvatar extends Avatar {
     }
   }
 
-  checkSubscribedAll = async (index: number) => {
+  checkPlayerSubscribedAll = (index: number) => {
     const numberOfParticipant = this.channel?.publications.length as number
     const maxIndex = numberOfParticipant - 2
     if (index > maxIndex) {
       console.log('全参加者同士接続完了')
+      
+
     } else {
       const writer = new DataStreamWriter(this)
       writer.writeCheckSubscribed(index)
