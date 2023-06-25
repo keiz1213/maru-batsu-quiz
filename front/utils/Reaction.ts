@@ -13,6 +13,8 @@ class Reaction {
   judge: Function
   updateAnnounceText: Function
   addChatMessage: Function
+  addPublicationId: Function
+  addPublisherName: Function
 
   constructor(
     addOwner: Function,
@@ -23,7 +25,9 @@ class Reaction {
     resetTimer: Function,
     judge: Function,
     updateAnnounceText: Function,
-    addChatMessage: Function
+    addChatMessage: Function,
+    addPublicationId: Function,
+    addPublisherName: Function
   ) {
     this.addOwner = addOwner
     this.addPlayer = addPlayer
@@ -34,6 +38,8 @@ class Reaction {
     this.judge = judge
     this.updateAnnounceText = updateAnnounceText
     this.addChatMessage = addChatMessage
+    this.addPublicationId = addPublicationId
+    this.addPublisherName = addPublisherName
   }
 
   startTheGame = (): void => {
@@ -85,6 +91,14 @@ class Reaction {
 
   executeJudge = (): void => {
     this.judge()
+  }
+
+  pushPublicationId = (publicationId: string) => {
+    this.addPublicationId(publicationId)
+  }
+
+  pushPublicationName = (publisherName: string) => {
+    this.addPublisherName(publisherName)
   }
 }
 

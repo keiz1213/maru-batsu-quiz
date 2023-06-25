@@ -43,6 +43,10 @@ class Avatar {
     this.publication = publication
   }
 
+  playGame = () => {
+    this.reaction?.startGame()
+  }
+
   subscribe = async (publicationId: string): Promise<RemoteDataStream> => {
     const remote = await this.agent?.subscribe(publicationId)
     const remoteDataStream = remote?.stream as RemoteDataStream

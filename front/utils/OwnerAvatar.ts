@@ -9,6 +9,7 @@ import {
 } from '@skyway-sdk/room'
 import { AvatarParams } from '@/types/AvatarParams'
 import { ChatMessage } from '@/types/ChatMessage'
+import { Quiz } from '@/types/Quiz'
 
 class OwnerAvatar extends Avatar {
   constructor(
@@ -35,6 +36,21 @@ class OwnerAvatar extends Avatar {
       agent,
       publication
     )
+  }
+
+  addMyPublicationId = () => {
+    const myPublicationId = this.publication?.id as string
+    this.reaction?.pushPublicationId(myPublicationId)
+  }
+
+  setHandlePublishListChanged = () => {
+    this.channel?.onPublicationListChanged.add(async () => {
+      const publicationId = this.channel?.publications.slice(-1)[0].id as string
+      const publisherName = this.channel?.publications.slice(-1)[0].publisher
+        .name as string
+      this.reaction?.pushPublicationId(publicationId)
+      this.reaction?.pushPublicationName(publisherName)
+    })
   }
 
   setHandleWriteData = async (stream: RemoteDataStream) => {
@@ -116,7 +132,7 @@ class OwnerAvatar extends Avatar {
 
   checkMyMetaData = async (playerIndex: string) => {
     while (true) {
-      if (this.publication?.publisher.metadata === playerIndex) {
+      if (this.agent?.metadata === playerIndex) {
         break
       }
       await this.delay(1000)
@@ -126,10 +142,91 @@ class OwnerAvatar extends Avatar {
   updateAllPlayerMetaData = async () => {
     const allPublications = this.channel?.publications as RoomPublication[]
     for (let i = 1; i < allPublications.length; i++) {
-      const playerIndex = (i -1).toString()
-      await this.updatePlayerMetaData(allPublications[i],playerIndex)
+      const playerIndex = (i - 1).toString()
+      await this.updatePlayerMetaData(allPublications[i], playerIndex)
       await this.checkMyMetaData(playerIndex)
     }
+  }
+
+  announceQuizNumber = (quizNumber: number) => {
+    const announceText = `${quizNumber}問目！`
+    const writer = new DataStreamWriter(this)
+    this.reaction?.updateAnnounceText(announceText)
+    writer.writeAnnounceText(announceText)
+  }
+
+  announceShortPause = () => {
+    const announceText = ''
+    const writer = new DataStreamWriter(this)
+    this.reaction?.updateAnnounceText(announceText)
+    writer.writeAnnounceText(announceText)
+  }
+
+  announceQuestion = (question: string) => {
+    const announceText = question
+    const writer = new DataStreamWriter(this)
+    this.reaction?.updateAnnounceText(announceText)
+    writer.writeAnnounceText(announceText)
+  }
+
+  announceQuizStart = () => {
+    const announceText = 'スタート！'
+    const writer = new DataStreamWriter(this)
+    this.reaction?.updateAnnounceText(announceText)
+    this.reaction?.startTimer()
+    writer.writeStartTimer(announceText)
+  }
+
+  announceQuizStop = () => {
+    const announceText = 'ストップ！'
+    const writer = new DataStreamWriter(this)
+    this.reaction?.updateAnnounceText(announceText)
+    this.reaction?.resetTimer()
+    writer.writeStopTimer(announceText)
+  }
+
+  announceSuspense = () => {
+    const announceText = '正解は・・・'
+    const writer = new DataStreamWriter(this)
+    this.reaction?.updateAnnounceText(announceText)
+    writer.writeAnnounceText(announceText)
+  }
+
+  announceCorrectAnswer = (correctAnswer: string) => {
+    const announceText = correctAnswer
+    const writer = new DataStreamWriter(this)
+    this.reaction?.updateAnnounceText(announceText)
+    writer.writeAnnounceText(announceText)
+  }
+
+  announceExplanation = (explanation: string) => {
+    const announceText = explanation
+    const writer = new DataStreamWriter(this)
+    this.reaction?.updateAnnounceText(announceText)
+    writer.writeAnnounceText(announceText)
+  }
+
+  announce = async (currentQuizNumber: number, quiz: Quiz) => {
+    this.announceQuizNumber(currentQuizNumber)
+    await this.delay(2000)
+    this.announceShortPause()
+    await this.delay(2000)
+    this.announceQuestion(quiz.question)
+    await this.delay(3000)
+    this.announceQuizStart()
+    await this.delay(2000)
+    this.announceQuestion(quiz.question)
+    await this.delay(8000)
+    this.announceQuizStop()
+    await this.delay(2000)
+    this.announceSuspense()
+    await this.delay(3000)
+    this.announceCorrectAnswer(quiz.correct_answer)
+    await this.delay(3000)
+    this.announceExplanation(quiz.explanation)
+    this.reaction?.executeJudge()
+    const writer = new DataStreamWriter(this)
+    writer.writeJudge()
   }
 }
 

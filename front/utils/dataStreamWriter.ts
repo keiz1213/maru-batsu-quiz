@@ -53,36 +53,16 @@ export class DataStreamWriter {
     this.write('moveOtherAvatar', avatarParams)
   }
 
-  writeQuizNumber(quizNumber: number): void {
-    this.write('acceptAnnounce', `${quizNumber}問目！`)
+  writeAnnounceText(announceText: string): void {
+    this.write('acceptAnnounce', announceText)
   }
 
-  writeQuiz(quiz: string): void {
-    this.write('acceptAnnounce', quiz)
+  writeStartTimer(announceText: string): void {
+    this.write('startQuiz', announceText)
   }
 
-  writeStartTimer(): void {
-    this.write('startQuiz', 'スタート！')
-  }
-
-  writeStopTimer(): void {
-    this.write('stopTimer', 'ストップ！')
-  }
-
-  writeSuspense(): void {
-    this.write('acceptAnnounce', '正解は・・')
-  }
-
-  writeCorrectAnswer(correctAnswer: string): void {
-    this.write('acceptAnnounce', correctAnswer)
-  }
-
-  writeExplanation(explanation: string): void {
-    this.write('acceptAnnounce', explanation)
-  }
-
-  writeResetQuiz(): void {
-    this.write('acceptAnnounce', '')
+  writeStopTimer(announceText: string): void {
+    this.write('stopTimer', announceText)
   }
 
   writeChatMessage(chatMessage: ChatMessage): void {

@@ -6,6 +6,7 @@ export const useJudge = (initialNumberOfWinner: number) => {
   const losers = ref<Avatar[]>([])
   const winners = ref<Avatar[]>([])
   const numberOfWinner = ref<number>(initialNumberOfWinner)
+  const currentQuizNumber = ref(1)
   const isStandByGame = ref(true)
   const isEndOfGame = ref(false)
 
@@ -31,6 +32,10 @@ export const useJudge = (initialNumberOfWinner: number) => {
 
   const subtractNumberOfWinner = (subtractBy: number) => {
     numberOfWinner.value -= subtractBy
+  }
+
+  const incrementCurrentQuizNumber = () => {
+    currentQuizNumber.value++
   }
 
   const startGame = () => {
@@ -140,6 +145,7 @@ export const useJudge = (initialNumberOfWinner: number) => {
     } else if (countOfWinners > numberOfWinner.value) {
       losersInPlayers.forEach((loser) => moveLoser(loser))
     }
+    incrementCurrentQuizNumber()
     checkEndOfGame()
   }
 
@@ -149,6 +155,7 @@ export const useJudge = (initialNumberOfWinner: number) => {
     losers,
     winners,
     numberOfWinner,
+    currentQuizNumber,
     isStandByGame,
     isEndOfGame,
     addOwner,

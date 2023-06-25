@@ -101,7 +101,7 @@ class PlayerAvatar extends Avatar {
   }
 
   subscribeOwner = async () => {
-    const myIndex = this.publication?.publisher.metadata as string
+    const myIndex = this.agent?.metadata as string
     this.index = parseInt(myIndex)
     const ownerPublication = this.channel?.publications[0] as RoomPublication
     const ownerPublicationId = ownerPublication?.id as string
