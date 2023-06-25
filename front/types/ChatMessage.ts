@@ -1,5 +1,5 @@
 export interface ChatMessage {
-  memberId: number
+  avatarId: number
   avatarUrl: string
   content: string
 }
