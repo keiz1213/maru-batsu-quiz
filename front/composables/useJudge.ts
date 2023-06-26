@@ -100,7 +100,6 @@ export const useJudge = (initialNumberOfWinner: number) => {
     const draggable = new SyncDraggable(writer)
     draggable.unsetDraggable(loser.uid)
     addLoser(loser)
-    // draggable.setNonDraggableAttribute(loser.uid)
     const index = loser.index as number
     injectDummyAvatar(index)
   }
@@ -110,7 +109,6 @@ export const useJudge = (initialNumberOfWinner: number) => {
     const draggable = new SyncDraggable(writer)
     draggable.unsetDraggable(winner.uid)
     addWinner(winner)
-    draggable.setNonDraggableAttribute(winner.uid)
     const index = winner.index as number
     injectDummyAvatar(index)
   }

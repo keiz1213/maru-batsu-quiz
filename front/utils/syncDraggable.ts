@@ -44,11 +44,6 @@ export class SyncDraggable {
     interact(`#${uid}`).unset()
   }
 
-  setNonDraggableAttribute(uid: string): void {
-    const avatar = document.getElementById(uid) as HTMLElement
-    avatar.setAttribute('data-draggable', 'non-draggable')
-  }
-
   setDropzone(answer: string, uid: string): void {
     interact(`#${answer}`).dropzone({
       accept: `#${uid}`,

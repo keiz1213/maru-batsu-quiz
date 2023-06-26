@@ -12,7 +12,6 @@
     v-if="avatar.id != 0"
     class="avatar flex-col z-10"
     data-answer=""
-    data-draggable=""
     :id="avatar.uid"
   >
     <p class="text-center line-clamp-1">{{ avatar.name }}</p>
