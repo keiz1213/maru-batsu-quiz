@@ -16,11 +16,9 @@
   const gameId = route.params.id
   const game = await getGame(String(gameId))
   const ownerId = game.user_id
-  const myId = currentUser.value.id
   const isCheckQuestion = ref(false)
   const chatVisible = ref(true)
-  let ownerAvatar: OwnerAvatar
-  let playerAvatar: PlayerAvatar
+  let avatar: OwnerAvatar | PlayerAvatar
   let skyWayToken
   let userName
 
@@ -104,16 +102,16 @@
   ] as const
 
   if (currentUser.value.id === ownerId) {
-    ownerAvatar = new OwnerAvatar(...initialAvatarParams)
-    addOwner(ownerAvatar)
-    const writer = new DataStreamWriter(ownerAvatar)
+    avatar = new OwnerAvatar(...initialAvatarParams)
+    addOwner(avatar)
+    const writer = new DataStreamWriter(avatar)
     const draggable = new SyncDraggable(writer)
-    draggable.setDraggable(ownerAvatar.uid)
-    addPublicationId(ownerAvatar.publication?.id as string)
-    ownerAvatar.setHandlePublishListChanged()
+    draggable.setDraggable(avatar.uid)
+    addPublicationId(avatar.publication?.id as string)
+    avatar.setHandlePublishListChanged()
   } else {
-    playerAvatar = new PlayerAvatar(...initialTestAvatarParams)
-    playerAvatar.setHandleMetaDataUpdate()
+    avatar = new PlayerAvatar(...initialTestAvatarParams)
+    avatar.setHandleMetaDataUpdate()
   }
 
   const isOwner = (id: number) => {
@@ -121,10 +119,12 @@
   }
 
   const sendAnnounce = async () => {
-    await ownerAvatar.announce(
-      currentQuizNumber.value,
-      game.quizzes[currentQuizNumber.value]
-    )
+    if (avatar instanceof OwnerAvatar) {
+      await avatar.announce(
+        currentQuizNumber.value,
+        game.quizzes[currentQuizNumber.value]
+      )
+    }
   }
 
   const openQuestion = () => {
@@ -136,26 +136,24 @@
   }
 
   const sendChatMessage = (newMessage: string) => {
-    if (ownerAvatar) {
-      ownerAvatar.sendChatMessage(newMessage)
-    } else {
-      playerAvatar.sendChatMessage(newMessage)
-    }
+    avatar.sendChatMessage(newMessage)
   }
 
   const join = async () => {
-    console.log('----ownerが全playerをサブスクを開始----')
-    await ownerAvatar.subscribeAllPlayers()
-    console.log('----ownerが全playerをサブスク完了----')
-    console.log('----ownerが全playerのmetadataの更新を開始します----')
-    await ownerAvatar.updateAllPlayerMetaData()
-    console.log('----全playerがownerをサブスク完了----')
-    ownerAvatar.sendMyAvatar()
-    console.log('-----自分のアバターを送信----')
-    ownerAvatar.sendAllPlayerAvatar(players.value)
-    console.log('-----全player送信-----')
-    console.log('-----全player同士のサブスクを開始・・・-----')
-    ownerAvatar.checkPlayerSubscribedAll(0)
+    if (avatar instanceof OwnerAvatar) {
+      console.log('----ownerが全playerをサブスクを開始----')
+      await avatar.subscribeAllPlayers()
+      console.log('----ownerが全playerをサブスク完了----')
+      console.log('----ownerが全playerのmetadataの更新を開始します----')
+      await avatar.updateAllPlayerMetaData()
+      console.log('----全playerがownerをサブスク完了----')
+      avatar.sendMyAvatar()
+      console.log('-----自分のアバターを送信----')
+      avatar.sendAllPlayerAvatar(players.value)
+      console.log('-----全player送信-----')
+      console.log('-----全player同士のサブスクを開始・・・-----')
+      avatar.checkPlayerSubscribedAll(0)
+    }
   }
 </script>
 
@@ -168,7 +166,7 @@
   />
   <MbqModalStandBy
     v-model="isStandByGame"
-    :isOwner="isOwner(myId)"
+    :isOwner="isOwner(avatar.id)"
     :players="players"
     :background="'interactive'"
     @join="join"
@@ -202,7 +200,7 @@
           <div id="questioner-area">
             <MbqOwnerArea
               :owner="(owner as OwnerAvatar)"
-              :isOwner="isOwner(myId)"
+              :isOwner="isOwner(avatar.id)"
               :quizzes="game.quizzes"
               :currentQuizNumber="currentQuizNumber"
               @question="sendAnnounce"
@@ -222,7 +220,7 @@
           <div id="chat-area">
             <MbqChat
               :chatVisible="chatVisible"
-              :myId="myId"
+              :myId="avatar.id"
               :messages="chatMessages"
               @update:messages="sendChatMessage"
               @update:chatVisible="updateChatVisible"

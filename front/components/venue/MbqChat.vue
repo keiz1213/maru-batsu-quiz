@@ -29,11 +29,11 @@
     />
     <div v-show="chatVisible">
       <div
-        id="chat-show"
+        id="chat-display"
         class="h-[300px] border-b overflow-auto px-4 pt-4 pb-14 break-all"
       >
         <div v-for="(chatMessage, index) in messages" :key="index">
-          <div v-if="chatMessage.memberId != myId" class="chat chat-start">
+          <div v-if="chatMessage.avatarId != myId" class="chat chat-start">
             <div class="chat-image avatar">
               <div class="w-10 rounded-full">
                 <img :src="chatMessage.avatarUrl" />
@@ -43,7 +43,7 @@
               {{ chatMessage.content }}
             </div>
           </div>
-          <div v-if="chatMessage.memberId === myId" class="chat chat-end">
+          <div v-else class="chat chat-end">
             <div class="chat-bubble">{{ chatMessage.content }}</div>
           </div>
         </div>
