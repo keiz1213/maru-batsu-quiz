@@ -1,7 +1,6 @@
 <script setup lang="ts">
   defineProps<{
     avatars: object
-    gameStart: boolean
     title: string
   }>()
 </script>
@@ -34,7 +33,6 @@
             v-for="(avatar, index) in avatars"
             :key="index"
             :avatar="avatar"
-            :gameStart="gameStart"
           />
         </div>
       </div>

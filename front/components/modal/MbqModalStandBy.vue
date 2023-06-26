@@ -54,7 +54,6 @@
             v-for="(player, index) in players"
             :key="index"
             :avatar="player"
-            :gameStart="false"
           />
         </div>
       </div>

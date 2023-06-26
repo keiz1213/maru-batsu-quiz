@@ -228,14 +228,12 @@
           <div id="challengers-area">
             <MbqMacFinder
               :avatars="players"
-              :gameStart="true"
               :title="'challengers'"
             />
           </div>
           <div id="winners-area">
             <MbqMacFinder
               :avatars="winners"
-              :gameStart="true"
               :title="'winners'"
             />
           </div>

@@ -3,7 +3,6 @@
 
   defineProps<{
     avatar: Avatar
-    gameStart?: Boolean
   }>()
 </script>
 
@@ -16,17 +15,7 @@
   >
     <p class="text-center line-clamp-1">{{ avatar.name }}</p>
     <div
-      :class="[
-        'w-16',
-        'rounded-full',
-        'ring',
-        'ring-primary',
-        'ring-offset-base-100',
-        'ring-offset-2',
-        'm-5',
-        'mt-1',
-        { 'z-10': gameStart }
-      ]"
+      class="w-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 m-5 mt-1"
     >
       <img :src="avatar.avatarUrl" />
     </div>

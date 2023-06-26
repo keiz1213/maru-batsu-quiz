@@ -22,7 +22,6 @@
           v-for="(winner, index) in winners"
           :key="index"
           :avatar="winner"
-          :gameStart="true"
         />
       </div>
       <div>
