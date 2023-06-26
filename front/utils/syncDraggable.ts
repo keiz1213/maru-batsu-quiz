@@ -16,7 +16,7 @@ export class SyncDraggable {
     const y = (parseFloat(dataY) || 0) + event.dy
     const answer = target.getAttribute('data-answer') as string
 
-    this.writer.writeMyAvatarParams(target.id, x, y, answer)
+    this.writer.sendMyAvatarParams(target.id, x, y, answer)
 
     target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
     target.setAttribute('data-x', x)

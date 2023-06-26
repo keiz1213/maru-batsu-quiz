@@ -72,9 +72,9 @@ class OwnerAvatar extends Avatar {
             const chatMessage: ChatMessage = data
             this.handler?.updateChatAction(chatMessage)
             break
-          case 'promptPlayerSubscribeAllPlayers':
+          case 'promptSubscribeAllPlayers':
             const index: number = data
-            this.promptPlayerSubscribeAllPlayers(index)
+            this.promptSubscribeAllPlayers(index)
             break
           default:
             break
@@ -143,7 +143,7 @@ class OwnerAvatar extends Avatar {
 
   // この関数は事実上roopする
   // indexのplayerに他の全playerをサブスク&ハンドラセットするように促す
-  promptPlayerSubscribeAllPlayers = (index: number) => {
+  promptSubscribeAllPlayers = (index: number) => {
     const numberOfParticipant = this.channel?.publications.length as number
     // owner分 -1
     // 0startのため -1
@@ -154,7 +154,7 @@ class OwnerAvatar extends Avatar {
       console.log('全参加者同士接続完了')
       this.handler?.startGame(this)
       const writer = new DataStreamWriter(this)
-      writer.writeStartGame()
+      writer.promptStartGame()
     } else {
       console.log(
         `index: [${index}]のplayerが全playerのサブスク&ハンドラセットを開始・・・`
@@ -162,75 +162,75 @@ class OwnerAvatar extends Avatar {
       const writer = new DataStreamWriter(this)
       // indexのplayerに対して全playerをサブスク&ハンドラセットするように伝える
       // indexのplayerがサブスク&ハンドラセットするとこのpromptPlayerSubscribeAllPlayersが再度呼び出される(playerが自分の次のindexをdatastreamに書き込み、それにハンドラとして設定されているpromptPlayerSubscribeAllPlayersが再度呼び出される)
-      writer.writeCheckSubscribed(index)
+      writer.promptSubscribeAllPlayers(index)
     }
   }
 
   sendAllPlayerAvatar = (players: object) => {
     const writer = new DataStreamWriter(this)
-    writer.writeAllPlayer(players)
+    writer.sendAllPlayerAvatar(players)
   }
 
   announceQuizNumber = (quizNumber: number) => {
     const announceText = `${quizNumber}問目！`
     const writer = new DataStreamWriter(this)
     this.handler?.updateAnnounceText(announceText)
-    writer.writeAnnounceText(announceText)
+    writer.sendAnnounceText(announceText)
   }
 
   announceShortPause = () => {
     const announceText = ''
     const writer = new DataStreamWriter(this)
     this.handler?.updateAnnounceText(announceText)
-    writer.writeAnnounceText(announceText)
+    writer.sendAnnounceText(announceText)
   }
 
   announceQuestion = (question: string) => {
     const announceText = question
     const writer = new DataStreamWriter(this)
     this.handler?.updateAnnounceText(announceText)
-    writer.writeAnnounceText(announceText)
+    writer.sendAnnounceText(announceText)
   }
 
   announceQuizStart = () => {
     const announceText = 'スタート！'
     const writer = new DataStreamWriter(this)
     this.handler?.startQuizAction(announceText)
-    writer.writeStartQuiz(announceText)
+    writer.promptStartQuiz(announceText)
   }
 
   announceQuizStop = () => {
     const announceText = 'ストップ！'
     const writer = new DataStreamWriter(this)
     this.handler?.updateAnnounceText(announceText)
-    writer.writeAnnounceText(announceText)
+    writer.sendAnnounceText(announceText)
   }
 
   announceSuspense = () => {
     const announceText = '正解は・・・'
     const writer = new DataStreamWriter(this)
     this.handler?.updateAnnounceText(announceText)
-    writer.writeAnnounceText(announceText)
+    writer.sendAnnounceText(announceText)
   }
 
   announceCorrectAnswer = (correctAnswer: string) => {
     const announceText = correctAnswer
     const writer = new DataStreamWriter(this)
     this.handler?.updateAnnounceText(announceText)
-    writer.writeAnnounceText(announceText)
+    writer.sendAnnounceText(announceText)
   }
 
   announceExplanation = (explanation: string) => {
     const announceText = explanation
     const writer = new DataStreamWriter(this)
     this.handler?.checkExplanationAction(announceText)
-    writer.writeExplanation(announceText)
+    writer.promptCheckExplanation(announceText)
   }
 
   announceJudge = (correctAnswer: string) => {
     this.handler?.executeJudgeAction(correctAnswer)
     const writer = new DataStreamWriter(this)
-    writer.writeJudge(correctAnswer)
+    writer.promptJudge(correctAnswer)
   }
 
   announce = async (currentQuizNumber: number, quiz: Quiz) => {

@@ -21,11 +21,11 @@ export class DataStreamWriter {
     )
   }
 
-  writeStartGame(): void {
+  promptStartGame(): void {
     this.write('startGameAction', '')
   }
 
-  writeAvatar(): void {
+  sendMyAvatar(): void {
     let myAvatar = new Avatar(
       this.avatar.id,
       this.avatar.uid,
@@ -42,11 +42,11 @@ export class DataStreamWriter {
     this.write('placeAvatarAction', myAvatar)
   }
 
-  writeAllPlayer(players: Object): void {
+  sendAllPlayerAvatar(players: Object): void {
     this.write('placeAllPlayerAvatarAction', players)
   }
 
-  writeMyAvatarParams(id: string, x: string, y: string, answer: string): void {
+  sendMyAvatarParams(id: string, x: string, y: string, answer: string): void {
     const avatarParams = {
       id: id,
       answer: answer,
@@ -56,31 +56,31 @@ export class DataStreamWriter {
     this.write('moveAvatarAction', avatarParams)
   }
 
-  writeAnnounceText(announceText: string): void {
+  sendAnnounceText(announceText: string): void {
     this.write('updateAnnounceTextAction', announceText)
   }
 
-  writeStartQuiz(announceText: string): void {
+  promptStartQuiz(announceText: string): void {
     this.write('startQuizAction', announceText)
   }
 
-  writeExplanation(announceText: string): void {
+  promptCheckExplanation(announceText: string): void {
     this.write('checkExplanationAction', announceText)
   }
 
-  writeChatMessage(chatMessage: ChatMessage): void {
+  sendChatMessage(chatMessage: ChatMessage): void {
     this.write('updateChatAction', chatMessage)
   }
 
-  writeJudge(correctAnswer: string): void {
+  promptJudge(correctAnswer: string): void {
     this.write('executeJudgeAction', correctAnswer)
   }
 
-  writeCheckSubscribed(index: number): void {
+  promptSubscribeAllPlayers(index: number): void {
     this.write('subscribeAllPlayers', index)
   }
 
-  writeReportSubscribed(index: number): void {
-    this.write('promptPlayerSubscribeAllPlayers', index)
+  reportSubscribedAllPlayers(index: number): void {
+    this.write('promptSubscribeAllPlayers', index)
   }
 }

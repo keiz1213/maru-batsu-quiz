@@ -56,7 +56,7 @@ class Avatar {
 
   sendMyAvatar = () => {
     const writer = new DataStreamWriter(this)
-    writer.writeAvatar()
+    writer.sendMyAvatar()
   }
 
   lockMyAvatar = () => {
@@ -84,7 +84,7 @@ class Avatar {
     const chatMessage = this.createChatMessage(newMessage)
     this.handler?.addChatMessage(chatMessage)
     const writer = new DataStreamWriter(this)
-    writer.writeChatMessage(chatMessage)
+    writer.sendChatMessage(chatMessage)
   }
 
   delay = (ms: number) => {

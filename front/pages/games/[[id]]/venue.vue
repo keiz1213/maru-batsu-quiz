@@ -92,7 +92,7 @@
       avatar.sendAllPlayerAvatar(players.value)
       console.log('-----全playerに対して全playerのアバターを送信-----')
       console.log('-----全player同士のサブスクを開始・・・-----')
-      avatar.promptPlayerSubscribeAllPlayers(0)
+      avatar.promptSubscribeAllPlayers(0)
     }
   }
 

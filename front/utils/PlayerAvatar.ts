@@ -200,7 +200,7 @@ class PlayerAvatar extends Avatar {
       console.log(
         'myIndexに1を足して次のindexを書き込み、ownerに完了を報告します'
       )
-      writer.writeReportSubscribed(myIndex + 1)
+      writer.reportSubscribedAllPlayers(myIndex + 1)
     }
   }
 }
