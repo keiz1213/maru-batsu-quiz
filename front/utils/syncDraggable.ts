@@ -8,7 +8,7 @@ export class SyncDraggable {
     this.writer = writer
   }
 
-  dragMoveListener(event: any): void {
+  private dragMoveListener(event: any): void {
     const target = event.target as HTMLElement
     const dataX = target.getAttribute('data-x') as string
     const dataY = target.getAttribute('data-y') as string
@@ -57,10 +57,5 @@ export class SyncDraggable {
         draggableElement.dataset.answer = ''
       }
     })
-  }
-
-  removeOpacityClass(uid: string): void {
-    const avatar = document.getElementById(uid) as HTMLElement
-    avatar.classList.remove('opacity-20')
   }
 }
