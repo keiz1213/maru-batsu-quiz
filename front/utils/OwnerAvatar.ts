@@ -54,7 +54,7 @@ class OwnerAvatar extends Avatar {
     })
   }
 
-  setHandleWriteData = async (stream: RemoteDataStream) => {
+  setHandleDataStream = async (stream: RemoteDataStream) => {
     await new Promise<void>(async (resolve) => {
       stream.onData.add(async (message) => {
         const { handlerName, data } = JSON.parse(message as string)
@@ -90,7 +90,7 @@ class OwnerAvatar extends Avatar {
       const playerPublicationId = this.channel?.publications[i].id as string
       const stream = await this.subscribe(playerPublicationId)
       console.log(`${i}人目のサブスク完了`)
-      await this.setHandleWriteData(stream)
+      await this.setHandleDataStream(stream)
       console.log(`${i}人目のdatastreamにハンドラセット完了`)
     }
   }

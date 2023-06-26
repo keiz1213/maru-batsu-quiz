@@ -73,7 +73,7 @@ class PlayerAvatar extends Avatar {
     })
   }
 
-  setHandleWriteData = async (stream: RemoteDataStream) => {
+  setHandleDataStream = async (stream: RemoteDataStream) => {
     await new Promise<void>(async (resolve) => {
       stream.onData.add(async (message) => {
         const { handlerName, data } = JSON.parse(message as string)
@@ -144,7 +144,7 @@ class PlayerAvatar extends Avatar {
     console.log('ownerをサブスクしました')
     // this.sendMyAvatar()
     // await this.delay(1000)
-    await this.setHandleWriteData(stream)
+    await this.setHandleDataStream(stream)
     console.log('ownerのdatastreamにハンドラをセットしました')
     await this.updateOwnerMetadata(ownerPublication, myIndex.toString())
     console.log('オーナーのmetadata更新しました')
@@ -164,7 +164,7 @@ class PlayerAvatar extends Avatar {
         const playerPublicationId = this.channel?.publications[i].id as string
         const stream = await this.subscribe(playerPublicationId)
         console.log(`publicationId[${playerPublicationId}]のサブスク完了`)
-        await this.setHandleWriteData(stream)
+        await this.setHandleDataStream(stream)
         console.log(
           `publicationId[${playerPublicationId}]のstreamにハンドラセット完了`
         )
