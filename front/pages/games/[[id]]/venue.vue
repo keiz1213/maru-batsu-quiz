@@ -1,7 +1,5 @@
 <script setup lang="ts">
   import Avatar from '@/utils/Avatar'
-  import { useJudge } from '~/composables/useJudge'
-  import { usePublication } from '~/composables/usePublication'
   import OwnerAvatar from '~/utils/OwnerAvatar'
   import PlayerAvatar from '~/utils/PlayerAvatar'
   import DataStreamHandler from '~/utils/DataStreamHandler'
@@ -43,6 +41,61 @@
   const { publisherNames, addPublisherName } = usePublication()
   const { timeElapsed, timeLimit, startTimer, resetTimer } = useTimer()
 
+  const handler = new DataStreamHandler(
+    addOwner,
+    addPlayer,
+    setAllPlayers,
+    startGame,
+    startTimer,
+    resetTimer,
+    judge,
+    updateAnnounceText,
+    addChatMessage,
+    addPublisherName
+  )
+
+  const isOwner = (avatar: Avatar) => {
+    return ownerId === avatar.id
+  }
+
+  const sendAnnounce = async () => {
+    if (avatar instanceof OwnerAvatar) {
+      await avatar.announce(
+        currentQuizNumber.value,
+        game.quizzes[currentQuizNumber.value]
+      )
+    }
+  }
+
+  const openQuestion = () => {
+    isCheckQuestion.value = true
+  }
+
+  const updateChatVisible = () => {
+    chatVisible.value = false
+  }
+
+  const sendChatMessage = (newMessage: string) => {
+    avatar.sendChatMessage(newMessage)
+  }
+
+  const startConnection = async () => {
+    if (avatar instanceof OwnerAvatar) {
+      console.log('----ownerが全playerをサブスク&ハンドラセットを開始----')
+      await avatar.subscribeAllPlayers()
+      console.log('----ownerが全playerをサブスク&ハンドラセット完了----')
+      console.log('----ownerが全playerに対してownerをサブスク&ハンドラセットするように促します----')
+      await avatar.promptAllPlayersSubscribeOwner()
+      console.log('----全playerがownerをサブスク&ハンドラセット完了----')
+      avatar.sendMyAvatar()
+      console.log('-----自分のアバターを全playerに対して送信----')
+      avatar.sendAllPlayerAvatar(players.value)
+      console.log('-----全playerに対して全playerのアバターを送信-----')
+      console.log('-----全player同士のサブスクを開始・・・-----')
+      avatar.promptPlayerSubscribeAllPlayers(0)
+    }
+  }
+
   if (currentUser.value.id === 0) {
     skyWayToken = await SkyWay.getSkyWayToken('testUserToken')
     userName = SkyWay.generateUniqueName()
@@ -58,19 +111,6 @@
   const localDataStream = await SkyWay.createLocalDataStream()
   const agent = await SkyWay.createAgent(skyWayChannel, userName)
   const publication = await SkyWay.createPublication(localDataStream, agent)
-
-  const handler = new DataStreamHandler(
-    addOwner,
-    addPlayer,
-    setAllPlayers,
-    startGame,
-    startTimer,
-    resetTimer,
-    judge,
-    updateAnnounceText,
-    addChatMessage,
-    addPublisherName
-  )
 
   const initialAvatarParams = [
     currentUser.value.id,
@@ -100,48 +140,6 @@
     publication
   ] as const
 
-  const isOwner = (avatar: Avatar) => {
-    return ownerId === avatar.id
-  }
-
-  const sendAnnounce = async () => {
-    if (avatar instanceof OwnerAvatar) {
-      await avatar.announce(
-        currentQuizNumber.value,
-        game.quizzes[currentQuizNumber.value]
-      )
-    }
-  }
-
-  const openQuestion = () => {
-    isCheckQuestion.value = true
-  }
-
-  const updateChatVisible = () => {
-    chatVisible.value = false
-  }
-
-  const sendChatMessage = (newMessage: string) => {
-    avatar.sendChatMessage(newMessage)
-  }
-
-  const join = async () => {
-    if (avatar instanceof OwnerAvatar) {
-      console.log('----ownerが全playerをサブスクを開始----')
-      await avatar.subscribeAllPlayers()
-      console.log('----ownerが全playerをサブスク完了----')
-      console.log('----ownerが全playerのmetadataの更新を開始します----')
-      await avatar.promptAllPlayersSubscribeOwner()
-      console.log('----全playerがownerをサブスク完了----')
-      avatar.sendMyAvatar()
-      console.log('-----自分のアバターを送信----')
-      avatar.sendAllPlayerAvatar(players.value)
-      console.log('-----全player送信-----')
-      console.log('-----全player同士のサブスクを開始・・・-----')
-      avatar.promptPlayerSubscribeAllPlayers(0)
-    }
-  }
-
   if (currentUser.value.id === ownerId) {
     avatar = new OwnerAvatar(...initialAvatarParams)
     addOwner(avatar)
@@ -164,7 +162,7 @@
     :isOwner="isOwner(avatar)"
     :players="players"
     :background="'interactive'"
-    @join="join"
+    @startConnection="startConnection"
     :publisherNames="publisherNames"
   />
 

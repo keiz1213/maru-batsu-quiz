@@ -8,7 +8,7 @@
   }>()
 
   const emit = defineEmits<{
-    (e: 'join'): void
+    (e: 'startConnection'): void
   }>()
 </script>
 <template>
@@ -61,7 +61,7 @@
         <MbqButtonSecondary
           v-if="isOwner"
           :button-type="'button'"
-          @click="emit('join')"
+          @click="emit('startConnection')"
           >接続開始</MbqButtonSecondary
         >
       </div>
