@@ -50,7 +50,7 @@ class OwnerAvatar extends Avatar {
     this.channel?.onPublicationListChanged.add(async () => {
       const publisherName = this.channel?.publications.slice(-1)[0].publisher
         .name as string
-      this.reaction?.pushPublicationName(publisherName)
+      this.reaction?.addPublisherNameAction(publisherName)
     })
   }
 
@@ -58,44 +58,19 @@ class OwnerAvatar extends Avatar {
     await new Promise<void>(async (resolve) => {
       stream.onData.add(async (message) => {
         const { reaction, data } = JSON.parse(message as string)
-        const announceText: string = data
 
         switch (reaction) {
-          case 'startTheGame':
-            this.reaction?.startTheGame(this)
-            break
           case 'placeAvatar':
             const avatar: Avatar = data
-            this.reaction?.placeAvatar(avatar)
-            break
-          case 'placeAllPlayerAvatar':
-            const players: Avatar[] = data
-            this.reaction?.placeAllPlayerAvatar(players)
+            this.reaction?.placeAvatarAction(avatar)
             break
           case 'moveOtherAvatar':
             const avatarParams: AvatarParams = data
-            this.reaction?.moveOtherAvatar(avatarParams)
-            break
-          case 'acceptAnnounce':
-            if (announceText === 'ストップ！') {
-              this.lockMyAvatar()
-            }
-            this.reaction?.acceptAnnounce(announceText)
-            break
-          case 'startQuiz':
-            this.reaction?.startQuiz(announceText)
-            break
-          case 'resetTimer':
-            this.unLockMyAvatar()
-            this.reaction?.checkExplanation(announceText)
+            this.reaction?.moveAvatarAction(avatarParams)
             break
           case 'updateChat':
             const chatMessage: ChatMessage = data
-            this.reaction?.updateChat(chatMessage)
-            break
-          case 'executeJudge':
-            const correctAnswer: string = data
-            this.reaction?.executeJudge(correctAnswer)
+            this.reaction?.updateChatAction(chatMessage)
             break
           case 'checkPlayerSubscribedAll':
             const index: number = data
@@ -249,7 +224,7 @@ class OwnerAvatar extends Avatar {
     await this.delay(3000)
     this.announceExplanation(explanation)
     this.reaction?.resetTimer()
-    this.reaction?.executeJudge(correctAnswer)
+    this.reaction?.executeJudgeAction(correctAnswer)
     const writer = new DataStreamWriter(this)
     writer.writeJudge(correctAnswer)
   }

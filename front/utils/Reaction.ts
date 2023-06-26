@@ -38,11 +38,11 @@ class Reaction {
     this.addPublisherName = addPublisherName
   }
 
-  startTheGame = (avatar: Avatar): void => {
+  startGameAction = (avatar: Avatar): void => {
     this.startGame(avatar)
   }
 
-  placeAvatar = (avatar: Avatar): void => {
+  placeAvatarAction = (avatar: Avatar): void => {
     if (!document.getElementById(avatar.uid)) {
       if (avatar.owner) {
         this.addOwner(avatar)
@@ -52,11 +52,11 @@ class Reaction {
     }
   }
 
-  placeAllPlayerAvatar = (players: Avatar[]): void => {
+  placeAllPlayerAvatarAction = (players: Avatar[]): void => {
     this.setAllPlayers(players)
   }
 
-  moveOtherAvatar = (avatarParams: AvatarParams): void => {
+  moveAvatarAction = (avatarParams: AvatarParams): void => {
     const target = document.getElementById(avatarParams.id) as HTMLElement
     const x = avatarParams.x
     const y = avatarParams.y
@@ -67,29 +67,29 @@ class Reaction {
     target.setAttribute('data-answer', answer)
   }
 
-  acceptAnnounce = (announceText: string): void => {
+  updateAnnounceTextAction = (announceText: string): void => {
     this.updateAnnounceText(announceText)
   }
 
-  startQuiz = (announceText: string): void => {
+  startQuizAction = (announceText: string): void => {
     this.startTimer()
     this.updateAnnounceText(announceText)
   }
 
-  checkExplanation = (announceText: string): void => {
+  checkExplanationAction = (announceText: string): void => {
     this.resetTimer()
     this.updateAnnounceText(announceText)
   }
 
-  updateChat = (chatMessage: ChatMessage): void => {
+  updateChatAction = (chatMessage: ChatMessage): void => {
     this.addChatMessage(chatMessage)
   }
 
-  executeJudge = (correctAnswer: string): void => {
+  executeJudgeAction = (correctAnswer: string): void => {
     this.judge(correctAnswer)
   }
 
-  pushPublicationName = (publisherName: string) => {
+  addPublisherNameAction = (publisherName: string) => {
     this.addPublisherName(publisherName)
   }
 }

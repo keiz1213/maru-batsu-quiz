@@ -81,40 +81,40 @@ class PlayerAvatar extends Avatar {
 
         switch (reaction) {
           case 'startTheGame':
-            this.reaction?.startTheGame(this)
+            this.reaction?.startGameAction(this)
             break
           case 'placeAvatar':
             const avatar: Avatar = data
-            this.reaction?.placeAvatar(avatar)
+            this.reaction?.placeAvatarAction(avatar)
             break
           case 'placeAllPlayerAvatar':
             const players: Avatar[] = data
-            this.reaction?.placeAllPlayerAvatar(players)
+            this.reaction?.placeAllPlayerAvatarAction(players)
             break
           case 'moveOtherAvatar':
             const avatarParams: AvatarParams = data
-            this.reaction?.moveOtherAvatar(avatarParams)
+            this.reaction?.moveAvatarAction(avatarParams)
             break
           case 'acceptAnnounce':
             if (announceText === 'ストップ！') {
               this.lockMyAvatar()
             }
-            this.reaction?.acceptAnnounce(announceText)
+            this.reaction?.updateAnnounceTextAction(announceText)
             break
           case 'startQuiz':
-            this.reaction?.startQuiz(announceText)
+            this.reaction?.startQuizAction(announceText)
             break
           case 'resetTimer':
             this.unLockMyAvatar()
-            this.reaction?.checkExplanation(announceText)
+            this.reaction?.checkExplanationAction(announceText)
             break
           case 'updateChat':
             const chatMessage: ChatMessage = data
-            this.reaction?.updateChat(chatMessage)
+            this.reaction?.updateChatAction(chatMessage)
             break
           case 'executeJudge':
             const correctAnswer: string = data
-            this.reaction?.executeJudge(correctAnswer)
+            this.reaction?.executeJudgeAction(correctAnswer)
             break
           case 'subscribeAllPlayers':
             const index: number = data
@@ -154,7 +154,9 @@ class PlayerAvatar extends Avatar {
   subscribeAllPlayers = async (index: number) => {
     const myIndex = this.index as number
     if (index === myIndex) {
-      console.log(`myIndex:[${myIndex}]が他の全playerのサブスクを開始します・・・`)
+      console.log(
+        `myIndex:[${myIndex}]が他の全playerのサブスクを開始します・・・`
+      )
       const numberOfParticipant = this.channel?.publications.length as number
       for (let i = 1; i < numberOfParticipant; i++) {
         console.log('roop開始・・・')
@@ -163,11 +165,15 @@ class PlayerAvatar extends Avatar {
         const stream = await this.subscribe(playerPublicationId)
         console.log(`publicationId[${playerPublicationId}]のサブスク完了`)
         await this.setHandleWriteData(stream)
-        console.log(`publicationId[${playerPublicationId}]のstreamにハンドラセット完了`)
+        console.log(
+          `publicationId[${playerPublicationId}]のstreamにハンドラセット完了`
+        )
       }
       console.log('他の全playerのサブスクとハンドラセット完了')
       const writer = new DataStreamWriter(this)
-      console.log('myIndexに1を足して次のindexを書き込み、ownerに完了を報告します')
+      console.log(
+        'myIndexに1を足して次のindexを書き込み、ownerに完了を報告します'
+      )
       writer.writeReportSubscribed(myIndex + 1)
     }
   }
