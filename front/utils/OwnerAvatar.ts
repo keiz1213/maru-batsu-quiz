@@ -46,17 +46,10 @@ class OwnerAvatar extends Avatar {
     writer.writeAllPlayer(players)
   }
 
-  addMyPublicationId = () => {
-    const myPublicationId = this.publication?.id as string
-    this.reaction?.pushPublicationId(myPublicationId)
-  }
-
   setHandlePublishListChanged = () => {
     this.channel?.onPublicationListChanged.add(async () => {
-      const publicationId = this.channel?.publications.slice(-1)[0].id as string
       const publisherName = this.channel?.publications.slice(-1)[0].publisher
         .name as string
-      this.reaction?.pushPublicationId(publicationId)
       this.reaction?.pushPublicationName(publisherName)
     })
   }
@@ -166,9 +159,13 @@ class OwnerAvatar extends Avatar {
     const allPublications = this.channel?.publications as RoomPublication[]
     for (let i = 1; i < allPublications.length; i++) {
       const playerIndex = (i - 1).toString()
-      console.log(`[${allPublications[i]}]のmetadataを[${playerIndex}]に更新します・・・`)
+      console.log(
+        `[${allPublications[i]}]のmetadataを[${playerIndex}]に更新します・・・`
+      )
       await this.updatePlayerMetaData(allPublications[i], playerIndex)
-      console.log(`[${playerIndex}]に更新されたplayerがownerをサブスクしたかどうか確認開始・・・`)
+      console.log(
+        `[${playerIndex}]に更新されたplayerがownerをサブスクしたかどうか確認開始・・・`
+      )
       await this.checkMyMetaData(playerIndex)
     }
   }

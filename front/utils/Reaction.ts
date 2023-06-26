@@ -1,5 +1,4 @@
 import Avatar from './Avatar'
-import OwnerAvatar from './OwnerAvatar'
 import { AvatarParams } from '@/types/AvatarParams'
 import { ChatMessage } from '@/types/ChatMessage'
 
@@ -13,7 +12,6 @@ class Reaction {
   judge: Function
   updateAnnounceText: Function
   addChatMessage: Function
-  addPublicationId: Function
   addPublisherName: Function
 
   constructor(
@@ -26,7 +24,6 @@ class Reaction {
     judge: Function,
     updateAnnounceText: Function,
     addChatMessage: Function,
-    addPublicationId: Function,
     addPublisherName: Function
   ) {
     this.addOwner = addOwner
@@ -38,7 +35,6 @@ class Reaction {
     this.judge = judge
     this.updateAnnounceText = updateAnnounceText
     this.addChatMessage = addChatMessage
-    this.addPublicationId = addPublicationId
     this.addPublisherName = addPublisherName
   }
 
@@ -91,10 +87,6 @@ class Reaction {
 
   executeJudge = (correctAnswer: string): void => {
     this.judge(correctAnswer)
-  }
-
-  pushPublicationId = (publicationId: string) => {
-    this.addPublicationId(publicationId)
   }
 
   pushPublicationName = (publisherName: string) => {

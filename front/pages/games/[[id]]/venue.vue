@@ -39,7 +39,7 @@
   } = useJudge(game.number_of_winner)
   const { announceText, updateAnnounceText } = useAnnounce()
   const { chatMessages, addChatMessage } = useChat()
-  const { publicationIds, publisherNames, addPublicationId, addPublisherName } =
+  const { publisherNames, addPublisherName } =
     usePublication()
   const { timeElapsed, timeLimit, startTimer, resetTimer } = useTimer()
 
@@ -69,7 +69,6 @@
     judge,
     updateAnnounceText,
     addChatMessage,
-    addPublicationId,
     addPublisherName
   )
 
@@ -100,19 +99,6 @@
     agent,
     publication
   ] as const
-
-  if (currentUser.value.id === ownerId) {
-    avatar = new OwnerAvatar(...initialAvatarParams)
-    addOwner(avatar)
-    const writer = new DataStreamWriter(avatar)
-    const draggable = new SyncDraggable(writer)
-    draggable.setDraggable(avatar.uid)
-    addPublicationId(avatar.publication?.id as string)
-    avatar.setHandlePublishListChanged()
-  } else {
-    avatar = new PlayerAvatar(...initialTestAvatarParams)
-    avatar.setHandleMetaDataUpdate()
-  }
 
   const isOwner = (id: number) => {
     return ownerId === id
@@ -154,6 +140,15 @@
       console.log('-----全player同士のサブスクを開始・・・-----')
       avatar.checkPlayerSubscribedAll(0)
     }
+  }
+
+  if (currentUser.value.id === ownerId) {
+    avatar = new OwnerAvatar(...initialAvatarParams)
+    addOwner(avatar)
+    avatar.setHandlePublishListChanged()
+  } else {
+    avatar = new PlayerAvatar(...initialTestAvatarParams)
+    avatar.setHandleMetaDataUpdate()
   }
 </script>
 
