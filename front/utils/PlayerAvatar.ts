@@ -40,6 +40,11 @@ class PlayerAvatar extends Avatar {
     )
   }
 
+  // test用
+  randomDelay = () => {
+    return Math.floor(Math.random() * (10000 - 1000 + 1)) + 1000
+  }
+
   // 自分のmetadataがownerによって更新されると
   // 1. 自分のindexが確定する
   // 2. indexを自アバターにセットする
@@ -47,6 +52,10 @@ class PlayerAvatar extends Avatar {
   // 4. playerが自indexでownerのmetadataを更新することで完了を報告する
   setHandleMetaDataUpdate = async () => {
     this.agent?.onMetadataUpdated.add(async () => {
+      //-----test用-----------
+      // await this.delay(this.randomDelay())
+      //----------------
+
       console.log('--------------------onMetadataUpdated')
       const myIndx = this.agent?.metadata as string
       console.log(`自分のmetadataが[${myIndx}]に更新された`)
@@ -147,6 +156,10 @@ class PlayerAvatar extends Avatar {
 
   // player → owner
   subscribeOwner = async () => {
+    //-----test用-----------
+    // await this.delay(this.randomDelay())
+    //----------------
+
     console.log('-----------------------subscribeOwner')
     const myIndex = this.index as number
     const ownerPublication = this.channel?.publications[0] as RoomPublication
@@ -163,6 +176,10 @@ class PlayerAvatar extends Avatar {
   subscribeAllPlayers = async (index: number) => {
     const myIndex = this.index as number
     if (index === myIndex) {
+      //-----test用-----------
+      // await this.delay(this.randomDelay())
+      //----------------
+
       console.log(
         `myIndex:[${myIndex}]が他の全playerのサブスクを開始します・・・`
       )
