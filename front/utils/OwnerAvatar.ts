@@ -16,6 +16,7 @@ class OwnerAvatar extends Avatar {
   constructor(
     id: number,
     uid: string,
+    owner: boolean,
     name: string,
     avatarUrl: string,
     index: number | null,
@@ -28,6 +29,7 @@ class OwnerAvatar extends Avatar {
     super(
       id,
       uid,
+      owner,
       name,
       avatarUrl,
       index,
@@ -67,7 +69,7 @@ class OwnerAvatar extends Avatar {
 
         switch (reaction) {
           case 'startTheGame':
-            this.reaction?.startTheGame()
+            this.reaction?.startTheGame(this)
             break
           case 'placeAvatar':
             const avatar: Avatar = data
@@ -114,7 +116,9 @@ class OwnerAvatar extends Avatar {
     for (let i = 1; i < numberOfParticipant; i++) {
       const playerPublicationId = this.channel?.publications[i].id as string
       const stream = await this.subscribe(playerPublicationId)
+      console.log(`${i}人目のサブスク完了`)
       await this.setHandleWriteData(stream)
+      console.log(`${i}人目のdatastreamにハンドラセット完了`)
     }
   }
 
@@ -123,9 +127,11 @@ class OwnerAvatar extends Avatar {
     const maxIndex = numberOfParticipant - 2
     if (index > maxIndex) {
       console.log('全参加者同士接続完了')
-      
-
+      this.reaction?.startGame(this)
+      const writer = new DataStreamWriter(this)
+      writer.writeStartGame()
     } else {
+      console.log(`index: [${index}]のplayerが全playerのサブスクを開始・・・`)
       const writer = new DataStreamWriter(this)
       writer.writeCheckSubscribed(index)
     }
@@ -141,9 +147,11 @@ class OwnerAvatar extends Avatar {
   checkMyMetaData = async (playerIndex: string) => {
     while (true) {
       if (this.agent?.metadata === playerIndex) {
+        console.log(`index: ${this.agent?.metadata} がownerをサブスク完了しました`)
         break
       }
       await this.delay(1000)
+      console.log('自分のmetadataを確認中・・・')
     }
   }
 

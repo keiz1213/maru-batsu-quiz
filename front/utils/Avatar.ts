@@ -13,6 +13,7 @@ import { ChatMessage } from '~/types/ChatMessage'
 class Avatar {
   id: number
   uid: string
+  owner: boolean
   name: string
   avatarUrl: string
   index: number | null
@@ -25,6 +26,7 @@ class Avatar {
   constructor(
     id: number,
     uid: string,
+    owner: boolean,
     name: string,
     avatarUrl: string,
     index: number | null,
@@ -36,6 +38,7 @@ class Avatar {
   ) {
     this.id = id
     this.uid = uid
+    this.owner = owner
     this.name = name
     this.avatarUrl = avatarUrl
     this.index = index

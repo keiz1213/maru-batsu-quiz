@@ -78,6 +78,7 @@
   const initialAvatarParams = [
     currentUser.value.id,
     currentUser.value.uid,
+    true,
     currentUser.value.name,
     currentUser.value.avatar_url,
     null,
@@ -91,6 +92,7 @@
   const initialTestAvatarParams = [
     0,
     '',
+    false,
     '',
     '',
     null,
@@ -111,10 +113,6 @@
     ownerAvatar.setHandlePublishListChanged()
   } else {
     playerAvatar = new PlayerAvatar(...initialTestAvatarParams)
-    addPlayer(playerAvatar)
-    const writer = new DataStreamWriter(playerAvatar)
-    const draggable = new SyncDraggable(writer)
-    // draggable.setDraggable(playerAvatar.uid)
     playerAvatar.setHandleMetaDataUpdate()
   }
 
@@ -147,13 +145,15 @@
 
   const join = async () => {
     await ownerAvatar.subscribeAllPlayers()
+    console.log('----ownerが全playerをサブスク完了----')
     await ownerAvatar.updateAllPlayerMetaData()
+    console.log('----全playerがownerをサブスク完了----')
     ownerAvatar.sendMyAvatar()
+    console.log('自分のアバターを送信')
     ownerAvatar.sendAllPlayerAvatar(players.value)
+    console.log('全player送信')
+    console.log('全player同士のサブスクを開始・・・')
     ownerAvatar.checkPlayerSubscribedAll(0)
-    const writer = new DataStreamWriter(ownerAvatar)
-    startGame(ownerAvatar)
-    writer.writeStartGame()
   }
 </script>
 

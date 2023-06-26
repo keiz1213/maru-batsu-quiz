@@ -34,9 +34,20 @@ export class DataStreamWriter {
   }
 
   writeAvatar(): void {
-    const clonedAvatar = cloneDeep(this.avatar)
-    const writableAvatar = this.makeWritableAvatar(clonedAvatar)
-    this.write('placeAvatar', writableAvatar)
+    let myAvatar = new Avatar(
+      this.avatar.id,
+      this.avatar.uid,
+      this.avatar.owner,
+      this.avatar.name,
+      this.avatar.avatarUrl,
+      this.avatar.index,
+      null,
+      null,
+      null,
+      null,
+      null
+    )
+    this.write('placeAvatar', myAvatar)
   }
 
   writeAllPlayer(players: Object): void {

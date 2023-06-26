@@ -48,7 +48,7 @@ class Reaction {
 
   placeAvatar = (avatar: Avatar): void => {
     if (!document.getElementById(avatar.uid)) {
-      if (avatar instanceof OwnerAvatar) {
+      if (avatar.owner) {
         this.addOwner(avatar)
       } else {
         this.addPlayer(avatar)

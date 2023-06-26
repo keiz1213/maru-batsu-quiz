@@ -15,6 +15,7 @@ class PlayerAvatar extends Avatar {
   constructor(
     id: number,
     uid: string,
+    owner: boolean,
     name: string,
     avatarUrl: string,
     index: number | null,
@@ -27,6 +28,7 @@ class PlayerAvatar extends Avatar {
     super(
       id,
       uid,
+      owner,
       name,
       avatarUrl,
       index,
@@ -40,8 +42,11 @@ class PlayerAvatar extends Avatar {
 
   setHandleMetaDataUpdate = async () => {
     this.agent?.onMetadataUpdated.add(async () => {
+      console.log('--------------------onMetadataUpdated')
       const myIndx = this.agent?.metadata as string
+      console.log(`自分のmetadataが[${myIndx}]に更新された`)
       this.index = parseInt(myIndx)
+      console.log(`自分のindexに[${this.index}]がセットされた`)
 
       // ----------ここからtestUser用。後で消す。testUserは自分のindexが確定するまではuserに関するプロパティが初期化できないのでここで初期化する
       this.id = this.index + 2
@@ -52,7 +57,19 @@ class PlayerAvatar extends Avatar {
         import.meta.url
       ).href
       // ---------ここまで
+      console.log(`自分の
+      idが[${this.id}]に設定された
+      uidが[${this.uid}]に設定された
+      nameが[${this.name}]に設定された
+      avatarUrlが[${this.avatarUrl}]に設定された
+      `)
       await this.subscribeOwner()
+      console.log(`ownerを
+      ・サブスク完了!
+      ・ハンドラセット完了!
+      ・metadata更新完了!`)
+      console.log('--------------------onMetadataUpdated')
+      this.sendMyAvatar()
     })
   }
 
@@ -114,14 +131,19 @@ class PlayerAvatar extends Avatar {
   }
 
   subscribeOwner = async () => {
+    console.log('-----------------------subscribeOwner')
     const myIndex = this.index as number
     const ownerPublication = this.channel?.publications[0] as RoomPublication
     const ownerPublicationId = ownerPublication?.id as string
     const stream = await this.subscribe(ownerPublicationId)
-    this.sendMyAvatar()
-    await this.delay(1000)
+    console.log('ownerをサブスクしました')
+    // this.sendMyAvatar()
+    // await this.delay(1000)
     await this.setHandleWriteData(stream)
+    console.log('ownerのdatastreamにハンドラをセットしました')
     await this.updateOwnerMetadata(ownerPublication, myIndex.toString())
+    console.log('オーナーのmetadata更新しました')
+    console.log('-----------------------subscribeOwner')
   }
 
   subscribeAllPlayers = async (index: number) => {

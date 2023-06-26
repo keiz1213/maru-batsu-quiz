@@ -55,6 +55,7 @@ export const useJudge = (initialNumberOfWinner: number) => {
     const avatar = new Avatar(
       0,
       '',
+      false,
       '',
       '',
       null,
