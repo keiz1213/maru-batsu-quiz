@@ -131,14 +131,14 @@
       await avatar.subscribeAllPlayers()
       console.log('----ownerが全playerをサブスク完了----')
       console.log('----ownerが全playerのmetadataの更新を開始します----')
-      await avatar.updateAllPlayerMetaData()
+      await avatar.promptAllPlayersSubscribeOwner()
       console.log('----全playerがownerをサブスク完了----')
       avatar.sendMyAvatar()
       console.log('-----自分のアバターを送信----')
       avatar.sendAllPlayerAvatar(players.value)
       console.log('-----全player送信-----')
       console.log('-----全player同士のサブスクを開始・・・-----')
-      avatar.checkPlayerSubscribedAll(0)
+      avatar.promptPlayerSubscribeAllPlayers(0)
     }
   }
 

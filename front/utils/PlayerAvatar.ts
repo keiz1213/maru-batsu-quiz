@@ -40,6 +40,11 @@ class PlayerAvatar extends Avatar {
     )
   }
 
+  // 自分のmetadataがownerによって更新されると
+  // 1. 自分のindexが確定する
+  // 2. indexを自アバターにセットする
+  // 3. playerがownerをサブスク&ハンドラセットする
+  // 4. playerが自indexでownerのmetadataを更新することで完了を報告する
   setHandleMetaDataUpdate = async () => {
     this.agent?.onMetadataUpdated.add(async () => {
       console.log('--------------------onMetadataUpdated')
@@ -48,7 +53,7 @@ class PlayerAvatar extends Avatar {
       this.index = parseInt(myIndx)
       console.log(`自分のindexに[${this.index}]がセットされた`)
 
-      // ----------ここからtestUser用。後で消す。testUserは自分のindexが確定するまではuserに関するプロパティが初期化できないのでここで初期化する
+      // ----------ここからtestUser用。後で消す。testUserは自分のindexが確定するまではプロパティが初期化できないのでここで初期化する
       this.id = this.index + 2
       this.uid = `testUid-${this.index + 1}`
       this.name = `testName-${this.index + 1}`
@@ -73,6 +78,10 @@ class PlayerAvatar extends Avatar {
     })
   }
 
+  // サブスクした相手のstreamにハンドラをセットする
+  // 相手がstreamにhandleNameとdataを書き込む
+  // handleNameは対応するアクション
+  // dataは書き込み内容
   setHandleDataStream = async (stream: RemoteDataStream) => {
     await new Promise<void>(async (resolve) => {
       stream.onData.add(async (message) => {
@@ -128,6 +137,7 @@ class PlayerAvatar extends Avatar {
     })
   }
 
+  // オーナーのmetadataを自indexで更新し、完了を報告
   updateOwnerMetadata = async (
     ownerPublication: RoomPublication,
     myIndex: string
@@ -135,6 +145,7 @@ class PlayerAvatar extends Avatar {
     await ownerPublication.publisher.updateMetadata(myIndex)
   }
 
+  // player → owner
   subscribeOwner = async () => {
     console.log('-----------------------subscribeOwner')
     const myIndex = this.index as number
@@ -142,12 +153,10 @@ class PlayerAvatar extends Avatar {
     const ownerPublicationId = ownerPublication?.id as string
     const stream = await this.subscribe(ownerPublicationId)
     console.log('ownerをサブスクしました')
-    // this.sendMyAvatar()
-    // await this.delay(1000)
     await this.setHandleDataStream(stream)
     console.log('ownerのdatastreamにハンドラをセットしました')
     await this.updateOwnerMetadata(ownerPublication, myIndex.toString())
-    console.log('オーナーのmetadata更新しました')
+    console.log('オーナーのmetadataを自indexで更新し、完了を報告しました')
     console.log('-----------------------subscribeOwner')
   }
 

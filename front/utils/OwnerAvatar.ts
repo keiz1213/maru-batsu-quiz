@@ -41,11 +41,7 @@ class OwnerAvatar extends Avatar {
     )
   }
 
-  sendAllPlayerAvatar = (players: object) => {
-    const writer = new DataStreamWriter(this)
-    writer.writeAllPlayer(players)
-  }
-
+  // roomに入ってきた人の名前を収集
   setHandlePublishListChanged = () => {
     this.channel?.onPublicationListChanged.add(async () => {
       const publisherName = this.channel?.publications.slice(-1)[0].publisher
@@ -54,6 +50,10 @@ class OwnerAvatar extends Avatar {
     })
   }
 
+  // サブスクした相手のstreamにハンドラをセットする
+  // 相手がstreamにhandleNameとdataを書き込む
+  // handleNameは対応するアクション
+  // dataは書き込み内容
   setHandleDataStream = async (stream: RemoteDataStream) => {
     await new Promise<void>(async (resolve) => {
       stream.onData.add(async (message) => {
@@ -72,9 +72,9 @@ class OwnerAvatar extends Avatar {
             const chatMessage: ChatMessage = data
             this.handler?.updateChatAction(chatMessage)
             break
-          case 'checkPlayerSubscribedAll':
+          case 'promptPlayerSubscribeAllPlayers':
             const index: number = data
-            this.checkPlayerSubscribedAll(index)
+            this.promptPlayerSubscribeAllPlayers(index)
             break
           default:
             break
@@ -84,6 +84,7 @@ class OwnerAvatar extends Avatar {
     })
   }
 
+  // owner → all player
   subscribeAllPlayers = async () => {
     const numberOfParticipant = this.channel?.publications.length as number
     for (let i = 1; i < numberOfParticipant; i++) {
@@ -95,42 +96,36 @@ class OwnerAvatar extends Avatar {
     }
   }
 
-  checkPlayerSubscribedAll = (index: number) => {
-    const numberOfParticipant = this.channel?.publications.length as number
-    const maxIndex = numberOfParticipant - 2
-    if (index > maxIndex) {
-      console.log('全参加者同士接続完了')
-      this.handler?.startGame(this)
-      const writer = new DataStreamWriter(this)
-      writer.writeStartGame()
-    } else {
-      console.log(`index: [${index}]のplayerが全playerのサブスクを開始・・・`)
-      const writer = new DataStreamWriter(this)
-      writer.writeCheckSubscribed(index)
-    }
-  }
-
-  updatePlayerMetaData = async (
+  // ownerがplayerのmetadataをindexで更新することで、そのplayerは
+  // 1. 自分のindexが確定する
+  // 2. indexを自アバターにセットする
+  // 3. playerがownerをサブスク&ハンドラセットする
+  // 4. playerが自indexでownerのmetadataを更新することで完了を報告する
+  private updatePlayerMetaData = async (
     playerPublication: RoomPublication,
     playerIndex: string
   ) => {
     await playerPublication.publisher.updateMetadata(playerIndex)
   }
 
-  checkMyMetaData = async (playerIndex: string) => {
+  // playerがownerをサブスク&ハンドラセットしたか確認する
+  private checkMyMetaData = async (playerIndex: string) => {
+    // 自分のmetaDataが更新されるまでroop
     while (true) {
+      // playerはownerに対するサブスクとハンドラセットの完了を、ownerのmetadataを自indexで更新することで報告する
       if (this.agent?.metadata === playerIndex) {
         console.log(
-          `index: ${this.agent?.metadata} がownerをサブスク完了しました`
+          `index: ${this.agent?.metadata} がownerをサブスク&ハンドラセット完了しました`
         )
         break
       }
-      await this.delay(1000)
+      await this.delay(100)
       console.log('自分のmetadataを確認中・・・')
     }
   }
 
-  updateAllPlayerMetaData = async () => {
+  // 全playerに対してownerをサブスク&ハンドラセットするように促す
+  promptAllPlayersSubscribeOwner = async () => {
     const allPublications = this.channel?.publications as RoomPublication[]
     for (let i = 1; i < allPublications.length; i++) {
       const playerIndex = (i - 1).toString()
@@ -139,10 +134,41 @@ class OwnerAvatar extends Avatar {
       )
       await this.updatePlayerMetaData(allPublications[i], playerIndex)
       console.log(
-        `[${playerIndex}]に更新されたplayerがownerをサブスクしたかどうか確認開始・・・`
+        `[${playerIndex}]に更新されたplayerがownerをサブスク&ハンドラセットしたかどうか確認開始・・・`
       )
+      // 待機
       await this.checkMyMetaData(playerIndex)
     }
+  }
+
+  // この関数は事実上roopする
+  // indexのplayerに他の全playerをサブスク&ハンドラセットするように促す
+  promptPlayerSubscribeAllPlayers = (index: number) => {
+    const numberOfParticipant = this.channel?.publications.length as number
+    // owner分 -1
+    // 0startのため -1
+    // 例) 参加者5 - 1(owner) -1(0start) = 3(maxIndex)
+    const maxIndex = numberOfParticipant - 2
+    // playerは自index + 1を書き込んでくるので、最後のplayerが書き込んだindexはmaxIndexを超える(全playerが完了)
+    if (index > maxIndex) {
+      console.log('全参加者同士接続完了')
+      this.handler?.startGame(this)
+      const writer = new DataStreamWriter(this)
+      writer.writeStartGame()
+    } else {
+      console.log(
+        `index: [${index}]のplayerが全playerのサブスク&ハンドラセットを開始・・・`
+      )
+      const writer = new DataStreamWriter(this)
+      // indexのplayerに対して全playerをサブスク&ハンドラセットするように伝える
+      // indexのplayerがサブスク&ハンドラセットするとこのpromptPlayerSubscribeAllPlayersが再度呼び出される(playerが自分の次のindexをdatastreamに書き込み、それにハンドラとして設定されているpromptPlayerSubscribeAllPlayersが再度呼び出される)
+      writer.writeCheckSubscribed(index)
+    }
+  }
+
+  sendAllPlayerAvatar = (players: object) => {
+    const writer = new DataStreamWriter(this)
+    writer.writeAllPlayer(players)
   }
 
   announceQuizNumber = (quizNumber: number) => {

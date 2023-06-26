@@ -81,6 +81,6 @@ export class DataStreamWriter {
   }
 
   writeReportSubscribed(index: number): void {
-    this.write('checkPlayerSubscribedAll', index)
+    this.write('promptPlayerSubscribeAllPlayers', index)
   }
 }
