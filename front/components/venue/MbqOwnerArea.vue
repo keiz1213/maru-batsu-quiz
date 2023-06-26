@@ -3,7 +3,7 @@
   import { Quiz } from '@/types/Quiz'
 
   defineProps<{
-    owner: Avatar
+    owner: Avatar | undefined
     quizzes: Quiz[]
     currentQuizNumber: number
     isOwner: boolean

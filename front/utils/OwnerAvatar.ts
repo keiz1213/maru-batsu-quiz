@@ -166,7 +166,9 @@ class OwnerAvatar extends Avatar {
     const allPublications = this.channel?.publications as RoomPublication[]
     for (let i = 1; i < allPublications.length; i++) {
       const playerIndex = (i - 1).toString()
+      console.log(`[${allPublications[i]}]のmetadataを[${playerIndex}]に更新します・・・`)
       await this.updatePlayerMetaData(allPublications[i], playerIndex)
+      console.log(`[${playerIndex}]に更新されたplayerがownerをサブスクしたかどうか確認開始・・・`)
       await this.checkMyMetaData(playerIndex)
     }
   }

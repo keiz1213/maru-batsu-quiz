@@ -144,15 +144,17 @@
   }
 
   const join = async () => {
+    console.log('----ownerが全playerをサブスクを開始----')
     await ownerAvatar.subscribeAllPlayers()
     console.log('----ownerが全playerをサブスク完了----')
+    console.log('----ownerが全playerのmetadataの更新を開始します----')
     await ownerAvatar.updateAllPlayerMetaData()
     console.log('----全playerがownerをサブスク完了----')
     ownerAvatar.sendMyAvatar()
-    console.log('自分のアバターを送信')
+    console.log('-----自分のアバターを送信----')
     ownerAvatar.sendAllPlayerAvatar(players.value)
-    console.log('全player送信')
-    console.log('全player同士のサブスクを開始・・・')
+    console.log('-----全player送信-----')
+    console.log('-----全player同士のサブスクを開始・・・-----')
     ownerAvatar.checkPlayerSubscribedAll(0)
   }
 </script>
