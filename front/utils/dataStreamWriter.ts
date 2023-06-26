@@ -1,4 +1,3 @@
-import { cloneDeep } from 'lodash'
 import { ChatMessage } from '@/types/ChatMessage'
 import Avatar from './Avatar'
 import { AvatarParams } from '~/types/AvatarParams'
@@ -11,12 +10,12 @@ export class DataStreamWriter {
   }
 
   write(
-    reaction: string,
+    handlerName: string,
     data: string | number | Avatar | ChatMessage | AvatarParams | Object
   ): void {
     this.avatar.localDataStream?.write(
       JSON.stringify({
-        reaction: reaction,
+        handlerName: handlerName,
         data: data
       })
     )

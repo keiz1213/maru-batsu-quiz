@@ -4,7 +4,7 @@
   import { usePublication } from '~/composables/usePublication'
   import OwnerAvatar from '~/utils/OwnerAvatar'
   import PlayerAvatar from '~/utils/PlayerAvatar'
-  import Reaction from '~/utils/Reaction'
+  import DataStreamHandler from '~/utils/DataStreamHandler'
   import SkyWay from '~/utils/SkyWay'
 
   definePageMeta({
@@ -59,7 +59,7 @@
   const agent = await SkyWay.createAgent(skyWayChannel, userName)
   const publication = await SkyWay.createPublication(localDataStream, agent)
 
-  const reaction = new Reaction(
+  const handler = new DataStreamHandler(
     addOwner,
     addPlayer,
     setAllPlayers,
@@ -79,7 +79,7 @@
     currentUser.value.name,
     currentUser.value.avatar_url,
     null,
-    reaction,
+    handler,
     skyWayChannel,
     localDataStream,
     agent,
@@ -93,7 +93,7 @@
     '',
     '',
     null,
-    reaction,
+    handler,
     skyWayChannel,
     localDataStream,
     agent,

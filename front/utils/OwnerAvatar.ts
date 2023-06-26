@@ -1,5 +1,5 @@
 import Avatar from '@/utils/Avatar'
-import Reaction from '@/utils/Reaction'
+import DataStreamHandler from '~/utils/DataStreamHandler'
 import {
   LocalDataStream,
   LocalP2PRoomMember,
@@ -20,7 +20,7 @@ class OwnerAvatar extends Avatar {
     name: string,
     avatarUrl: string,
     index: number | null,
-    reaction: Reaction | null,
+    handler: DataStreamHandler | null,
     channel: P2PRoom | null,
     localDataStream: LocalDataStream | null,
     agent: LocalP2PRoomMember | null,
@@ -33,7 +33,7 @@ class OwnerAvatar extends Avatar {
       name,
       avatarUrl,
       index,
-      reaction,
+      handler,
       channel,
       localDataStream,
       agent,
@@ -50,27 +50,27 @@ class OwnerAvatar extends Avatar {
     this.channel?.onPublicationListChanged.add(async () => {
       const publisherName = this.channel?.publications.slice(-1)[0].publisher
         .name as string
-      this.reaction?.addPublisherNameAction(publisherName)
+      this.handler?.addPublisherNameAction(publisherName)
     })
   }
 
   setHandleWriteData = async (stream: RemoteDataStream) => {
     await new Promise<void>(async (resolve) => {
       stream.onData.add(async (message) => {
-        const { reaction, data } = JSON.parse(message as string)
+        const { handlerName, data } = JSON.parse(message as string)
 
-        switch (reaction) {
+        switch (handlerName) {
           case 'placeAvatarAction':
             const avatar: Avatar = data
-            this.reaction?.placeAvatarAction(avatar)
+            this.handler?.placeAvatarAction(avatar)
             break
           case 'moveAvatarAction':
             const avatarParams: AvatarParams = data
-            this.reaction?.moveAvatarAction(avatarParams)
+            this.handler?.moveAvatarAction(avatarParams)
             break
           case 'updateChatAction':
             const chatMessage: ChatMessage = data
-            this.reaction?.updateChatAction(chatMessage)
+            this.handler?.updateChatAction(chatMessage)
             break
           case 'checkPlayerSubscribedAll':
             const index: number = data
@@ -100,7 +100,7 @@ class OwnerAvatar extends Avatar {
     const maxIndex = numberOfParticipant - 2
     if (index > maxIndex) {
       console.log('全参加者同士接続完了')
-      this.reaction?.startGame(this)
+      this.handler?.startGame(this)
       const writer = new DataStreamWriter(this)
       writer.writeStartGame()
     } else {
@@ -148,61 +148,61 @@ class OwnerAvatar extends Avatar {
   announceQuizNumber = (quizNumber: number) => {
     const announceText = `${quizNumber}問目！`
     const writer = new DataStreamWriter(this)
-    this.reaction?.updateAnnounceText(announceText)
+    this.handler?.updateAnnounceText(announceText)
     writer.writeAnnounceText(announceText)
   }
 
   announceShortPause = () => {
     const announceText = ''
     const writer = new DataStreamWriter(this)
-    this.reaction?.updateAnnounceText(announceText)
+    this.handler?.updateAnnounceText(announceText)
     writer.writeAnnounceText(announceText)
   }
 
   announceQuestion = (question: string) => {
     const announceText = question
     const writer = new DataStreamWriter(this)
-    this.reaction?.updateAnnounceText(announceText)
+    this.handler?.updateAnnounceText(announceText)
     writer.writeAnnounceText(announceText)
   }
 
   announceQuizStart = () => {
     const announceText = 'スタート！'
     const writer = new DataStreamWriter(this)
-    this.reaction?.startQuizAction(announceText)
+    this.handler?.startQuizAction(announceText)
     writer.writeStartQuiz(announceText)
   }
 
   announceQuizStop = () => {
     const announceText = 'ストップ！'
     const writer = new DataStreamWriter(this)
-    this.reaction?.updateAnnounceText(announceText)
+    this.handler?.updateAnnounceText(announceText)
     writer.writeAnnounceText(announceText)
   }
 
   announceSuspense = () => {
     const announceText = '正解は・・・'
     const writer = new DataStreamWriter(this)
-    this.reaction?.updateAnnounceText(announceText)
+    this.handler?.updateAnnounceText(announceText)
     writer.writeAnnounceText(announceText)
   }
 
   announceCorrectAnswer = (correctAnswer: string) => {
     const announceText = correctAnswer
     const writer = new DataStreamWriter(this)
-    this.reaction?.updateAnnounceText(announceText)
+    this.handler?.updateAnnounceText(announceText)
     writer.writeAnnounceText(announceText)
   }
 
   announceExplanation = (explanation: string) => {
     const announceText = explanation
     const writer = new DataStreamWriter(this)
-    this.reaction?.checkExplanationAction(announceText)
+    this.handler?.checkExplanationAction(announceText)
     writer.writeExplanation(announceText)
   }
 
   announceJudge = (correctAnswer: string) => {
-    this.reaction?.executeJudgeAction(correctAnswer)
+    this.handler?.executeJudgeAction(correctAnswer)
     const writer = new DataStreamWriter(this)
     writer.writeJudge(correctAnswer)
   }

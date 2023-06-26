@@ -1,5 +1,5 @@
 import Avatar from '@/utils/Avatar'
-import Reaction from '@/utils/Reaction'
+import DataStreamHandler from '~/utils/DataStreamHandler'
 import {
   LocalDataStream,
   LocalP2PRoomMember,
@@ -19,7 +19,7 @@ class PlayerAvatar extends Avatar {
     name: string,
     avatarUrl: string,
     index: number | null,
-    reaction: Reaction | null,
+    handler: DataStreamHandler | null,
     channel: P2PRoom | null,
     localDataStream: LocalDataStream | null,
     agent: LocalP2PRoomMember | null,
@@ -32,7 +32,7 @@ class PlayerAvatar extends Avatar {
       name,
       avatarUrl,
       index,
-      reaction,
+      handler,
       channel,
       localDataStream,
       agent,
@@ -76,45 +76,45 @@ class PlayerAvatar extends Avatar {
   setHandleWriteData = async (stream: RemoteDataStream) => {
     await new Promise<void>(async (resolve) => {
       stream.onData.add(async (message) => {
-        const { reaction, data } = JSON.parse(message as string)
+        const { handlerName, data } = JSON.parse(message as string)
         const announceText: string = data
 
-        switch (reaction) {
+        switch (handlerName) {
           case 'startGameAction':
-            this.reaction?.startGameAction(this)
+            this.handler?.startGameAction(this)
             break
           case 'placeAvatarAction':
             const avatar: Avatar = data
-            this.reaction?.placeAvatarAction(avatar)
+            this.handler?.placeAvatarAction(avatar)
             break
           case 'placeAllPlayerAvatarAction':
             const players: Avatar[] = data
-            this.reaction?.placeAllPlayerAvatarAction(players)
+            this.handler?.placeAllPlayerAvatarAction(players)
             break
           case 'moveAvatarAction':
             const avatarParams: AvatarParams = data
-            this.reaction?.moveAvatarAction(avatarParams)
+            this.handler?.moveAvatarAction(avatarParams)
             break
           case 'updateAnnounceTextAction':
             if (announceText === 'ストップ！') {
               this.lockMyAvatar()
             }
-            this.reaction?.updateAnnounceTextAction(announceText)
+            this.handler?.updateAnnounceTextAction(announceText)
             break
           case 'startQuizAction':
-            this.reaction?.startQuizAction(announceText)
+            this.handler?.startQuizAction(announceText)
             break
           case 'checkExplanationAction':
             this.unLockMyAvatar()
-            this.reaction?.checkExplanationAction(announceText)
+            this.handler?.checkExplanationAction(announceText)
             break
           case 'updateChatAction':
             const chatMessage: ChatMessage = data
-            this.reaction?.updateChatAction(chatMessage)
+            this.handler?.updateChatAction(chatMessage)
             break
           case 'executeJudgeAction':
             const correctAnswer: string = data
-            this.reaction?.executeJudgeAction(correctAnswer)
+            this.handler?.executeJudgeAction(correctAnswer)
             break
           case 'subscribeAllPlayers':
             const index: number = data

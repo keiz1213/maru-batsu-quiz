@@ -1,4 +1,4 @@
-import Reaction from '@/utils/Reaction'
+import DataStreamHandler from '~/utils/DataStreamHandler'
 import {
   LocalDataStream,
   LocalP2PRoomMember,
@@ -16,7 +16,7 @@ class Avatar {
   name: string
   avatarUrl: string
   index: number | null
-  reaction: Reaction | null
+  handler: DataStreamHandler | null
   channel: P2PRoom | null
   localDataStream: LocalDataStream | null
   agent: LocalP2PRoomMember | null
@@ -29,7 +29,7 @@ class Avatar {
     name: string,
     avatarUrl: string,
     index: number | null,
-    reaction: Reaction | null,
+    handler: DataStreamHandler | null,
     channel: P2PRoom | null,
     localDataStream: LocalDataStream | null,
     agent: LocalP2PRoomMember | null,
@@ -41,7 +41,7 @@ class Avatar {
     this.name = name
     this.avatarUrl = avatarUrl
     this.index = index
-    this.reaction = reaction
+    this.handler = handler
     this.channel = channel
     this.localDataStream = localDataStream
     this.agent = agent
@@ -82,7 +82,7 @@ class Avatar {
 
   sendChatMessage = (newMessage: string) => {
     const chatMessage = this.createChatMessage(newMessage)
-    this.reaction?.addChatMessage(chatMessage)
+    this.handler?.addChatMessage(chatMessage)
     const writer = new DataStreamWriter(this)
     writer.writeChatMessage(chatMessage)
   }

@@ -2,7 +2,7 @@ import Avatar from './Avatar'
 import { AvatarParams } from '@/types/AvatarParams'
 import { ChatMessage } from '@/types/ChatMessage'
 
-class Reaction {
+class DataStreamHandler {
   addOwner: Function
   addPlayer: Function
   setAllPlayers: Function
@@ -94,4 +94,4 @@ class Reaction {
   }
 }
 
-export default Reaction
+export default DataStreamHandler
