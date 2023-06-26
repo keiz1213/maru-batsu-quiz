@@ -1,4 +1,4 @@
-import { DataStreamWriter } from './dataStreamWriter'
+import { DataStreamWriter } from './DataStreamWriter'
 import interact from 'interactjs'
 
 export class SyncDraggable {
