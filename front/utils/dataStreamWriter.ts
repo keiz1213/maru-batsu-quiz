@@ -22,15 +22,8 @@ export class DataStreamWriter {
     )
   }
 
-  makeWritableAvatar(avatar: Avatar): Avatar {
-    avatar.localDataStream = null
-    avatar.agent = null
-    avatar.publication = null
-    return avatar
-  }
-
   writeStartGame(): void {
-    this.write('startTheGame', '')
+    this.write('startGameAction', '')
   }
 
   writeAvatar(): void {
@@ -47,11 +40,11 @@ export class DataStreamWriter {
       null,
       null
     )
-    this.write('placeAvatar', myAvatar)
+    this.write('placeAvatarAction', myAvatar)
   }
 
   writeAllPlayer(players: Object): void {
-    this.write('placeAllPlayerAvatar', players)
+    this.write('placeAllPlayerAvatarAction', players)
   }
 
   writeMyAvatarParams(id: string, x: string, y: string, answer: string): void {
@@ -61,27 +54,27 @@ export class DataStreamWriter {
       x: x,
       y: y
     }
-    this.write('moveOtherAvatar', avatarParams)
+    this.write('moveAvatarAction', avatarParams)
   }
 
   writeAnnounceText(announceText: string): void {
-    this.write('acceptAnnounce', announceText)
+    this.write('updateAnnounceTextAction', announceText)
   }
 
   writeStartQuiz(announceText: string): void {
-    this.write('startQuiz', announceText)
+    this.write('startQuizAction', announceText)
   }
 
   writeExplanation(announceText: string): void {
-    this.write('resetTimer', announceText)
+    this.write('checkExplanationAction', announceText)
   }
 
   writeChatMessage(chatMessage: ChatMessage): void {
-    this.write('updateChat', chatMessage)
+    this.write('updateChatAction', chatMessage)
   }
 
   writeJudge(correctAnswer: string): void {
-    this.write('executeJudge', correctAnswer)
+    this.write('executeJudgeAction', correctAnswer)
   }
 
   writeCheckSubscribed(index: number): void {

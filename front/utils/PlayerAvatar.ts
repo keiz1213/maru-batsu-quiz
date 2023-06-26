@@ -80,39 +80,39 @@ class PlayerAvatar extends Avatar {
         const announceText: string = data
 
         switch (reaction) {
-          case 'startTheGame':
+          case 'startGameAction':
             this.reaction?.startGameAction(this)
             break
-          case 'placeAvatar':
+          case 'placeAvatarAction':
             const avatar: Avatar = data
             this.reaction?.placeAvatarAction(avatar)
             break
-          case 'placeAllPlayerAvatar':
+          case 'placeAllPlayerAvatarAction':
             const players: Avatar[] = data
             this.reaction?.placeAllPlayerAvatarAction(players)
             break
-          case 'moveOtherAvatar':
+          case 'moveAvatarAction':
             const avatarParams: AvatarParams = data
             this.reaction?.moveAvatarAction(avatarParams)
             break
-          case 'acceptAnnounce':
+          case 'updateAnnounceTextAction':
             if (announceText === 'ストップ！') {
               this.lockMyAvatar()
             }
             this.reaction?.updateAnnounceTextAction(announceText)
             break
-          case 'startQuiz':
+          case 'startQuizAction':
             this.reaction?.startQuizAction(announceText)
             break
-          case 'resetTimer':
+          case 'checkExplanationAction':
             this.unLockMyAvatar()
             this.reaction?.checkExplanationAction(announceText)
             break
-          case 'updateChat':
+          case 'updateChatAction':
             const chatMessage: ChatMessage = data
             this.reaction?.updateChatAction(chatMessage)
             break
-          case 'executeJudge':
+          case 'executeJudgeAction':
             const correctAnswer: string = data
             this.reaction?.executeJudgeAction(correctAnswer)
             break

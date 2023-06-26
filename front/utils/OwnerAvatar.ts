@@ -60,15 +60,15 @@ class OwnerAvatar extends Avatar {
         const { reaction, data } = JSON.parse(message as string)
 
         switch (reaction) {
-          case 'placeAvatar':
+          case 'placeAvatarAction':
             const avatar: Avatar = data
             this.reaction?.placeAvatarAction(avatar)
             break
-          case 'moveOtherAvatar':
+          case 'moveAvatarAction':
             const avatarParams: AvatarParams = data
             this.reaction?.moveAvatarAction(avatarParams)
             break
-          case 'updateChat':
+          case 'updateChatAction':
             const chatMessage: ChatMessage = data
             this.reaction?.updateChatAction(chatMessage)
             break

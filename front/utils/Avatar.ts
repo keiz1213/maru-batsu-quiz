@@ -71,10 +71,6 @@ class Avatar {
     draggable.setDraggable(this.uid)
   }
 
-  playGame = () => {
-    this.reaction?.startGame()
-  }
-
   createChatMessage = (newMessage: string): ChatMessage => {
     const chatMessage = {
       avatarId: this.id,
