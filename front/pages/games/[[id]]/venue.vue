@@ -175,12 +175,7 @@
       id="main-container"
       class="bg-gradient-to-r from-violet-500 to-fuchsia-500 min-w-full w-[1350px]"
     >
-      <div class="backdrop-blur-sm bg-white/30 px-3 py-0 w-full z-10 h-6">
-        <ul class="flex">
-          <li class="font-bold">{{ game.title }}</li>
-          <li class="ml-3">残勝者枠: {{ numberOfWinner }} 枠</li>
-        </ul>
-      </div>
+      <MbqMacHeader :title="game.title" :numberOfWinner="numberOfWinner" />
       <div id="ownner-container" class="flex justify-center my-12">
         <div id="board-container">
           <div id="board-area">
@@ -226,16 +221,10 @@
       <div id="player-container">
         <div id="challengers-winners-container" class="flex justify-center">
           <div id="challengers-area">
-            <MbqMacFinder
-              :avatars="players"
-              :title="'challengers'"
-            />
+            <MbqMacFinder :avatars="players" :title="'challengers'" />
           </div>
           <div id="winners-area">
-            <MbqMacFinder
-              :avatars="winners"
-              :title="'winners'"
-            />
+            <MbqMacFinder :avatars="winners" :title="'winners'" />
           </div>
         </div>
         <div id="losers-container">
