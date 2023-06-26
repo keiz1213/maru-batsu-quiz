@@ -68,20 +68,20 @@ export class DataStreamWriter {
     this.write('acceptAnnounce', announceText)
   }
 
-  writeStartTimer(announceText: string): void {
+  writeStartQuiz(announceText: string): void {
     this.write('startQuiz', announceText)
   }
 
-  writeStopTimer(announceText: string): void {
-    this.write('stopTimer', announceText)
+  writeExplanation(announceText: string): void {
+    this.write('resetTimer', announceText)
   }
 
   writeChatMessage(chatMessage: ChatMessage): void {
     this.write('updateChat', chatMessage)
   }
 
-  writeJudge(): void {
-    this.write('executeJudge', '')
+  writeJudge(correctAnswer: string): void {
+    this.write('executeJudge', correctAnswer)
   }
 
   writeCheckSubscribed(index: number): void {

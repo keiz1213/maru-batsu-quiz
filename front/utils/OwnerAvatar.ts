@@ -84,20 +84,25 @@ class OwnerAvatar extends Avatar {
             this.reaction?.moveOtherAvatar(avatarParams)
             break
           case 'acceptAnnounce':
+            if (announceText === 'ストップ！') {
+              this.lockMyAvatar()
+            }
             this.reaction?.acceptAnnounce(announceText)
             break
           case 'startQuiz':
             this.reaction?.startQuiz(announceText)
             break
-          case 'stopTimer':
-            this.reaction?.stopTimer(announceText)
+          case 'resetTimer':
+            this.unLockMyAvatar()
+            this.reaction?.checkExplanation(announceText)
             break
           case 'updateChat':
             const chatMessage: ChatMessage = data
             this.reaction?.updateChat(chatMessage)
             break
           case 'executeJudge':
-            this.reaction?.executeJudge()
+            const correctAnswer: string = data
+            this.reaction?.executeJudge(correctAnswer)
             break
           case 'checkPlayerSubscribedAll':
             const index: number = data
@@ -147,7 +152,9 @@ class OwnerAvatar extends Avatar {
   checkMyMetaData = async (playerIndex: string) => {
     while (true) {
       if (this.agent?.metadata === playerIndex) {
-        console.log(`index: ${this.agent?.metadata} がownerをサブスク完了しました`)
+        console.log(
+          `index: ${this.agent?.metadata} がownerをサブスク完了しました`
+        )
         break
       }
       await this.delay(1000)
@@ -190,15 +197,14 @@ class OwnerAvatar extends Avatar {
     const writer = new DataStreamWriter(this)
     this.reaction?.updateAnnounceText(announceText)
     this.reaction?.startTimer()
-    writer.writeStartTimer(announceText)
+    writer.writeStartQuiz(announceText)
   }
 
   announceQuizStop = () => {
     const announceText = 'ストップ！'
     const writer = new DataStreamWriter(this)
     this.reaction?.updateAnnounceText(announceText)
-    this.reaction?.resetTimer()
-    writer.writeStopTimer(announceText)
+    writer.writeAnnounceText(announceText)
   }
 
   announceSuspense = () => {
@@ -219,30 +225,34 @@ class OwnerAvatar extends Avatar {
     const announceText = explanation
     const writer = new DataStreamWriter(this)
     this.reaction?.updateAnnounceText(announceText)
-    writer.writeAnnounceText(announceText)
+    writer.writeExplanation(announceText)
   }
 
   announce = async (currentQuizNumber: number, quiz: Quiz) => {
-    this.announceQuizNumber(currentQuizNumber)
+    const question = quiz.question
+    const correctAnswer = quiz.correct_answer
+    const explanation = quiz.explanation
+    this.announceQuizNumber(currentQuizNumber + 1)
     await this.delay(2000)
     this.announceShortPause()
     await this.delay(2000)
-    this.announceQuestion(quiz.question)
+    this.announceQuestion(question)
     await this.delay(3000)
     this.announceQuizStart()
     await this.delay(2000)
-    this.announceQuestion(quiz.question)
+    this.announceQuestion(question)
     await this.delay(8000)
     this.announceQuizStop()
     await this.delay(2000)
     this.announceSuspense()
     await this.delay(3000)
-    this.announceCorrectAnswer(quiz.correct_answer)
+    this.announceCorrectAnswer(correctAnswer)
     await this.delay(3000)
-    this.announceExplanation(quiz.explanation)
-    this.reaction?.executeJudge()
+    this.announceExplanation(explanation)
+    this.reaction?.resetTimer()
+    this.reaction?.executeJudge(correctAnswer)
     const writer = new DataStreamWriter(this)
-    writer.writeJudge()
+    writer.writeJudge(correctAnswer)
   }
 }
 

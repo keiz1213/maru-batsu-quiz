@@ -6,7 +6,7 @@ export const useJudge = (initialNumberOfWinner: number) => {
   const losers = ref<Avatar[]>([])
   const winners = ref<Avatar[]>([])
   const numberOfWinner = ref<number>(initialNumberOfWinner)
-  const currentQuizNumber = ref(1)
+  const currentQuizNumber = ref(0)
   const isStandByGame = ref(true)
   const isEndOfGame = ref(false)
 
@@ -42,6 +42,8 @@ export const useJudge = (initialNumberOfWinner: number) => {
     const writer = new DataStreamWriter(avatar)
     const draggable = new SyncDraggable(writer)
     draggable.setDraggable(avatar.uid)
+    draggable.setDropzone('◯', avatar.uid)
+    draggable.setDropzone('✕', avatar.uid)
     isStandByGame.value = false
   }
 
@@ -81,9 +83,15 @@ export const useJudge = (initialNumberOfWinner: number) => {
   }
 
   const isWinner = (player: Avatar, correctAnswer: string): boolean => {
+    console.log(`----isWinner----`)
+    console.log(`correctAnswer: ${correctAnswer}`)
     const uid = player.uid
+    console.log(`uid: ${uid}`)
     const avatarElement = document.getElementById(uid) as HTMLElement
+    console.log(`avatarElement: ${avatarElement}`)
     const answer = avatarElement.dataset.answer
+    console.log(`answer: ${answer}`)
+    console.log(`判定: ${correctAnswer === answer}`)
     return correctAnswer === answer
   }
 
@@ -92,7 +100,7 @@ export const useJudge = (initialNumberOfWinner: number) => {
     const draggable = new SyncDraggable(writer)
     draggable.unsetDraggable(loser.uid)
     addLoser(loser)
-    draggable.setNonDraggableAttribute(loser.uid)
+    // draggable.setNonDraggableAttribute(loser.uid)
     const index = loser.index as number
     injectDummyAvatar(index)
   }
@@ -136,8 +144,11 @@ export const useJudge = (initialNumberOfWinner: number) => {
   }
 
   const judge = (correctAnswer: string) => {
+    console.log('----judge----')
     const winnersInPlayers = getWinnersFromPlayers(correctAnswer)
+    console.log(`winners: ${winnersInPlayers}`)
     const losersInPlayers = getLosersFromPlayers(correctAnswer)
+    console.log(`losers: ${losersInPlayers}`)
     const countOfWinners = winnersInPlayers.length
     if (countOfWinners === numberOfWinner.value) {
       winnersInPlayers.forEach((winner) => moveWinner(winner))

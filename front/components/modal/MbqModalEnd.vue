@@ -21,7 +21,7 @@
         <MbqAvatar
           v-for="(winner, index) in winners"
           :key="index"
-          :member="winner"
+          :avatar="winner"
           :gameStart="true"
         />
       </div>

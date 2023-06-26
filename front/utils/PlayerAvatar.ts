@@ -96,20 +96,25 @@ class PlayerAvatar extends Avatar {
             this.reaction?.moveOtherAvatar(avatarParams)
             break
           case 'acceptAnnounce':
+            if (announceText === 'ストップ！') {
+              this.lockMyAvatar()
+            }
             this.reaction?.acceptAnnounce(announceText)
             break
           case 'startQuiz':
             this.reaction?.startQuiz(announceText)
             break
-          case 'stopTimer':
-            this.reaction?.stopTimer(announceText)
+          case 'resetTimer':
+            this.unLockMyAvatar()
+            this.reaction?.checkExplanation(announceText)
             break
           case 'updateChat':
             const chatMessage: ChatMessage = data
             this.reaction?.updateChat(chatMessage)
             break
           case 'executeJudge':
-            this.reaction?.executeJudge()
+            const correctAnswer: string = data
+            this.reaction?.executeJudge(correctAnswer)
             break
           case 'subscribeAllPlayers':
             const index: number = data

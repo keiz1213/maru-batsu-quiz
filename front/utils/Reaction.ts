@@ -80,7 +80,7 @@ class Reaction {
     this.updateAnnounceText(announceText)
   }
 
-  stopTimer = (announceText: string): void => {
+  checkExplanation = (announceText: string): void => {
     this.resetTimer()
     this.updateAnnounceText(announceText)
   }
@@ -89,8 +89,8 @@ class Reaction {
     this.addChatMessage(chatMessage)
   }
 
-  executeJudge = (): void => {
-    this.judge()
+  executeJudge = (correctAnswer: string): void => {
+    this.judge(correctAnswer)
   }
 
   pushPublicationId = (publicationId: string) => {

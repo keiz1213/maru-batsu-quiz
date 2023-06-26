@@ -7,7 +7,6 @@ import {
   P2PRoom,
   LocalStream
 } from '@skyway-sdk/room'
-import { writer } from 'repl'
 import { ChatMessage } from '~/types/ChatMessage'
 
 class Avatar {
@@ -58,6 +57,18 @@ class Avatar {
   sendMyAvatar = () => {
     const writer = new DataStreamWriter(this)
     writer.writeAvatar()
+  }
+
+  lockMyAvatar = () => {
+    const writer = new DataStreamWriter(this)
+    const draggable = new SyncDraggable(writer)
+    draggable.unsetDraggable(this.uid)
+  }
+
+  unLockMyAvatar = () => {
+    const writer = new DataStreamWriter(this)
+    const draggable = new SyncDraggable(writer)
+    draggable.setDraggable(this.uid)
   }
 
   playGame = () => {
