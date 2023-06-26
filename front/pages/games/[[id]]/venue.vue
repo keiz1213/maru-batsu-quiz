@@ -229,7 +229,7 @@
         </div>
         <div id="losers-container">
           <div id="losers-area" class="flex justify-center">
-            <MbqLosers :numberOfWinner="numberOfWinner" :losers="losers" />
+            <MbqLosers :losers="losers" />
           </div>
         </div>
       </div>
