@@ -169,8 +169,7 @@ class OwnerAvatar extends Avatar {
   announceQuizStart = () => {
     const announceText = 'スタート！'
     const writer = new DataStreamWriter(this)
-    this.reaction?.updateAnnounceText(announceText)
-    this.reaction?.startTimer()
+    this.reaction?.startQuizAction(announceText)
     writer.writeStartQuiz(announceText)
   }
 
@@ -198,8 +197,14 @@ class OwnerAvatar extends Avatar {
   announceExplanation = (explanation: string) => {
     const announceText = explanation
     const writer = new DataStreamWriter(this)
-    this.reaction?.updateAnnounceText(announceText)
+    this.reaction?.checkExplanationAction(announceText)
     writer.writeExplanation(announceText)
+  }
+
+  announceJudge = (correctAnswer: string) => {
+    this.reaction?.executeJudgeAction(correctAnswer)
+    const writer = new DataStreamWriter(this)
+    writer.writeJudge(correctAnswer)
   }
 
   announce = async (currentQuizNumber: number, quiz: Quiz) => {
@@ -223,10 +228,7 @@ class OwnerAvatar extends Avatar {
     this.announceCorrectAnswer(correctAnswer)
     await this.delay(3000)
     this.announceExplanation(explanation)
-    this.reaction?.resetTimer()
-    this.reaction?.executeJudgeAction(correctAnswer)
-    const writer = new DataStreamWriter(this)
-    writer.writeJudge(correctAnswer)
+    this.announceJudge(correctAnswer)
   }
 }
 
