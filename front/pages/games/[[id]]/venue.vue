@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import Avatar from '@/utils/Avatar'
   import { useJudge } from '~/composables/useJudge'
   import { usePublication } from '~/composables/usePublication'
   import OwnerAvatar from '~/utils/OwnerAvatar'
@@ -39,8 +40,7 @@
   } = useJudge(game.number_of_winner)
   const { announceText, updateAnnounceText } = useAnnounce()
   const { chatMessages, addChatMessage } = useChat()
-  const { publisherNames, addPublisherName } =
-    usePublication()
+  const { publisherNames, addPublisherName } = usePublication()
   const { timeElapsed, timeLimit, startTimer, resetTimer } = useTimer()
 
   if (currentUser.value.id === 0) {
@@ -100,8 +100,8 @@
     publication
   ] as const
 
-  const isOwner = (id: number) => {
-    return ownerId === id
+  const isOwner = (avatar: Avatar) => {
+    return ownerId === avatar.id
   }
 
   const sendAnnounce = async () => {
@@ -161,7 +161,7 @@
   />
   <MbqModalStandBy
     v-model="isStandByGame"
-    :isOwner="isOwner(avatar.id)"
+    :isOwner="isOwner(avatar)"
     :players="players"
     :background="'interactive'"
     @join="join"
@@ -195,7 +195,7 @@
           <div id="questioner-area">
             <MbqOwnerArea
               :owner="(owner as OwnerAvatar)"
-              :isOwner="isOwner(avatar.id)"
+              :isOwner="isOwner(avatar)"
               :quizzes="game.quizzes"
               :currentQuizNumber="currentQuizNumber"
               @question="sendAnnounce"
