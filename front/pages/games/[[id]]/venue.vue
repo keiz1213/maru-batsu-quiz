@@ -85,7 +85,9 @@
       console.log('----ownerが全playerをサブスク&ハンドラセットを開始----')
       await avatar.subscribeAllPlayers()
       console.log('----ownerが全playerをサブスク&ハンドラセット完了----')
-      console.log('----ownerが全playerに対してownerをサブスク&ハンドラセットするように促します----')
+      console.log(
+        '----ownerが全playerに対してownerをサブスク&ハンドラセットするように促します----'
+      )
       await avatar.promptAllPlayersSubscribeOwner()
       console.log('----全playerがownerをサブスク&ハンドラセット完了----')
       avatar.sendMyAvatar()
@@ -112,7 +114,6 @@
   const localDataStream = await SkyWay.createLocalDataStream()
   const agent = await SkyWay.createAgent(skyWayChannel, userName)
   const publication = await SkyWay.createPublication(localDataStream, agent)
-
 
   const initialParams = [
     currentUser.value.id,
