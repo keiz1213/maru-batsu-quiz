@@ -79,6 +79,11 @@ class OwnerAvatar extends Avatar {
             const index: number = data
             this.promptSubscribeAllPlayers(index)
             break
+            // --------test用----------
+          case '_promptSubscribeAllPlayers':
+            this._promptSubscribeAllPlayers(data)
+            break
+            // --------ここまで----------
           default:
             break
         }
@@ -166,6 +171,23 @@ class OwnerAvatar extends Avatar {
       this.writer?.promptSubscribeAllPlayers(this, index)
     }
   }
+
+  // -------------test用--------------------
+
+  _promptSubscribeAllPlayers = (index: number) => {
+    const numberOfParticipant = this.channel?.publications.length as number
+    const maxIndex = numberOfParticipant - 2
+    if (index > maxIndex) {
+      console.log('全参加者同士接続完了')
+    } else {
+      console.log(
+        `index: [${index}]のplayerに全playerのサブスク&ハンドラセットを促します`
+      )
+      this.writer?._promptSubscribeAllPlayers(this, index)
+    }
+  }
+
+  // -------------ここまで--------------------
 
   sendAllPlayerAvatar = (players: object) => {
     this.writer?.sendAllPlayerAvatar(this, players)

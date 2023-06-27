@@ -73,6 +73,17 @@ export class DataStreamWriter {
   reportSubscribedAllPlayers(sender: Avatar, index: number): void {
     this.write(sender, 'promptSubscribeAllPlayers', index)
   }
+
+  // -----------test-------------
+
+  _promptSubscribeAllPlayers(sender: Avatar, index: number): void {
+    this.write(sender, '_subscribeAllPlayers', index)
+  }
+
+  _reportSubscribedAllPlayers(sender: Avatar, index: number): void {
+    this.write(sender, '_promptSubscribeAllPlayers', index)
+  }
+  // ---------ここまで-----------
 }
 
 export default DataStreamWriter

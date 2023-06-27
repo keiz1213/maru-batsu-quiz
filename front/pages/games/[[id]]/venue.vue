@@ -99,6 +99,45 @@
     }
   }
 
+  // ----------test用--------------
+
+  const _subscribeAllPlayers = async () => {
+    if (avatar instanceof OwnerAvatar) {
+      await avatar.subscribeAllPlayers()
+      console.log('全playerサブスク&ハンドラセット完了')
+    }
+  }
+  const _promptAllPlayersSubscribeOwner = async () => {
+    if (avatar instanceof OwnerAvatar) {
+      await avatar.promptAllPlayersSubscribeOwner()
+      console.log('全playerがownerのサブスク&ハンドラセットを完了しました')
+    }
+  }
+  const _promptSubscribeAllPlayers = async () => {
+    if (avatar instanceof OwnerAvatar) {
+      avatar._promptSubscribeAllPlayers(0)
+    }
+  }
+  const _sendMyAvatar = async () => {
+    if (avatar instanceof OwnerAvatar) {
+      avatar.sendMyAvatar()
+      console.log('ownerのavatarを全playerに送信しました')
+    }
+  }
+  const _sendAllPlayerAvatar = async () => {
+    if (avatar instanceof OwnerAvatar) {
+      avatar.sendAllPlayerAvatar(players.value)
+    }
+  }
+  const _promptStartGame = async () => {
+    if (avatar instanceof OwnerAvatar) {
+      avatar.handler?.startGameAction(avatar)
+      avatar.writer?.promptStartGame(avatar)
+    }
+  }
+
+  // ----------ここまで--------------
+
   if (currentUser.value.id === 0) {
     skyWayToken = await SkyWay.getSkyWayToken('testUserToken')
     userName = SkyWay.generateUniqueName()
@@ -168,6 +207,12 @@
     :players="players"
     :background="'interactive'"
     @startConnection="startConnection"
+    @subscribe-all-players="_subscribeAllPlayers"
+    @prompt-all-players-subscribe-owner="_promptAllPlayersSubscribeOwner"
+    @prompt-subscribe-all-players="_promptSubscribeAllPlayers"
+    @send-my-avatar="_sendMyAvatar"
+    @send-all-player-avatar="_sendAllPlayerAvatar"
+    @prompt-start-game="_promptStartGame"
     :publisherNames="publisherNames"
   />
 
