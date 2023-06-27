@@ -3,7 +3,10 @@ import Avatar from './Avatar'
 import interact from 'interactjs'
 
 export class SyncDraggable {
-  private static dragMoveListener(event: Interact.InteractEvent, avatar: Avatar): void {
+  private static dragMoveListener(
+    event: Interact.InteractEvent,
+    avatar: Avatar
+  ): void {
     const target = event.target as HTMLElement
     const dataX = target.getAttribute('data-x') as string
     const dataY = target.getAttribute('data-y') as string

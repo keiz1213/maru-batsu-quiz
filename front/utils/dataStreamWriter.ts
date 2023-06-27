@@ -3,7 +3,6 @@ import Avatar from './Avatar'
 import { AvatarParams } from '~/types/AvatarParams'
 
 export class DataStreamWriter {
-
   write(
     sender: Avatar,
     handlerName: string,
@@ -36,7 +35,7 @@ export class DataStreamWriter {
       null,
       null
     )
-    this.write(sender,'placeAvatarAction', myAvatar)
+    this.write(sender, 'placeAvatarAction', myAvatar)
   }
 
   sendAllPlayerAvatar(sender: Avatar, players: Object): void {
