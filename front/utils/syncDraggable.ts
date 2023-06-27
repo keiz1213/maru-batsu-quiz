@@ -1,22 +1,23 @@
-import { DataStreamWriter } from './DataStreamWriter'
+import { AvatarParams } from '~/types/AvatarParams'
+import Avatar from './Avatar'
 import interact from 'interactjs'
 
 export class SyncDraggable {
-  writer: DataStreamWriter
-
-  constructor(writer: DataStreamWriter) {
-    this.writer = writer
-  }
-
-  private dragMoveListener(event: any): void {
+  private static dragMoveListener(event: Interact.InteractEvent, avatar: Avatar): void {
     const target = event.target as HTMLElement
     const dataX = target.getAttribute('data-x') as string
     const dataY = target.getAttribute('data-y') as string
-    const x = (parseFloat(dataX) || 0) + event.dx
-    const y = (parseFloat(dataY) || 0) + event.dy
+    const x = ((parseFloat(dataX) || 0) + event.dx).toString()
+    const y = ((parseFloat(dataY) || 0) + event.dy).toString()
     const answer = target.getAttribute('data-answer') as string
+    const avatarParams: AvatarParams = {
+      id: avatar.uid,
+      x: x,
+      y: y,
+      answer: answer
+    }
 
-    this.writer.sendMyAvatarParams(target.id, x, y, answer)
+    avatar.writer?.sendMyAvatarParams(avatar, avatarParams)
 
     target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
     target.setAttribute('data-x', x)
@@ -24,12 +25,13 @@ export class SyncDraggable {
     target.setAttribute('data-draggable', 'draggable')
   }
 
-  setDraggable(uid: string): void {
-    interact(`#${uid}`).draggable({
+  static setDraggable(avatar: Avatar): void {
+    interact(`#${avatar.uid}`).draggable({
       inertia: true,
       autoScroll: true,
       listeners: {
-        move: this.dragMoveListener.bind(this)
+        move: (event: Interact.InteractEvent) =>
+          this.dragMoveListener(event, avatar)
       },
       modifiers: [
         interact.modifiers.restrict({
@@ -40,13 +42,13 @@ export class SyncDraggable {
     })
   }
 
-  unsetDraggable(uid: string): void {
-    interact(`#${uid}`).unset()
+  static unsetDraggable(avatar: Avatar): void {
+    interact(`#${avatar.uid}`).unset()
   }
 
-  setDropzone(answer: string, uid: string): void {
+  static setDropzone(answer: string, avatar: Avatar): void {
     interact(`#${answer}`).dropzone({
-      accept: `#${uid}`,
+      accept: `#${avatar.uid}`,
       overlap: 0.5,
       ondragenter: function (event) {
         const draggableElement = event.relatedTarget

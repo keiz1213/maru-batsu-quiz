@@ -1,5 +1,6 @@
 import Avatar from '@/utils/Avatar'
-import DataStreamHandler from '~/utils/DataStreamHandler'
+import DataStreamHandler from '@/utils/DataStreamHandler'
+import DataStreamWriter from '@/utils/DataStreamWriter'
 import {
   LocalDataStream,
   LocalP2PRoomMember,
@@ -20,6 +21,7 @@ class OwnerAvatar extends Avatar {
     name: string,
     avatarUrl: string,
     index: number | null,
+    writer: DataStreamWriter,
     handler: DataStreamHandler | null,
     channel: P2PRoom | null,
     localDataStream: LocalDataStream | null,
@@ -33,6 +35,7 @@ class OwnerAvatar extends Avatar {
       name,
       avatarUrl,
       index,
+      writer,
       handler,
       channel,
       localDataStream,
@@ -153,84 +156,72 @@ class OwnerAvatar extends Avatar {
     if (index > maxIndex) {
       console.log('全参加者同士接続完了')
       this.handler?.startGame(this)
-      const writer = new DataStreamWriter(this)
-      writer.promptStartGame()
+      this.writer?.promptStartGame(this)
     } else {
       console.log(
-        `index: [${index}]のplayerが全playerのサブスク&ハンドラセットを開始・・・`
+        `index: [${index}]のplayerが全playerのサブスク&ハンドラセットを促します`
       )
-      const writer = new DataStreamWriter(this)
       // indexのplayerに対して全playerをサブスク&ハンドラセットするように伝える
       // indexのplayerがサブスク&ハンドラセットするとこのpromptPlayerSubscribeAllPlayersが再度呼び出される(playerが自分の次のindexをdatastreamに書き込み、それにハンドラとして設定されているpromptPlayerSubscribeAllPlayersが再度呼び出される)
-      writer.promptSubscribeAllPlayers(index)
+      this.writer?.promptSubscribeAllPlayers(this, index)
     }
   }
 
   sendAllPlayerAvatar = (players: object) => {
-    const writer = new DataStreamWriter(this)
-    writer.sendAllPlayerAvatar(players)
+    this.writer?.sendAllPlayerAvatar(this, players)
   }
 
   announceQuizNumber = (quizNumber: number) => {
     const announceText = `${quizNumber}問目！`
-    const writer = new DataStreamWriter(this)
     this.handler?.updateAnnounceText(announceText)
-    writer.sendAnnounceText(announceText)
+    this.writer?.sendAnnounceText(this, announceText)
   }
 
   announceShortPause = () => {
     const announceText = ''
-    const writer = new DataStreamWriter(this)
     this.handler?.updateAnnounceText(announceText)
-    writer.sendAnnounceText(announceText)
+    this.writer?.sendAnnounceText(this, announceText)
   }
 
   announceQuestion = (question: string) => {
     const announceText = question
-    const writer = new DataStreamWriter(this)
     this.handler?.updateAnnounceText(announceText)
-    writer.sendAnnounceText(announceText)
+    this.writer?.sendAnnounceText(this, announceText)
   }
 
   announceQuizStart = () => {
     const announceText = 'スタート！'
-    const writer = new DataStreamWriter(this)
     this.handler?.startQuizAction(announceText)
-    writer.promptStartQuiz(announceText)
+    this.writer?.promptStartQuiz(this, announceText)
   }
 
   announceQuizStop = () => {
     const announceText = 'ストップ！'
-    const writer = new DataStreamWriter(this)
     this.handler?.updateAnnounceText(announceText)
-    writer.sendAnnounceText(announceText)
+    this.writer?.sendAnnounceText(this, announceText)
   }
 
   announceSuspense = () => {
     const announceText = '正解は・・・'
-    const writer = new DataStreamWriter(this)
     this.handler?.updateAnnounceText(announceText)
-    writer.sendAnnounceText(announceText)
+    this.writer?.sendAnnounceText(this, announceText)
   }
 
   announceCorrectAnswer = (correctAnswer: string) => {
     const announceText = correctAnswer
-    const writer = new DataStreamWriter(this)
     this.handler?.updateAnnounceText(announceText)
-    writer.sendAnnounceText(announceText)
+    this.writer?.sendAnnounceText(this, announceText)
   }
 
   announceExplanation = (explanation: string) => {
     const announceText = explanation
-    const writer = new DataStreamWriter(this)
     this.handler?.checkExplanationAction(announceText)
-    writer.promptCheckExplanation(announceText)
+    this.writer?.promptCheckExplanation(this, announceText)
   }
 
   announceJudge = (correctAnswer: string) => {
     this.handler?.executeJudgeAction(correctAnswer)
-    const writer = new DataStreamWriter(this)
-    writer.promptJudge(correctAnswer)
+    this.writer?.promptJudge(this, correctAnswer)
   }
 
   announce = async (currentQuizNumber: number, quiz: Quiz) => {

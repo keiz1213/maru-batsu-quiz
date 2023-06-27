@@ -1,5 +1,6 @@
 import Avatar from '@/utils/Avatar'
-import DataStreamHandler from '~/utils/DataStreamHandler'
+import DataStreamHandler from '@/utils/DataStreamHandler'
+import DataStreamWriter from '@/utils/DataStreamWriter'
 import {
   LocalDataStream,
   LocalP2PRoomMember,
@@ -19,6 +20,7 @@ class PlayerAvatar extends Avatar {
     name: string,
     avatarUrl: string,
     index: number | null,
+    writer: DataStreamWriter,
     handler: DataStreamHandler | null,
     channel: P2PRoom | null,
     localDataStream: LocalDataStream | null,
@@ -32,6 +34,7 @@ class PlayerAvatar extends Avatar {
       name,
       avatarUrl,
       index,
+      writer,
       handler,
       channel,
       localDataStream,
@@ -82,8 +85,9 @@ class PlayerAvatar extends Avatar {
       ・サブスク完了!
       ・ハンドラセット完了!
       ・metadata更新完了!`)
-      console.log('--------------------onMetadataUpdated')
+      console.log('自分のアバターをownerに送信します')
       this.sendMyAvatar()
+      console.log('--------------------onMetadataUpdated')
     })
   }
 
@@ -196,11 +200,10 @@ class PlayerAvatar extends Avatar {
         )
       }
       console.log('他の全playerのサブスクとハンドラセット完了')
-      const writer = new DataStreamWriter(this)
       console.log(
         'myIndexに1を足して次のindexを書き込み、ownerに完了を報告します'
       )
-      writer.reportSubscribedAllPlayers(myIndex + 1)
+      this.writer?.reportSubscribedAllPlayers(this, myIndex + 1)
     }
   }
 }

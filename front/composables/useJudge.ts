@@ -39,11 +39,9 @@ export const useJudge = (initialNumberOfWinner: number) => {
   }
 
   const startGame = (avatar: Avatar) => {
-    const writer = new DataStreamWriter(avatar)
-    const draggable = new SyncDraggable(writer)
-    draggable.setDraggable(avatar.uid)
-    draggable.setDropzone('◯', avatar.uid)
-    draggable.setDropzone('✕', avatar.uid)
+    SyncDraggable.setDraggable(avatar)
+    SyncDraggable.setDropzone('◯', avatar)
+    SyncDraggable.setDropzone('✕', avatar)
     isStandByGame.value = false
   }
 
@@ -60,6 +58,7 @@ export const useJudge = (initialNumberOfWinner: number) => {
       false,
       '',
       '',
+      null,
       null,
       null,
       null,
@@ -86,7 +85,7 @@ export const useJudge = (initialNumberOfWinner: number) => {
     console.log(`----isWinner----`)
     console.log(`correctAnswer: ${correctAnswer}`)
     const uid = player.uid
-    console.log(`uid: ${uid}`)
+    console.log(`id: ${uid}`)
     const avatarElement = document.getElementById(uid) as HTMLElement
     console.log(`avatarElement: ${avatarElement}`)
     const answer = avatarElement.dataset.answer
@@ -96,18 +95,14 @@ export const useJudge = (initialNumberOfWinner: number) => {
   }
 
   const moveLoser = (loser: Avatar): void => {
-    const writer = new DataStreamWriter(loser)
-    const draggable = new SyncDraggable(writer)
-    draggable.unsetDraggable(loser.uid)
+    SyncDraggable.unsetDraggable(loser)
     addLoser(loser)
     const index = loser.index as number
     injectDummyAvatar(index)
   }
 
   const moveWinner = (winner: Avatar) => {
-    const writer = new DataStreamWriter(winner)
-    const draggable = new SyncDraggable(writer)
-    draggable.unsetDraggable(winner.uid)
+    SyncDraggable.unsetDraggable(winner)
     addWinner(winner)
     const index = winner.index as number
     injectDummyAvatar(index)
@@ -116,12 +111,10 @@ export const useJudge = (initialNumberOfWinner: number) => {
   const getWinnersFromPlayers = (correctAnswer: string): Avatar[] => {
     let winnersInPlayers: Avatar[] = []
     for (let i = 0; i < players.value.length; i++) {
-      if (players.value[i].uid === '') continue
+      if (players.value[i].id === 0) continue
       const player = players.value[i] as Avatar
       if (isWinner(player, correctAnswer)) {
-        const index = player.index as number
-        const winner = players.value[index] as Avatar
-        winnersInPlayers.push(winner)
+        winnersInPlayers.push(player)
       }
     }
     return winnersInPlayers
@@ -133,9 +126,7 @@ export const useJudge = (initialNumberOfWinner: number) => {
       if (players.value[i].uid === '') continue
       const player = players.value[i] as Avatar
       if (isLoser(player, correctAnswer)) {
-        const index = player.index as number
-        const loser = players.value[index] as Avatar
-        losersInPlayers.push(loser)
+        losersInPlayers.push(player)
       }
     }
     return losersInPlayers

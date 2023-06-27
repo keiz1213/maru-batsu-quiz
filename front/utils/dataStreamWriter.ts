@@ -3,17 +3,13 @@ import Avatar from './Avatar'
 import { AvatarParams } from '~/types/AvatarParams'
 
 export class DataStreamWriter {
-  avatar: Avatar
-
-  constructor(avatar: Avatar) {
-    this.avatar = avatar
-  }
 
   write(
+    sender: Avatar,
     handlerName: string,
     data: string | number | Avatar | ChatMessage | AvatarParams | Object
   ): void {
-    this.avatar.localDataStream?.write(
+    sender.localDataStream?.write(
       JSON.stringify({
         handlerName: handlerName,
         data: data
@@ -21,66 +17,63 @@ export class DataStreamWriter {
     )
   }
 
-  promptStartGame(): void {
-    this.write('startGameAction', '')
+  promptStartGame(sender: Avatar): void {
+    this.write(sender, 'startGameAction', '')
   }
 
-  sendMyAvatar(): void {
+  sendMyAvatar(sender: Avatar): void {
     let myAvatar = new Avatar(
-      this.avatar.id,
-      this.avatar.uid,
-      this.avatar.owner,
-      this.avatar.name,
-      this.avatar.avatarUrl,
-      this.avatar.index,
+      sender.id,
+      sender.uid,
+      sender.owner,
+      sender.name,
+      sender.avatarUrl,
+      sender.index,
+      null,
       null,
       null,
       null,
       null,
       null
     )
-    this.write('placeAvatarAction', myAvatar)
+    this.write(sender,'placeAvatarAction', myAvatar)
   }
 
-  sendAllPlayerAvatar(players: Object): void {
-    this.write('placeAllPlayerAvatarAction', players)
+  sendAllPlayerAvatar(sender: Avatar, players: Object): void {
+    this.write(sender, 'placeAllPlayerAvatarAction', players)
   }
 
-  sendMyAvatarParams(id: string, x: string, y: string, answer: string): void {
-    const avatarParams = {
-      id: id,
-      answer: answer,
-      x: x,
-      y: y
-    }
-    this.write('moveAvatarAction', avatarParams)
+  sendMyAvatarParams(sender: Avatar, avatarParams: AvatarParams): void {
+    this.write(sender, 'moveAvatarAction', avatarParams)
   }
 
-  sendAnnounceText(announceText: string): void {
-    this.write('updateAnnounceTextAction', announceText)
+  sendAnnounceText(sender: Avatar, announceText: string): void {
+    this.write(sender, 'updateAnnounceTextAction', announceText)
   }
 
-  promptStartQuiz(announceText: string): void {
-    this.write('startQuizAction', announceText)
+  promptStartQuiz(sender: Avatar, announceText: string): void {
+    this.write(sender, 'startQuizAction', announceText)
   }
 
-  promptCheckExplanation(announceText: string): void {
-    this.write('checkExplanationAction', announceText)
+  promptCheckExplanation(sender: Avatar, announceText: string): void {
+    this.write(sender, 'checkExplanationAction', announceText)
   }
 
-  sendChatMessage(chatMessage: ChatMessage): void {
-    this.write('updateChatAction', chatMessage)
+  sendChatMessage(sender: Avatar, chatMessage: ChatMessage): void {
+    this.write(sender, 'updateChatAction', chatMessage)
   }
 
-  promptJudge(correctAnswer: string): void {
-    this.write('executeJudgeAction', correctAnswer)
+  promptJudge(sender: Avatar, correctAnswer: string): void {
+    this.write(sender, 'executeJudgeAction', correctAnswer)
   }
 
-  promptSubscribeAllPlayers(index: number): void {
-    this.write('subscribeAllPlayers', index)
+  promptSubscribeAllPlayers(sender: Avatar, index: number): void {
+    this.write(sender, 'subscribeAllPlayers', index)
   }
 
-  reportSubscribedAllPlayers(index: number): void {
-    this.write('promptSubscribeAllPlayers', index)
+  reportSubscribedAllPlayers(sender: Avatar, index: number): void {
+    this.write(sender, 'promptSubscribeAllPlayers', index)
   }
 }
+
+export default DataStreamWriter

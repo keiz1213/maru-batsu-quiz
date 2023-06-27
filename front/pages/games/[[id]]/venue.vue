@@ -41,6 +41,7 @@
   const { publisherNames, addPublisherName } = usePublication()
   const { timeElapsed, timeLimit, startTimer, resetTimer } = useTimer()
 
+  const writer = new DataStreamWriter()
   const handler = new DataStreamHandler(
     addOwner,
     addPlayer,
@@ -112,13 +113,15 @@
   const agent = await SkyWay.createAgent(skyWayChannel, userName)
   const publication = await SkyWay.createPublication(localDataStream, agent)
 
-  const initialAvatarParams = [
+
+  const initialParams = [
     currentUser.value.id,
     currentUser.value.uid,
     true,
     currentUser.value.name,
     currentUser.value.avatar_url,
     null,
+    writer,
     handler,
     skyWayChannel,
     localDataStream,
@@ -126,13 +129,14 @@
     publication
   ] as const
 
-  const initialTestAvatarParams = [
+  const initialTestParams = [
     0,
     '',
     false,
     '',
     '',
     null,
+    writer,
     handler,
     skyWayChannel,
     localDataStream,
@@ -141,11 +145,11 @@
   ] as const
 
   if (currentUser.value.id === ownerId) {
-    avatar = new OwnerAvatar(...initialAvatarParams)
+    avatar = new OwnerAvatar(...initialParams)
     addOwner(avatar)
     avatar.setHandlePublishListChanged()
   } else {
-    avatar = new PlayerAvatar(...initialTestAvatarParams)
+    avatar = new PlayerAvatar(...initialTestParams)
     avatar.setHandleMetaDataUpdate()
   }
 </script>

@@ -1,4 +1,5 @@
-import DataStreamHandler from '~/utils/DataStreamHandler'
+import DataStreamHandler from '@/utils/DataStreamHandler'
+import DataStreamWriter from '@/utils/DataStreamWriter'
 import {
   LocalDataStream,
   LocalP2PRoomMember,
@@ -16,6 +17,7 @@ class Avatar {
   name: string
   avatarUrl: string
   index: number | null
+  writer: DataStreamWriter | null
   handler: DataStreamHandler | null
   channel: P2PRoom | null
   localDataStream: LocalDataStream | null
@@ -29,6 +31,7 @@ class Avatar {
     name: string,
     avatarUrl: string,
     index: number | null,
+    writer: DataStreamWriter | null,
     handler: DataStreamHandler | null,
     channel: P2PRoom | null,
     localDataStream: LocalDataStream | null,
@@ -41,6 +44,7 @@ class Avatar {
     this.name = name
     this.avatarUrl = avatarUrl
     this.index = index
+    this.writer = writer
     this.handler = handler
     this.channel = channel
     this.localDataStream = localDataStream
@@ -55,20 +59,15 @@ class Avatar {
   }
 
   sendMyAvatar = () => {
-    const writer = new DataStreamWriter(this)
-    writer.sendMyAvatar()
+    this.writer?.sendMyAvatar(this)
   }
 
   lockMyAvatar = () => {
-    const writer = new DataStreamWriter(this)
-    const draggable = new SyncDraggable(writer)
-    draggable.unsetDraggable(this.uid)
+    SyncDraggable.unsetDraggable(this)
   }
 
   unLockMyAvatar = () => {
-    const writer = new DataStreamWriter(this)
-    const draggable = new SyncDraggable(writer)
-    draggable.setDraggable(this.uid)
+    SyncDraggable.setDraggable(this)
   }
 
   createChatMessage = (newMessage: string): ChatMessage => {
@@ -83,8 +82,7 @@ class Avatar {
   sendChatMessage = (newMessage: string) => {
     const chatMessage = this.createChatMessage(newMessage)
     this.handler?.addChatMessage(chatMessage)
-    const writer = new DataStreamWriter(this)
-    writer.sendChatMessage(chatMessage)
+    this.writer?.sendChatMessage(this, chatMessage)
   }
 
   delay = (ms: number) => {
