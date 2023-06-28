@@ -50,38 +50,43 @@ class PlayerAvatar extends Avatar {
 
   setHandleMetaDataUpdate = async () => {
     this.agent?.onMetadataUpdated.add(async () => {
-      if (this.agent?.metadata === 'error') {
-        this.handler?.updateErrorMessage('エラー発生！')
-      } else {
-        console.log('--------------------onMetadataUpdated')
-        const myIndx = this.agent?.metadata as string
-        console.log(`自分のmetadataが[${myIndx}]に更新された`)
-        this.index = parseInt(myIndx)
-        console.log(`自分のindexに[${this.index}]がセットされた`)
-  
-        // ----------ここからtestUser用。後で消す。testUserは自分のindexが確定するまではプロパティが初期化できないのでここで初期化する
-        this.id = this.index + 2
-        this.uid = `testUid-${this.index + 1}`
-        this.name = `testName-${this.index + 1}`
-        this.avatarUrl = new URL(
-          `../assets/images/${this.index + 1}.svg`,
-          import.meta.url
-        ).href
-        // ---------ここまで
-        console.log(`自分の
-        idが[${this.id}]に設定された
-        uidが[${this.uid}]に設定された
-        nameが[${this.name}]に設定された
-        avatarUrlが[${this.avatarUrl}]に設定された
-        `)
-        await this.subscribeOwner()
-        console.log(`ownerを
-        ・サブスク完了!
-        ・ハンドラセット完了!
-        ・metadata更新完了!`)
-        console.log('自分のアバターをownerに送信します')
-        this.sendMyAvatar()
-        console.log('--------------------onMetadataUpdated')
+      try {
+        if (this.agent?.metadata === 'error') {
+          this.handler?.updateErrorMessage('エラーが発生しました！')
+        } else {
+          console.log('--------------------onMetadataUpdated')
+          const myIndx = this.agent?.metadata as string
+          console.log(`自分のmetadataが[${myIndx}]に更新された`)
+          this.index = parseInt(myIndx)
+          console.log(`自分のindexに[${this.index}]がセットされた`)
+
+          // ----------ここからtestUser用。後で消す。testUserは自分のindexが確定するまではプロパティが初期化できないのでここで初期化する
+          this.id = this.index + 2
+          this.uid = `testUid-${this.index + 1}`
+          this.name = `testName-${this.index + 1}`
+          this.avatarUrl = new URL(
+            `../assets/images/${this.index + 1}.svg`,
+            import.meta.url
+          ).href
+          // ---------ここまで
+          console.log(`自分の
+          idが[${this.id}]に設定された
+          uidが[${this.uid}]に設定された
+          nameが[${this.name}]に設定された
+          avatarUrlが[${this.avatarUrl}]に設定された
+          `)
+          await this.subscribeOwner()
+          console.log(`ownerを
+          ・サブスク完了!
+          ・ハンドラセット完了!
+          ・metadata更新完了!`)
+          console.log('自分のアバターをownerに送信します')
+          this.sendMyAvatar()
+          console.log('--------------------onMetadataUpdated')
+        }
+      } catch (error) {
+        this.handler?.updateErrorMessage('エラーが発生しました！')
+        this.updateAllMetadataWithError()
       }
     })
   }
@@ -137,7 +142,7 @@ class PlayerAvatar extends Avatar {
             const index: number = data
             await this.subscribeAllPlayers(index)
             break
-            // ---------test--------
+          // ---------test--------
           case '_subscribeAllPlayers':
             await this._subscribeAllPlayers(data)
             // --------ここまで----------
@@ -155,11 +160,14 @@ class PlayerAvatar extends Avatar {
     //-----test用-----------
     // await this.delay(this.randomDelay())
     //----------------
-
     console.log('-----------------------subscribeOwner')
     const myIndex = this.index as number
     const ownerPublication = this.channel?.publications[0] as RoomPublication
     const ownerPublicationId = ownerPublication?.id as string
+    // -------------test-----------
+    // const invalidId = 'invalid'
+    // const stream = await this.subscribe(invalidId)
+    // ---------------------------
     const stream = await this.subscribe(ownerPublicationId)
     console.log('ownerをサブスクしました')
     await this.setHandleDataStream(stream)
@@ -170,32 +178,41 @@ class PlayerAvatar extends Avatar {
   }
 
   subscribeAllPlayers = async (index: number) => {
-    const myIndex = this.index as number
-    if (index === myIndex) {
-      //-----test用-----------
-      // await this.delay(this.randomDelay())
-      //----------------
+    try {
+      const myIndex = this.index as number
+      if (index === myIndex) {
+        //-----test用-----------
+        // await this.delay(this.randomDelay())
+        //----------------
 
-      console.log(
-        `myIndex:[${myIndex}]が他の全playerのサブスクを開始します・・・`
-      )
-      const numberOfParticipant = this.channel?.publications.length as number
-      for (let i = 1; i < numberOfParticipant; i++) {
-        console.log('roop開始・・・')
-        if (this.channel?.publications[i] === this.publication) continue
-        const playerPublicationId = this.channel?.publications[i].id as string
-        const stream = await this.subscribe(playerPublicationId)
-        console.log(`publicationId[${playerPublicationId}]のサブスク完了`)
-        await this.setHandleDataStream(stream)
         console.log(
-          `publicationId[${playerPublicationId}]のstreamにハンドラセット完了`
+          `myIndex:[${myIndex}]が他の全playerのサブスクを開始します・・・`
         )
+        const numberOfParticipant = this.channel?.publications.length as number
+        for (let i = 1; i < numberOfParticipant; i++) {
+          console.log('roop開始・・・')
+          if (this.channel?.publications[i] === this.publication) continue
+          const playerPublicationId = this.channel?.publications[i].id as string
+          //----------test-----------
+          // const invalidId = 'invalid'
+          // const stream = await this.subscribe(invalidId)
+          //-------------------------
+          const stream = await this.subscribe(playerPublicationId)
+          console.log(`publicationId[${playerPublicationId}]のサブスク完了`)
+          await this.setHandleDataStream(stream)
+          console.log(
+            `publicationId[${playerPublicationId}]のstreamにハンドラセット完了`
+          )
+        }
+        console.log('他の全playerのサブスクとハンドラセット完了')
+        console.log(
+          'myIndexに1を足して次のindexを書き込み、ownerに完了を報告します'
+        )
+        this.writer?.reportSubscribedAllPlayers(this, myIndex + 1)
       }
-      console.log('他の全playerのサブスクとハンドラセット完了')
-      console.log(
-        'myIndexに1を足して次のindexを書き込み、ownerに完了を報告します'
-      )
-      this.writer?.reportSubscribedAllPlayers(this, myIndex + 1)
+    } catch {
+      this.handler?.updateErrorMessage('エラーが発生しました！')
+      this.updateAllMetadataWithError()
     }
   }
 
@@ -206,27 +223,37 @@ class PlayerAvatar extends Avatar {
       //-----test用-----------
       // await this.delay(this.randomDelay())
       //----------------
-
-      console.log(
-        `myIndex:[${myIndex}]が他の全playerのサブスクを開始します・・・`
-      )
-      const numberOfParticipant = this.channel?.publications.length as number
-      for (let i = 1; i < numberOfParticipant; i++) {
-        console.log('roop開始・・・')
-        if (this.channel?.publications[i] === this.publication) continue
-        const playerPublicationId = this.channel?.publications[i].id as string
-        const stream = await this.subscribe(playerPublicationId)
-        console.log(`publicationId[${playerPublicationId}]のサブスク完了`)
-        await this.setHandleDataStream(stream)
+      try {
         console.log(
-          `publicationId[${playerPublicationId}]のstreamにハンドラセット完了`
+          `myIndex:[${myIndex}]が他の全playerのサブスクを開始します・・・`
         )
+        const numberOfParticipant = this.channel?.publications.length as number
+        for (let i = 1; i < numberOfParticipant; i++) {
+          console.log('roop開始・・・')
+          if (this.channel?.publications[i] === this.publication) continue
+          const playerPublicationId = this.channel?.publications[i].id as string
+          //----------test-----------
+          // const invalidId = 'invalid'
+          // const stream = await this.subscribe(invalidId)
+          //-------------------------
+          const stream = await this.subscribe(playerPublicationId)
+          console.log(`publicationId[${playerPublicationId}]のサブスク完了`)
+          await this.setHandleDataStream(stream)
+          console.log(
+            `publicationId[${playerPublicationId}]のstreamにハンドラセット完了`
+          )
+        }
+        console.log('他の全playerのサブスクとハンドラセット完了')
+        console.log(
+          'myIndexに1を足して次のindexを書き込み、ownerに完了を報告します'
+        )
+        this.writer?._reportSubscribedAllPlayers(this, myIndex + 1)
+      } catch (error) {
+        if (error instanceof Error) {
+          this.handler?.updateErrorMessage('エラーが発生しました！')
+          this.updateAllMetadataWithError()
+        }
       }
-      console.log('他の全playerのサブスクとハンドラセット完了')
-      console.log(
-        'myIndexに1を足して次のindexを書き込み、ownerに完了を報告します'
-      )
-      this.writer?._reportSubscribedAllPlayers(this, myIndex + 1)
     }
   }
   //------------ここまで---------------

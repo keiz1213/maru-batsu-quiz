@@ -207,6 +207,7 @@
     avatar = new OwnerAvatar(...initialParams)
     addOwner(avatar)
     avatar.setHandlePublishListChanged()
+    avatar.setHandleMetaDataUpdate()
   } else {
     avatar = new PlayerAvatar(...initialTestParams)
     avatar.setHandleMetaDataUpdate()

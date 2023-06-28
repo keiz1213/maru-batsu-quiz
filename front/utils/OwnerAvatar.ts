@@ -7,8 +7,7 @@ import {
   RoomPublication,
   RemoteDataStream,
   P2PRoom,
-  LocalStream,
-  SkyWayError
+  LocalStream
 } from '@skyway-sdk/room'
 import { AvatarParams } from '@/types/AvatarParams'
 import { ChatMessage } from '@/types/ChatMessage'
@@ -51,6 +50,14 @@ class OwnerAvatar extends Avatar {
       const publisherName = this.channel?.publications.slice(-1)[0].publisher
         .name as string
       this.handler?.addPublisherNameAction(publisherName)
+    })
+  }
+
+  setHandleMetaDataUpdate = () => {
+    this.agent?.onMetadataUpdated.add(async () => {
+      if (this.agent?.metadata === 'error') {
+        this.handler?.updateErrorMessage('エラーが発生しました！')
+      }
     })
   }
 
@@ -108,10 +115,8 @@ class OwnerAvatar extends Avatar {
         await this.setHandleDataStream(stream)
         console.log(`${i}人目のdatastreamにハンドラセット完了`)
       }
-    } catch (error) {
-      if (error instanceof SkyWayError) {
-        throw new Error(`エラー発生！: ${error.message}`)
-      }
+    } catch {
+      throw new Error('エラーが発生しました！')
     }
   }
 
@@ -134,7 +139,7 @@ class OwnerAvatar extends Avatar {
     }
     // この条件が成立するということはplayerが正しくownerのmetadataを更新できていないということ
     if (iteration === maxIteration) {
-      throw new Error('エラー発生！')
+      throw new Error()
     }
   }
 
@@ -154,10 +159,8 @@ class OwnerAvatar extends Avatar {
         // 待機
         await this.checkMyMetaData(playerIndex, 100)
       }
-    } catch(error) {
-      if(error instanceof Error) {
-        throw new Error(error.message)
-      }
+    } catch {
+      throw new Error('エラーが発生しました！')
     }
   }
 
