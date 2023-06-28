@@ -5,6 +5,7 @@
     players: object
     isOwner: boolean
     publisherNames: string[]
+    errorMessage: string
   }>()
 
   const emit = defineEmits<{
@@ -27,6 +28,7 @@
         <h1 class="text-center text-xl">
           参加予定者が全員入室中になったら「接続開始」を押してください
         </h1>
+        <p class="text-red-500 text-center text-3xl">{{ errorMessage }}</p>
       </div>
       <div v-else class="my-8">
         <h1 class="text-center text-xl">

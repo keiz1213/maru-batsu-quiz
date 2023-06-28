@@ -7,7 +7,8 @@ import {
   RoomPublication,
   RemoteDataStream,
   P2PRoom,
-  LocalStream
+  LocalStream,
+  SkyWayError
 } from '@skyway-sdk/room'
 import { AvatarParams } from '@/types/AvatarParams'
 import { ChatMessage } from '@/types/ChatMessage'
@@ -94,13 +95,23 @@ class OwnerAvatar extends Avatar {
 
   // owner → all player
   subscribeAllPlayers = async () => {
-    const numberOfParticipant = this.channel?.publications.length as number
-    for (let i = 1; i < numberOfParticipant; i++) {
-      const playerPublicationId = this.channel?.publications[i].id as string
-      const stream = await this.subscribe(playerPublicationId)
-      console.log(`${i}人目のサブスク完了`)
-      await this.setHandleDataStream(stream)
-      console.log(`${i}人目のdatastreamにハンドラセット完了`)
+    try {
+      const numberOfParticipant = this.channel?.publications.length as number
+      for (let i = 1; i < numberOfParticipant; i++) {
+        const playerPublicationId = this.channel?.publications[i].id as string
+        // ----------test------------
+        // const invalidId = 'invalid'
+        // const stream = await this.subscribe(invalidId)
+        // ---------------------------
+        const stream = await this.subscribe(playerPublicationId)
+        console.log(`${i}人目のサブスク完了`)
+        await this.setHandleDataStream(stream)
+        console.log(`${i}人目のdatastreamにハンドラセット完了`)
+      }
+    } catch (error) {
+      if (error instanceof SkyWayError) {
+        throw new Error(`エラー発生！: ${error.message}`)
+      }
     }
   }
 

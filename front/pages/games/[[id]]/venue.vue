@@ -106,9 +106,15 @@ import { useSkyWayErrorMessage } from '~/composables/useSkyWayErrorMessage'
   // ----------test用--------------
 
   const _subscribeAllPlayers = async () => {
-    if (avatar instanceof OwnerAvatar) {
-      await avatar.subscribeAllPlayers()
-      console.log('全playerサブスク&ハンドラセット完了')
+    try {
+      if (avatar instanceof OwnerAvatar) {
+        await avatar.subscribeAllPlayers()
+        console.log('全playerサブスク&ハンドラセット完了')
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        avatar.handler?.updateErrorMessage(error.message)
+      }
     }
   }
   const _promptAllPlayersSubscribeOwner = async () => {
@@ -208,6 +214,7 @@ import { useSkyWayErrorMessage } from '~/composables/useSkyWayErrorMessage'
   <MbqModalStandBy
     v-model="isStandByGame"
     :isOwner="isOwner(avatar)"
+    :errorMessage="errorMessage"
     :players="players"
     :background="'interactive'"
     @startConnection="startConnection"
