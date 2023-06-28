@@ -86,21 +86,28 @@
   }
 
   const startConnection = async () => {
-    if (avatar instanceof OwnerAvatar) {
-      console.log('----ownerが全playerをサブスク&ハンドラセットを開始----')
-      await avatar.subscribeAllPlayers()
-      console.log('----ownerが全playerをサブスク&ハンドラセット完了----')
-      console.log(
-        '----ownerが全playerに対してownerをサブスク&ハンドラセットするように促します----'
-      )
-      await avatar.promptAllPlayersSubscribeOwner()
-      console.log('----全playerがownerをサブスク&ハンドラセット完了----')
-      avatar.sendMyAvatar()
-      console.log('-----自分のアバターを全playerに対して送信----')
-      avatar.sendAllPlayerAvatar(players.value)
-      console.log('-----全playerに対して全playerのアバターを送信-----')
-      console.log('-----全player同士のサブスクを開始・・・-----')
-      avatar.promptSubscribeAllPlayers(0)
+    try {
+      if (avatar instanceof OwnerAvatar) {
+        console.log('----ownerが全playerをサブスク&ハンドラセットを開始----')
+        await avatar.subscribeAllPlayers()
+        console.log('----ownerが全playerをサブスク&ハンドラセット完了----')
+        console.log(
+          '----ownerが全playerに対してownerをサブスク&ハンドラセットするように促します----'
+        )
+        await avatar.promptAllPlayersSubscribeOwner()
+        console.log('----全playerがownerをサブスク&ハンドラセット完了----')
+        avatar.sendMyAvatar()
+        console.log('-----自分のアバターを全playerに対して送信----')
+        avatar.sendAllPlayerAvatar(players.value)
+        console.log('-----全playerに対して全playerのアバターを送信-----')
+        console.log('-----全player同士のサブスクを開始・・・-----')
+        avatar.promptSubscribeAllPlayers(0)
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        avatar.handler?.updateErrorMessage(error.message)
+        avatar.updateAllMetadataWithError()
+      }
     }
   }
 
