@@ -121,7 +121,10 @@ class OwnerAvatar extends Avatar {
   }
 
   // playerがownerをサブスク&ハンドラセットしたか確認する
-  private checkMyMetaData = async (playerIndex: string, maxIteration: number) => {
+  private checkMyMetaData = async (
+    playerIndex: string,
+    maxIteration: number
+  ) => {
     // 自分のmetaDataが更新されるまでroop
     let iteration = 0
     while (iteration < maxIteration) {

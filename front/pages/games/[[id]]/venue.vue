@@ -125,7 +125,7 @@
         await avatar.promptAllPlayersSubscribeOwner()
         console.log('全playerがownerのサブスク&ハンドラセットを完了しました')
       }
-    } catch(error) {
+    } catch (error) {
       if (error instanceof Error) {
         avatar.handler?.updateErrorMessage(error.message)
         avatar.updateAllMetadataWithError()
