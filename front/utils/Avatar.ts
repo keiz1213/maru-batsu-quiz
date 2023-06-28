@@ -62,6 +62,13 @@ class Avatar {
     await publication.publisher.updateMetadata(value)
   }
 
+  updateAllMetadataWithError = async () => {
+    const allPublications = this.channel?.publications as RoomPublication[]
+    allPublications.forEach((publication) => {
+      this.updateMetadataWith(publication, 'error')
+    })
+  }
+
   sendMyAvatar = () => {
     this.writer?.sendMyAvatar(this)
   }

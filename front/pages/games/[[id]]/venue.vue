@@ -115,6 +115,7 @@
     } catch (error) {
       if (error instanceof Error) {
         avatar.handler?.updateErrorMessage(error.message)
+        avatar.updateAllMetadataWithError()
       }
     }
   }
