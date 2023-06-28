@@ -34,6 +34,7 @@
         <h1 class="text-center text-xl">
           接続確認中です。そのままお待ち下さい・・・
         </h1>
+        <p class="text-red-500 text-center text-3xl">{{ errorMessage }}</p>
       </div>
       <slot />
       <div v-if="isOwner" class="my-5">

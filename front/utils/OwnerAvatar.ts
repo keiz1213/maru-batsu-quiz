@@ -80,11 +80,11 @@ class OwnerAvatar extends Avatar {
             const index: number = data
             this.promptSubscribeAllPlayers(index)
             break
-            // --------test用----------
+          // --------test用----------
           case '_promptSubscribeAllPlayers':
             this._promptSubscribeAllPlayers(data)
             break
-            // --------ここまで----------
+          // --------ここまで----------
           default:
             break
         }
@@ -100,16 +100,21 @@ class OwnerAvatar extends Avatar {
       for (let i = 1; i < numberOfParticipant; i++) {
         const playerPublicationId = this.channel?.publications[i].id as string
         // ----------test------------
-        // const invalidId = 'invalid'
-        // const stream = await this.subscribe(invalidId)
+        const invalidId = 'invalid'
+        const stream = await this.subscribe(invalidId)
         // ---------------------------
-        const stream = await this.subscribe(playerPublicationId)
+        // const stream = await this.subscribe(playerPublicationId)
         console.log(`${i}人目のサブスク完了`)
         await this.setHandleDataStream(stream)
         console.log(`${i}人目のdatastreamにハンドラセット完了`)
       }
     } catch (error) {
       if (error instanceof SkyWayError) {
+        const allPublications = this.channel
+          ?.publications as RoomPublication[]
+        for (let i = 0; i < allPublications?.length; i++) {
+          await this.updateMetadataWithIndex(allPublications[i], 'error')
+        }
         throw new Error(`エラー発生！: ${error.message}`)
       }
     }

@@ -48,46 +48,41 @@ class PlayerAvatar extends Avatar {
     return Math.floor(Math.random() * (10000 - 1000 + 1)) + 1000
   }
 
-  // 自分のmetadataがownerによって更新されると
-  // 1. 自分のindexが確定する
-  // 2. indexを自アバターにセットする
-  // 3. playerがownerをサブスク&ハンドラセットする
-  // 4. playerが自indexでownerのmetadataを更新することで完了を報告する
   setHandleMetaDataUpdate = async () => {
     this.agent?.onMetadataUpdated.add(async () => {
-      //-----test用-----------
-      // await this.delay(this.randomDelay())
-      //----------------
-
-      console.log('--------------------onMetadataUpdated')
-      const myIndx = this.agent?.metadata as string
-      console.log(`自分のmetadataが[${myIndx}]に更新された`)
-      this.index = parseInt(myIndx)
-      console.log(`自分のindexに[${this.index}]がセットされた`)
-
-      // ----------ここからtestUser用。後で消す。testUserは自分のindexが確定するまではプロパティが初期化できないのでここで初期化する
-      this.id = this.index + 2
-      this.uid = `testUid-${this.index + 1}`
-      this.name = `testName-${this.index + 1}`
-      this.avatarUrl = new URL(
-        `../assets/images/${this.index + 1}.svg`,
-        import.meta.url
-      ).href
-      // ---------ここまで
-      console.log(`自分の
-      idが[${this.id}]に設定された
-      uidが[${this.uid}]に設定された
-      nameが[${this.name}]に設定された
-      avatarUrlが[${this.avatarUrl}]に設定された
-      `)
-      await this.subscribeOwner()
-      console.log(`ownerを
-      ・サブスク完了!
-      ・ハンドラセット完了!
-      ・metadata更新完了!`)
-      console.log('自分のアバターをownerに送信します')
-      this.sendMyAvatar()
-      console.log('--------------------onMetadataUpdated')
+      if (this.agent?.metadata === 'error') {
+        this.handler?.updateErrorMessage('エラー発生！')
+      } else {
+        console.log('--------------------onMetadataUpdated')
+        const myIndx = this.agent?.metadata as string
+        console.log(`自分のmetadataが[${myIndx}]に更新された`)
+        this.index = parseInt(myIndx)
+        console.log(`自分のindexに[${this.index}]がセットされた`)
+  
+        // ----------ここからtestUser用。後で消す。testUserは自分のindexが確定するまではプロパティが初期化できないのでここで初期化する
+        this.id = this.index + 2
+        this.uid = `testUid-${this.index + 1}`
+        this.name = `testName-${this.index + 1}`
+        this.avatarUrl = new URL(
+          `../assets/images/${this.index + 1}.svg`,
+          import.meta.url
+        ).href
+        // ---------ここまで
+        console.log(`自分の
+        idが[${this.id}]に設定された
+        uidが[${this.uid}]に設定された
+        nameが[${this.name}]に設定された
+        avatarUrlが[${this.avatarUrl}]に設定された
+        `)
+        await this.subscribeOwner()
+        console.log(`ownerを
+        ・サブスク完了!
+        ・ハンドラセット完了!
+        ・metadata更新完了!`)
+        console.log('自分のアバターをownerに送信します')
+        this.sendMyAvatar()
+        console.log('--------------------onMetadataUpdated')
+      }
     })
   }
 
