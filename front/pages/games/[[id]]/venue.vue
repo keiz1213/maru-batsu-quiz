@@ -4,6 +4,7 @@
   import PlayerAvatar from '~/utils/PlayerAvatar'
   import DataStreamHandler from '~/utils/DataStreamHandler'
   import SkyWay from '~/utils/SkyWay'
+import { useSkyWayErrorMessage } from '~/composables/useSkyWayErrorMessage'
 
   definePageMeta({
     middleware: 'auth'
@@ -40,6 +41,7 @@
   const { chatMessages, addChatMessage } = useChat()
   const { publisherNames, addPublisherName } = usePublication()
   const { timeElapsed, timeLimit, startTimer, resetTimer } = useTimer()
+  const { errorMessage, updateErrorMessage, clearErrorMessage} = useSkyWayErrorMessage()
 
   const writer = new DataStreamWriter()
   const handler = new DataStreamHandler(
@@ -52,7 +54,9 @@
     judge,
     updateAnnounceText,
     addChatMessage,
-    addPublisherName
+    addPublisherName,
+    updateErrorMessage,
+    clearErrorMessage
   )
 
   const isOwner = (avatar: Avatar) => {

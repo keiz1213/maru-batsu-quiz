@@ -13,6 +13,8 @@ class DataStreamHandler {
   updateAnnounceText: Function
   addChatMessage: Function
   addPublisherName: Function
+  updateErrorMessage: Function
+  clearErrorMessage: Function
 
   constructor(
     addOwner: Function,
@@ -24,7 +26,9 @@ class DataStreamHandler {
     judge: Function,
     updateAnnounceText: Function,
     addChatMessage: Function,
-    addPublisherName: Function
+    addPublisherName: Function,
+    updateErrorMessage: Function,
+    clearErrorMessage: Function
   ) {
     this.addOwner = addOwner
     this.addPlayer = addPlayer
@@ -36,6 +40,8 @@ class DataStreamHandler {
     this.updateAnnounceText = updateAnnounceText
     this.addChatMessage = addChatMessage
     this.addPublisherName = addPublisherName
+    this.updateErrorMessage = updateErrorMessage
+    this.clearErrorMessage = clearErrorMessage
   }
 
   startGameAction = (avatar: Avatar): void => {
@@ -91,6 +97,14 @@ class DataStreamHandler {
 
   addPublisherNameAction = (publisherName: string) => {
     this.addPublisherName(publisherName)
+  }
+
+  updateErrorMessageAction = (message: string) => {
+    this.updateErrorMessage(message)
+  }
+
+  clearErroMessageAction = () => {
+    this.clearErroMessageAction()
   }
 }
 
