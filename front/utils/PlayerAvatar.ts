@@ -155,14 +155,6 @@ class PlayerAvatar extends Avatar {
     })
   }
 
-  // オーナーのmetadataを自indexで更新し、完了を報告
-  updateOwnerMetadata = async (
-    ownerPublication: RoomPublication,
-    myIndex: string
-  ) => {
-    await ownerPublication.publisher.updateMetadata(myIndex)
-  }
-
   // player → owner
   subscribeOwner = async () => {
     //-----test用-----------
@@ -177,7 +169,7 @@ class PlayerAvatar extends Avatar {
     console.log('ownerをサブスクしました')
     await this.setHandleDataStream(stream)
     console.log('ownerのdatastreamにハンドラをセットしました')
-    await this.updateOwnerMetadata(ownerPublication, myIndex.toString())
+    await this.updateMetadataWithIndex(ownerPublication, myIndex.toString())
     console.log('オーナーのmetadataを自indexで更新し、完了を報告しました')
     console.log('-----------------------subscribeOwner')
   }

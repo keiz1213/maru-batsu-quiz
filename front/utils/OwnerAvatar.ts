@@ -104,18 +104,6 @@ class OwnerAvatar extends Avatar {
     }
   }
 
-  // ownerがplayerのmetadataをindexで更新することで、そのplayerは
-  // 1. 自分のindexが確定する
-  // 2. indexを自アバターにセットする
-  // 3. playerがownerをサブスク&ハンドラセットする
-  // 4. playerが自indexでownerのmetadataを更新することで完了を報告する
-  private updatePlayerMetaData = async (
-    playerPublication: RoomPublication,
-    playerIndex: string
-  ) => {
-    await playerPublication.publisher.updateMetadata(playerIndex)
-  }
-
   // playerがownerをサブスク&ハンドラセットしたか確認する
   private checkMyMetaData = async (playerIndex: string) => {
     // 自分のmetaDataが更新されるまでroop
@@ -140,7 +128,7 @@ class OwnerAvatar extends Avatar {
       console.log(
         `[${allPublications[i]}]のmetadataを[${playerIndex}]に更新します・・・`
       )
-      await this.updatePlayerMetaData(allPublications[i], playerIndex)
+      await this.updateMetadataWithIndex(allPublications[i], playerIndex)
       console.log(
         `[${playerIndex}]に更新されたplayerがownerをサブスク&ハンドラセットしたかどうか確認開始・・・`
       )

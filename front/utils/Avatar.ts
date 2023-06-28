@@ -58,6 +58,13 @@ class Avatar {
     return remoteDataStream
   }
 
+  updateMetadataWithIndex = async (
+    publication: RoomPublication,
+    index: string
+  ) => {
+    await publication.publisher.updateMetadata(index)
+  }
+
   sendMyAvatar = () => {
     this.writer?.sendMyAvatar(this)
   }
