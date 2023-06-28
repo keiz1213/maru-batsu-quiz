@@ -100,30 +100,26 @@ class OwnerAvatar extends Avatar {
       for (let i = 1; i < numberOfParticipant; i++) {
         const playerPublicationId = this.channel?.publications[i].id as string
         // ----------test------------
-        const invalidId = 'invalid'
-        const stream = await this.subscribe(invalidId)
+        // const invalidId = 'invalid'
+        // const stream = await this.subscribe(invalidId)
         // ---------------------------
-        // const stream = await this.subscribe(playerPublicationId)
+        const stream = await this.subscribe(playerPublicationId)
         console.log(`${i}人目のサブスク完了`)
         await this.setHandleDataStream(stream)
         console.log(`${i}人目のdatastreamにハンドラセット完了`)
       }
     } catch (error) {
       if (error instanceof SkyWayError) {
-        const allPublications = this.channel
-          ?.publications as RoomPublication[]
-        for (let i = 0; i < allPublications?.length; i++) {
-          await this.updateMetadataWith(allPublications[i], 'error')
-        }
         throw new Error(`エラー発生！: ${error.message}`)
       }
     }
   }
 
   // playerがownerをサブスク&ハンドラセットしたか確認する
-  private checkMyMetaData = async (playerIndex: string) => {
+  private checkMyMetaData = async (playerIndex: string, maxIteration: number) => {
     // 自分のmetaDataが更新されるまでroop
-    while (true) {
+    let iteration = 0
+    while (iteration < maxIteration) {
       // playerはownerに対するサブスクとハンドラセットの完了を、ownerのmetadataを自indexで更新することで報告する
       if (this.agent?.metadata === playerIndex) {
         console.log(
@@ -133,23 +129,35 @@ class OwnerAvatar extends Avatar {
       }
       await this.delay(100)
       console.log('自分のmetadataを確認中・・・')
+
+      iteration++
+    }
+    // この条件が成立するということはplayerが正しくownerのmetadataを更新できていないということ
+    if (iteration === maxIteration) {
+      throw new Error('エラー発生！')
     }
   }
 
   // 全playerに対してownerをサブスク&ハンドラセットするように促す
   promptAllPlayersSubscribeOwner = async () => {
-    const allPublications = this.channel?.publications as RoomPublication[]
-    for (let i = 1; i < allPublications.length; i++) {
-      const playerIndex = (i - 1).toString()
-      console.log(
-        `[${allPublications[i]}]のmetadataを[${playerIndex}]に更新します・・・`
-      )
-      await this.updateMetadataWith(allPublications[i], playerIndex)
-      console.log(
-        `[${playerIndex}]に更新されたplayerがownerをサブスク&ハンドラセットしたかどうか確認開始・・・`
-      )
-      // 待機
-      await this.checkMyMetaData(playerIndex)
+    try {
+      const allPublications = this.channel?.publications as RoomPublication[]
+      for (let i = 1; i < allPublications.length; i++) {
+        const playerIndex = (i - 1).toString()
+        console.log(
+          `[${allPublications[i]}]のmetadataを[${playerIndex}]に更新します・・・`
+        )
+        await this.updateMetadataWith(allPublications[i], playerIndex)
+        console.log(
+          `[${playerIndex}]に更新されたplayerがownerをサブスク&ハンドラセットしたかどうか確認開始・・・`
+        )
+        // 待機
+        await this.checkMyMetaData(playerIndex, 100)
+      }
+    } catch(error) {
+      if(error instanceof Error) {
+        throw new Error(error.message)
+      }
     }
   }
 

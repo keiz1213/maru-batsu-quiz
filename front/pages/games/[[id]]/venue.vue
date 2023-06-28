@@ -120,9 +120,16 @@
     }
   }
   const _promptAllPlayersSubscribeOwner = async () => {
-    if (avatar instanceof OwnerAvatar) {
-      await avatar.promptAllPlayersSubscribeOwner()
-      console.log('全playerがownerのサブスク&ハンドラセットを完了しました')
+    try {
+      if (avatar instanceof OwnerAvatar) {
+        await avatar.promptAllPlayersSubscribeOwner()
+        console.log('全playerがownerのサブスク&ハンドラセットを完了しました')
+      }
+    } catch(error) {
+      if (error instanceof Error) {
+        avatar.handler?.updateErrorMessage(error.message)
+        avatar.updateAllMetadataWithError()
+      }
     }
   }
   const _promptSubscribeAllPlayers = async () => {
