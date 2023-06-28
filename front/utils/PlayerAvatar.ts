@@ -164,7 +164,7 @@ class PlayerAvatar extends Avatar {
     console.log('ownerをサブスクしました')
     await this.setHandleDataStream(stream)
     console.log('ownerのdatastreamにハンドラをセットしました')
-    await this.updateMetadataWithIndex(ownerPublication, myIndex.toString())
+    await this.updateMetadataWith(ownerPublication, myIndex.toString())
     console.log('オーナーのmetadataを自indexで更新し、完了を報告しました')
     console.log('-----------------------subscribeOwner')
   }

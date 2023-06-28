@@ -113,7 +113,7 @@ class OwnerAvatar extends Avatar {
         const allPublications = this.channel
           ?.publications as RoomPublication[]
         for (let i = 0; i < allPublications?.length; i++) {
-          await this.updateMetadataWithIndex(allPublications[i], 'error')
+          await this.updateMetadataWith(allPublications[i], 'error')
         }
         throw new Error(`エラー発生！: ${error.message}`)
       }
@@ -144,7 +144,7 @@ class OwnerAvatar extends Avatar {
       console.log(
         `[${allPublications[i]}]のmetadataを[${playerIndex}]に更新します・・・`
       )
-      await this.updateMetadataWithIndex(allPublications[i], playerIndex)
+      await this.updateMetadataWith(allPublications[i], playerIndex)
       console.log(
         `[${playerIndex}]に更新されたplayerがownerをサブスク&ハンドラセットしたかどうか確認開始・・・`
       )
