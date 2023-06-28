@@ -1,6 +1,6 @@
 import Avatar from '@/utils/Avatar'
 import DataStreamHandler from '@/utils/DataStreamHandler'
-import DataStreamWriter from '~/utils/DataStreamWriter'
+import DataStreamWriter from '@/utils/DataStreamWriter'
 import {
   LocalDataStream,
   LocalP2PRoomMember,
