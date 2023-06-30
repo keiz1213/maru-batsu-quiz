@@ -33,6 +33,7 @@
   })
 
   const isEditing = ref(false)
+  const isLoading = ref(false)
   const confirmSave = (event: BeforeUnloadEvent) => {
     if (isEditing.value) {
       event.preventDefault()
@@ -48,6 +49,7 @@
   const isNewAction = (): boolean => props.actionType === 'new'
 
   const postGame = async (game: Game, userId: number): Promise<void> => {
+    isLoading.value = true
     const { data } = await useMyFetch('/api/v1/games', {
       method: 'post',
       body: {
@@ -65,6 +67,7 @@
   }
 
   const putGame = async (game: Game, gameId: string): Promise<void> => {
+    isLoading.value = true
     await useMyFetch(`/api/v1/games/${gameId}`, {
       method: 'put',
       body: {
@@ -175,10 +178,10 @@
       ></MbqFormGameNumberOfWinner>
 
       <div class="flex justify-center">
-        <MbqButtonPrimary v-if="isNewAction()" :button-type="'submit'">
+        <MbqButtonPrimary v-if="isNewAction()" :button-type="'submit'" :is-loading="isLoading">
           作成
         </MbqButtonPrimary>
-        <MbqButtonPrimary v-else="!isNewAction()" :button-type="'submit'">
+        <MbqButtonPrimary v-else="!isNewAction()" :button-type="'submit'" :is-loading="isLoading">
           更新
         </MbqButtonPrimary>
       </div>
