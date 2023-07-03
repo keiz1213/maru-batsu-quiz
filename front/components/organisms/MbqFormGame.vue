@@ -37,7 +37,7 @@
   const confirmSave = (event: BeforeUnloadEvent) => {
     if (isEditing.value) {
       event.preventDefault()
-      event.returnValue = '編集した内容が破棄されますがよろしいですか？'
+      event.returnValue = ''
     }
   }
 

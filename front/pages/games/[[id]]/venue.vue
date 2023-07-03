@@ -7,8 +7,18 @@
   import { useSkyWayErrorMessage } from '~/composables/useSkyWayErrorMessage'
 
   definePageMeta({
-    middleware: 'auth'
+    middleware: 'venue-status'
     // layout: 'after-login'
+  })
+
+  onBeforeRouteLeave((to, from, next) => {
+    let answer = window.confirm('ゲームが中止になりますがよろしいですか？')
+    if (answer) {
+      avatar.agent?.leave()
+      next()
+    } else {
+      next(false)
+    }
   })
 
   const { currentUser } = useAuth()
@@ -88,6 +98,7 @@
   const startConnection = async () => {
     try {
       if (avatar instanceof OwnerAvatar) {
+        await avatar.updateRoomMetadata('')
         console.log('----ownerが全playerをサブスク&ハンドラセットを開始----')
         await avatar.subscribeAllPlayers()
         console.log('----ownerが全playerをサブスク&ハンドラセット完了----')
@@ -114,6 +125,7 @@
   const _subscribeAllPlayers = async () => {
     try {
       if (avatar instanceof OwnerAvatar) {
+        await avatar.updateRoomMetadata('')
         await avatar.subscribeAllPlayers()
         console.log('全playerサブスク&ハンドラセット完了')
       }
@@ -207,7 +219,9 @@
   if (currentUser.value.id === ownerId) {
     avatar = new OwnerAvatar(...initialParams)
     addOwner(avatar)
+    await avatar.updateRoomMetadata('ready')
     avatar.setHandlePublishListChanged()
+    avatar.setHandleSelfLeft()
     avatar.setHandleMemberLeft()
     avatar.setHandleMetaDataUpdate()
   } else {

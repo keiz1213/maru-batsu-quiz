@@ -20,7 +20,7 @@
 
   const game = await getGame(gameId)
   const gameVenueUrl = `${frontUrl}/games/${gameId}/venue?title=${game.title}`
-
+  const gameVenuePath = `/games/${gameId}/venue?title=${game.title}`
   const showModal = ref(false)
   const confirm = () => {
     removeGame(gameId)
@@ -50,7 +50,7 @@
       :id="'show-game-venue-url'"
     />
     <div class="flex justify-evenly">
-      <NuxtLink :to="gameVenueUrl">
+      <NuxtLink :to="gameVenuePath">
         <MbqButtonPrimary>会場へ</MbqButtonPrimary>
       </NuxtLink>
       <NuxtLink :to="`/games/${gameId}/edit`">
