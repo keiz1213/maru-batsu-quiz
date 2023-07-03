@@ -1,19 +1,24 @@
 <script setup lang="ts">
   const { githubLogin } = useAuth()
+  const { toast, setToast, unsetToast, notifyOnSpot, notify } = useToast()
+
   const login = async () => {
-    isLoading.value = true
-    await githubLogin()
-    navigateTo('/home', { replace: true })
-    console.log('loginしました')
+    try {
+      isLoading.value = true
+      await githubLogin()
+      setToast('ログインしました！', 'success')
+      navigateTo('/home')
+    } catch {
+      isLoading.value = false
+      notifyOnSpot('ログインに失敗しました', 'error')
+    }
   }
-  const { toast, unsetToast, notify } = useToast()
 
   const isLoading = ref(false)
 
   if (toast.value.isSet) {
     notify(toast.value.message, toast.value.type)
     unsetToast()
-    isLoading.value = false
   }
 </script>
 

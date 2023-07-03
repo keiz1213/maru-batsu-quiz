@@ -55,26 +55,18 @@ export const useAuth = () => {
   })
 
   const githubLogin = async (): Promise<void> => {
-    try {
-      const auth = getAuth()
-      const provider = new GithubAuthProvider()
-      const result = await signInWithPopup(auth, provider)
-      const firebaseToken = await result.user.getIdToken()
-      const user = await getUser(firebaseToken)
-      setCurrentUser(user, firebaseToken)
-      setToast('ログインしました！', 'success')
-    } catch {
-      setToast('ログインに失敗しました', 'error')
-      notify(toast.value.message, toast.value.type)
-      unsetToast()
-    }
+    const auth = getAuth()
+    const provider = new GithubAuthProvider()
+    const result = await signInWithPopup(auth, provider)
+    const firebaseToken = await result.user.getIdToken()
+    const user = await getUser(firebaseToken)
+    setCurrentUser(user, firebaseToken)
   }
 
   const signOut = async (): Promise<void> => {
     const auth = getAuth()
     await firebaseSignOut(auth)
     initializeCurrentUser()
-    setToast('ログアウトしました!', 'success')
   }
 
   const checkAuthState = async (): Promise<void> => {

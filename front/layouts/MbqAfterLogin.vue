@@ -1,11 +1,14 @@
 <script setup lang="ts">
   const { signOut, currentUser } = useAuth()
+  const { toast, setToast, unsetToast, notify } = useToast()
+  const route = useRoute()
+
   const avatarUrl = currentUser.value.avatar_url
 
   const logout = async (): Promise<void> => {
     await signOut()
-    navigateTo('/login', { replace: true })
-    console.log('logoutしました')
+    setToast('ログアウトしました！', 'success')
+    navigateTo('/login')
   }
 
   const withdrawal = async (): Promise<void> => {
@@ -16,6 +19,13 @@
     navigateTo('/withdrawal', { replace: true })
     console.log('退会しました')
   }
+
+  watch(route, () => {
+    if (toast.value.isSet) {
+      notify(toast.value.message, toast.value.type)
+      unsetToast()
+    }
+  })
 </script>
 
 <template>
