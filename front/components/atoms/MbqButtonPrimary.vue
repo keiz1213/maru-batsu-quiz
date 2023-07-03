@@ -25,7 +25,7 @@
       'shadow-md',
       'hover:opacity-70',
       'w-48',
-      { 'opacity-70': isLoading}
+      { 'opacity-70': isLoading }
     ]"
     @click="handleClick"
     :type="buttonType"

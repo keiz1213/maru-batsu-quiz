@@ -178,10 +178,18 @@
       ></MbqFormGameNumberOfWinner>
 
       <div class="flex justify-center">
-        <MbqButtonPrimary v-if="isNewAction()" :button-type="'submit'" :is-loading="isLoading">
+        <MbqButtonPrimary
+          v-if="isNewAction()"
+          :button-type="'submit'"
+          :is-loading="isLoading"
+        >
           作成
         </MbqButtonPrimary>
-        <MbqButtonPrimary v-else="!isNewAction()" :button-type="'submit'" :is-loading="isLoading">
+        <MbqButtonPrimary
+          v-else="!isNewAction()"
+          :button-type="'submit'"
+          :is-loading="isLoading"
+        >
           更新
         </MbqButtonPrimary>
       </div>
