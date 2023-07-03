@@ -51,13 +51,27 @@ export const useToast = () => {
           transition: toast.TRANSITIONS.FLIP
         })
         break
+      case 'skyway-error':
+        toast.error(message, {
+          autoClose: false,
+          position: toast.POSITION.TOP_CENTER,
+          transition: toast.TRANSITIONS.FLIP
+        })
+        break
     }
+  }
+
+  const notifyOnSpot = (message: string, type: string) => {
+    setToast(message, type)
+    notify(message, type)
+    unsetToast()
   }
 
   return {
     toast: readonly(toast),
     setToast: setToast,
     unsetToast: unsetToast,
-    notify: notify
+    notify: notify,
+    notifyOnSpot: notifyOnSpot
   }
 }

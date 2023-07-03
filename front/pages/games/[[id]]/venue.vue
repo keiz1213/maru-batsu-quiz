@@ -43,6 +43,7 @@
   const { timeElapsed, timeLimit, startTimer, resetTimer } = useTimer()
   const { errorMessage, updateErrorMessage, clearErrorMessage } =
     useSkyWayErrorMessage()
+  const { notifyOnSpot } = useToast()
 
   const writer = new DataStreamWriter()
   const handler = new DataStreamHandler(
@@ -56,8 +57,7 @@
     updateAnnounceText,
     addChatMessage,
     addPublisherName,
-    updateErrorMessage,
-    clearErrorMessage
+    notifyOnSpot
   )
 
   const isOwner = (avatar: Avatar) => {
@@ -103,11 +103,9 @@
         console.log('-----全player同士のサブスクを開始・・・-----')
         avatar.promptSubscribeAllPlayers(0)
       }
-    } catch (error) {
-      if (error instanceof Error) {
-        avatar.handler?.updateErrorMessage(error.message)
-        avatar.updateAllMetadataWithError()
-      }
+    } catch {
+      avatar.handler?.notifyOnSpot('エラーが発生しました！', 'skyway-error')
+      avatar.updateAllMetadataWithError()
     }
   }
 
@@ -119,11 +117,9 @@
         await avatar.subscribeAllPlayers()
         console.log('全playerサブスク&ハンドラセット完了')
       }
-    } catch (error) {
-      if (error instanceof Error) {
-        avatar.handler?.updateErrorMessage(error.message)
-        avatar.updateAllMetadataWithError()
-      }
+    } catch {
+      avatar.handler?.notifyOnSpot('エラーが発生しました！', 'skyway-error')
+      avatar.updateAllMetadataWithError()
     }
   }
   const _promptAllPlayersSubscribeOwner = async () => {
@@ -132,11 +128,9 @@
         await avatar.promptAllPlayersSubscribeOwner()
         console.log('全playerがownerのサブスク&ハンドラセットを完了しました')
       }
-    } catch (error) {
-      if (error instanceof Error) {
-        avatar.handler?.updateErrorMessage(error.message)
-        avatar.updateAllMetadataWithError()
-      }
+    } catch {
+      avatar.handler?.notifyOnSpot('エラーが発生しました！', 'skyway-error')
+      avatar.updateAllMetadataWithError()
     }
   }
   const _promptSubscribeAllPlayers = async () => {

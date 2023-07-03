@@ -52,7 +52,7 @@ class PlayerAvatar extends Avatar {
     this.agent?.onMetadataUpdated.add(async () => {
       try {
         if (this.agent?.metadata === 'error') {
-          this.handler?.updateErrorMessage('エラーが発生しました！')
+          this.handler?.notifyOnSpot('エラーが発生しました！', 'skyway-error')
         } else {
           console.log('--------------------onMetadataUpdated')
           const myIndx = this.agent?.metadata as string
@@ -85,7 +85,7 @@ class PlayerAvatar extends Avatar {
           console.log('--------------------onMetadataUpdated')
         }
       } catch (error) {
-        this.handler?.updateErrorMessage('エラーが発生しました！')
+        this.handler?.notifyOnSpot('エラーが発生しました！', 'skyway-error')
         this.updateAllMetadataWithError()
       }
     })
@@ -211,7 +211,7 @@ class PlayerAvatar extends Avatar {
         this.writer?.reportSubscribedAllPlayers(this, myIndex + 1)
       }
     } catch {
-      this.handler?.updateErrorMessage('エラーが発生しました！')
+      this.handler?.notifyOnSpot('エラーが発生しました！', 'skyway-error')
       this.updateAllMetadataWithError()
     }
   }
@@ -250,7 +250,7 @@ class PlayerAvatar extends Avatar {
         this.writer?._reportSubscribedAllPlayers(this, myIndex + 1)
       } catch (error) {
         if (error instanceof Error) {
-          this.handler?.updateErrorMessage('エラーが発生しました！')
+          this.handler?.notifyOnSpot('エラーが発生しました！', 'skyway-error')
           this.updateAllMetadataWithError()
         }
       }

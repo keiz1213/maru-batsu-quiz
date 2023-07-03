@@ -56,7 +56,7 @@ class OwnerAvatar extends Avatar {
   setHandleMetaDataUpdate = () => {
     this.agent?.onMetadataUpdated.add(async () => {
       if (this.agent?.metadata === 'error') {
-        this.handler?.updateErrorMessage('エラーが発生しました！')
+        this.handler?.notifyOnSpot('エラーが発生しました！', 'skyway-error')
       }
     })
   }
@@ -102,21 +102,17 @@ class OwnerAvatar extends Avatar {
 
   // owner → all player
   subscribeAllPlayers = async () => {
-    try {
-      const numberOfParticipant = this.channel?.publications.length as number
-      for (let i = 1; i < numberOfParticipant; i++) {
-        const playerPublicationId = this.channel?.publications[i].id as string
-        // ----------test------------
-        // const invalidId = 'invalid'
-        // const stream = await this.subscribe(invalidId)
-        // ---------------------------
-        const stream = await this.subscribe(playerPublicationId)
-        console.log(`${i}人目のサブスク完了`)
-        await this.setHandleDataStream(stream)
-        console.log(`${i}人目のdatastreamにハンドラセット完了`)
-      }
-    } catch {
-      throw new Error('エラーが発生しました！')
+    const numberOfParticipant = this.channel?.publications.length as number
+    for (let i = 1; i < numberOfParticipant; i++) {
+      const playerPublicationId = this.channel?.publications[i].id as string
+      // ----------test------------
+      // const invalidId = 'invalid'
+      // const stream = await this.subscribe(invalidId)
+      // ---------------------------
+      const stream = await this.subscribe(playerPublicationId)
+      console.log(`${i}人目のサブスク完了`)
+      await this.setHandleDataStream(stream)
+      console.log(`${i}人目のdatastreamにハンドラセット完了`)
     }
   }
 
@@ -163,7 +159,7 @@ class OwnerAvatar extends Avatar {
         await this.checkMyMetaData(playerIndex, 100)
       }
     } catch {
-      throw new Error('エラーが発生しました！')
+      throw new Error()
     }
   }
 
