@@ -211,7 +211,6 @@ class PlayerAvatar extends Avatar {
         this.writer?.reportSubscribedAllPlayers(this, myIndex + 1)
       }
     } catch {
-      this.handler?.notifyOnSpot('エラーが発生しました！', 'skyway-error')
       this.updateAllMetadataWithError()
     }
   }
@@ -248,11 +247,8 @@ class PlayerAvatar extends Avatar {
           'myIndexに1を足して次のindexを書き込み、ownerに完了を報告します'
         )
         this.writer?._reportSubscribedAllPlayers(this, myIndex + 1)
-      } catch (error) {
-        if (error instanceof Error) {
-          this.handler?.notifyOnSpot('エラーが発生しました！', 'skyway-error')
-          this.updateAllMetadataWithError()
-        }
+      } catch {
+        this.updateAllMetadataWithError()
       }
     }
   }

@@ -44,6 +44,12 @@ class OwnerAvatar extends Avatar {
     )
   }
 
+  setHandleMemberLeft = () => {
+    this.channel?.onMemberLeft.add(() => {
+      this.updateAllMetadataWithError()
+    })
+  }
+
   // roomに入ってきた人の名前を収集
   setHandlePublishListChanged = () => {
     this.channel?.onPublicationListChanged.add(async () => {
