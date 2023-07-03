@@ -19,12 +19,18 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
   if (ownerId === currentUser.value.id) {
     if (skyWayChannel.members.length != 0) {
-      setToast('ゲーム会場の初期化を行っています。少々お待ち下さい。', 'skyway-error')
+      setToast(
+        'ゲーム会場の初期化を行っています。少々お待ち下さい。',
+        'skyway-error'
+      )
       return await navigateTo('/home')
     }
   } else {
     if (skyWayChannel.metadata === '') {
-      setToast('主催者が会場にいないか、既にゲームが開始されています。', 'skyway-error')
+      setToast(
+        '主催者が会場にいないか、既にゲームが開始されています。',
+        'skyway-error'
+      )
       return await navigateTo('/login')
     }
   }
