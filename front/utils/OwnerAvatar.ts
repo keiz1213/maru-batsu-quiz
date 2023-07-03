@@ -50,7 +50,6 @@ class OwnerAvatar extends Avatar {
 
   setHandleSelfLeft = async () => {
     this.agent?.onLeft.add(async () => {
-      await this.channel?.updateMetadata('')
       await this.channel?.close()
     })
   }

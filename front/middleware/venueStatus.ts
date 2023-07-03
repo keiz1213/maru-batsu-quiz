@@ -26,9 +26,9 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
       return await navigateTo('/home')
     }
   } else {
-    if (skyWayChannel.metadata === '') {
+    if (skyWayChannel.metadata === undefined || skyWayChannel.metadata === '') {
       setToast(
-        '主催者が会場にいないか、既にゲームが開始されています。',
+        '主催者がまだ入室していないか、既にゲームが始まっています。',
         'skyway-error'
       )
       return await navigateTo('/login')
