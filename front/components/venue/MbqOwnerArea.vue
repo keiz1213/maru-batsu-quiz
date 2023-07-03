@@ -28,7 +28,7 @@
           class="flex flex-col justify-center items-center gap-4 bg-mac-finder-top min-h-[185px] rounded-lg m-3 mt-0"
         >
           <div>
-            <MbqButtonPrimary :button-type="'button'" @click="emit('question')"
+            <MbqButtonPrimary @click="emit('question')"
               >{{ currentQuizNumber + 1 }} 問目を出題する</MbqButtonPrimary
             >
           </div>

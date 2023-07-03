@@ -51,7 +51,7 @@
     />
     <div class="flex justify-evenly">
       <NuxtLink :to="gameVenueUrl">
-        <MbqButtonPrimary :buttonType="'button'">会場へ</MbqButtonPrimary>
+        <MbqButtonPrimary>会場へ</MbqButtonPrimary>
       </NuxtLink>
       <NuxtLink :to="`/games/${gameId}/edit`">
         <MbqButtonSecondary :buttonType="'button'">編集</MbqButtonSecondary>
