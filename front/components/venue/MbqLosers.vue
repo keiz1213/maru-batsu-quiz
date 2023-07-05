@@ -1,6 +1,8 @@
 <script setup lang="ts">
+  import Avatar from '@/utils/Avatar'
+
   defineProps<{
-    losers: object
+    losers: Avatar[]
   }>()
 </script>
 

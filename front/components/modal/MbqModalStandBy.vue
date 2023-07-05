@@ -1,8 +1,9 @@
 <script setup lang="ts">
+  import Avatar from '@/utils/Avatar'
   import { VueFinalModal } from 'vue-final-modal'
 
   defineProps<{
-    players: object
+    players: Avatar[]
     isOwner: boolean
     publisherNames: string[]
     errorMessage: string

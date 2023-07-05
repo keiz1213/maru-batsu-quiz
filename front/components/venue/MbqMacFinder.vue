@@ -1,6 +1,8 @@
 <script setup lang="ts">
+  import Avatar from '@/utils/Avatar'
+
   defineProps<{
-    avatars: object
+    avatars: Avatar[]
     title: string
   }>()
 </script>
