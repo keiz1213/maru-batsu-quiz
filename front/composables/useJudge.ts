@@ -2,9 +2,9 @@ import Avatar from '~/utils/Avatar'
 
 export const useJudge = (initialNumberOfWinner: number) => {
   const owner = ref<Avatar>()
-  const players: Ref<Avatar[]> = ([])
-  const losers: Ref<Avatar[]> = ([])
-  const winners: Ref<Avatar[]> = ([])
+  const players: Ref<Avatar[]> = ref([])
+  const losers: Ref<Avatar[]> = ref([])
+  const winners: Ref<Avatar[]> = ref([])
   const numberOfWinner = ref<number>(initialNumberOfWinner)
   const currentQuizNumber = ref(0)
   const isStandByGame = ref(true)

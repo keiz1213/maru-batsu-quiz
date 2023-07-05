@@ -27,5 +27,6 @@
     <MbqButtonPrimary :onClick="login" :isLoading="isLoading"
       >GitHubでログイン</MbqButtonPrimary
     >
+    <div class="w-32 h-32 bg-red-300 animate__animated animate__bounce"></div>
   </TheContainer>
 </template>
