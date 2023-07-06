@@ -16,7 +16,11 @@ export default defineNuxtConfig({
       firebaseProjectId: process.env.FIREBASE_PROJECT_ID
     }
   },
-  css: ['~/assets/css/main.css', 'vue-final-modal/style.css', 'animate.css/animate.min.css'],
+  css: [
+    '~/assets/css/main.css',
+    'vue-final-modal/style.css',
+    'animate.css/animate.min.css'
+  ],
   postcss: {
     plugins: {
       tailwindcss: {},
