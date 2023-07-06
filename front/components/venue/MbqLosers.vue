@@ -10,10 +10,11 @@
   <div
     class="w-[1320px] pt-2 pl-2 h-56 backdrop-blur-sm bg-white/30 rounded-lg break-all my-4"
   >
-    <div class="">
+    <div>
       <MbqAvatar
-        v-for="(loser, index) in losers"
-        :key="index"
+        class="animate__bounce"
+        v-for="loser in losers"
+        :key="loser.id"
         :avatar="loser"
       />
     </div>

@@ -8,9 +8,9 @@
 
 <template>
   <div
-    v-if="avatar.id != 0"
-    class="avatar flex-col z-10"
+    class="avatar flex-col z-10 animate__animated"
     data-answer=""
+    data-state=""
     :id="avatar.uid"
   >
     <p class="text-center line-clamp-1">{{ avatar.name }}</p>
@@ -19,10 +19,5 @@
     >
       <img :src="avatar.avatarUrl" />
     </div>
-  </div>
-  <div v-else class="avatar z-0">
-    <div
-      class="w-16 rounded-full ring-offset-base-100 ring-offset-2 m-5 cursor-default z-0"
-    ></div>
   </div>
 </template>

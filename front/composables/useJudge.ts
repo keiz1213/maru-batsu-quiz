@@ -51,29 +51,6 @@ export const useJudge = (initialNumberOfWinner: number) => {
     }
   }
 
-  const createDummyAvatar = (): Avatar => {
-    const avatar = new Avatar(
-      0,
-      '',
-      false,
-      '',
-      '',
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null
-    )
-    return avatar
-  }
-
-  const injectDummyAvatar = (index: number): void => {
-    const dummyAvatar = createDummyAvatar()
-    players.value[index] = dummyAvatar
-  }
-
   const isLoser = (player: Avatar, correctAnswer: string): boolean => {
     const uid = player.uid
     const avatarElement = document.getElementById(uid) as HTMLElement
@@ -82,36 +59,37 @@ export const useJudge = (initialNumberOfWinner: number) => {
   }
 
   const isWinner = (player: Avatar, correctAnswer: string): boolean => {
-    console.log(`----isWinner----`)
-    console.log(`correctAnswer: ${correctAnswer}`)
     const uid = player.uid
-    console.log(`id: ${uid}`)
     const avatarElement = document.getElementById(uid) as HTMLElement
-    console.log(`avatarElement: ${avatarElement}`)
     const answer = avatarElement.dataset.answer
-    console.log(`answer: ${answer}`)
-    console.log(`判定: ${correctAnswer === answer}`)
     return correctAnswer === answer
   }
 
   const moveLoser = (loser: Avatar): void => {
+    const avatarElement = document.getElementById(loser.uid) as HTMLElement
+    avatarElement.classList.add('animate__rotateOut')
+    avatarElement.classList.remove('z-10')
+    avatarElement.dataset.state = 'loser'
     SyncDraggable.unsetDraggable(loser)
     addLoser(loser)
-    const index = loser.index as number
-    injectDummyAvatar(index)
   }
 
   const moveWinner = (winner: Avatar) => {
+    const avatarElement = document.getElementById(winner.uid) as HTMLElement
+    avatarElement.classList.add('animate__fadeOut')
+    avatarElement.classList.remove('z-10')
+    avatarElement.dataset.state = 'winner'
     SyncDraggable.unsetDraggable(winner)
     addWinner(winner)
-    const index = winner.index as number
-    injectDummyAvatar(index)
   }
 
   const getWinnersFromPlayers = (correctAnswer: string): Avatar[] => {
     let winnersInPlayers: Avatar[] = []
     for (let i = 0; i < players.value.length; i++) {
-      if (players.value[i].id === 0) continue
+      const avatarElement = document.getElementById(
+        players.value[i].uid
+      ) as HTMLElement
+      if (avatarElement.dataset.state != '') continue
       const player = players.value[i] as Avatar
       if (isWinner(player, correctAnswer)) {
         winnersInPlayers.push(player)
@@ -123,7 +101,10 @@ export const useJudge = (initialNumberOfWinner: number) => {
   const getLosersFromPlayers = (correctAnswer: string): Avatar[] => {
     let losersInPlayers: Avatar[] = []
     for (let i = 0; i < players.value.length; i++) {
-      if (players.value[i].uid === '') continue
+      const avatarElement = document.getElementById(
+        players.value[i].uid
+      ) as HTMLElement
+      if (avatarElement.dataset.state != '') continue
       const player = players.value[i] as Avatar
       if (isLoser(player, correctAnswer)) {
         losersInPlayers.push(player)
@@ -133,11 +114,8 @@ export const useJudge = (initialNumberOfWinner: number) => {
   }
 
   const judge = (correctAnswer: string) => {
-    console.log('----judge----')
     const winnersInPlayers = getWinnersFromPlayers(correctAnswer)
-    console.log(`winners: ${winnersInPlayers}`)
     const losersInPlayers = getLosersFromPlayers(correctAnswer)
-    console.log(`losers: ${losersInPlayers}`)
     const countOfWinners = winnersInPlayers.length
     if (countOfWinners === numberOfWinner.value) {
       winnersInPlayers.forEach((winner) => moveWinner(winner))

@@ -61,8 +61,9 @@
         </div>
         <div class="grid grid-cols-4 gap-x-3 p-6">
           <MbqAvatar
-            v-for="(player, index) in players"
-            :key="index"
+            class="animate__bounce"
+            v-for="player in players"
+            :key="player.id"
             :avatar="player"
           />
         </div>

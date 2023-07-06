@@ -2,7 +2,7 @@
   import Avatar from '@/utils/Avatar'
 
   defineProps<{
-    avatars: Avatar[]
+    players: Avatar[]
     title: string
   }>()
 </script>
@@ -27,14 +27,13 @@
             <p>{{ title }}</p>
           </div>
         </div>
-        <div></div>
       </div>
       <div class="w-[508px] h-[548px] rounded-br-lg break-all bg-white">
         <div class="grid grid-cols-4 gap-x-3 p-6">
           <MbqAvatar
-            v-for="(avatar, index) in avatars"
-            :key="index"
-            :avatar="avatar"
+            v-for="player in players"
+            :key="player.id"
+            :avatar="player"
           />
         </div>
       </div>

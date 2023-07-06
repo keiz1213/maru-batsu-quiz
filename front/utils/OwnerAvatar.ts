@@ -147,7 +147,7 @@ class OwnerAvatar extends Avatar {
         )
         break
       }
-      await this.delay(100)
+      await this.delay(1000)
       console.log('自分のmetadataを確認中・・・')
 
       iteration++
@@ -172,7 +172,7 @@ class OwnerAvatar extends Avatar {
           `[${playerIndex}]に更新されたplayerがownerをサブスク&ハンドラセットしたかどうか確認開始・・・`
         )
         // 待機
-        await this.checkMyMetaData(playerIndex, 100)
+        await this.checkMyMetaData(playerIndex, 10)
       }
     } catch {
       throw new Error()

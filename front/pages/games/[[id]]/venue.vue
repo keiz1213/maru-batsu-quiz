@@ -304,12 +304,12 @@
         </div>
       </div>
       <div id="player-container">
-        <div id="challengers-winners-container" class="flex justify-center">
-          <div id="challengers-area">
-            <MbqMacFinder :avatars="players" :title="'challengers'" />
+        <div id="players-winners-container" class="flex justify-center">
+          <div id="players-area">
+            <MbqPlayers :players="players" :title="'players'" />
           </div>
           <div id="winners-area">
-            <MbqMacFinder :avatars="winners" :title="'winners'" />
+            <MbqWinners :winners="winners" :title="'winners'" />
           </div>
         </div>
         <div id="losers-container">
