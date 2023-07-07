@@ -1,7 +1,5 @@
 <template>
-  <div class="pt-16 px-4">
-    <div class="container mx-auto rounded-md p-4">
-      <slot />
-    </div>
+  <div class="container mx-auto my-28 px-20">
+    <slot />
   </div>
 </template>

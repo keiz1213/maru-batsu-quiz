@@ -29,7 +29,13 @@
 </script>
 
 <template>
-  <MbqNavBar @logout="logout" :avatarUrl="avatarUrl"></MbqNavBar>
-  <slot />
-  <MbqFooter @withdrawal="withdrawal"></MbqFooter>
+  <div class="flex flex-col min-h-screen">
+    <MbqNavBar
+      @logout="logout"
+      @withdrawal="withdrawal"
+      :avatarUrl="avatarUrl"
+    ></MbqNavBar>
+    <slot />
+    <MbqFooter class="mt-auto"></MbqFooter>
+  </div>
 </template>
