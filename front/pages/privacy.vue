@@ -70,7 +70,7 @@
   </TheContainer>
 </template>
 
-<style>
+<style scoped>
   li {
     padding-top: 5px;
     padding-bottom: 5px;

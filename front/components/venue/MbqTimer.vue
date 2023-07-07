@@ -52,7 +52,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
   /* Sets the container's height and width */
   .root {
     height: 130px;
