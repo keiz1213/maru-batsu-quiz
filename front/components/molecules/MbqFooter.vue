@@ -1,8 +1,8 @@
 <template>
-  <div class="mt-20 px-3 py-0 w-full border-t">
+  <div class="w-full border-t pt-5">
     <footer>
       <div>
-        <nav class="">
+        <nav>
           <ul class="flex justify-center">
             <li class="p-4"><NuxtLink :to="'/terms'">利用規約</NuxtLink></li>
             <li class="p-4">

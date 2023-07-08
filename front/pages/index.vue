@@ -54,7 +54,7 @@
         </div>
       </div>
     </div>
-    <div id="bottom" class="flex justify-between w-[1300px] mx-auto my-10">
+    <div id="bottom" class="flex justify-between w-[1300px] mx-auto my-32">
       <div class="w-[400px] h-[420px] bg-slate-100 rounded-2xl">
         <h2 class="text-3xl text-center my-5">1. クイズを作る</h2>
         <p class="text-lg mx-7">
@@ -114,6 +114,6 @@
         </p>
       </div>
     </div>
-    <MbqFooter class="border-none" />
+    <MbqFooter />
   </div>
 </template>

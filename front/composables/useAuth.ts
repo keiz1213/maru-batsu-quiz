@@ -8,8 +8,6 @@ import {
 import { User } from '@/types/User'
 
 export const useAuth = () => {
-  const { toast, setToast, unsetToast, notify } = useToast()
-
   const getUser = async (firebaseToken: string): Promise<User> => {
     const { data } = await useMyFetch('/api/v1/users', {
       method: 'post',
@@ -88,5 +86,9 @@ export const useAuth = () => {
     })
   }
 
-  return { githubLogin, signOut, checkAuthState, currentUser }
+  const isLoggedIn = (): boolean => {
+    return currentUser.value.id != 0
+  }
+
+  return { githubLogin, signOut, checkAuthState, isLoggedIn, currentUser }
 }

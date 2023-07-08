@@ -1,4 +1,6 @@
 <script setup lang="ts">
+  import MbqButtonGithub from '~/components/atoms/MbqButtonGithub.vue'
+
   const { githubLogin } = useAuth()
   const { toast, setToast, unsetToast, notifyOnSpot, notify } = useToast()
 
@@ -23,10 +25,11 @@
 </script>
 
 <template>
-  <TheContainer>
-    <MbqButtonPrimary :onClick="login" :isLoading="isLoading"
-      >GitHubでログイン</MbqButtonPrimary
-    >
-    <div class="w-32 h-32 bg-red-300 animate__animated animate__bounce"></div>
-  </TheContainer>
+  <h2 class="text-4xl text-center mt-56">ログインしてください</h2>
+  <MbqButtonGithub
+    @click="login"
+    :isLoading="isLoading"
+    class="block mx-auto my-36"
+  />
+  <MbqFooter class="fixed bottom-0" />
 </template>

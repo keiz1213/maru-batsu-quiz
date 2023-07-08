@@ -1,10 +1,9 @@
 <script setup lang="ts">
-  const { signOut, currentUser } = useAuth()
+  const { signOut, isLoggedIn, currentUser } = useAuth()
   const { toast, setToast, unsetToast, notify } = useToast()
   const route = useRoute()
 
   const avatarUrl = currentUser.value.avatar_url
-  const isLoggedIn = currentUser.value.id != 0
 
   const logout = async (): Promise<void> => {
     await signOut()
@@ -32,7 +31,7 @@
 <template>
   <div class="flex flex-col min-h-screen">
     <MbqNavBar
-      v-if="isLoggedIn"
+      v-if="isLoggedIn()"
       @logout="logout"
       @withdrawal="withdrawal"
       :avatarUrl="avatarUrl"

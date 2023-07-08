@@ -3,6 +3,8 @@
     middleware: 'auth',
     layout: 'mbq-after-login'
   })
+
+  const router = useRouter()
 </script>
 
 <template>
@@ -212,6 +214,12 @@
         </ol>
       </div>
     </div>
+    <p
+      @click="router.back"
+      class="mt-16 text-2xl underline hover:cursor-pointer"
+    >
+      ←戻る
+    </p>
   </TheContainer>
 </template>
 
