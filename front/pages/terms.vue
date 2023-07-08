@@ -13,7 +13,7 @@
 
 <template>
   <TheContainer>
-    <div class="flex flex-col gap-10">
+    <div class="flex flex-col gap-10 px-40">
       <div>
         <MbqH1>利用規約</MbqH1>
       </div>
@@ -217,13 +217,13 @@
           </li>
         </ol>
       </div>
+      <p
+        @click="router.back"
+        class="mt-16 text-2xl underline hover:cursor-pointer"
+      >
+        ←戻る
+      </p>
     </div>
-    <p
-      @click="router.back"
-      class="mt-16 text-2xl underline hover:cursor-pointer"
-    >
-      ←戻る
-    </p>
   </TheContainer>
 </template>
 

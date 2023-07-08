@@ -7,7 +7,7 @@
 <template>
   <label
     :for="id"
-    class="block text-sm font-medium text-gray-900 dark:text-white"
+    class="block text-md m-2"
   >
     <slot />
   </label>

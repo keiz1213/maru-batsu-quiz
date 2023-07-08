@@ -146,53 +146,55 @@
 
 <template>
   <TheContainer>
-    <MbqH1>ゲーム{{ isNewAction() ? '作成' : '編集' }}</MbqH1>
-    <VeeForm @submit="onSubmit" @invalid-submit="onInvalidSubmit">
-      <MbqFormGameTitle
-        :id="'new-game-name'"
-        v-model:modelValue="game.title"
-      ></MbqFormGameTitle>
+    <div class="px-40">
+      <MbqH1>ゲーム{{ isNewAction() ? '作成' : '編集' }}</MbqH1>
+      <VeeForm @submit="onSubmit" @invalid-submit="onInvalidSubmit">
+        <MbqFormGameTitle
+          :id="'new-game-name'"
+          v-model:modelValue="game.title"
+        ></MbqFormGameTitle>
 
-      <MbqFormGameDescription
-        :id="'new-description'"
-        v-model:modelValue="game.description"
-      ></MbqFormGameDescription>
+        <MbqFormGameDescription
+          :id="'new-description'"
+          v-model:modelValue="game.description"
+        ></MbqFormGameDescription>
 
-      <MbqFormQuiz
-        v-for="(quiz, index) in quizzes"
-        :key="index"
-        :index="index"
-        v-model:quizzesLength="quizzes.length"
-        v-model:question="quiz.question"
-        v-model:correctAnswer="quiz.correct_answer"
-        v-model:explanation="quiz.explanation"
-        @removeQuiz="removeQuiz"
-      ></MbqFormQuiz>
-      <MbqButtonSecondary @click="addQuiz" :button-type="'button'"
-        >+ クイズを追加する</MbqButtonSecondary
-      >
-
-      <MbqFormGameNumberOfWinner
-        :id="'new-number-of-winner'"
-        v-model:modelValue="game.number_of_winner"
-      ></MbqFormGameNumberOfWinner>
-
-      <div class="flex justify-center">
-        <MbqButtonPrimary
-          v-if="isNewAction()"
-          :button-type="'submit'"
-          :is-loading="isLoading"
+        <MbqFormQuiz
+          v-for="(quiz, index) in quizzes"
+          :key="index"
+          :index="index"
+          v-model:quizzesLength="quizzes.length"
+          v-model:question="quiz.question"
+          v-model:correctAnswer="quiz.correct_answer"
+          v-model:explanation="quiz.explanation"
+          @removeQuiz="removeQuiz"
+        ></MbqFormQuiz>
+        <MbqButtonSecondary @click="addQuiz" :button-type="'button'"
+          >+ クイズを追加する</MbqButtonSecondary
         >
-          作成
-        </MbqButtonPrimary>
-        <MbqButtonPrimary
-          v-else="!isNewAction()"
-          :button-type="'submit'"
-          :is-loading="isLoading"
-        >
-          更新
-        </MbqButtonPrimary>
-      </div>
-    </VeeForm>
+
+        <MbqFormGameNumberOfWinner
+          :id="'new-number-of-winner'"
+          v-model:modelValue="game.number_of_winner"
+        ></MbqFormGameNumberOfWinner>
+
+        <div class="flex justify-center">
+          <MbqButtonPrimary
+            v-if="isNewAction()"
+            :button-type="'submit'"
+            :is-loading="isLoading"
+          >
+            作成
+          </MbqButtonPrimary>
+          <MbqButtonPrimary
+            v-else="!isNewAction()"
+            :button-type="'submit'"
+            :is-loading="isLoading"
+          >
+            更新
+          </MbqButtonPrimary>
+        </div>
+      </VeeForm>
+    </div>
   </TheContainer>
 </template>

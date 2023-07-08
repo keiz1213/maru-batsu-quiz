@@ -24,8 +24,8 @@
       v-model="modelValue"
       :id="props.id"
       rows="4"
-      class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+      class="p-2.5 w-full text-md bg-gray-50 rounded-lg border border-gray-300 focus:border-my-blue"
     ></VeeField>
-    <VeeErrorMessage :name="'description'" class="text-red-700" />
+    <VeeErrorMessage :name="'description'" class="text-red-700 block m-2" />
   </MbqItemContainer>
 </template>

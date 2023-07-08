@@ -7,7 +7,7 @@
 <template>
   <div
     :id="id"
-    class="w-full max-w-2xl p-4 bg-white border border-gray-200 rounded-lg sm:p-6 md:p-8 break-all"
+    class="w-full max-w-2xl p-4 bg-white border border-gray-300 rounded-lg"
   >
     <slot />
   </div>

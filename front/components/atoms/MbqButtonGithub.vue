@@ -1,6 +1,6 @@
 <script setup lang="ts">
   defineProps<{
-    buttonType?: 'submit' | 'reset'
+    buttonType?: 'submit' | 'reset' | 'button'
     isLoading?: boolean
   }>()
 

@@ -13,7 +13,7 @@
 
 <template>
   <TheContainer>
-    <div class="flex flex-col gap-10">
+    <div class="flex flex-col gap-10 px-40">
       <div>
         <MbqH1>プライバシーポリシー</MbqH1>
       </div>
@@ -72,13 +72,13 @@
           本サービスでは、プライバシーポリシーを必要に応じて変更する場合があります。重要な変更がある場合には、ユーザーに通知する方法を適切に採用します。
         </p>
       </div>
+      <p
+        @click="router.back"
+        class="mt-16 text-2xl underline hover:cursor-pointer"
+      >
+        ←戻る
+      </p>
     </div>
-    <p
-      @click="router.back"
-      class="mt-16 text-2xl underline hover:cursor-pointer"
-    >
-      ←戻る
-    </p>
   </TheContainer>
 </template>
 

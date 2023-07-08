@@ -17,7 +17,7 @@
   <div class="mx-auto">
     <NuxtLink :to="`/games/${game.id}`">
       <div
-        class="h-72 w-96 bg-white border border-gray-200 rounded-lg break-all relative"
+        class="h-72 w-96 bg-white border border-gray-200 rounded-lg break-all relative hover:brightness-[0.97]"
       >
         <MbqCardHeader :title="game.title"></MbqCardHeader>
         <MbqCardContent

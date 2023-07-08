@@ -1,6 +1,7 @@
 <script setup lang="ts">
   defineProps<{
-    buttonType: 'button' | 'submit' | 'reset'
+    buttonType?: 'submit' | 'reset' | 'button'
+    isLoading?: boolean
   }>()
 
   const emits = defineEmits<{
@@ -14,7 +15,7 @@
 
 <template>
   <button
-    class="text-black rounded-md bg-white px-4 p-4 border border-gray-200 text-md hover:brightness-[0.9] w-48"
+    class="text-black rounded-md bg-white px-4 p-4 border border-gray-300 text-md hover:brightness-[0.97] w-48"
     @click="handleClick"
     :type="buttonType"
   >
