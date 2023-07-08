@@ -5,7 +5,6 @@
 
   const emits = defineEmits<{
     (e: 'logout'): void
-    (e: 'withdrawal'): void
   }>()
 
   const isOpen = ref(false)
@@ -15,10 +14,6 @@
 
   const logout = () => {
     emits('logout')
-  }
-
-  const withdrawal = () => {
-    emits('withdrawal')
   }
 </script>
 
@@ -46,9 +41,12 @@
         </button>
       </li>
       <li class="block hover:bg-gray-200">
-        <button @click="withdrawal" class="block w-full py-3 text-left pl-3">
+        <NuxtLink
+          :to="'/withdrawalConfirmation'"
+          class="block w-full py-3 text-left pl-3"
+        >
           退会
-        </button>
+        </NuxtLink>
       </li>
     </ul>
   </div>
