@@ -18,14 +18,13 @@
     :class="[
       'text-white',
       'rounded-md',
-      'bg-green-600',
+      'bg-my-blue',
       'py-4',
       'px-4',
-      'text-sm',
-      'shadow-md',
-      'hover:opacity-70',
+      'text-md',
+      'hover:brightness-[0.9]',
       'w-48',
-      { 'opacity-70': isLoading }
+      { 'brightness-[0.9]': isLoading }
     ]"
     @click="handleClick"
     :type="buttonType"
@@ -33,7 +32,7 @@
   >
     <div
       v-if="isLoading"
-      class="animate-spin h-5 w-5 border-4 border-blue-300 rounded-full border-t-transparent mx-auto"
+      class="animate-spin h-5 w-5 border-4 border-my-blue rounded-full border-t-transparent mx-auto"
     ></div>
     <slot v-else />
   </button>

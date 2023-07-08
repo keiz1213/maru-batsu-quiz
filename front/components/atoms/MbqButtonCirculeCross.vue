@@ -13,7 +13,7 @@
 
 <template>
   <button
-    class="h-8 w-8 rounded-full bg-gray-200 shadow-md"
+    class="h-8 w-8 rounded-full bg-white border border-gray-200 hover:brightness-[0.9]"
     @click="handleClick"
     :type="buttonType"
   >

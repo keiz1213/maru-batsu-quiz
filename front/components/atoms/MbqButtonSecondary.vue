@@ -14,7 +14,7 @@
 
 <template>
   <button
-    class="text-white rounded-md bg-green-400 px-4 p-4 text-sm shadow-md hover:opacity-70 w-48"
+    class="text-black rounded-md bg-white px-4 p-4 border border-gray-200 text-md hover:brightness-[0.9] w-48"
     @click="handleClick"
     :type="buttonType"
   >
