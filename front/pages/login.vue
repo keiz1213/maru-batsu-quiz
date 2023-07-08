@@ -3,6 +3,11 @@
     layout: 'mbq-after-login'
   })
 
+  useHead({
+    title: 'ログイン',
+    meta: [{ name: 'description', content: 'The page where the user logs in' }]
+  })
+
   const { githubLogin } = useAuth()
   const { toast, setToast, unsetToast, notifyOnSpot, notify } = useToast()
 

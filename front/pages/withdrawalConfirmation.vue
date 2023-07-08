@@ -4,6 +4,11 @@
     layout: 'mbq-after-login'
   })
 
+  useHead({
+    title: '退会の確認',
+    meta: [{ name: 'description', content: 'Page to confirm withdrawal' }]
+  })
+
   const { signOut, currentUser } = useAuth()
   const router = useRouter()
 

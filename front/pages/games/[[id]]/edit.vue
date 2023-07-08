@@ -3,6 +3,12 @@
     middleware: 'auth',
     layout: 'mbq-after-login'
   })
+
+  useHead({
+    title: 'ゲーム編集',
+    meta: [{ name: 'description', content: 'Edit Game' }]
+  })
+
   const { currentUser } = useAuth()
   const userId = currentUser.value.id
   const route = useRoute()

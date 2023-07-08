@@ -28,6 +28,11 @@
   const cancel = () => {
     showModal.value = false
   }
+
+  useHead({
+    title: game.title,
+    meta: [{ name: 'description', content: 'Details of the game' }]
+  })
 </script>
 
 <template>

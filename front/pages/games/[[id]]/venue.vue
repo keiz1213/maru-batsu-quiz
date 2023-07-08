@@ -228,6 +228,11 @@
     avatar = new PlayerAvatar(...initialTestParams)
     avatar.setHandleMetaDataUpdate()
   }
+
+  useHead({
+    title: `${game.title} | マルバツクイズオンライン`,
+    meta: [{ name: 'description', content: 'gaming room' }]
+  })
 </script>
 
 <template>

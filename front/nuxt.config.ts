@@ -1,16 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  app: {
-    head: {
-      title: 'マルバツクイズオンライン',
-      meta: [{
-        name: 'description', content: 'play online marubatsu quiz'
-      }],
-      link: [
-        { rel: 'icon', href: '/favicon.ico'}
-      ]
-    }
-  },
   ssr: false,
   components: [
     {

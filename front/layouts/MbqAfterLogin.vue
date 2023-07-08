@@ -1,4 +1,9 @@
 <script setup lang="ts">
+  useHead({
+    titleTemplate: (title) => {
+      return title ? `${title} | マルバツクイズオンライン` : 'マルバツクイズオンライン'
+    }
+  })
   const { signOut } = useAuth()
   const { toast, setToast, unsetToast, notify } = useToast()
   const route = useRoute()

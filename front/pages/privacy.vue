@@ -4,6 +4,11 @@
     layout: 'mbq-after-login'
   })
 
+  useHead({
+    title: 'プライバシーポリシー',
+    meta: [{ name: 'description', content: 'A page describing the privacy policy' }]
+  })
+
   const router = useRouter()
 </script>
 
