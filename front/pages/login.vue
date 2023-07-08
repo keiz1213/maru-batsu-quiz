@@ -1,5 +1,7 @@
 <script setup lang="ts">
-  import MbqButtonGithub from '~/components/atoms/MbqButtonGithub.vue'
+  definePageMeta({
+    layout: 'mbq-after-login'
+  })
 
   const { githubLogin } = useAuth()
   const { toast, setToast, unsetToast, notifyOnSpot, notify } = useToast()
@@ -31,5 +33,4 @@
     :isLoading="isLoading"
     class="block mx-auto my-36"
   />
-  <MbqFooter class="fixed bottom-0" />
 </template>

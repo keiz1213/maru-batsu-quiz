@@ -1,9 +1,7 @@
 <script setup lang="ts">
-  const { signOut, currentUser } = useAuth()
+  const { signOut } = useAuth()
   const { toast, setToast, unsetToast, notify } = useToast()
   const route = useRoute()
-
-  const avatarUrl = currentUser.value.avatar_url
 
   const logout = async (): Promise<void> => {
     await signOut()
@@ -21,7 +19,7 @@
 
 <template>
   <div class="flex flex-col min-h-screen">
-    <MbqNavBar @logout="logout" :avatarUrl="avatarUrl"></MbqNavBar>
+    <MbqNavBar @logout="logout"></MbqNavBar>
     <slot />
     <MbqFooter class="mt-auto"></MbqFooter>
   </div>

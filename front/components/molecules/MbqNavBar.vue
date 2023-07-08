@@ -1,8 +1,4 @@
 <script setup lang="ts">
-  defineProps<{
-    avatarUrl: string
-  }>()
-
   const emits = defineEmits<{
     (e: 'logout'): void
   }>()
@@ -20,7 +16,7 @@
       <div class="flex items-center justify-between">
         <MbqBrand :href="isLoggedIn() ? '/home' : '/'"></MbqBrand>
         <div v-if="isLoggedIn()" class="dropdown dropdown-end dropdown-hover">
-          <MbqUserIcon tabindex="0" :src="avatarUrl"></MbqUserIcon>
+          <MbqUserIcon tabindex="0"></MbqUserIcon>
           <ul
             tabindex="0"
             class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"

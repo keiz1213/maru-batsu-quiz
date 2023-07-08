@@ -1,6 +1,4 @@
 <script setup lang="ts">
-  import MbqButtonGithub from '~/components/atoms/MbqButtonGithub.vue'
-
   definePageMeta({
     layout: 'mbq-after-login'
   })
