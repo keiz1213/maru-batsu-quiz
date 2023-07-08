@@ -11,7 +11,7 @@
 </script>
 
 <template>
-  <div class="bg-white px-3 py-0 fixed w-full z-10 border-b">
+  <div class="bg-white px-3 py-0 fixed w-full z-10 border-b shadow">
     <header>
       <div class="flex items-center justify-between">
         <MbqBrand :href="isLoggedIn() ? '/home' : '/'"></MbqBrand>
