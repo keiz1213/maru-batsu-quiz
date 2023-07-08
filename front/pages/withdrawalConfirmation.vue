@@ -5,8 +5,7 @@
   })
 
   useHead({
-    title: '退会の確認',
-    meta: [{ name: 'description', content: 'Page to confirm withdrawal' }]
+    title: '退会の確認'
   })
 
   const { signOut, currentUser } = useAuth()

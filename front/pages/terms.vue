@@ -5,8 +5,7 @@
   })
 
   useHead({
-    title: '利用規約',
-    meta: [{ name: 'description', content: 'A page with the Terms of Use' }]
+    title: '利用規約'
   })
 
   const router = useRouter()

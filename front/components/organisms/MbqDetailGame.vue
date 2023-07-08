@@ -30,8 +30,7 @@
   }
 
   useHead({
-    title: game.title,
-    meta: [{ name: 'description', content: 'Details of the game' }]
+    title: game.title
   })
 </script>
 

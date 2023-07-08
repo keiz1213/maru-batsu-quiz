@@ -1,7 +1,6 @@
 <script setup lang="ts">
   useHead({
-    title: '退会完了',
-    meta: [{ name: 'description', content: 'Page announcing completion of withdrawal' }]
+    title: '退会完了'
   })
 </script>
 

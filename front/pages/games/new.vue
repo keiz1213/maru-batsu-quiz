@@ -5,8 +5,7 @@
   })
 
   useHead({
-    title: '新規ゲーム作成',
-    meta: [{ name: 'description', content: 'Create a new game page' }]
+    title: '新規ゲーム作成'
   })
 
   const { currentUser } = useAuth()

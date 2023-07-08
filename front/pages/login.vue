@@ -4,8 +4,7 @@
   })
 
   useHead({
-    title: 'ログイン',
-    meta: [{ name: 'description', content: 'The page where the user logs in' }]
+    title: 'ログイン'
   })
 
   const { githubLogin } = useAuth()

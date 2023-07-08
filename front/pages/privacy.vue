@@ -5,8 +5,7 @@
   })
 
   useHead({
-    title: 'プライバシーポリシー',
-    meta: [{ name: 'description', content: 'A page describing the privacy policy' }]
+    title: 'プライバシーポリシー'
   })
 
   const router = useRouter()

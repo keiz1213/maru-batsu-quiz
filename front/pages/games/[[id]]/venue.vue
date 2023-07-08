@@ -230,8 +230,7 @@
   }
 
   useHead({
-    title: `${game.title} | マルバツクイズオンライン`,
-    meta: [{ name: 'description', content: 'gaming room' }]
+    title: `${game.title} | マルバツクイズオンライン`
   })
 </script>
 

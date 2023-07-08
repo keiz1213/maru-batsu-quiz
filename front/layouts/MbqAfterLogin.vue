@@ -1,9 +1,28 @@
 <script setup lang="ts">
   useHead({
     titleTemplate: (title) => {
-      return title ? `${title} | マルバツクイズオンライン` : 'マルバツクイズオンライン'
+      return title
+        ? `${title} | マルバツクイズオンライン`
+        : 'マルバツクイズオンライン'
     }
   })
+
+  useSeoMeta({
+    description:
+      'オンラインでマルバツクイズが遊べるサービスです。誰が、どれくらいの人数の人が、○ or ✗ と答えているか、また回答に迷っている様子がリアルタイムで見れる機能が備わっています。',
+    ogTitle: 'マルバツクイズオンライン',
+    ogType: 'website',
+    ogSiteName: 'マルバツクイズオンライン',
+    ogDescription:
+      'オンラインでマルバツクイズが遊べるサービスです。誰が、どれくらいの人数の人が、○ or ✗ と答えているか、また回答に迷っている様子がリアルタイムで見れる機能が備わっています。',
+    ogImage: '#',
+    ogUrl: '#',
+    twitterCard: 'summary',
+    twitterDescription:
+      'オンラインでマルバツクイズが遊べるサービスです。誰が、どれくらいの人数の人が、○ or ✗ と答えているか、また回答に迷っている様子がリアルタイムで見れる機能が備わっています。',
+    twitterImage: '#'
+  })
+
   const { signOut } = useAuth()
   const { toast, setToast, unsetToast, notify } = useToast()
   const route = useRoute()

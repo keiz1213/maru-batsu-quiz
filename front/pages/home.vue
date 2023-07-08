@@ -5,8 +5,7 @@
   })
 
   useHead({
-    title: 'ホーム',
-    meta: [{ name: 'description', content: 'List of games created by users' }]
+    title: 'ホーム'
   })
 
   const { currentUser } = useAuth()
