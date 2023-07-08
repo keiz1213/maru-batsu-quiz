@@ -29,7 +29,7 @@
 </script>
 
 <template>
-  <div class="min-w-full w-[1300px]">
+  <div class="min-w-full w-[1300px] mt-10">
     <div id="top" class="flex w-[1300px] mx-auto pt-10">
       <div id="left" class="w-[800px] h-[500px]">
         <div
