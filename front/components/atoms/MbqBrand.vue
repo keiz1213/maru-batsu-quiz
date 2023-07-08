@@ -5,7 +5,12 @@
 </script>
 
 <template>
-  <NuxtLink class="font-bold text-2xl text-white" :href="href">
-    <slot />
+  <NuxtLink class="ml-2" :href="href">
+    <img
+      src="../../assets/images/logo-trim.png"
+      width="80"
+      height="80"
+      alt="logo"
+    />
   </NuxtLink>
 </template>

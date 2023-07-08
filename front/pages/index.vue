@@ -1,6 +1,10 @@
 <script setup lang="ts">
   import MbqButtonGithub from '~/components/atoms/MbqButtonGithub.vue'
 
+  definePageMeta({
+    layout: 'mbq-after-login'
+  })
+
   const { githubLogin } = useAuth()
   const { toast, setToast, unsetToast, notifyOnSpot, notify } = useToast()
 
@@ -114,6 +118,5 @@
         </p>
       </div>
     </div>
-    <MbqFooter />
   </div>
 </template>

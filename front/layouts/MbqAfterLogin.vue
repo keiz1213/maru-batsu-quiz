@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  const { signOut, isLoggedIn, currentUser } = useAuth()
+  const { signOut, currentUser } = useAuth()
   const { toast, setToast, unsetToast, notify } = useToast()
   const route = useRoute()
 
@@ -21,11 +21,7 @@
 
 <template>
   <div class="flex flex-col min-h-screen">
-    <MbqNavBar
-      v-if="isLoggedIn()"
-      @logout="logout"
-      :avatarUrl="avatarUrl"
-    ></MbqNavBar>
+    <MbqNavBar @logout="logout" :avatarUrl="avatarUrl"></MbqNavBar>
     <slot />
     <MbqFooter class="mt-auto"></MbqFooter>
   </div>

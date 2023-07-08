@@ -7,6 +7,8 @@
     (e: 'logout'): void
   }>()
 
+  const { isLoggedIn } = useAuth()
+
   const isOpen = ref(false)
   const toggleIsopen = () => {
     isOpen.value = !isOpen.value
@@ -18,11 +20,12 @@
 </script>
 
 <template>
-  <div class="bg-indigo-700 px-3 py-0 fixed w-full z-10">
+  <div class="bg-white px-3 py-0 fixed w-full z-10 border-2">
     <header>
-      <div class="h-16 flex items-center justify-between">
-        <MbqBrand :href="'/home'">○✗クイズオンライン</MbqBrand>
+      <div class="flex items-center justify-between">
+        <MbqBrand :href="'/home'"></MbqBrand>
         <MbqUserIcon
+          v-if="isLoggedIn()"
           :src="props.avatarUrl"
           v-model:modelValue="isOpen"
           @click="toggleIsopen"
@@ -31,6 +34,7 @@
     </header>
   </div>
   <div
+    v-if="isLoggedIn()"
     :class="isOpen ? 'block' : 'hidden'"
     class="bg-white w-48 fixed right-0 mt-16 z-10 rounded-lg overflow-hidden border"
   >
