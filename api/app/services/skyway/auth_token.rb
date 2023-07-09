@@ -1,7 +1,7 @@
 require 'jwt'
 require 'securerandom'
 
-module SkywayAuth
+module Skyway
   class AuthToken
     attr_reader :token
 

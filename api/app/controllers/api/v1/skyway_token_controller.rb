@@ -4,7 +4,7 @@ class Api::V1::SkywayTokenController < ApplicationController
     # payload = FirebaseIdToken::Signature.verify token
     # return unless payload
 
-    skyway_token = SkywayAuth::AuthToken.new.token
+    skyway_token = Skyway::AuthToken.new.token
     render json: skyway_token
   end
 end
