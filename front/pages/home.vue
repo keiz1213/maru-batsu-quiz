@@ -13,5 +13,5 @@
 </script>
 
 <template>
-  <MbqHome :games="games" />
+  <MbqListGame :games="games" />
 </template>

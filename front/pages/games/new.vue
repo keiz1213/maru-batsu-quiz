@@ -13,5 +13,5 @@
 </script>
 
 <template>
-  <MbqGameNew :userId="userId" />
+  <MbqFormGame :actionType="'new'" :userId="userId" :gameId="''" />
 </template>

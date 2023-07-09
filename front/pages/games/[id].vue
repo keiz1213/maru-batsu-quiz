@@ -9,5 +9,5 @@
 </script>
 
 <template>
-  <MbqGameShow :gameId="gameId" />
+  <MbqDetailGame :gameId="gameId" />
 </template>
