@@ -43,7 +43,7 @@
 <template>
   <MbqItemContainer>
     <MbqLabel :id="`new-quiz-${quizNumber}`">クイズ{{ quizNumber }}</MbqLabel>
-    <MbqFlameMd :id="`new-quiz-${quizNumber}`">
+    <MbqFrameMd :id="`new-quiz-${quizNumber}`">
       <div class="flex justify-end">
         <MbqButtonCirculeCross
           v-show="!isLastQuiz()"
@@ -88,6 +88,6 @@
         :name="`explanation-${quizNumber}`"
         class="text-red-700"
       />
-    </MbqFlameMd>
+    </MbqFrameMd>
   </MbqItemContainer>
 </template>

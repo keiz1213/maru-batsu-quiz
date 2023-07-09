@@ -36,44 +36,46 @@
 
 <template>
   <TheContainer>
-    <MbqH1>{{ game.title }}</MbqH1>
-    <MbqItemGame
-      :content="game.description"
-      :labelName="'説明'"
-      :id="'show-game-description'"
-    />
-    <MbqTableQuiz :quizzes="game.quizzes" />
-    <MbqItemGame
-      :content="game.number_of_winner"
-      :labelName="'勝ち抜き人数'"
-      :id="'show-game-number-of-winner'"
-    />
-    <MbqItemGame
-      :content="gameVenueUrl"
-      :labelName="'ゲーム会場URL'"
-      :id="'show-game-venue-url'"
-    />
-    <div class="flex justify-evenly">
-      <NuxtLink :to="gameVenuePath">
-        <MbqButtonPrimary>会場へ</MbqButtonPrimary>
-      </NuxtLink>
-      <NuxtLink :to="`/games/${gameId}/edit`">
-        <MbqButtonSecondary :buttonType="'button'">編集</MbqButtonSecondary>
-      </NuxtLink>
+    <div class="px-40">
+      <MbqH1>{{ game.title }}</MbqH1>
+      <MbqItemGame
+        :content="game.description"
+        :labelName="'説明'"
+        :id="'show-game-description'"
+      />
+      <MbqTableQuiz :quizzes="game.quizzes" />
+      <MbqItemGame
+        :content="game.number_of_winner"
+        :labelName="'勝ち抜き人数'"
+        :id="'show-game-number-of-winner'"
+      />
+      <MbqItemGame
+        :content="gameVenueUrl"
+        :labelName="'ゲーム会場URL'"
+        :id="'show-game-venue-url'"
+      />
+      <div class="flex justify-evenly mt-16">
+        <NuxtLink :to="gameVenuePath">
+          <MbqButtonPrimary>会場へ</MbqButtonPrimary>
+        </NuxtLink>
+        <NuxtLink :to="`/games/${gameId}/edit`">
+          <MbqButtonSecondary :buttonType="'button'">編集</MbqButtonSecondary>
+        </NuxtLink>
+      </div>
+      <div class="flex justify-end">
+        <p
+          @click="showModal = true"
+          class="underline hover:cursor-pointer text-red-600"
+        >
+          削除
+        </p>
+      </div>
+      <MbqModalConfirm
+        v-model="showModal"
+        title="本当に削除してもいいですか？"
+        @confirm="confirm"
+        @cancel="cancel"
+      />
     </div>
-    <div class="flex justify-end">
-      <p
-        @click="showModal = true"
-        class="underline hover:cursor-pointer text-red-600"
-      >
-        削除
-      </p>
-    </div>
-    <MbqModalConfirm
-      v-model="showModal"
-      title="本当に削除してもいいですか？"
-      @confirm="confirm"
-      @cancel="cancel"
-    />
   </TheContainer>
 </template>

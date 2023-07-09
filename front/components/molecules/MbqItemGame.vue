@@ -30,7 +30,7 @@
 <template>
   <MbqItemContainer>
     <MbqLabel :id="id">{{ labelName }}</MbqLabel>
-    <MbqFlameLg :id="id">
+    <MbqFrameLg :id="id">
       <MbqButtonClipboard
         v-if="isVenueUrl()"
         @click="copy"
@@ -39,6 +39,6 @@
       <p class="text-xl whitespace-pre-wrap">
         {{ content }}
       </p>
-    </MbqFlameLg>
+    </MbqFrameLg>
   </MbqItemContainer>
 </template>
