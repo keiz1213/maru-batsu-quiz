@@ -2,7 +2,7 @@ class Api::V1::UsersController < ApplicationController
   include ActionController::HttpAuthentication::Token::ControllerMethods
 
   def create
-    # FirebaseIdToken::Certificates.request!
+    FirebaseIdToken::Certificates.request unless FirebaseIdToken::Certificates.present?
     token = request.headers['Authorization']&.split&.last
     payload = FirebaseIdToken::Signature.verify(token)
     uid = payload['sub']
