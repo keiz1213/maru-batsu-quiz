@@ -39,8 +39,8 @@ module SkywayAuth
     def payload
       {
         jti: SecureRandom.uuid,
-        iat:,
-        exp:,
+        iat: iat,
+        exp: exp,
         scope: {
           app: {
             id: skyway_id,
@@ -64,16 +64,6 @@ module SkywayAuth
                     }
                   }
                 ],
-                sfuBots: [
-                  {
-                    actions: ['write'],
-                    forwardings: [
-                      {
-                        actions: ['write']
-                      }
-                    ]
-                  }
-                ]
               }
             ]
           }
