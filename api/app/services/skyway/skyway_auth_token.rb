@@ -39,8 +39,8 @@ module Skyway
     def payload
       {
         jti: SecureRandom.uuid,
-        iat: iat,
-        exp: exp,
+        iat:,
+        exp:,
         scope: {
           app: {
             id: skyway_id,
@@ -63,7 +63,7 @@ module Skyway
                       actions: ['write']
                     }
                   }
-                ],
+                ]
               }
             ]
           }
