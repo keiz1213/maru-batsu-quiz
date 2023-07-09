@@ -2,7 +2,7 @@ require 'jwt'
 require 'securerandom'
 
 module Skyway
-  class AuthToken
+  class SkywayAuthToken
     attr_reader :token
 
     def initialize
