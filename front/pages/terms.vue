@@ -217,12 +217,11 @@
           </li>
         </ol>
       </div>
-      <p
+      <span
         @click="router.back"
-        class="mt-16 text-2xl underline hover:cursor-pointer"
+        class="mt-16 text-2xl underline hover:cursor-pointer w-20"
+        >←戻る</span
       >
-        ←戻る
-      </p>
     </div>
   </TheContainer>
 </template>
