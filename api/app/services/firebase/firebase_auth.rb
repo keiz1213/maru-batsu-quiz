@@ -1,7 +1,9 @@
 module Firebase
   module FirebaseAuth
     def request_certificates
-      FirebaseIdToken::Certificates.request if FirebaseIdToken::Certificates.blank?
+      # rubocop:disable Rails/Blank
+      FirebaseIdToken::Certificates.request unless FirebaseIdToken::Certificates.present?
+      # rubocop:enable Rails/Blank
     end
 
     def token_from_request_headers
