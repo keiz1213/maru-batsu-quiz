@@ -3,27 +3,8 @@
     layout: 'mbq-after-login'
   })
 
-  const { githubLogin } = useAuth()
-  const { toast, setToast, unsetToast, notifyOnSpot, notify } = useToast()
+  const { githubLogin, isLoading } = useAuth()
 
-  const login = async () => {
-    try {
-      isLoading.value = true
-      await githubLogin()
-      setToast('ログインしました！', 'success')
-      navigateTo('/home')
-    } catch {
-      isLoading.value = false
-      notifyOnSpot('ログインに失敗しました', 'error')
-    }
-  }
-
-  const isLoading = ref(false)
-
-  if (toast.value.isSet) {
-    notify(toast.value.message, toast.value.type)
-    unsetToast()
-  }
 </script>
 
 <template>
@@ -52,7 +33,7 @@
           オンラインイベントを盛り上げよう
         </h1>
         <div class="text-center">
-          <MbqButtonGithub :onClick="login" :isLoading="isLoading" />
+          <MbqButtonGithub :onClick="githubLogin" :isLoading="isLoading" />
         </div>
       </div>
     </div>

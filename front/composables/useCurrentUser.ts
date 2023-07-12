@@ -1,0 +1,42 @@
+import { User } from '@/types/User'
+
+export const useCurrentUser = () => {
+  const currentUser = useState<User>('currentUser', () => {
+    return {
+      id: 0,
+      uid: '',
+      name: '',
+      avatar_url: '',
+      games: [],
+      token: ''
+    }
+  })
+
+  const initializeCurrentUser = (): void => {
+    currentUser.value = {
+      id: 0,
+      uid: '',
+      name: '',
+      avatar_url: '',
+      games: [],
+      token: ''
+    }
+  }
+
+  const setCurrentUser = (acquiredUser: User, firebaseToken: string): void => {
+    currentUser.value = {
+      id: acquiredUser.id,
+      uid: acquiredUser.uid,
+      name: acquiredUser.name,
+      avatar_url: acquiredUser.avatar_url,
+      games: acquiredUser.games,
+      token: firebaseToken
+    }
+  }
+
+  const isLoggedIn = (): boolean => {
+    return currentUser.value.id != 0
+  }
+
+  return { currentUser, initializeCurrentUser, setCurrentUser, isLoggedIn}
+}
