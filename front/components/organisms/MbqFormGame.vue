@@ -32,8 +32,13 @@
     }
   })
 
+  const { isLoading, setLoading } = useLoading()
+  const { setToast, notifyOnSpot } = useToast()
+
   const isEditing = ref(false)
-  const isLoading = ref(false)
+  let quizzes: Ref<Quiz[]>
+  let game: Game
+
   const confirmSave = (event: BeforeUnloadEvent) => {
     if (isEditing.value) {
       event.preventDefault()
@@ -41,15 +46,10 @@
     }
   }
 
-  const { toast, setToast, unsetToast, notify } = useToast()
-
-  let quizzes: Ref<Quiz[]>
-  let game: Game
-
   const isNewAction = (): boolean => props.actionType === 'new'
 
   const postGame = async (game: Game, userId: number): Promise<void> => {
-    isLoading.value = true
+    setLoading()
     const { data } = await useMyFetch('/api/v1/games', {
       method: 'post',
       body: {
@@ -67,7 +67,7 @@
   }
 
   const putGame = async (game: Game, gameId: string): Promise<void> => {
-    isLoading.value = true
+    setLoading()
     await useMyFetch(`/api/v1/games/${gameId}`, {
       method: 'put',
       body: {
@@ -131,9 +131,7 @@
   }
 
   const onInvalidSubmit = () => {
-    setToast('入力内容を確認してください', 'error')
-    notify(toast.value.message, toast.value.type)
-    unsetToast()
+    notifyOnSpot('入力内容を確認してください', 'error')
   }
 
   const onSubmit = () => {
@@ -181,15 +179,15 @@
         <div class="flex justify-center">
           <MbqButtonPrimary
             v-if="isNewAction()"
-            :button-type="'submit'"
-            :is-loading="isLoading"
+            :buttonType="'submit'"
+            :isLoading="isLoading"
           >
             作成
           </MbqButtonPrimary>
           <MbqButtonPrimary
             v-else="!isNewAction()"
-            :button-type="'submit'"
-            :is-loading="isLoading"
+            :buttonType="'submit'"
+            :isLoading="isLoading"
           >
             更新
           </MbqButtonPrimary>
