@@ -7,10 +7,11 @@ import {
 } from 'firebase/auth'
 
 export const useAuth = () => {
-  const { currentUser, initializeCurrentUser, setCurrentUser, isLoggedIn } =
+  const { currentUser, unsetCurrentUser, setCurrentUser, isLoggedIn } =
     useCurrentUser()
   const { setToast, notifyOnSpot } = useToast()
-  const { isLoading, setLoading, unsetLoading } = useLoading()
+  const { loading, setLoading, unsetLoading } = useLoading()
+  const { redirectPath, unsetRedirectPath } = useRedirectPath()
 
   const githubLogin = async (): Promise<void> => {
     try {
@@ -22,7 +23,12 @@ export const useAuth = () => {
       const user = await getOrCreateUser(firebaseToken)
       setCurrentUser(user, firebaseToken)
       setToast('ログインしました！', 'success')
-      navigateTo('/home')
+      if (redirectPath.value === '') {
+        navigateTo('/home')
+      } else {
+        navigateTo(redirectPath.value)
+        unsetRedirectPath()
+      }
     } catch {
       unsetLoading()
       notifyOnSpot('ログインに失敗しました', 'error')
@@ -32,7 +38,7 @@ export const useAuth = () => {
   const signOut = async (): Promise<void> => {
     const auth = getAuth()
     await firebaseSignOut(auth)
-    initializeCurrentUser()
+    unsetCurrentUser()
     setToast('ログアウトしました！', 'success')
     navigateTo('/')
   }
@@ -49,7 +55,7 @@ export const useAuth = () => {
           resolve()
         } else {
           console.log('すでにlogoutしています by checkAuthState')
-          initializeCurrentUser()
+          unsetCurrentUser()
           resolve()
         }
       })
@@ -62,6 +68,6 @@ export const useAuth = () => {
     checkAuthState,
     isLoggedIn,
     currentUser,
-    isLoading
+    loading
   }
 }

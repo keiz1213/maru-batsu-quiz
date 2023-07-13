@@ -8,7 +8,6 @@
 
   definePageMeta({
     middleware: 'venue-status'
-    // layout: 'after-login'
   })
 
   onBeforeRouteLeave((to, from, next) => {
@@ -29,8 +28,6 @@
   const isCheckQuestion = ref(false)
   const chatVisible = ref(true)
   let avatar: OwnerAvatar | PlayerAvatar
-  let skyWayToken
-  let userName
 
   const {
     owner,
@@ -51,8 +48,7 @@
   const { chatMessages, addChatMessage } = useChat()
   const { publisherNames, addPublisherName } = usePublication()
   const { timeElapsed, timeLimit, startTimer, resetTimer } = useTimer()
-  const { errorMessage, updateErrorMessage, clearErrorMessage } =
-    useSkyWayErrorMessage()
+  const { errorMessage } = useSkyWayErrorMessage()
   const { notifyOnSpot } = useToast()
 
   const writer = new DataStreamWriter()
@@ -170,13 +166,8 @@
 
   // ----------ここまで--------------
 
-  if (currentUser.value.id === 0) {
-    skyWayToken = await SkyWay.getSkyWayToken('testUserToken')
-    userName = SkyWay.generateUniqueName()
-  } else {
-    skyWayToken = await SkyWay.getSkyWayToken(currentUser.value.token)
-    userName = currentUser.value.name
-  }
+  const userName = currentUser.value.name
+  const skyWayToken = await SkyWay.getSkyWayToken(currentUser.value.token)
   const skyWayContext = await SkyWay.createSkyWayContext(skyWayToken)
   const skyWayChannel = await SkyWay.findOrCreateChannel(
     skyWayContext,
@@ -201,21 +192,6 @@
     publication
   ] as const
 
-  const initialTestParams = [
-    0,
-    '',
-    false,
-    '',
-    '',
-    null,
-    writer,
-    handler,
-    skyWayChannel,
-    localDataStream,
-    agent,
-    publication
-  ] as const
-
   if (currentUser.value.id === ownerId) {
     avatar = new OwnerAvatar(...initialParams)
     addOwner(avatar)
@@ -225,7 +201,7 @@
     avatar.setHandleMemberLeft()
     avatar.setHandleMetaDataUpdate()
   } else {
-    avatar = new PlayerAvatar(...initialTestParams)
+    avatar = new PlayerAvatar(...initialParams)
     avatar.setHandleMetaDataUpdate()
   }
 

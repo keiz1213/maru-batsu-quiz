@@ -59,22 +59,6 @@ class PlayerAvatar extends Avatar {
           console.log(`自分のmetadataが[${myIndx}]に更新された`)
           this.index = parseInt(myIndx)
           console.log(`自分のindexに[${this.index}]がセットされた`)
-
-          // ----------ここからtestUser用。後で消す。testUserは自分のindexが確定するまではプロパティが初期化できないのでここで初期化する
-          this.id = this.index + 2
-          this.uid = `testUid-${this.index + 1}`
-          this.name = `testName-${this.index + 1}`
-          this.avatarUrl = new URL(
-            `../assets/images/${this.index + 1}.svg`,
-            import.meta.url
-          ).href
-          // ---------ここまで
-          console.log(`自分の
-          idが[${this.id}]に設定された
-          uidが[${this.uid}]に設定された
-          nameが[${this.name}]に設定された
-          avatarUrlが[${this.avatarUrl}]に設定された
-          `)
           await this.subscribeOwner()
           console.log(`ownerを
           ・サブスク完了!

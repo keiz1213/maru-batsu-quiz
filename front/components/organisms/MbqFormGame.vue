@@ -32,7 +32,7 @@
     }
   })
 
-  const { isLoading, setLoading } = useLoading()
+  const { loading, setLoading } = useLoading()
   const { setToast, notifyOnSpot } = useToast()
 
   const isEditing = ref(false)
@@ -180,14 +180,14 @@
           <MbqButtonPrimary
             v-if="isNewAction()"
             :buttonType="'submit'"
-            :isLoading="isLoading"
+            :isLoading="loading"
           >
             作成
           </MbqButtonPrimary>
           <MbqButtonPrimary
             v-else="!isNewAction()"
             :buttonType="'submit'"
-            :isLoading="isLoading"
+            :isLoading="loading"
           >
             更新
           </MbqButtonPrimary>

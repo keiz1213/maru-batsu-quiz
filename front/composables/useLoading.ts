@@ -1,13 +1,13 @@
 export const useLoading = () => {
-  const isLoading = ref(false)
+  const loading = ref(false)
 
   const setLoading = () => {
-    isLoading.value = true
+    loading.value = true
   }
 
   const unsetLoading = () => {
-    isLoading.value = false
+    loading.value = false
   }
 
-  return { isLoading, setLoading, unsetLoading }
+  return { loading, setLoading, unsetLoading }
 }

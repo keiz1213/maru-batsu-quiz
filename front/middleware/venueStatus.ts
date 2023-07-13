@@ -1,13 +1,16 @@
-export default defineNuxtRouteMiddleware(async (to, from) => {
-  const { checkAuthState, currentUser } = useAuth()
+export default defineNuxtRouteMiddleware(async (to) => {
+  const { checkAuthState, isLoggedIn, currentUser } = useAuth()
   const { setToast } = useToast()
+  const { setRedirectPath } = useRedirectPath()
+
   await checkAuthState()
-  let skyWayToken
-  if (currentUser.value.id === 0) {
-    skyWayToken = await SkyWay.getSkyWayToken('testUserToken')
-  } else {
-    skyWayToken = await SkyWay.getSkyWayToken(currentUser.value.token)
+
+  if (!isLoggedIn()) {
+    setRedirectPath(to.fullPath)
+    return navigateTo('/login')
   }
+
+  const skyWayToken = await SkyWay.getSkyWayToken(currentUser.value.token)
   const gameId = to.params.id
   const game = await getGame(String(gameId))
   const ownerId = game.user_id
@@ -20,10 +23,10 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   if (ownerId === currentUser.value.id) {
     if (skyWayChannel.members.length != 0) {
       setToast(
-        'ゲーム会場の初期化を行っています。少々お待ち下さい。',
+        '参加者がまだ残っています。参加者が退出してから入室してください。',
         'skyway-error'
       )
-      return await navigateTo('/home')
+      return navigateTo('/home')
     }
   } else {
     if (skyWayChannel.metadata === undefined || skyWayChannel.metadata === '') {
@@ -31,7 +34,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
         '主催者がまだ入室していないか、既にゲームが始まっています。',
         'skyway-error'
       )
-      return await navigateTo('/login')
+      return navigateTo('/login')
     }
   }
 })

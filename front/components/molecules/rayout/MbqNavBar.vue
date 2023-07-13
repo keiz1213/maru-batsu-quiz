@@ -1,12 +1,12 @@
 <script setup lang="ts">
   const emits = defineEmits<{
-    (e: 'logout'): void
+    (e: 'signOut'): void
   }>()
 
   const { isLoggedIn } = useAuth()
 
-  const logout = () => {
-    emits('logout')
+  const signOut = () => {
+    emits('signOut')
   }
 </script>
 
@@ -22,7 +22,7 @@
             class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <button @click="logout" class="block w-full py-3 text-left pl-3">
+              <button @click="signOut" class="block w-full py-3 text-left pl-3">
                 ログアウト
               </button>
             </li>

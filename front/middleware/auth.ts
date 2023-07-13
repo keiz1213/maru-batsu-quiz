@@ -1,10 +1,11 @@
-export default defineNuxtRouteMiddleware(async () => {
-  const { checkAuthState, currentUser } = useAuth()
+export default defineNuxtRouteMiddleware(async (to, from) => {
+  const { checkAuthState, isLoggedIn } = useAuth()
+  const { setRedirectPath } = useRedirectPath()
+
   await checkAuthState()
-  if (currentUser.value.uid === '') {
-    console.log('ログイン状態を確認できません by middleware: checkAuth')
-    const route = useRoute()
-    
-    return await navigateTo('/login')
+
+  if (!isLoggedIn()) {
+    setRedirectPath(to.fullPath)
+    return navigateTo('/login')
   }
 })

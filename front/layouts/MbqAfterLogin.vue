@@ -24,14 +24,8 @@
   })
 
   const { signOut } = useAuth()
-  const { toast, setToast, unsetToast, notify } = useToast()
+  const { toast, unsetToast, notify } = useToast()
   const route = useRoute()
-
-  const logout = async (): Promise<void> => {
-    await signOut()
-    setToast('ログアウトしました！', 'success')
-    navigateTo('/')
-  }
 
   watch(route, () => {
     if (toast.value.isSet) {
@@ -43,7 +37,7 @@
 
 <template>
   <div class="flex flex-col min-h-screen">
-    <MbqNavBar @logout="logout"></MbqNavBar>
+    <MbqNavBar @signOut="signOut"></MbqNavBar>
     <slot />
     <MbqFooter class="mt-auto"></MbqFooter>
   </div>

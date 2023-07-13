@@ -1,9 +1,10 @@
 <script setup lang="ts">
   definePageMeta({
-    layout: 'mbq-after-login'
+    layout: 'mbq-after-login',
+    middleware: 'authenticated'
   })
 
-  const { githubLogin, isLoading } = useAuth()
+  const { githubLogin, loading } = useAuth()
 
 </script>
 
@@ -33,7 +34,7 @@
           オンラインイベントを盛り上げよう
         </h1>
         <div class="text-center">
-          <MbqButtonGithub :onClick="githubLogin" :isLoading="isLoading" />
+          <MbqButtonGithub :onClick="githubLogin" :isLoading="loading" />
         </div>
       </div>
     </div>

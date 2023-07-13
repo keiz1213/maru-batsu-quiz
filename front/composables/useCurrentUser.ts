@@ -12,17 +12,6 @@ export const useCurrentUser = () => {
     }
   })
 
-  const initializeCurrentUser = (): void => {
-    currentUser.value = {
-      id: 0,
-      uid: '',
-      name: '',
-      avatar_url: '',
-      games: [],
-      token: ''
-    }
-  }
-
   const setCurrentUser = (acquiredUser: User, firebaseToken: string): void => {
     currentUser.value = {
       id: acquiredUser.id,
@@ -34,9 +23,21 @@ export const useCurrentUser = () => {
     }
   }
 
+  const unsetCurrentUser = (): void => {
+    currentUser.value = {
+      id: 0,
+      uid: '',
+      name: '',
+      avatar_url: '',
+      games: [],
+      token: ''
+    }
+  }
+
+
   const isLoggedIn = (): boolean => {
     return currentUser.value.id != 0
   }
 
-  return { currentUser, initializeCurrentUser, setCurrentUser, isLoggedIn}
+  return { currentUser, unsetCurrentUser, setCurrentUser, isLoggedIn}
 }
