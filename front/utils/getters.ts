@@ -17,3 +17,17 @@ export const getOrCreateUser = async (firebaseToken: string): Promise<User> => {
   const user = data.value as User
   return user
 }
+
+export const getUser = async (
+  uid: string,
+  firebaseToken: string
+): Promise<User> => {
+  const { data } = await useMyFetch(`/api/v1/users/${uid}`, {
+    method: 'get',
+    headers: {
+      authorization: `Bearer ${firebaseToken}`
+    }
+  })
+  const user = data.value as User
+  return user
+}

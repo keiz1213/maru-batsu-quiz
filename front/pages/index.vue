@@ -5,7 +5,6 @@
   })
 
   const { githubLogin, loading } = useAuth()
-
 </script>
 
 <template>

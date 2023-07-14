@@ -5,10 +5,7 @@
 </script>
 
 <template>
-  <label
-    :for="id"
-    class="block text-md m-2"
-  >
+  <label :for="id" class="block text-md m-2">
     <slot />
   </label>
 </template>

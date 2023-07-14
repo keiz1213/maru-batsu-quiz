@@ -34,7 +34,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
         '主催者がまだ入室していないか、既にゲームが始まっています。',
         'skyway-error'
       )
-      return navigateTo('/login')
+      return navigateTo('/home')
     }
   }
 })

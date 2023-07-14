@@ -8,17 +8,9 @@
     title: '退会の確認'
   })
 
-  const { signOut, currentUser } = useAuth()
+  const { withdrawal, currentUser } = useAuth()
   const router = useRouter()
-
-  const withdrawal = async (): Promise<void> => {
-    await useMyFetch(`/api/v1/users/${currentUser.value.id}`, {
-      method: 'delete'
-    })
-    await signOut()
-    navigateTo('/withdrawal', { replace: true })
-    console.log('退会しました')
-  }
+  const userId = currentUser.value.id as number
 </script>
 
 <template>
@@ -27,7 +19,7 @@
     <h2 class="text-3xl text-center mt-48">
       今まで作成した○×クイズが全て消去されますがよろしいでしょうか？
     </h2>
-    <MbqButtonDanger @click="withdrawal" class="block mx-auto my-36">
+    <MbqButtonDanger @click="withdrawal(userId)" class="block mx-auto my-36">
       退会する
     </MbqButtonDanger>
     <p

@@ -7,8 +7,13 @@ import {
 } from 'firebase/auth'
 
 export const useAuth = () => {
-  const { currentUser, unsetCurrentUser, setCurrentUser, isLoggedIn } =
-    useCurrentUser()
+  const {
+    currentUser,
+    unsetCurrentUser,
+    setCurrentUser,
+    isLoggedIn,
+    isGameOwner
+  } = useCurrentUser()
   const { setToast, notifyOnSpot } = useToast()
   const { loading, setLoading, unsetLoading } = useLoading()
   const { redirectPath, unsetRedirectPath } = useRedirectPath()
@@ -43,18 +48,26 @@ export const useAuth = () => {
     navigateTo('/')
   }
 
+  const withdrawal = async (id: number): Promise<void> => {
+    await useMyFetch(`/api/v1/users/${id}`, {
+      method: 'delete'
+    })
+    const auth = getAuth()
+    await firebaseSignOut(auth)
+    unsetCurrentUser()
+    navigateTo('/withdrawal')
+  }
+
   const checkAuthState = async (): Promise<void> => {
     return await new Promise<void>((resolve) => {
       const auth = getAuth()
       onAuthStateChanged(auth, async (user) => {
         if (user) {
-          console.log('只今login中ですので維持します by checkAuthState')
           const firebaseToken = await user.getIdToken()
-          const loggedInUser = await getOrCreateUser(firebaseToken)
+          const loggedInUser = await getUser(user.uid, firebaseToken)
           setCurrentUser(loggedInUser, firebaseToken)
           resolve()
         } else {
-          console.log('すでにlogoutしています by checkAuthState')
           unsetCurrentUser()
           resolve()
         }
@@ -65,8 +78,10 @@ export const useAuth = () => {
   return {
     githubLogin,
     signOut,
+    withdrawal,
     checkAuthState,
     isLoggedIn,
+    isGameOwner,
     currentUser,
     loading
   }

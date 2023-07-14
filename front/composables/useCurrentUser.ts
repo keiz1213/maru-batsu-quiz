@@ -34,10 +34,19 @@ export const useCurrentUser = () => {
     }
   }
 
-
   const isLoggedIn = (): boolean => {
     return currentUser.value.id != 0
   }
 
-  return { currentUser, unsetCurrentUser, setCurrentUser, isLoggedIn}
+  const isGameOwner = (ownerId: number): boolean => {
+    return currentUser.value.id === ownerId
+  }
+
+  return {
+    currentUser,
+    unsetCurrentUser,
+    setCurrentUser,
+    isLoggedIn,
+    isGameOwner
+  }
 }

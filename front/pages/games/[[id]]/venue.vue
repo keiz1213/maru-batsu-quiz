@@ -180,7 +180,7 @@
   const initialParams = [
     currentUser.value.id,
     currentUser.value.uid,
-    true,
+    currentUser.value.id === ownerId ? true : false,
     currentUser.value.name,
     currentUser.value.avatar_url,
     null,
