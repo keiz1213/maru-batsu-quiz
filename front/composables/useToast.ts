@@ -17,7 +17,7 @@ export const useToast = () => {
     toast.value.type = type
   }
 
-  const unsetToast = () => {
+  const clearToast = () => {
     toast.value.isSet = false
     toast.value.message = ''
     toast.value.type = ''
@@ -47,12 +47,6 @@ export const useToast = () => {
         break
       case 'error':
         toast.error(message, {
-          position: toast.POSITION.TOP_CENTER,
-          transition: toast.TRANSITIONS.FLIP
-        })
-        break
-      case 'skyway-error':
-        toast.error(message, {
           autoClose: false,
           position: toast.POSITION.TOP_CENTER,
           transition: toast.TRANSITIONS.FLIP
@@ -64,13 +58,13 @@ export const useToast = () => {
   const notifyOnSpot = (message: string, type: string) => {
     setToast(message, type)
     notify(message, type)
-    unsetToast()
+    clearToast()
   }
 
   return {
     toast: readonly(toast),
     setToast: setToast,
-    unsetToast: unsetToast,
+    clearToast: clearToast,
     notify: notify,
     notifyOnSpot: notifyOnSpot
   }

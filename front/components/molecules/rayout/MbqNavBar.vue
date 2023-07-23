@@ -1,12 +1,12 @@
 <script setup lang="ts">
   const emits = defineEmits<{
-    (e: 'signOut'): void
+    (e: 'logout'): void
   }>()
 
   const { isLoggedIn } = useAuth()
 
-  const signOut = () => {
-    emits('signOut')
+  const logout = () => {
+    emits('logout')
   }
 </script>
 
@@ -14,15 +14,15 @@
   <div class="bg-white px-3 py-0 fixed w-full z-10 border-b">
     <header>
       <div class="flex items-center justify-between">
-        <MbqBrand :href="isLoggedIn() ? '/home' : '/'"></MbqBrand>
-        <div v-if="isLoggedIn()" class="dropdown dropdown-end dropdown-hover">
+        <MbqBrand :href="isLoggedIn ? '/home' : '/'"></MbqBrand>
+        <div v-if="isLoggedIn" class="dropdown dropdown-end dropdown-hover">
           <MbqUserIcon tabindex="0"></MbqUserIcon>
           <ul
             tabindex="0"
             class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <button @click="signOut" class="block w-full py-3 text-left pl-3">
+              <button @click="logout" class="block w-full py-3 text-left pl-3">
                 ログアウト
               </button>
             </li>

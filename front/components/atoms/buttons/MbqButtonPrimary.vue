@@ -32,7 +32,7 @@
   >
     <div
       v-if="isLoading"
-      class="animate-spin h-5 w-5 border-4 border-my-blue rounded-full border-t-transparent mx-auto"
+      class="animate-spin h-5 w-5 border-4 border-gray-300 rounded-full border-t-transparent mx-auto py-2 px-2"
     ></div>
     <slot v-else />
   </button>

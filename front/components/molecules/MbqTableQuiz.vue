@@ -1,8 +1,8 @@
 <script setup lang="ts">
-  import { Quiz } from '@/types/Quiz'
+  import { Quiz } from '~/types/quiz'
 
   defineProps<{
-    quizzes: Array<Quiz>
+    quizzes: Quiz[]
   }>()
 </script>
 
@@ -31,3 +31,4 @@
     </table>
   </MbqItemContainer>
 </template>
+~/types/quiz

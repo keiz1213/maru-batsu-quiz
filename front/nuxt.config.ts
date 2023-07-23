@@ -1,5 +1,54 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  app: {
+    head: {
+      meta: [
+        {
+          name: 'description',
+          content:
+            'オンラインでマルバツクイズが遊べるサービスです。誰が、どれくらいの人数の人が、○ or ✗ と答えているか、また回答に迷っている様子がリアルタイムで見れる機能が備わっています。'
+        },
+        {
+          name: 'og:title',
+          content: 'マルバツクイズオンライン'
+        },
+        {
+          name: 'og:type',
+          content: 'website'
+        },
+        {
+          name: 'og:site_name',
+          content: 'マルバツクイズオンライン'
+        },
+        {
+          name: 'og:description',
+          content:
+            'オンラインでマルバツクイズが遊べるサービスです。誰が、どれくらいの人数の人が、○ or ✗ と答えているか、また回答に迷っている様子がリアルタイムで見れる機能が備わっています。'
+        },
+        {
+          name: 'og:image',
+          content: '#'
+        },
+        {
+          name: 'og:url',
+          content: '#'
+        },
+        {
+          name: 'twitter:card',
+          content: 'summary_large_image'
+        },
+        {
+          name: 'twitter:description',
+          content:
+            'オンラインでマルバツクイズが遊べるサービスです。誰が、どれくらいの人数の人が、○ or ✗ と答えているか、また回答に迷っている様子がリアルタイムで見れる機能が備わっています。'
+        },
+        {
+          name: 'twitter:image',
+          content: '#'
+        }
+      ]
+    }
+  },
   ssr: false,
   components: [
     {

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import Avatar from '@/utils/Avatar'
-  import { Quiz } from '@/types/Quiz'
+  import { Quiz } from '~/types/quiz'
+  import Avatar from '~/utils/class/Avatar'
 
   defineProps<{
     owner: Avatar | undefined
@@ -11,7 +11,7 @@
   }>()
 
   const emit = defineEmits<{
-    (e: 'question'): void
+    (e: 'announce'): void
     (e: 'check-question'): void
   }>()
 </script>
@@ -28,7 +28,7 @@
           class="flex flex-col justify-center items-center gap-4 bg-mac-finder-top min-h-[185px] rounded-lg m-3 mt-0"
         >
           <div>
-            <MbqButtonPrimary @click="emit('question')"
+            <MbqButtonPrimary @click="emit('announce')"
               >{{ currentQuizNumber + 1 }} 問目を出題する</MbqButtonPrimary
             >
           </div>

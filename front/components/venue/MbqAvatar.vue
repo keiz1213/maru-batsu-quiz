@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import Avatar from '@/utils/Avatar'
+  import Avatar from '~/utils/class/Avatar'
 
   defineProps<{
     avatar: Avatar
@@ -11,7 +11,7 @@
     class="avatar flex-col z-10 animate__animated"
     data-answer=""
     data-state=""
-    :id="avatar.uid"
+    :id="avatar.id"
   >
     <p class="text-center line-clamp-1">{{ avatar.name }}</p>
     <div

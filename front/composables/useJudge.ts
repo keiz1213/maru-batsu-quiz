@@ -1,4 +1,5 @@
-import Avatar from '~/utils/Avatar'
+import Avatar from '~/utils/class/Avatar'
+import SyncDraggable from '~/utils/class/SyncDraggable'
 
 export const useJudge = (initialNumberOfWinner: number) => {
   const owner = ref<Avatar>()
@@ -7,6 +8,7 @@ export const useJudge = (initialNumberOfWinner: number) => {
   const winners: Ref<Avatar[]> = ref([])
   const numberOfWinner = ref<number>(initialNumberOfWinner)
   const currentQuizNumber = ref(0)
+  const questionVisible = ref(false)
   const isStandByGame = ref(true)
   const isEndOfGame = ref(false)
 
@@ -38,6 +40,10 @@ export const useJudge = (initialNumberOfWinner: number) => {
     currentQuizNumber.value++
   }
 
+  const openQuestion = () => {
+    questionVisible.value = true
+  }
+
   const startGame = (avatar: Avatar) => {
     SyncDraggable.setDraggable(avatar)
     SyncDraggable.setDropzone('◯', avatar)
@@ -51,22 +57,20 @@ export const useJudge = (initialNumberOfWinner: number) => {
     }
   }
 
-  const isLoser = (player: Avatar, correctAnswer: string): boolean => {
-    const uid = player.uid
-    const avatarElement = document.getElementById(uid) as HTMLElement
+  const isLoser = (player: Avatar, correctAnswer: string) => {
+    const avatarElement = document.getElementById(player.id) as HTMLElement
     const answer = avatarElement.dataset.answer
     return correctAnswer != answer || answer === ''
   }
 
-  const isWinner = (player: Avatar, correctAnswer: string): boolean => {
-    const uid = player.uid
-    const avatarElement = document.getElementById(uid) as HTMLElement
+  const isWinner = (player: Avatar, correctAnswer: string) => {
+    const avatarElement = document.getElementById(player.id) as HTMLElement
     const answer = avatarElement.dataset.answer
     return correctAnswer === answer
   }
 
-  const moveLoser = (loser: Avatar): void => {
-    const avatarElement = document.getElementById(loser.uid) as HTMLElement
+  const moveLoser = (loser: Avatar) => {
+    const avatarElement = document.getElementById(loser.id) as HTMLElement
     avatarElement.classList.add('animate__rotateOut')
     avatarElement.classList.remove('z-10')
     avatarElement.dataset.state = 'loser'
@@ -75,7 +79,7 @@ export const useJudge = (initialNumberOfWinner: number) => {
   }
 
   const moveWinner = (winner: Avatar) => {
-    const avatarElement = document.getElementById(winner.uid) as HTMLElement
+    const avatarElement = document.getElementById(winner.id) as HTMLElement
     avatarElement.classList.add('animate__fadeOut')
     avatarElement.classList.remove('z-10')
     avatarElement.dataset.state = 'winner'
@@ -83,11 +87,11 @@ export const useJudge = (initialNumberOfWinner: number) => {
     addWinner(winner)
   }
 
-  const getWinnersFromPlayers = (correctAnswer: string): Avatar[] => {
+  const getWinnersFromPlayers = (correctAnswer: string) => {
     let winnersInPlayers: Avatar[] = []
     for (let i = 0; i < players.value.length; i++) {
       const avatarElement = document.getElementById(
-        players.value[i].uid
+        players.value[i].id
       ) as HTMLElement
       if (avatarElement.dataset.state != '') continue
       const player = players.value[i] as Avatar
@@ -102,7 +106,7 @@ export const useJudge = (initialNumberOfWinner: number) => {
     let losersInPlayers: Avatar[] = []
     for (let i = 0; i < players.value.length; i++) {
       const avatarElement = document.getElementById(
-        players.value[i].uid
+        players.value[i].id
       ) as HTMLElement
       if (avatarElement.dataset.state != '') continue
       const player = players.value[i] as Avatar
@@ -138,11 +142,13 @@ export const useJudge = (initialNumberOfWinner: number) => {
     winners,
     numberOfWinner,
     currentQuizNumber,
+    questionVisible,
     isStandByGame,
     isEndOfGame,
     addOwner,
     addPlayer,
     setAllPlayers,
+    openQuestion,
     startGame,
     judge
   }

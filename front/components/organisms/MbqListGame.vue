@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { Game } from '@/types/Game'
+  import { Game } from '~/types/game'
 
   defineProps<{
     games: Game[] | null
@@ -18,3 +18,4 @@
     </div>
   </TheContainer>
 </template>
+~/types/game

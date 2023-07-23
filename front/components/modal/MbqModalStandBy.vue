@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import Avatar from '@/utils/Avatar'
+  import Avatar from '~/utils/class/Avatar'
   import { VueFinalModal } from 'vue-final-modal'
 
   defineProps<{
@@ -10,13 +10,7 @@
   }>()
 
   const emit = defineEmits<{
-    (e: 'startConnection'): void
-    (e: 'subscribeAllPlayers'): void
-    (e: 'promptAllPlayersSubscribeOwner'): void
-    (e: 'promptSubscribeAllPlayers'): void
-    (e: 'sendMyAvatar'): void
-    (e: 'sendAllPlayerAvatar'): void
-    (e: 'promptStartGame'): void
+    (e: 'start-connection'): void
   }>()
 </script>
 <template>
@@ -72,70 +66,11 @@
         <MbqButtonSecondary
           v-if="isOwner"
           :button-type="'button'"
-          @click="emit('startConnection')"
+          @click="emit('start-connection')"
           >接続開始</MbqButtonSecondary
-        >
-      </div>
-      <div class="w-1/2 mx-auto mb-10 text-center">
-        <MbqButtonSecondary
-          v-if="isOwner"
-          :button-type="'button'"
-          @click="emit('subscribeAllPlayers')"
-          ><span class="text-black"
-            >ownerがall playersをsubscribe&setHandlerする</span
-          ></MbqButtonSecondary
-        >
-      </div>
-      <div class="w-1/2 mx-auto mb-10 text-center">
-        <MbqButtonSecondary
-          v-if="isOwner"
-          :button-type="'button'"
-          @click="emit('promptAllPlayersSubscribeOwner')"
-          ><span class="text-black"
-            >all playersがownerをsubscribe&setHandlerする</span
-          ></MbqButtonSecondary
-        >
-      </div>
-      <div class="w-1/2 mx-auto mb-10 text-center">
-        <MbqButtonSecondary
-          v-if="isOwner"
-          :button-type="'button'"
-          @click="emit('promptSubscribeAllPlayers')"
-          ><span class="text-black"
-            >all playersがall playersをsubscribe&setHandlerする</span
-          ></MbqButtonSecondary
-        >
-      </div>
-      <div class="w-1/2 mx-auto mb-10 text-center">
-        <MbqButtonSecondary
-          v-if="isOwner"
-          :button-type="'button'"
-          @click="emit('sendMyAvatar')"
-          ><span class="text-black"
-            >ownerがall playerにsend Avatarする</span
-          ></MbqButtonSecondary
-        >
-      </div>
-      <div class="w-1/2 mx-auto mb-10 text-center">
-        <MbqButtonSecondary
-          v-if="isOwner"
-          :button-type="'button'"
-          @click="emit('sendAllPlayerAvatar')"
-          ><span class="text-black"
-            >ownerがall playerにsend All Avatarする</span
-          ></MbqButtonSecondary
-        >
-      </div>
-      <div class="w-1/2 mx-auto mb-10 text-center">
-        <MbqButtonSecondary
-          v-if="isOwner"
-          :button-type="'button'"
-          @click="emit('promptStartGame')"
-          ><span class="text-black"
-            >ownerがall playerにゲームを開始するように促す</span
-          ></MbqButtonSecondary
         >
       </div>
     </div>
   </VueFinalModal>
 </template>
+~/utils/class/Avatar

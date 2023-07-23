@@ -1,4 +1,4 @@
-import { Game } from './Game'
+import { Game } from './game'
 
 export interface User {
   id: number
@@ -6,5 +6,4 @@ export interface User {
   name: string
   avatar_url: string
   games: Array<Game> | null
-  token: string
 }

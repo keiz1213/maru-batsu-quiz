@@ -1,9 +1,10 @@
 <script setup lang="ts">
+  import { Quiz } from '~/types/quiz'
+  import Avatar from '~/utils/class/Avatar';
   import { VueFinalModal } from 'vue-final-modal'
-  import { Quiz } from '~/types/Quiz'
 
   defineProps<{
-    winners: object
+    winners: Avatar[]
     quizzes: Quiz[]
   }>()
 </script>
@@ -19,8 +20,8 @@
       <slot />
       <div class="flex justify-center">
         <MbqAvatar
-          v-for="(winner, index) in winners"
-          :key="index"
+          v-for="winner in winners"
+          :key="winner.id"
           :avatar="winner"
         />
       </div>
@@ -30,3 +31,4 @@
     </div>
   </VueFinalModal>
 </template>
+~/types/quiz

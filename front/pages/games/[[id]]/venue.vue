@@ -1,212 +1,74 @@
 <script setup lang="ts">
-  import Avatar from '@/utils/Avatar'
-  import OwnerAvatar from '~/utils/OwnerAvatar'
-  import PlayerAvatar from '~/utils/PlayerAvatar'
-  import DataStreamHandler from '~/utils/DataStreamHandler'
-  import SkyWay from '~/utils/SkyWay'
-  import { useSkyWayErrorMessage } from '~/composables/useSkyWayErrorMessage'
+  import OwnerAvatar from '~/utils/class/OwnerAvatar'
+  import PlayerAvatar from '~/utils/class/PlayerAvatar'
+  import InfluentialAction from '~/utils/class/InfluentialAction'
+  import NonInfluentialAction from '~/utils/class/NonInfluentialAction'
+  import SkyWay from '~/utils/class/SkyWay'
+  import { getGame } from '~/utils/api/services/game'
+  import { getUser } from '~/utils/api/services/user'
 
   definePageMeta({
-    middleware: 'venue-status'
+    middleware: ['auth', 'venue-status']
   })
 
-  onBeforeRouteLeave((to, from, next) => {
-    let answer = window.confirm('ゲームが中止になりますがよろしいですか？')
-    if (answer) {
-      avatar.agent?.leave()
-      next()
-    } else {
-      next(false)
-    }
-  })
-
-  const { currentUser } = useAuth()
-  const route = useRoute()
-  const gameId = route.params.id
-  const game = await getGame(String(gameId))
-  const ownerId = game.user_id
-  const isCheckQuestion = ref(false)
-  const chatVisible = ref(true)
-  let avatar: OwnerAvatar | PlayerAvatar
-
-  const {
-    owner,
-    players,
-    losers,
-    winners,
-    numberOfWinner,
-    currentQuizNumber,
-    isStandByGame,
-    isEndOfGame,
-    addOwner,
-    addPlayer,
-    setAllPlayers,
-    startGame,
-    judge
-  } = useJudge(game.number_of_winner)
-  const { announceText, updateAnnounceText } = useAnnounce()
-  const { chatMessages, addChatMessage } = useChat()
-  const { publisherNames, addPublisherName } = usePublication()
-  const { timeElapsed, timeLimit, startTimer, resetTimer } = useTimer()
+  const { currentUserId, isGameOwner } = useCurrentUserId()
   const { errorMessage } = useSkyWayErrorMessage()
-  const { notifyOnSpot } = useToast()
 
-  const writer = new DataStreamWriter()
-  const handler = new DataStreamHandler(
-    addOwner,
-    addPlayer,
-    setAllPlayers,
-    startGame,
-    startTimer,
-    resetTimer,
-    judge,
-    updateAnnounceText,
-    addChatMessage,
-    addPublisherName,
-    notifyOnSpot
-  )
-
-  const isOwner = (avatar: Avatar) => {
-    return ownerId === avatar.id
-  }
-
-  const sendAnnounce = async () => {
-    if (avatar instanceof OwnerAvatar) {
-      await avatar.announce(
-        currentQuizNumber.value,
-        game.quizzes[currentQuizNumber.value]
-      )
-    }
-  }
-
-  const openQuestion = () => {
-    isCheckQuestion.value = true
-  }
-
-  const updateChatVisible = () => {
-    chatVisible.value = false
-  }
-
-  const sendChatMessage = (newMessage: string) => {
-    avatar.sendChatMessage(newMessage)
-  }
-
-  const startConnection = async () => {
-    try {
-      if (avatar instanceof OwnerAvatar) {
-        await avatar.updateRoomMetadata('')
-        console.log('----ownerが全playerをサブスク&ハンドラセットを開始----')
-        await avatar.subscribeAllPlayers()
-        console.log('----ownerが全playerをサブスク&ハンドラセット完了----')
-        console.log(
-          '----ownerが全playerに対してownerをサブスク&ハンドラセットするように促します----'
-        )
-        await avatar.promptAllPlayersSubscribeOwner()
-        console.log('----全playerがownerをサブスク&ハンドラセット完了----')
-        avatar.sendMyAvatar()
-        console.log('-----自分のアバターを全playerに対して送信----')
-        avatar.sendAllPlayerAvatar(players.value)
-        console.log('-----全playerに対して全playerのアバターを送信-----')
-        console.log('-----全player同士のサブスクを開始・・・-----')
-        avatar.promptSubscribeAllPlayers(0)
-      }
-    } catch {
-      avatar.handler?.notifyOnSpot('エラーが発生しました！', 'skyway-error')
-      avatar.updateAllMetadataWithError()
-    }
-  }
-
-  // ----------test用--------------
-
-  const _subscribeAllPlayers = async () => {
-    try {
-      if (avatar instanceof OwnerAvatar) {
-        await avatar.updateRoomMetadata('')
-        await avatar.subscribeAllPlayers()
-        console.log('全playerサブスク&ハンドラセット完了')
-      }
-    } catch {
-      avatar.handler?.notifyOnSpot('エラーが発生しました！', 'skyway-error')
-      avatar.updateAllMetadataWithError()
-    }
-  }
-  const _promptAllPlayersSubscribeOwner = async () => {
-    try {
-      if (avatar instanceof OwnerAvatar) {
-        await avatar.promptAllPlayersSubscribeOwner()
-        console.log('全playerがownerのサブスク&ハンドラセットを完了しました')
-      }
-    } catch {
-      avatar.handler?.notifyOnSpot('エラーが発生しました！', 'skyway-error')
-      avatar.updateAllMetadataWithError()
-    }
-  }
-  const _promptSubscribeAllPlayers = async () => {
-    if (avatar instanceof OwnerAvatar) {
-      avatar._promptSubscribeAllPlayers(0)
-    }
-  }
-  const _sendMyAvatar = async () => {
-    if (avatar instanceof OwnerAvatar) {
-      avatar.sendMyAvatar()
-      console.log('ownerのavatarを全playerに送信しました')
-    }
-  }
-  const _sendAllPlayerAvatar = async () => {
-    if (avatar instanceof OwnerAvatar) {
-      avatar.sendAllPlayerAvatar(players.value)
-    }
-  }
-  const _promptStartGame = async () => {
-    if (avatar instanceof OwnerAvatar) {
-      avatar.handler?.startGameAction(avatar)
-      avatar.writer?.promptStartGame(avatar)
-    }
-  }
-
-  // ----------ここまで--------------
-
-  const userName = currentUser.value.name
-  const skyWayToken = await SkyWay.getSkyWayToken(currentUser.value.token)
-  const skyWayContext = await SkyWay.createSkyWayContext(skyWayToken)
-  const skyWayChannel = await SkyWay.findOrCreateChannel(
-    skyWayContext,
-    game.channel_name
-  )
-  const localDataStream = await SkyWay.createLocalDataStream()
-  const agent = await SkyWay.createAgent(skyWayChannel, userName)
-  const publication = await SkyWay.createPublication(localDataStream, agent)
-
-  const initialParams = [
-    currentUser.value.id,
-    currentUser.value.uid,
-    currentUser.value.id === ownerId ? true : false,
-    currentUser.value.name,
-    currentUser.value.avatar_url,
+  let avatar: PlayerAvatar | OwnerAvatar
+  const route = useRoute()
+  const gameId = route.params.id as string
+  const game = await getGame(gameId)
+  const user = await getUser(currentUserId.value)
+  const ownerId = game.user_id as number
+  const skyWay = new SkyWay(user, game)
+  await skyWay.initiarizeSkyWay()
+  const nonInfluentialAction = new NonInfluentialAction(game.number_of_winner)
+  const influentialAction = new InfluentialAction(skyWay.localDataStream!)
+  const initialAvatarParams = [
+    currentUserId.value.toString(),
+    isGameOwner(ownerId) ? true : false,
+    user.name,
+    user.avatar_url,
     null,
-    writer,
-    handler,
-    skyWayChannel,
-    localDataStream,
-    agent,
-    publication
+    skyWay,
+    influentialAction,
+    nonInfluentialAction
   ] as const
 
-  if (currentUser.value.id === ownerId) {
-    avatar = new OwnerAvatar(...initialParams)
-    addOwner(avatar)
-    await avatar.updateRoomMetadata('ready')
-    avatar.setHandlePublishListChanged()
-    avatar.setHandleSelfLeft()
-    avatar.setHandleMemberLeft()
-    avatar.setHandleMetaDataUpdate()
+  const owner = nonInfluentialAction.reactiveVenue.owner
+  const players = nonInfluentialAction.reactiveVenue.players
+  const losers = nonInfluentialAction.reactiveVenue.losers
+  const winners = nonInfluentialAction.reactiveVenue.winners
+  const numberOfWinner = nonInfluentialAction.reactiveVenue.numberOfWinner
+  const currentQuizNumber = nonInfluentialAction.reactiveVenue.currentQuizNumber
+  const questionVisible = nonInfluentialAction.reactiveVenue.questionVisible
+  const isStandByGame = nonInfluentialAction.reactiveVenue.isStandByGame
+  const isEndOfGame = nonInfluentialAction.reactiveVenue.isEndOfGame
+  const announceText = nonInfluentialAction.reactiveVenue.announceText
+  const chatVisible = nonInfluentialAction.reactiveVenue.chatVisible
+  const chatMessages = nonInfluentialAction.reactiveVenue.chatMessages
+  const publisherNames = nonInfluentialAction.reactiveVenue.publisherNames
+  const timeElapsed = nonInfluentialAction.reactiveVenue.timeElapsed
+  const timeLimit = nonInfluentialAction.reactiveVenue.timeLimit
+
+  if (isGameOwner(ownerId)) {
+    avatar = new OwnerAvatar(...initialAvatarParams)
+    avatar.setUpChannel()
   } else {
-    avatar = new PlayerAvatar(...initialParams)
-    avatar.setHandleMetaDataUpdate()
+    avatar = new PlayerAvatar(...initialAvatarParams)
+    avatar.setUpChannel()
   }
 
   useHead({
     title: `${game.title} | マルバツクイズオンライン`
+  })
+
+  onMounted(() => {
+    window.addEventListener('beforeunload', avatar.leaveChannel)
+  })
+
+  onUnmounted(() => {
+    window.removeEventListener('beforeunload', avatar.leaveChannel)
   })
 </script>
 
@@ -219,21 +81,17 @@
   />
   <MbqModalStandBy
     v-model="isStandByGame"
-    :isOwner="isOwner(avatar)"
+    :isOwner="isGameOwner(ownerId)"
     :errorMessage="errorMessage"
     :players="players"
     :background="'interactive'"
-    @startConnection="startConnection"
-    @subscribe-all-players="_subscribeAllPlayers"
-    @prompt-all-players-subscribe-owner="_promptAllPlayersSubscribeOwner"
-    @prompt-subscribe-all-players="_promptSubscribeAllPlayers"
-    @send-my-avatar="_sendMyAvatar"
-    @send-all-player-avatar="_sendAllPlayerAvatar"
-    @prompt-start-game="_promptStartGame"
+    @start-connection="
+      avatar instanceof OwnerAvatar ? avatar.startConnection(players) : null
+    "
     :publisherNames="publisherNames"
   />
 
-  <MbqModalCheck v-model="isCheckQuestion" :quizzes="game.quizzes" />
+  <MbqModalCheck v-model="questionVisible" :quizzes="game.quizzes" />
 
   <div>
     <div
@@ -255,11 +113,20 @@
           <div id="questioner-area">
             <MbqOwnerArea
               :owner="(owner as OwnerAvatar)"
-              :isOwner="isOwner(avatar)"
+              :isOwner="isGameOwner(ownerId)"
               :quizzes="game.quizzes"
               :currentQuizNumber="currentQuizNumber"
-              @question="sendAnnounce"
-              @check-question="openQuestion"
+              @announce="
+                avatar instanceof OwnerAvatar
+                  ? avatar.announce(
+                      currentQuizNumber,
+                      game.quizzes[currentQuizNumber]
+                    )
+                  : null
+              "
+              @check-question="
+                avatar instanceof OwnerAvatar ? avatar.checkQuestion() : null
+              "
               :description="game.description"
             />
           </div>
@@ -277,8 +144,8 @@
               :chatVisible="chatVisible"
               :myId="avatar.id"
               :messages="chatMessages"
-              @update:messages="sendChatMessage"
-              @update:chatVisible="updateChatVisible"
+              @update:messages="avatar.sendChatMessage"
+              @update:chatVisible="avatar.toggelChatVisible(chatVisible)"
             />
           </div>
         </div>

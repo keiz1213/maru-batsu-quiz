@@ -1,19 +1,21 @@
 <script setup lang="ts">
+  import { getGame } from '~/utils/api/services/game'
+
   definePageMeta({
-    middleware: 'auth',
-    layout: 'mbq-after-login'
+    layout: 'mbq-after-login',
+    middleware: ['auth', 'creator-only']
   })
 
   useHead({
     title: 'ゲーム編集'
   })
 
-  const { currentUser } = useAuth()
-  const userId = currentUser.value.id
   const route = useRoute()
+
   const gameId = route.params.id as string
+  const game = await getGame(gameId)
 </script>
 
 <template>
-  <MbqFormGame :actionType="'edit'" :userId="userId" :gameId="gameId" />
+  <MbqFormGame :game="game" />
 </template>

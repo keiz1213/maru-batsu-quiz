@@ -1,88 +1,76 @@
-import {
-  getAuth,
-  signInWithPopup,
-  GithubAuthProvider,
-  signOut as firebaseSignOut,
-  onAuthStateChanged
-} from 'firebase/auth'
+import { postUser, deleteUser } from '@/utils/api/services/user'
 
 export const useAuth = () => {
-  const {
-    currentUser,
-    unsetCurrentUser,
-    setCurrentUser,
-    isLoggedIn,
-    isGameOwner
-  } = useCurrentUser()
+  const { loading, setLoading, clearLoading } = useLoading()
   const { setToast, notifyOnSpot } = useToast()
-  const { loading, setLoading, unsetLoading } = useLoading()
-  const { redirectPath, unsetRedirectPath } = useRedirectPath()
+  const { setCurrentUserId, clearCurrentUserId } = useCurrentUserId()
+  const { redirectPath, clearRedirectPath, isForwarding } =
+    useFriendlyForwarding()
+  const {
+    user,
+    isLoggedIn,
+    firebaseLogin,
+    firebaseLogout,
+    checkAuthState,
+    firebaseWithdrawal
+  } = useFirebaseAuth()
 
-  const githubLogin = async (): Promise<void> => {
+  const login = async () => {
     try {
       setLoading()
-      const auth = getAuth()
-      const provider = new GithubAuthProvider()
-      const result = await signInWithPopup(auth, provider)
-      const firebaseToken = await result.user.getIdToken()
-      const user = await getOrCreateUser(firebaseToken)
-      setCurrentUser(user, firebaseToken)
+      await firebaseLogin()
+      const receivedUser = await postUser()
+      setCurrentUserId(receivedUser.id)
       setToast('ログインしました！', 'success')
-      if (redirectPath.value === '') {
-        navigateTo('/home')
-      } else {
+      if (isForwarding.value) {
         navigateTo(redirectPath.value)
-        unsetRedirectPath()
+        clearRedirectPath()
+      } else {
+        navigateTo('/home')
       }
     } catch {
-      unsetLoading()
+      isLoggedIn.value ? await firebaseLogout() : null
+      clearLoading()
       notifyOnSpot('ログインに失敗しました', 'error')
     }
   }
 
-  const signOut = async (): Promise<void> => {
-    const auth = getAuth()
-    await firebaseSignOut(auth)
-    unsetCurrentUser()
-    setToast('ログアウトしました！', 'success')
-    navigateTo('/')
+  const logout = async () => {
+    try {
+      setLoading()
+      await firebaseLogout()
+      clearCurrentUserId()
+      setToast('ログアウトしました！', 'success')
+      navigateTo('/')
+    } catch {
+      clearLoading()
+      notifyOnSpot('ログアウトに失敗しました', 'error')
+    }
   }
 
-  const withdrawal = async (id: number): Promise<void> => {
-    await useMyFetch(`/api/v1/users/${id}`, {
-      method: 'delete'
-    })
-    const auth = getAuth()
-    await firebaseSignOut(auth)
-    unsetCurrentUser()
-    navigateTo('/withdrawal')
-  }
-
-  const checkAuthState = async (): Promise<void> => {
-    return await new Promise<void>((resolve) => {
-      const auth = getAuth()
-      onAuthStateChanged(auth, async (user) => {
-        if (user) {
-          const firebaseToken = await user.getIdToken()
-          const loggedInUser = await getUser(user.uid, firebaseToken)
-          setCurrentUser(loggedInUser, firebaseToken)
-          resolve()
-        } else {
-          unsetCurrentUser()
-          resolve()
-        }
-      })
-    })
+  const withdrawal = async (userId: number) => {
+    try {
+      setLoading()
+      await deleteUser(userId)
+      clearCurrentUserId()
+      await firebaseWithdrawal()
+      navigateTo('/withdrawal')
+    } catch {
+      if (user.value) {
+        await postUser()
+      }
+      clearLoading()
+      notifyOnSpot('退会に失敗しました', 'error')
+    }
   }
 
   return {
-    githubLogin,
-    signOut,
-    withdrawal,
-    checkAuthState,
+    user,
     isLoggedIn,
-    isGameOwner,
-    currentUser,
-    loading
+    checkAuthState,
+    loading,
+    login,
+    logout,
+    withdrawal
   }
 }

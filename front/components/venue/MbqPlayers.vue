@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import Avatar from '@/utils/Avatar'
+  import Avatar from '~/utils/class/Avatar'
 
   defineProps<{
     players: Avatar[]

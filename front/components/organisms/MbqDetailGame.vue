@@ -1,36 +1,34 @@
 <script setup lang="ts">
-  import { getGame } from '~/utils/getters'
+  import { Game } from '~/types/game'
+  import { deleteGame } from '~/utils/api/services/game'
 
   const props = defineProps<{
-    gameId: string
+    game: Game
   }>()
 
+  const { setToast, notifyOnSpot } = useToast()
   const config = useRuntimeConfig()
+  const gameId = props.game.id as number
   const frontUrl = config.public.frontURL
-  const gameId = props.gameId
-  const { setToast } = useToast()
+  const gameVenuePath = `/games/${gameId}/venue`
+  const queryParams = new URLSearchParams({ title: props.game.title })
+  const gameVenueUrl = `${frontUrl}${gameVenuePath}?${queryParams.toString()}`
+  const showConfirm = ref(false)
+  const cancel = () => showConfirm.value = false
+  const confirm = () => showConfirm.value = true
 
-  const removeGame = async (gameId: string): Promise<void> => {
-    await useMyFetch(`/api/v1/games/${gameId}`, {
-      method: 'delete'
-    })
-    setToast('ゲームを削除しました!', 'success')
-    navigateTo('/home')
-  }
-
-  const game = await getGame(gameId)
-  const gameVenueUrl = `${frontUrl}/games/${gameId}/venue?title=${game.title}`
-  const gameVenuePath = `/games/${gameId}/venue?title=${game.title}`
-  const showModal = ref(false)
-  const confirm = () => {
-    removeGame(gameId)
-  }
-  const cancel = () => {
-    showModal.value = false
+  const destroyGame = async () => {
+    try {
+      await deleteGame(gameId)
+      setToast('ゲームを削除しました!', 'success')
+      navigateTo('/home')
+    } catch {
+      notifyOnSpot('ゲームの削除に失敗しました。再度やり直してください。', 'error')
+    }
   }
 
   useHead({
-    title: game.title
+    title: props.game.title
   })
 </script>
 
@@ -55,7 +53,7 @@
         :id="'show-game-venue-url'"
       />
       <div class="flex justify-evenly mt-16">
-        <NuxtLink :to="gameVenuePath">
+        <NuxtLink :to="gameVenueUrl">
           <MbqButtonPrimary>会場へ</MbqButtonPrimary>
         </NuxtLink>
         <NuxtLink :to="`/games/${gameId}/edit`">
@@ -64,18 +62,19 @@
       </div>
       <div class="flex justify-end">
         <p
-          @click="showModal = true"
+          @click="confirm"
           class="underline hover:cursor-pointer text-red-600"
         >
           削除
         </p>
       </div>
       <MbqModalConfirm
-        v-model="showModal"
+        v-model="showConfirm"
         title="本当に削除してもいいですか？"
-        @confirm="confirm"
+        @destroy-game="destroyGame"
         @cancel="cancel"
       />
     </div>
   </TheContainer>
 </template>
+~/types/game

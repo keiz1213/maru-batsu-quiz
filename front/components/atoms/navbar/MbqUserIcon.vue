@@ -1,10 +1,11 @@
 <script setup lang="ts">
-  const { currentUser } = useAuth()
+  const { user } = useAuth()
+  const photoURL = user.value?.photoURL as string
 </script>
 
 <template>
   <img
     class="h-12 w-12 rounded-full border-2 border-primary object-cover object-center"
-    :src="currentUser.avatar_url"
+    :src="photoURL"
   />
 </template>

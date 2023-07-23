@@ -4,7 +4,7 @@
     title?: string
   }>()
   const emit = defineEmits<{
-    (e: 'confirm'): void
+    (e: 'destroy-game'): void
     (e: 'cancel'): void
   }>()
 </script>
@@ -26,7 +26,7 @@
       >
       <MbqButtonDanger
         class="mx-3"
-        @click="emit('confirm')"
+        @click="emit('destroy-game')"
         :button-type="'button'"
         >削除</MbqButtonDanger
       >

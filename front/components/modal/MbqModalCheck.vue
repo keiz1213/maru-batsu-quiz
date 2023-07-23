@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { VueFinalModal } from 'vue-final-modal'
-  import { Quiz } from '@/types/Quiz'
+  import { Quiz } from '~/types/quiz'
 
   defineProps<{
     quizzes: Quiz[]
@@ -26,3 +26,4 @@
     </div>
   </VueFinalModal>
 </template>
+~/types/quiz

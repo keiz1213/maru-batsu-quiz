@@ -1,10 +1,10 @@
 <script setup lang="ts">
-  import { ChatMessage } from '@/types/ChatMessage'
+  import { ChatMessage } from '~/types/chatMessage'
 
   defineProps<{
     messages: Array<ChatMessage>
     chatVisible: boolean
-    myId: number
+    myId: string
   }>()
 
   const emit = defineEmits<{

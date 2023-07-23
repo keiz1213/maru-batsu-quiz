@@ -1,13 +1,110 @@
 <script setup lang="ts">
-  import { Game } from '@/types/Game'
-  import { Quiz } from '@/types/Quiz'
-  import { getGame } from '~/utils/getters'
+  import { Game } from '~/types/game'
+  import { Quiz } from '~/types/quiz'
+  import { postGame, putGame } from '~/utils/api/services/game'
 
   const props = defineProps<{
-    actionType: string
-    userId: number
-    gameId: string
+    game?: Game
   }>()
+
+  const { loading, setLoading } = useLoading()
+  const { setToast, notifyOnSpot } = useToast()
+
+  const defaultInitialQuizCount = 3
+  const isEditGame = computed(() => !!props.game)
+  const isEditing = ref(false)
+  const editNow = () => isEditing.value = true
+  const editDone = () => isEditing.value = false
+  let quizzes: Ref<Quiz[]>
+  let game: Game
+
+  const createGame = async (game: Game): Promise<void> => {
+    try {
+      setLoading()
+      const { currentUserId } = useCurrentUserId()
+      const createdGame = await postGame(currentUserId.value, game)
+      setToast('ゲームを作成しました!', 'success')
+      navigateTo(`/games/${createdGame.id}`)
+    } catch {
+      notifyOnSpot('ゲームの作成に失敗しました。再度やり直してください。', 'error')
+    }
+  }
+
+  const updateGame = async (game: Game): Promise<void> => {
+    try {
+      setLoading()
+      await putGame(game)
+      setToast('ゲームを更新しました!', 'success')
+      navigateTo(`/games/${game.id}`)
+    } catch {
+      notifyOnSpot('ゲームの更新に失敗しました。再度やり直してください。', 'error')
+    }
+  }
+
+  const setGame = (editableGame: Game) => {
+    game = reactive<Game>(editableGame)
+    watch(game, () => {
+      editNow()
+    })
+  }
+
+  const setQuizzes = (editableQuizzes: Quiz[] | []) => {
+    quizzes = ref<Quiz[] | []>(editableQuizzes)
+  }
+
+  const initializeNewGame = () => {
+    setQuizzes([])
+    for (let i = 0; i < defaultInitialQuizCount; i++) {
+      addQuiz()
+    }
+    const newGame: Game = {
+      user_id: null,
+      id: null,
+      title: '',
+      description: '',
+      quizzes: quizzes.value,
+      number_of_winner: 1,
+      channel_name: '',
+      created_at: '',
+      updated_at: ''
+    }
+    setGame(newGame)
+  }
+
+  const initializeEditGame = () => {
+    game = props.game as Game
+    setQuizzes(game.quizzes)
+    setGame(game)
+  }
+
+  const addQuiz = () => {
+    const quiz: Quiz = reactive({
+      question: '',
+      correct_answer: '◯',
+      explanation: ''
+    })
+    quizzes.value.push(quiz)
+  }
+
+  const removeQuiz = (index: number) => {
+    quizzes.value.splice(index, 1)
+  }
+
+  const onInvalidSubmit = () => {
+    notifyOnSpot('入力内容を確認してください', 'error')
+  }
+
+  const onSubmit = () => {
+    editDone()
+    isEditGame.value ? updateGame(game) : createGame(game)
+  }
+
+  const confirmSave = (event: BeforeUnloadEvent) => {
+    if (isEditing.value) {
+      event.preventDefault()
+      event.returnValue = ''
+    }
+  }
 
   onMounted(() => {
     window.addEventListener('beforeunload', confirmSave)
@@ -32,120 +129,13 @@
     }
   })
 
-  const { loading, setLoading } = useLoading()
-  const { setToast, notifyOnSpot } = useToast()
-
-  const isEditing = ref(false)
-  let quizzes: Ref<Quiz[]>
-  let game: Game
-
-  const confirmSave = (event: BeforeUnloadEvent) => {
-    if (isEditing.value) {
-      event.preventDefault()
-      event.returnValue = ''
-    }
-  }
-
-  const isNewAction = (): boolean => props.actionType === 'new'
-
-  const postGame = async (game: Game, userId: number): Promise<void> => {
-    setLoading()
-    const { data } = await useMyFetch('/api/v1/games', {
-      method: 'post',
-      body: {
-        user_id: userId,
-        title: game.title,
-        description: game.description,
-        number_of_winner: game.number_of_winner,
-        channel_name: Math.random().toString(32).substring(2),
-        quizzes: game.quizzes
-      }
-    })
-    const createdGame = data.value as Game
-    setToast('ゲームを作成しました!', 'success')
-    navigateTo(`/games/${createdGame.id}`)
-  }
-
-  const putGame = async (game: Game, gameId: string): Promise<void> => {
-    setLoading()
-    await useMyFetch(`/api/v1/games/${gameId}`, {
-      method: 'put',
-      body: {
-        title: game.title,
-        description: game.description,
-        number_of_winner: game.number_of_winner,
-        quizzes: game.quizzes
-      }
-    })
-    setToast('ゲームを更新しました!', 'success')
-    navigateTo(`/games/${gameId}`)
-  }
-
-  const setGame = (editableGame: Game): void => {
-    game = reactive<Game>(editableGame)
-    watch(game, () => {
-      isEditing.value = true
-    })
-  }
-
-  const setQuizzes = (editableQuizzes: Quiz[] | []): void => {
-    quizzes = ref<Quiz[] | []>(editableQuizzes)
-  }
-
-  const initializeNewGame = (): void => {
-    setQuizzes([])
-    for (let i = 0; i < 3; i++) {
-      addQuiz()
-    }
-    const newGame: Game = {
-      user_id: null,
-      id: null,
-      channel_name: '',
-      title: '',
-      description: '',
-      quizzes: quizzes.value,
-      number_of_winner: 1,
-      created_at: '',
-      updated_at: ''
-    }
-    setGame(newGame)
-  }
-
-  const initializeCreatedGame = async (): Promise<void> => {
-    const createdGame = await getGame(props.gameId)
-    setQuizzes(createdGame.quizzes)
-    setGame(createdGame)
-  }
-
-  const addQuiz = (): void => {
-    const quiz: Quiz = reactive({
-      question: '',
-      correct_answer: '◯',
-      explanation: ''
-    })
-    quizzes.value.push(quiz)
-  }
-
-  const removeQuiz = (index: number): void => {
-    quizzes.value.splice(index, 1)
-  }
-
-  const onInvalidSubmit = () => {
-    notifyOnSpot('入力内容を確認してください', 'error')
-  }
-
-  const onSubmit = () => {
-    isEditing.value = false
-    isNewAction() ? postGame(game, props.userId) : putGame(game, props.gameId)
-  }
-
-  isNewAction() ? initializeNewGame() : await initializeCreatedGame()
+  isEditGame.value ? initializeEditGame() : initializeNewGame()
 </script>
 
 <template>
   <TheContainer>
     <div class="px-40">
-      <MbqH1>ゲーム{{ isNewAction() ? '作成' : '編集' }}</MbqH1>
+      <MbqH1>ゲーム{{ isEditGame ? '編集' : '作成' }}</MbqH1>
       <VeeForm @submit="onSubmit" @invalid-submit="onInvalidSubmit">
         <MbqFormGameTitle
           :id="'new-game-name'"
@@ -178,21 +168,18 @@
 
         <div class="flex justify-center">
           <MbqButtonPrimary
-            v-if="isNewAction()"
-            :buttonType="'submit'"
-            :isLoading="loading"
-          >
-            作成
-          </MbqButtonPrimary>
-          <MbqButtonPrimary
-            v-else="!isNewAction()"
+            v-if="isEditGame"
             :buttonType="'submit'"
             :isLoading="loading"
           >
             更新
+          </MbqButtonPrimary>
+          <MbqButtonPrimary v-else :buttonType="'submit'" :isLoading="loading">
+            作成
           </MbqButtonPrimary>
         </div>
       </VeeForm>
     </div>
   </TheContainer>
 </template>
+~/types/game ~/types/quiz

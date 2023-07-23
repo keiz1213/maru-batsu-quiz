@@ -8,9 +8,9 @@
     title: '退会の確認'
   })
 
-  const { withdrawal, currentUser } = useAuth()
+  const { withdrawal, loading } = useAuth()
+  const { currentUserId } = useCurrentUserId()
   const router = useRouter()
-  const userId = currentUser.value.id as number
 </script>
 
 <template>
@@ -19,7 +19,11 @@
     <h2 class="text-3xl text-center mt-48">
       今まで作成した○×クイズが全て消去されますがよろしいでしょうか？
     </h2>
-    <MbqButtonDanger @click="withdrawal(userId)" class="block mx-auto my-36">
+    <MbqButtonDanger
+      :isLoading="loading"
+      @click="withdrawal(currentUserId)"
+      class="block mx-auto my-36"
+    >
       退会する
     </MbqButtonDanger>
     <p

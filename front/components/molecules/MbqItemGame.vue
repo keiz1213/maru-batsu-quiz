@@ -1,6 +1,4 @@
 <script setup lang="ts">
-  import useClipboard from '~/composables/useClipboard'
-
   const props = defineProps<{
     content: string | number
     labelName: string
@@ -15,15 +13,11 @@
   const copy = async () => {
     const url = props.content as string
     const tip = document.getElementById('tooltip') as HTMLElement
-    try {
-      await toClipboard(url)
+    await toClipboard(url)
+    tip.classList.toggle('hidden')
+    setTimeout(() => {
       tip.classList.toggle('hidden')
-      setTimeout(() => {
-        tip.classList.toggle('hidden')
-      }, 1000)
-    } catch (e) {
-      console.error(e)
-    }
+    }, 1000)
   }
 </script>
 

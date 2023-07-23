@@ -1,5 +1,5 @@
-import { AvatarParams } from '~/types/AvatarParams'
-import Avatar from './Avatar'
+import { AvatarParams } from '~/types/avatarParams'
+import Avatar from '~/utils/class/Avatar'
 import interact from 'interactjs'
 
 export class SyncDraggable {
@@ -14,13 +14,13 @@ export class SyncDraggable {
     const y = ((parseFloat(dataY) || 0) + event.dy).toString()
     const answer = target.getAttribute('data-answer') as string
     const avatarParams: AvatarParams = {
-      id: avatar.uid,
+      id: avatar.id,
       x: x,
       y: y,
       answer: answer
     }
 
-    avatar.writer?.sendMyAvatarParams(avatar, avatarParams)
+    avatar.influentialAction!.writeAvatarParams(avatarParams)
 
     target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
     target.setAttribute('data-x', x)
@@ -29,7 +29,7 @@ export class SyncDraggable {
   }
 
   static setDraggable(avatar: Avatar): void {
-    interact(`#${avatar.uid}`).draggable({
+    interact(`#${avatar.id}`).draggable({
       inertia: true,
       autoScroll: true,
       listeners: {
@@ -46,12 +46,12 @@ export class SyncDraggable {
   }
 
   static unsetDraggable(avatar: Avatar): void {
-    interact(`#${avatar.uid}`).unset()
+    interact(`#${avatar.id}`).unset()
   }
 
   static setDropzone(answer: string, avatar: Avatar): void {
     interact(`#${answer}`).dropzone({
-      accept: `#${avatar.uid}`,
+      accept: `#${avatar.id}`,
       overlap: 0.5,
       ondragenter: function (event) {
         const draggableElement = event.relatedTarget
@@ -64,3 +64,5 @@ export class SyncDraggable {
     })
   }
 }
+
+export default SyncDraggable

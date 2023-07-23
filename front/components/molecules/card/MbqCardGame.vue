@@ -1,11 +1,11 @@
 <script setup lang="ts">
-  import { Game } from '@/types/Game'
+  import { Game } from '~/types/game'
 
   defineProps<{
     game: Game
   }>()
 
-  const format = (date: string): string => {
+  const format = (date: string) => {
     const dateTimeFormat = new Intl.DateTimeFormat('ja', {
       dateStyle: 'medium'
     })
@@ -31,3 +31,4 @@
     </NuxtLink>
   </div>
 </template>
+~/types/game

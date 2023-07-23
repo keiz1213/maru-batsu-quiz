@@ -1,25 +1,36 @@
 class Api::V1::GamesController < ApplicationController
+  before_action :correct_user, only: %i[update destroy]
+
   def show
     game = Game.find(params[:id])
-    render json: game.as_json(include: :quizzes)
+    render json: game.as_json(include: :quizzes), status: :ok
   end
 
   def create
     game = Game.new(game_params)
     build_quizzes(game)
-    game.save
-    render json: game.as_json(include: :quizzes)
+
+    if game.save
+      render json: game, status: :ok
+    else
+      render json: { status: 'unprocessable_entity' }, status: :unprocessable_entity
+    end
   end
 
   def update
-    game = Game.find(params[:id])
-    rebuild_quizzes(game)
-    game.update(game_params)
+    @game.quizzes.destroy_all
+    build_quizzes(@game)
+
+    if @game.update(update_game_params)
+      render json: @game, status: :ok
+    else
+      render json: { status: 'unprocessable_entity' }, status: :unprocessable_entity
+    end
   end
 
   def destroy
-    game = Game.find(params[:id])
-    game.destroy
+    @game.destroy
+    render json: { status: 'no_content' }, status: :no_content
   end
 
   private
@@ -34,26 +45,32 @@ class Api::V1::GamesController < ApplicationController
     )
   end
 
-  def build_quizzes(game)
-    params.require(:quizzes).each do |quiz|
-      permitted_params = quiz.permit(
+  def quizzes_params
+    params.require(:quizzes).map do |quiz_params|
+      quiz_params.permit(
         :question,
         :correct_answer,
         :explanation
       )
-      game.quizzes.build(permitted_params)
     end
   end
 
-  def rebuild_quizzes(game)
-    game.quizzes.destroy_all
-    params.require(:quizzes).each do |quiz|
-      permitted_params = quiz.permit(
-        :question,
-        :correct_answer,
-        :explanation
-      )
-      game.quizzes.build(permitted_params)
+  def update_game_params
+    params.require(:game).permit(
+      :title,
+      :description,
+      :number_of_winner
+    )
+  end
+
+  def build_quizzes(game)
+    quizzes_params.each do |quiz_params|
+      game.quizzes.build(quiz_params)
     end
+  end
+
+  def correct_user
+    @game = current_user.games.find_by(id: params[:id])
+    render json: { status: 'forbidden' }, status: :forbidden if @game.nil?
   end
 end

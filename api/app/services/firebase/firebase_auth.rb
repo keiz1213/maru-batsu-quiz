@@ -1,10 +1,10 @@
 module Firebase
   module FirebaseAuth
-    def request_certificates
-      # rubocop:disable Rails/Blank
+    # rubocop:disable Rails/Blank
+    def fetch_certificates
       FirebaseIdToken::Certificates.request unless FirebaseIdToken::Certificates.present?
-      # rubocop:enable Rails/Blank
     end
+    # rubocop:enable Rails/Blank
 
     def token_from_request_headers
       request.headers['Authorization']&.split&.last
@@ -24,6 +24,16 @@ module Firebase
 
     def avatar_url_from_payload
       payload['picture']
+    end
+
+    def authenticate_user!
+      fetch_certificates
+      raise ArgumentError, 'BadRequest Parameter' if payload.blank?
+
+      user = User.find_by(uid: uid_from_payload)
+      raise AuthenticationError, 'unauthorized' if user.nil?
+
+      user
     end
   end
 end

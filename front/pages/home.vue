@@ -1,4 +1,6 @@
 <script setup lang="ts">
+  import { getGames } from '~/utils/api/services/game'
+
   definePageMeta({
     middleware: 'auth',
     layout: 'mbq-after-login'
@@ -8,8 +10,7 @@
     title: 'ホーム'
   })
 
-  const { currentUser } = useAuth()
-  const games = currentUser.value.games
+  const games = await getGames()
 </script>
 
 <template>

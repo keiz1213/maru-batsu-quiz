@@ -1,4 +1,4 @@
-import { Quiz } from './Quiz'
+import { Quiz } from './quiz'
 
 export interface Game {
   user_id: number | null

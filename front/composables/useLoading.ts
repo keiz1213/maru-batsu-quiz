@@ -5,9 +5,9 @@ export const useLoading = () => {
     loading.value = true
   }
 
-  const unsetLoading = () => {
+  const clearLoading = () => {
     loading.value = false
   }
 
-  return { loading, setLoading, unsetLoading }
+  return { loading, setLoading, clearLoading }
 }
