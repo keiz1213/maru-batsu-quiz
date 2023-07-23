@@ -5,7 +5,7 @@
 </script>
 
 <template>
-  <NuxtLink class="ml-2" :href="href">
+  <NuxtLink :href="href">
     <img
       src="../../../assets/images/logo-trim.png"
       width="80"

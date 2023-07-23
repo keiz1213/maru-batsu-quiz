@@ -8,7 +8,7 @@
           <div class="text-center">
             <h2 class="block mt-2 mb-2 text-2xl">新しいゲームを作成する</h2>
           </div>
-          <div class="text-center text-my-blue text-6xl">
+          <div class="text-center text-primary text-6xl">
             <p>+</p>
           </div>
         </div>
