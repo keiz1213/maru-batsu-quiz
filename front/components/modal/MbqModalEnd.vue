@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { Quiz } from '~/types/quiz'
-  import Avatar from '~/utils/class/Avatar';
+  import Avatar from '~/utils/class/Avatar'
   import { VueFinalModal } from 'vue-final-modal'
 
   defineProps<{

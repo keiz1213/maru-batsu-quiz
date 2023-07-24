@@ -14,6 +14,7 @@ class Judge {
   addPlayer: Function
   setAllPlayers: Function
   openQuestion: Function
+  closeQuestion: Function
   startGame: Function
   judge: Function
 
@@ -32,6 +33,7 @@ class Judge {
       addPlayer,
       setAllPlayers,
       openQuestion,
+      closeQuestion,
       startGame,
       judge
     } = useJudge(initialNumberOfWinner)
@@ -49,6 +51,7 @@ class Judge {
     this.addPlayer = addPlayer
     this.setAllPlayers = setAllPlayers
     this.openQuestion = openQuestion
+    this.closeQuestion = closeQuestion
     this.startGame = startGame
     this.judge = judge
   }

@@ -7,8 +7,7 @@
   }>()
 
   const emit = defineEmits<{
-    (e: 'confirm'): void
-    (e: 'cancel'): void
+    (e: 'close-question'): void
   }>()
 </script>
 <template>
@@ -19,7 +18,9 @@
     overlay-transition="vfm-fade"
   >
     <div class="absolute inset-0 h-full overflow-auto px-12">
-      <slot />
+      <div class="flex justify-end mt-4">
+        <MbqButtonCirculeCross @click="emit('close-question')" />
+      </div>
       <div>
         <MbqTableQuiz :quizzes="quizzes" />
       </div>

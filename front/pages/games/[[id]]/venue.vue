@@ -91,7 +91,13 @@
     :publisherNames="publisherNames"
   />
 
-  <MbqModalCheck v-model="questionVisible" :quizzes="game.quizzes" />
+  <MbqModalCheck
+    v-model="questionVisible"
+    :quizzes="game.quizzes"
+    @close-question="
+      avatar instanceof OwnerAvatar ? avatar.closeCheckQuestion() : null
+    "
+  />
 
   <div>
     <div

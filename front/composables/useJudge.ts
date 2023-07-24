@@ -44,6 +44,10 @@ export const useJudge = (initialNumberOfWinner: number) => {
     questionVisible.value = true
   }
 
+  const closeQuestion = () => {
+    questionVisible.value = false
+  }
+
   const startGame = (avatar: Avatar) => {
     SyncDraggable.setDraggable(avatar)
     SyncDraggable.setDropzone('◯', avatar)
@@ -149,6 +153,7 @@ export const useJudge = (initialNumberOfWinner: number) => {
     addPlayer,
     setAllPlayers,
     openQuestion,
+    closeQuestion,
     startGame,
     judge
   }

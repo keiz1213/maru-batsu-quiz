@@ -156,6 +156,10 @@ class OwnerAvatar extends Avatar {
     this.nonInfluentialAction!.reactiveVenue.judge.openQuestion()
   }
 
+  closeCheckQuestion = () => {
+    this.nonInfluentialAction!.reactiveVenue.judge.closeQuestion()
+  }
+
   announceQuizNumber = (quizNumber: number) => {
     const announceText = `${quizNumber}問目！`
     this.nonInfluentialAction!.reflectAnnounceText(announceText)

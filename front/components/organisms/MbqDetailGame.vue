@@ -14,8 +14,8 @@
   const queryParams = new URLSearchParams({ title: props.game.title })
   const gameVenueUrl = `${frontUrl}${gameVenuePath}?${queryParams.toString()}`
   const showConfirm = ref(false)
-  const cancel = () => showConfirm.value = false
-  const confirm = () => showConfirm.value = true
+  const cancel = () => (showConfirm.value = false)
+  const confirm = () => (showConfirm.value = true)
 
   const destroyGame = async () => {
     try {
@@ -23,7 +23,10 @@
       setToast('ゲームを削除しました!', 'success')
       navigateTo('/home')
     } catch {
-      notifyOnSpot('ゲームの削除に失敗しました。再度やり直してください。', 'error')
+      notifyOnSpot(
+        'ゲームの削除に失敗しました。再度やり直してください。',
+        'error'
+      )
     }
   }
 
@@ -61,10 +64,7 @@
         </NuxtLink>
       </div>
       <div class="flex justify-end">
-        <p
-          @click="confirm"
-          class="underline hover:cursor-pointer text-red-600"
-        >
+        <p @click="confirm" class="underline hover:cursor-pointer text-red-600">
           削除
         </p>
       </div>

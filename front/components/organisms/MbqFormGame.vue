@@ -13,8 +13,8 @@
   const defaultInitialQuizCount = 3
   const isEditGame = computed(() => !!props.game)
   const isEditing = ref(false)
-  const editNow = () => isEditing.value = true
-  const editDone = () => isEditing.value = false
+  const editNow = () => (isEditing.value = true)
+  const editDone = () => (isEditing.value = false)
   let quizzes: Ref<Quiz[]>
   let game: Game
 
@@ -26,7 +26,10 @@
       setToast('ゲームを作成しました!', 'success')
       navigateTo(`/games/${createdGame.id}`)
     } catch {
-      notifyOnSpot('ゲームの作成に失敗しました。再度やり直してください。', 'error')
+      notifyOnSpot(
+        'ゲームの作成に失敗しました。再度やり直してください。',
+        'error'
+      )
     }
   }
 
@@ -37,7 +40,10 @@
       setToast('ゲームを更新しました!', 'success')
       navigateTo(`/games/${game.id}`)
     } catch {
-      notifyOnSpot('ゲームの更新に失敗しました。再度やり直してください。', 'error')
+      notifyOnSpot(
+        'ゲームの更新に失敗しました。再度やり直してください。',
+        'error'
+      )
     }
   }
 
