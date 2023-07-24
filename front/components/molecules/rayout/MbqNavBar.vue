@@ -19,7 +19,9 @@
         </div>
         <div class="flex h-[69px]">
           <div class="my-2 mr-3">
-            <MbqButtonPrimary>遊び方</MbqButtonPrimary>
+            <NuxtLink :to="'/howToPlay'">
+              <MbqButtonPrimary>遊び方</MbqButtonPrimary>
+            </NuxtLink>
           </div>
           <div
             v-if="isLoggedIn"

@@ -18,7 +18,7 @@
     :class="[
       'text-white',
       'rounded-md',
-      'bg-primary',
+      'bg-my-blue',
       'py-4',
       'px-4',
       'text-md',

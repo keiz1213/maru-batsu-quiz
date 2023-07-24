@@ -5,7 +5,7 @@
 
 <template>
   <img
-    class="h-12 w-12 rounded-full border-2 border-primary object-cover object-center"
+    class="h-12 w-12 rounded-full border-2 border-my-blue object-cover object-center"
     :src="photoURL"
   />
 </template>

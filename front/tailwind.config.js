@@ -14,7 +14,8 @@ module.exports = {
         bash: '#01F941',
         'mac-finder-side': '#D0C8C7',
         'mac-finder-top': '#FAF2F1',
-        'my-blue': '#1095FF'
+        'my-blue': '#1095FF',
+        'my-red': '#E93342'
       }
     }
   },
