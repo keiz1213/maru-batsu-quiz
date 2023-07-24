@@ -63,7 +63,10 @@
         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
       >
       </VeeField>
-      <VeeErrorMessage :name="`question-${quizNumber}`" class="text-red-700" />
+      <VeeErrorMessage
+        :name="`question-${quizNumber}`"
+        class="text-red-700 block m-2"
+      />
       <MbqLabel :id="`new-correct-answer-${quizNumber}`">正解</MbqLabel>
       <select
         v-model="correctAnswer"
@@ -86,7 +89,7 @@
       ></VeeField>
       <VeeErrorMessage
         :name="`explanation-${quizNumber}`"
-        class="text-red-700"
+        class="text-red-700 block m-2"
       />
     </MbqFrameMd>
   </MbqItemContainer>

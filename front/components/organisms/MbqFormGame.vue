@@ -188,4 +188,3 @@
     </div>
   </TheContainer>
 </template>
-~/types/game ~/types/quiz
