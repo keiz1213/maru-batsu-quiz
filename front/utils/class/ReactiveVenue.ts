@@ -5,6 +5,7 @@ import Announce from './Announce'
 import Chat from './Chat'
 import Publication from './Publication'
 import Timer from './Timer'
+import Load from './Load'
 
 class ReactiveVenue {
   owner: Ref<Avatar | undefined>
@@ -23,11 +24,13 @@ class ReactiveVenue {
   publisherNames: Ref<string[]>
   timeElapsed: Ref<number>
   timeLimit: Ref<number>
+  loading: Ref<boolean>
   judge: Judge
   announce: Announce
   chat: Chat
   publication: Publication
   timer: Timer
+  load: Load
 
   constructor(initialNumberOfWinner: number) {
     const judge = new Judge(initialNumberOfWinner)
@@ -35,6 +38,7 @@ class ReactiveVenue {
     const chat = new Chat()
     const publication = new Publication()
     const timer = new Timer()
+    const load = new Load()
 
     this.owner = judge.owner
     this.players = judge.players
@@ -52,11 +56,13 @@ class ReactiveVenue {
     this.publisherNames = publication.publisherNames
     this.timeElapsed = timer.timeElapsed
     this.timeLimit = timer.timeLimit
+    this.loading = load.loading
     this.judge = judge
     this.announce = announce
     this.chat = chat
     this.publication = publication
     this.timer = timer
+    this.load = load
   }
 }
 

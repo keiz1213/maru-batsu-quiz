@@ -1,5 +1,7 @@
 <script setup lang="ts">
   import { VueFinalModal } from 'vue-final-modal'
+  import ChatPlusIcon from 'vue-material-design-icons/chatPlusOutline.vue'
+  import ChatMinusIcon from 'vue-material-design-icons/chatMinusOutline.vue'
   defineProps<{
     title?: string
   }>()
@@ -18,17 +20,21 @@
     </h1>
     <slot />
     <div class="flex px-9">
-      <MbqButtonSecondary
+      <MbqButtonPrimary
         class="mx-3"
         @click="emit('chat-mode')"
         :button-type="'button'"
-        >Chat有り</MbqButtonSecondary
+        ><div class="flex">
+          <chat-plus-icon /><span class="ml-7">Chat有り</span>
+        </div></MbqButtonPrimary
       >
       <MbqButtonSecondary
         class="mx-3"
         @click="emit('non-caht-mode')"
         :button-type="'button'"
-        >Chat無し</MbqButtonSecondary
+        ><div class="flex">
+          <chat-minus-icon /><span class="ml-7">Chat無し</span>
+        </div></MbqButtonSecondary
       >
     </div>
   </VueFinalModal>

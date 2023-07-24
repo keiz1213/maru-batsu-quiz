@@ -12,7 +12,6 @@
   })
 
   const { currentUserId, isGameOwner } = useCurrentUserId()
-  const { errorMessage } = useSkyWayErrorMessage()
 
   let avatar: PlayerAvatar | OwnerAvatar
   const route = useRoute()
@@ -50,6 +49,7 @@
   const publisherNames = nonInfluentialAction.reactiveVenue.publisherNames
   const timeElapsed = nonInfluentialAction.reactiveVenue.timeElapsed
   const timeLimit = nonInfluentialAction.reactiveVenue.timeLimit
+  const loading = nonInfluentialAction.reactiveVenue.loading
 
   if (isGameOwner(ownerId)) {
     avatar = new OwnerAvatar(...initialAvatarParams)
@@ -82,7 +82,6 @@
   <MbqModalStandBy
     v-model="isStandByGame"
     :isOwner="isGameOwner(ownerId)"
-    :errorMessage="errorMessage"
     :players="players"
     :background="'interactive'"
     @start-connection="
@@ -134,6 +133,7 @@
                 avatar instanceof OwnerAvatar ? avatar.checkQuestion() : null
               "
               :description="game.description"
+              :isLoading="loading"
             />
           </div>
         </div>

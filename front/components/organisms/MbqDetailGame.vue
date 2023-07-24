@@ -1,6 +1,8 @@
 <script setup lang="ts">
   import { Game } from '~/types/game'
   import { deleteGame } from '~/utils/api/services/game'
+  import EnterIcon from 'vue-material-design-icons/loginVariant.vue'
+  import PencilIcon from 'vue-material-design-icons/pencil.vue'
 
   const props = defineProps<{
     game: Game
@@ -66,9 +68,17 @@
         :id="'show-game-venue-url'"
       />
       <div class="flex justify-evenly mt-16">
-        <MbqButtonPrimary @click="select">会場へ</MbqButtonPrimary>
+        <MbqButtonPrimary @click="select"
+          ><div class="flex">
+            <enter-icon /><span class="ml-1">ゲーム会場へ入る</span>
+          </div></MbqButtonPrimary
+        >
         <NuxtLink :to="`/games/${gameId}/edit`">
-          <MbqButtonSecondary :buttonType="'button'">編集</MbqButtonSecondary>
+          <MbqButtonSecondary :buttonType="'button'"
+            ><div class="flex">
+              <pencil-icon /><span class="ml-7">編集する</span>
+            </div></MbqButtonSecondary
+          >
         </NuxtLink>
       </div>
       <div class="flex justify-end">

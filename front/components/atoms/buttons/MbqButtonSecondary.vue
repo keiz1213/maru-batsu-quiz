@@ -15,10 +15,25 @@
 
 <template>
   <button
-    class="text-black rounded-md bg-white px-4 p-4 border border-gray-300 text-md hover:brightness-[0.97] w-48"
+    :class="[
+      'text-white',
+      'rounded-md',
+      'bg-green-400',
+      'py-4',
+      'px-4',
+      'text-md',
+      'hover:brightness-[0.9]',
+      'w-48',
+      { 'brightness-[0.9]': isLoading }
+    ]"
     @click="handleClick"
     :type="buttonType"
+    :disabled="isLoading"
   >
-    <slot />
+    <div
+      v-if="isLoading"
+      class="animate-spin h-5 w-5 border-4 border-gray-300 rounded-full border-t-transparent mx-auto px-2 py-2"
+    ></div>
+    <slot v-else />
   </button>
 </template>

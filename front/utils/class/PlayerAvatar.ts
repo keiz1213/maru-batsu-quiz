@@ -121,7 +121,7 @@ class PlayerAvatar extends Avatar {
         myIndex.toString()
       )
     } catch {
-      throw new Error
+      throw new Error()
     }
   }
 

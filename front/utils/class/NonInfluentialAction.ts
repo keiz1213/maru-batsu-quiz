@@ -65,6 +65,14 @@ class NonInfluentialAction {
     this.reactiveVenue.publication.addPublisherName(participantName)
   }
 
+  setLoading = () => {
+    this.reactiveVenue.load.setLoading()
+  }
+
+  clearLoading = () => {
+    this.reactiveVenue.load.clearLoading()
+  }
+
   notifySkyWayError = () => {
     const { notifyOnSpot } = useToast()
     notifyOnSpot(

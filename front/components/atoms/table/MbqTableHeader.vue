@@ -1,6 +1,6 @@
 <template>
   <th
-    class="bg-my-red text-center break-words text-white whitespace-pre-wrap py-3"
+    class="bg-primary text-center break-words text-white whitespace-pre-wrap py-3"
   >
     <slot />
   </th>

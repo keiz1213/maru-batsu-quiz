@@ -221,6 +221,7 @@ class OwnerAvatar extends Avatar {
   }
 
   announce = async (currentQuizNumber: number, quiz: Quiz) => {
+    this.nonInfluentialAction!.setLoading()
     const question = quiz.question
     const correctAnswer = quiz.correct_answer
     const explanation = quiz.explanation
@@ -242,6 +243,7 @@ class OwnerAvatar extends Avatar {
     await this.delay(3000)
     this.announceExplanation(explanation)
     this.announceJudge(correctAnswer)
+    this.nonInfluentialAction!.clearLoading()
   }
 }
 

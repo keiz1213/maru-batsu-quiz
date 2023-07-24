@@ -1,4 +1,8 @@
 <script setup lang="ts">
+  import GameIcon from 'vue-material-design-icons/NintendoGameBoy.vue'
+  import LogoutIcon from 'vue-material-design-icons/logout.vue'
+  import HandWaveIcon from 'vue-material-design-icons/handWaveOutline.vue'
+
   const emits = defineEmits<{
     (e: 'logout'): void
   }>()
@@ -19,8 +23,12 @@
         </div>
         <div class="flex h-[69px]">
           <div class="my-2 mr-3">
-            <NuxtLink :to="'/howToPlay'">
-              <MbqButtonPrimary>遊び方</MbqButtonPrimary>
+            <NuxtLink v-if="!isLoggedIn" :to="'/howToPlay'">
+              <MbqButtonPrimary
+                ><div class="flex">
+                  <game-icon /><span class="ml-3">遊び方を見る</span>
+                </div></MbqButtonPrimary
+              >
             </NuxtLink>
           </div>
           <div
@@ -33,11 +41,23 @@
               class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li>
+                <NuxtLink
+                  :to="'/howToPlay'"
+                  class="block w-full py-3 text-left pl-3"
+                >
+                  <div class="flex">
+                    <game-icon /><span class="ml-3">遊び方を見る</span>
+                  </div>
+                </NuxtLink>
+              </li>
+              <li>
                 <button
                   @click="logout"
                   class="block w-full py-3 text-left pl-3"
                 >
-                  ログアウト
+                  <div class="flex">
+                    <logout-icon /><span class="ml-3">ログアウト</span>
+                  </div>
                 </button>
               </li>
               <li>
@@ -45,7 +65,9 @@
                   :to="'/withdrawalConfirmation'"
                   class="block w-full py-3 text-left pl-3"
                 >
-                  退会
+                  <div class="flex">
+                    <hand-wave-icon /><span class="ml-3">退会</span>
+                  </div>
                 </NuxtLink>
               </li>
             </ul>

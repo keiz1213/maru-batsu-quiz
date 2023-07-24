@@ -11,10 +11,17 @@
 </script>
 
 <template>
-  <div class="my-10">
+  <div>
     <h3 class="text-xl my-4">{{ title }}</h3>
     <div class="bg-slate-100 rounded-2xl p-6">
-      <img v-if="fileName" :src="generateImgPath(fileName!)" :alt="fileName" />
+      <div class="">
+        <img
+          class="block mx-auto"
+          v-if="fileName"
+          :src="generateImgPath(fileName!)"
+          :alt="fileName"
+        />
+      </div>
       <p :class="['text-center', fileName ? 'mt-5' : '']">
         {{ description }}
       </p>

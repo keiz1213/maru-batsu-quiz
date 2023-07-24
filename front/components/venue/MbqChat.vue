@@ -20,9 +20,7 @@
 
 <template>
   <div class="w-[350px] h-[420px] bg-white rounded-lg mx-2 flex flex-col">
-    <MbqMacBar
-      :title="'Chat'"
-    />
+    <MbqMacBar :title="'Chat'" />
     <div>
       <div
         id="chat-display"

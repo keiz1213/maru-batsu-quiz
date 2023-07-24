@@ -38,7 +38,9 @@
       <div>
         <MbqTableQuiz :quizzes="quizzes" />
       </div>
-      <p @click="backToHome" class="underline hover:cursor-pointer">←ホームに戻る</p>
+      <p @click="backToHome" class="underline hover:cursor-pointer mb-10">
+        ←ホームに戻る
+      </p>
     </div>
   </VueFinalModal>
 </template>
