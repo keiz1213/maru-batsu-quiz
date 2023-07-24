@@ -32,6 +32,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
     )
     return navigateTo('/home')
   } else if (skyway.isChatVisible(channel)) {
+    console.log('hello')
     visible()
   }
 })

@@ -3,10 +3,14 @@
   import Avatar from '~/utils/class/Avatar'
   import { VueFinalModal } from 'vue-final-modal'
 
-  defineProps<{
+  const props = defineProps<{
     winners: Avatar[]
     quizzes: Quiz[]
   }>()
+
+  watch(props, () => {
+    bothSidesCracker()
+  })
 </script>
 <template>
   <VueFinalModal
@@ -16,7 +20,9 @@
     overlay-transition="vfm-fade"
   >
     <div class="absolute inset-0 h-full overflow-auto px-12">
-      <h1 class="text-xl text-center my-6">Congratulations!</h1>
+      <h1 class="text-3xl text-center my-6 animate__animated animate__flip">
+        Congratulations!
+      </h1>
       <slot />
       <div class="flex justify-center">
         <MbqAvatar
