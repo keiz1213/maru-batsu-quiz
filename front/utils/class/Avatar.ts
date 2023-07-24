@@ -56,16 +56,14 @@ class Avatar {
     this.skyway!.channel!.onMetadataUpdated.add((e) => {
       if (e.metadata === 'error') {
         this.nonInfluentialAction!.notifySkyWayError()
-        this.updateChannelMetadataWith('')
       }
     })
   }
 
-  leaveChannel = async () => {
+  leaveChannel = () => {
     this.updateChannelMetadataWith('error')
-    this.updateChannelMetadataWith('')
     localStorage.clear()
-    await this.skyway!.agent!.leave()
+    this.skyway!.agent!.leave()
   }
 
   sendMyAvatar = () => {

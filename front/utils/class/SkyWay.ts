@@ -91,16 +91,28 @@ class SkyWay {
     this.publication = publication
   }
 
-  hasMembers = (channel: P2PRoom) => {
-    return channel.members.length != 0
+  hasNoMembers = (channel: P2PRoom) => {
+    return channel.members.length === 0
   }
 
   isChannelMetadataEmpty = (channel: P2PRoom) => {
     return channel.metadata === undefined || channel.metadata === ''
   }
 
-  isChatVisible = (channel: P2PRoom) => {
+  isChatEnabled = (channel: P2PRoom) => {
     return channel.metadata === 'chatVisible'
+  }
+
+  isError = (channel: P2PRoom) => {
+    return channel.metadata === 'error'
+  }
+
+  isOwnerEnterable = (channel: P2PRoom) => {
+    return this.hasNoMembers(channel)
+  }
+
+  isPlayerEnterable = (channel: P2PRoom) => {
+    return !this.isChannelMetadataEmpty(channel) && !this.isError(channel)
   }
 }
 

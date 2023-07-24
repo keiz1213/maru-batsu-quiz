@@ -44,7 +44,6 @@ class PlayerAvatar extends Avatar {
       } catch {
         this.nonInfluentialAction!.notifySkyWayError()
         this.updateChannelMetadataWith('error')
-        this.updateChannelMetadataWith('')
       }
     })
   }
@@ -52,7 +51,6 @@ class PlayerAvatar extends Avatar {
   setUpChannel = () => {
     this.onMyMetaDataUpdated()
     this.onChannelMetadataUpdated()
-    // this.onParticipantLeftChannel()
   }
 
   onDataWrite = async (stream: RemoteDataStream) => {

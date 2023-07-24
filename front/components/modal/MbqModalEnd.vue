@@ -11,6 +11,10 @@
   watch(props, () => {
     bothSidesCracker()
   })
+
+  const backToHome = () => {
+    navigateTo('/home', { external: true })
+  }
 </script>
 <template>
   <VueFinalModal
@@ -34,6 +38,7 @@
       <div>
         <MbqTableQuiz :quizzes="quizzes" />
       </div>
+      <p @click="backToHome" class="underline hover:cursor-pointer">←ホームに戻る</p>
     </div>
   </VueFinalModal>
 </template>

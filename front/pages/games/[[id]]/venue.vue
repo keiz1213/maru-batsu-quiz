@@ -53,10 +53,7 @@
 
   if (isGameOwner(ownerId)) {
     avatar = new OwnerAvatar(...initialAvatarParams)
-    if (chatVisible.value) {
-      avatar.updateChannelMetadataWith('chatVisible')
-    }
-    avatar.setUpChannel()
+    avatar.setUpChannel(chatVisible.value)
   } else {
     avatar = new PlayerAvatar(...initialAvatarParams)
     avatar.setUpChannel()

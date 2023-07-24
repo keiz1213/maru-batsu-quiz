@@ -15,24 +15,28 @@ export default defineNuxtRouteMiddleware(async (to) => {
   const channel = await skyway.findOrCreateChannelForCheck()
 
   if (isGameOwner(ownerId)) {
-    if (skyway.hasMembers(channel)) {
+    if (skyway.isOwnerEnterable(channel)) {
+      if (localStorage.getItem('chat')) {
+        visible()
+      }
+      return
+    } else {
       setToast(
         '参加者がまだ残っています。参加者が退出してから入室してください。',
         'error'
       )
       return navigateTo('/home')
     }
-    if (localStorage.getItem('chat')) {
+  } else if (skyway.isPlayerEnterable(channel)) {
+    if (skyway.isChatEnabled(channel)) {
       visible()
     }
-  } else if (skyway.isChannelMetadataEmpty(channel)) {
+    return
+  } else {
     setToast(
       '主催者がまだ入室していないか、既にゲームが始まっています。',
       'error'
     )
     return navigateTo('/home')
-  } else if (skyway.isChatVisible(channel)) {
-    console.log('hello')
-    visible()
   }
 })

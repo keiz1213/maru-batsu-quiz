@@ -38,12 +38,14 @@ class OwnerAvatar extends Avatar {
     })
   }
 
-  setUpChannel = async () => {
-    if (this.skyway?.isChannelMetadataEmpty) {
-      this.updateChannelMetadataWith('acceptable')
+  setUpChannel = async (chatVisible: boolean) => {
+    if (chatVisible) {
+      await this.updateChannelMetadataWith('chatVisible')
+    } else {
+      await this.updateChannelMetadataWith('accetable')
     }
-    this.nonInfluentialAction!.reactiveVenue.judge.addOwner(this)
     this.onChannelMetadataUpdated()
+    this.nonInfluentialAction!.reactiveVenue.judge.addOwner(this)
     this.onPlayerEnterChannel()
   }
 
