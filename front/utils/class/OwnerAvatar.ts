@@ -39,11 +39,12 @@ class OwnerAvatar extends Avatar {
   }
 
   setUpChannel = async () => {
-    this.updateChannelMetadataWith('acceptable')
+    if (this.skyway?.isChannelMetadataEmpty) {
+      this.updateChannelMetadataWith('acceptable')
+    }
     this.nonInfluentialAction!.reactiveVenue.judge.addOwner(this)
     this.onChannelMetadataUpdated()
     this.onPlayerEnterChannel()
-    // this.onParticipantLeftChannel()
   }
 
   onDataWrite = async (stream: RemoteDataStream) => {

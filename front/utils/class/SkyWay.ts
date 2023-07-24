@@ -96,8 +96,11 @@ class SkyWay {
   }
 
   isChannelMetadataEmpty = (channel: P2PRoom) => {
-    console.log(channel.metadata)
     return channel.metadata === undefined || channel.metadata === ''
+  }
+
+  isChatVisible = (channel: P2PRoom) => {
+    return channel.metadata === 'chatVisible'
   }
 }
 
