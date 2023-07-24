@@ -18,7 +18,7 @@
 
 <template>
   <div class="w-[350px] h-[350px] bg-white rounded-lg flex flex-col mx-2">
-    <MbqMacBar :title="'Owner'" :isChat="false" />
+    <MbqMacBar :title="'Owner'" />
     <div v-if="owner" class="flex justify-center mt-2">
       <MbqAvatar :avatar="owner" />
     </div>

@@ -14,8 +14,18 @@
   const queryParams = new URLSearchParams({ title: props.game.title })
   const gameVenueUrl = `${frontUrl}${gameVenuePath}?${queryParams.toString()}`
   const showConfirm = ref(false)
+  const showSelect = ref(false)
   const cancel = () => (showConfirm.value = false)
   const confirm = () => (showConfirm.value = true)
+  const select = () => (showSelect.value = true)
+
+  const goToVenue = () => {
+    navigateTo(gameVenueUrl, { external: true })
+  }
+  const goToVenueWithChat = () => {
+    localStorage.setItem('chat', 'enabled')
+    navigateTo(gameVenueUrl, { external: true })
+  }
 
   const destroyGame = async () => {
     try {
@@ -56,9 +66,7 @@
         :id="'show-game-venue-url'"
       />
       <div class="flex justify-evenly mt-16">
-        <NuxtLink :to="gameVenueUrl">
-          <MbqButtonPrimary>会場へ</MbqButtonPrimary>
-        </NuxtLink>
+        <MbqButtonPrimary @click="select">会場へ</MbqButtonPrimary>
         <NuxtLink :to="`/games/${gameId}/edit`">
           <MbqButtonSecondary :buttonType="'button'">編集</MbqButtonSecondary>
         </NuxtLink>
@@ -68,6 +76,12 @@
           削除
         </p>
       </div>
+      <MbqModalSelect
+        v-model="showSelect"
+        title="チャットは使いますか？"
+        @chat-mode="goToVenueWithChat"
+        @non-caht-mode="goToVenue"
+      />
       <MbqModalConfirm
         v-model="showConfirm"
         title="本当に削除してもいいですか？"

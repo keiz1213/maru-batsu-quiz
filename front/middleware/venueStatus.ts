@@ -5,6 +5,7 @@ import { getUser } from '~/utils/api/services/user'
 export default defineNuxtRouteMiddleware(async (to) => {
   const { currentUserId, isGameOwner } = useCurrentUserId()
   const { setToast } = useToast()
+  const { visible } = useChat()
 
   const gameId = to.params.id as string
   const game = await getGame(gameId)
@@ -20,6 +21,9 @@ export default defineNuxtRouteMiddleware(async (to) => {
         'error'
       )
       return navigateTo('/home')
+    }
+    if (localStorage.getItem('chat')) {
+      visible()
     }
   } else if (skyway.isChannelMetadataEmpty(channel)) {
     setToast(

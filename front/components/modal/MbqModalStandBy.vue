@@ -47,7 +47,7 @@
       <div
         class="w-1/2 min-h-[400px] m-auto my-10 rounded-lg border border-mac-finder-side"
       >
-        <MbqMacBar :title="'Entry'" :isChat="false" />
+        <MbqMacBar :title="'Entry'" />
         <div class="flex justify-center" aria-label="読み込み中">
           <div
             class="animate-spin h-10 w-10 border-4 border-blue-300 rounded-full border-t-transparent mt-3"

@@ -1,7 +1,9 @@
 import { ChatMessage } from '~/types/chatMessage'
 
 export const useChat = () => {
-  const chatVisible = ref<boolean>(true)
+  const chatVisible = useState<boolean>('chat-visible', () => {
+    return false
+  })
   const chatMessages = ref<ChatMessage[]>([])
 
   const visible = () => {

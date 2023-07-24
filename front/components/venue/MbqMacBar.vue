@@ -1,11 +1,6 @@
 <script setup lang="ts">
   defineProps<{
     title: string
-    isChat: boolean
-  }>()
-
-  const emit = defineEmits<{
-    (e: 'update:chatVisible'): void
   }>()
 </script>
 
@@ -15,13 +10,5 @@
   >
     <MbqMacButtons />
     <p>{{ title }}</p>
-    <div v-if="isChat" class="absolute right-0.5 top-0.5">
-      <input
-        @change="emit('update:chatVisible')"
-        type="checkbox"
-        class="toggle toggle-primary"
-        checked
-      />
-    </div>
   </div>
 </template>

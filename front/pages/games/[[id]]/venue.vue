@@ -144,14 +144,12 @@
             <MbqAnswer />
           </div>
         </div>
-        <div id="chat-container">
+        <div v-if="chatVisible" id="chat-container">
           <div id="chat-area">
             <MbqChat
-              :chatVisible="chatVisible"
               :myId="avatar.id"
               :messages="chatMessages"
               @update:messages="avatar.sendChatMessage"
-              @update:chatVisible="avatar.toggelChatVisible(chatVisible)"
             />
           </div>
         </div>

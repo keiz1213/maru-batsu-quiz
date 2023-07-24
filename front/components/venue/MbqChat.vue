@@ -3,13 +3,11 @@
 
   defineProps<{
     messages: Array<ChatMessage>
-    chatVisible: boolean
     myId: string
   }>()
 
   const emit = defineEmits<{
     (e: 'update:messages', message: string): void
-    (e: 'update:chatVisible'): void
   }>()
 
   const message = ref('')
@@ -24,10 +22,8 @@
   <div class="w-[350px] h-[420px] bg-white rounded-lg mx-2 flex flex-col">
     <MbqMacBar
       :title="'Chat'"
-      :isChat="true"
-      @update:chatVisible="emit('update:chatVisible')"
     />
-    <div v-show="chatVisible">
+    <div>
       <div
         id="chat-display"
         class="h-[300px] border-b overflow-auto px-4 pt-4 pb-14 break-all"

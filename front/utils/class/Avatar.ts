@@ -64,6 +64,7 @@ class Avatar {
   leaveChannel = async () => {
     this.updateChannelMetadataWith('error')
     this.updateChannelMetadataWith('')
+    localStorage.clear()
     await this.skyway!.agent!.leave()
   }
 
@@ -92,14 +93,6 @@ class Avatar {
     const chatMessage = this.createChatMessage(newMessage)
     this.nonInfluentialAction!.reflectChatMessage(chatMessage)
     this.influentialAction!.writeChatMessage(chatMessage)
-  }
-
-  toggelChatVisible = (chatVisible: boolean) => {
-    if (chatVisible) {
-      this.nonInfluentialAction!.reactiveVenue.chat.inVisible()
-    } else {
-      this.nonInfluentialAction!.reactiveVenue.chat.visible()
-    }
   }
 
   delay = (ms: number) => {
