@@ -37,7 +37,6 @@ class PlayerAvatar extends Avatar {
     this.skyway!.agent!.onMetadataUpdated.add(async () => {
       try {
         const myIndx = this.skyway!.agent!.metadata as string
-        console.log(`my index is ${myIndx}`)
         this.setMyIndex(parseInt(myIndx))
         await this.subscribeToOwner()
         this.sendMyAvatar()
@@ -110,16 +109,20 @@ class PlayerAvatar extends Avatar {
 
   // player → owner
   subscribeToOwner = async () => {
-    const myIndex = this.index as number
-    const ownerPublication = this.skyway!.channel!
-      .publications[0] as RoomPublication
-    const ownerPublicationId = ownerPublication?.id as string
-    const stream = await this.subscribeTo(ownerPublicationId)
-    await this.onDataWrite(stream)
-    await this.updateParticipantMetadataWith(
-      ownerPublication,
-      myIndex.toString()
-    )
+    try {
+      const myIndex = this.index as number
+      const ownerPublication = this.skyway!.channel!
+        .publications[0] as RoomPublication
+      const ownerPublicationId = ownerPublication?.id as string
+      const stream = await this.subscribeTo(ownerPublicationId)
+      await this.onDataWrite(stream)
+      await this.updateParticipantMetadataWith(
+        ownerPublication,
+        myIndex.toString()
+      )
+    } catch {
+      throw new Error
+    }
   }
 
   subscribeToAllPlayers = async (specifiedIndex: number) => {

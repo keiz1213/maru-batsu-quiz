@@ -80,13 +80,17 @@ class OwnerAvatar extends Avatar {
   }
 
   subscribeToAllPlayers = async () => {
-    const numberOfParticipant = this.skyway!.channel!.publications
-      .length as number
-    for (let i = 1; i < numberOfParticipant; i++) {
-      const playerPublicationId = this.skyway!.channel!.publications[i]
-        .id as string
-      const stream = await this.subscribeTo(playerPublicationId)
-      await this.onDataWrite(stream)
+    try {
+      const numberOfParticipant = this.skyway!.channel!.publications
+        .length as number
+      for (let i = 1; i < numberOfParticipant; i++) {
+        const playerPublicationId = this.skyway!.channel!.publications[i]
+          .id as string
+        const stream = await this.subscribeTo(playerPublicationId)
+        await this.onDataWrite(stream)
+      }
+    } catch {
+      throw new Error()
     }
   }
 
