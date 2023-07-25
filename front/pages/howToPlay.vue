@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  // import HeadCogIcon from 'vue-material-design-icons/headCogOutline.vue'
-  // import HeadLightBulbIcon from 'vue-material-design-icons/headLightbulbOutline.vue'
+  import HeadCogIcon from 'vue-material-design-icons/headCogOutline.vue'
+  import HeadLightBulbIcon from 'vue-material-design-icons/headLightbulbOutline.vue'
   definePageMeta({
     layout: 'mbq-after-login'
   })
@@ -22,7 +22,7 @@
         <ul>
           <li class="py-1">
             <div class="flex">
-              <!-- <head-cog-icon /> -->
+              <head-cog-icon />
               <a class="hover:text-gray-500 ml-3" href="#questioner"
                 >出題者として</a
               >
@@ -30,7 +30,7 @@
           </li>
           <li class="py-1">
             <div class="flex">
-              <!-- <head-light-bulb-icon /> -->
+              <head-light-bulb-icon />
               <a class="hover:text-gray-500 ml-3" href="#answerer"
                 >回答者として</a
               >
@@ -42,7 +42,7 @@
         <div class="mt-10">
           <h2 class="text-2xl">
             <div class="flex">
-              <!-- <head-cog-icon :size="31" /> -->
+              <head-cog-icon :size="31" />
               <span class="ml-3">出題者として</span>
             </div>
           </h2>
@@ -112,7 +112,7 @@
         <div>
           <h2 class="text-2xl">
             <div class="flex">
-              <!-- <head-light-bulb-icon :size="31" /> -->
+              <head-light-bulb-icon :size="31" />
               <span class="ml-3">回答者として</span>
             </div>
           </h2>
