@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  import GameIcon from 'vue-material-design-icons/NintendoGameBoy.vue'
-  import LogoutIcon from 'vue-material-design-icons/logout.vue'
-  import HandWaveIcon from 'vue-material-design-icons/handWaveOutline.vue'
+  import NintendoGameBoyIcon from 'vue-material-design-icons/NintendoGameBoy.vue'
+  import LogoutIcon from 'vue-material-design-icons/Logout.vue'
+  import HandWaveOutlineIcon from 'vue-material-design-icons/HandWaveOutline.vue'
 
   const emits = defineEmits<{
     (e: 'logout'): void
@@ -26,7 +26,7 @@
             <NuxtLink v-if="!isLoggedIn" :to="'/howToPlay'">
               <MbqButtonPrimary
                 ><div class="flex">
-                  <game-icon /><span class="ml-3">遊び方を見る</span>
+                  <nintendo-game-boy-icon /><span class="ml-3">遊び方を見る</span>
                 </div></MbqButtonPrimary
               >
             </NuxtLink>
@@ -46,7 +46,7 @@
                   class="block w-full py-3 text-left pl-3"
                 >
                   <div class="flex">
-                    <game-icon /><span class="ml-3">遊び方を見る</span>
+                    <nintendo-game-boy-icon /><span class="ml-3">遊び方を見る</span>
                   </div>
                 </NuxtLink>
               </li>
@@ -66,7 +66,7 @@
                   class="block w-full py-3 text-left pl-3"
                 >
                   <div class="flex">
-                    <hand-wave-icon /><span class="ml-3">退会</span>
+                    <hand-wave-outline-icon /><span class="ml-3">退会</span>
                   </div>
                 </NuxtLink>
               </li>

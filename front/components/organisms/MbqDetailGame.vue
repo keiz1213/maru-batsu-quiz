@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import { Game } from '~/types/game'
   import { deleteGame } from '~/utils/api/services/game'
-  import EnterIcon from 'vue-material-design-icons/loginVariant.vue'
-  import PencilIcon from 'vue-material-design-icons/pencil.vue'
+  import LoginVariantIcon from 'vue-material-design-icons/LoginVariant.vue'
+  import PencilIcon from 'vue-material-design-icons/Pencil.vue'
 
   const props = defineProps<{
     game: Game
@@ -70,7 +70,7 @@
       <div class="flex justify-evenly mt-16">
         <MbqButtonPrimary @click="select"
           ><div class="flex">
-            <enter-icon /><span class="ml-1">ゲーム会場へ入る</span>
+            <login-variant-icon /><span class="ml-1">ゲーム会場へ入る</span>
           </div></MbqButtonPrimary
         >
         <NuxtLink :to="`/games/${gameId}/edit`">

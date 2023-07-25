@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  import TrophyIcon from 'vue-material-design-icons/trophy.vue'
-  import FolderIcon from 'vue-material-design-icons/folderPlus.vue'
-  import UpdateIcon from 'vue-material-design-icons/update.vue'
+  import TrophyIcon from 'vue-material-design-icons/Trophy.vue'
+  import FolderPlusIcon from 'vue-material-design-icons/FolderPlus.vue'
+  import UpdateIcon from 'vue-material-design-icons/Update.vue'
 
   defineProps<{
     description: string
@@ -25,7 +25,7 @@
       </li>
       <li>
         <div class="flex">
-          <folder-icon /><span class="ml-1">作成日: {{ createdAt }}</span>
+          <folder-plus-icon /><span class="ml-1">作成日: {{ createdAt }}</span>
         </div>
       </li>
       <li>

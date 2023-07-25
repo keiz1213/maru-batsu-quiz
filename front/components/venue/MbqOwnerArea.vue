@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import { Quiz } from '~/types/quiz'
   import Avatar from '~/utils/class/Avatar'
-  import QuestionIcon from 'vue-material-design-icons/chatQuestionOutline.vue'
-  import ListCheckIcon from 'vue-material-design-icons/formatListChecks.vue'
+  import ChatQuestionOutlineIcon from 'vue-material-design-icons/ChatQuestionOutline.vue'
+  import FormatListChecksIcon from 'vue-material-design-icons/FormatListChecks.vue'
 
   defineProps<{
     owner: Avatar | undefined
@@ -33,7 +33,7 @@
           <div>
             <MbqButtonPrimary @click="emit('announce')" :isLoading="isLoading"
               ><div class="flex">
-                <question-icon />
+                <chat-question-outline-icon />
                 <span class="ml-1"
                   >{{ currentQuizNumber + 1 }} 問目を出題する</span
                 >
@@ -45,7 +45,7 @@
               :button-type="'button'"
               @click="emit('check-question')"
               ><div class="flex">
-                <list-check-icon />
+                <format-list-checks-icon />
                 <span class="ml-2">問題を確認する</span>
               </div>
             </MbqButtonSecondary>

@@ -2,8 +2,8 @@
   import { Game } from '~/types/game'
   import { Quiz } from '~/types/quiz'
   import { postGame, putGame } from '~/utils/api/services/game'
-  import FolderIcon from 'vue-material-design-icons/folderPlus.vue'
-  import UpdateIcon from 'vue-material-design-icons/update.vue'
+  import FolderPlusIcon from 'vue-material-design-icons/FolderPlus.vue'
+  import UpdateIcon from 'vue-material-design-icons/Update.vue'
 
   const props = defineProps<{
     game?: Game
@@ -186,7 +186,7 @@
           </MbqButtonPrimary>
           <MbqButtonPrimary v-else :buttonType="'submit'" :isLoading="loading">
             <div class="flex">
-              <folder-icon /><span class="ml-1">ゲームを作成する</span>
+              <folder-plus-icon /><span class="ml-1">ゲームを作成する</span>
             </div>
           </MbqButtonPrimary>
         </div>

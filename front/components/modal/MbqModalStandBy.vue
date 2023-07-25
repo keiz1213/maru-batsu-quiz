@@ -1,9 +1,9 @@
 <script setup lang="ts">
   import Avatar from '~/utils/class/Avatar'
   import { VueFinalModal } from 'vue-final-modal'
-  import CheckIcon from 'vue-material-design-icons/CheckBold.vue'
-  import ConnectIcon from 'vue-material-design-icons/humanGreetingProximity.vue'
-  import InfoIcon from 'vue-material-design-icons/informationOutline.vue'
+  import CheckBoldIcon from 'vue-material-design-icons/CheckBold.vue'
+  import HumanGreetingProximityIcon from 'vue-material-design-icons/HumanGreetingProximity.vue'
+  import InformationOutlineIcon from 'vue-material-design-icons/InformationOutline.vue'
 
   defineProps<{
     players: Avatar[]
@@ -31,7 +31,7 @@
       <div v-if="isOwner" class="my-5 mx-auto w-2/3">
         <h2 class="text-center text-xl my-2">
           <div class="flex">
-            <info-icon :size="28" />
+            <information-outline-icon :size="28" />
             <span class="ml-2">
               この会場のURLを参加予定者にシェアしてください
             </span>
@@ -39,7 +39,7 @@
         </h2>
         <h2 class="text-center text-xl my-2">
           <div class="flex">
-            <info-icon :size="28" />
+            <information-outline-icon :size="28" />
             <span class="ml-2">
               参加予定者がURLにアクセスすると、その人は「入室済み」となります
             </span>
@@ -47,7 +47,7 @@
         </h2>
         <h2 class="text-center text-xl">
           <div class="flex">
-            <info-icon :size="28" />
+            <information-outline-icon :size="28" />
             <span class="ml-2">
               参加予定者が全員入室済みになったら「接続開始する」を押してください
             </span>
@@ -63,7 +63,7 @@
         <ul>
           <li>
             <div class="flex m-2">
-              <check-icon />
+              <check-bold-icon />
               <span class="mx-2"
                 >接続を開始すると後から入室することはできません</span
               >
@@ -71,7 +71,7 @@
           </li>
           <li>
             <div class="flex m-2">
-              <check-icon />
+              <check-bold-icon />
               <span class="mx-2"
                 >接続が完了するとゲームを始めることができます</span
               >
@@ -79,7 +79,7 @@
           </li>
           <li>
             <div class="flex m-2">
-              <check-icon />
+              <check-bold-icon />
               <span class="mx-2">
                 ブラウザバックや、タブを閉じる、リロードするなどするとエラーになります
               </span>
@@ -87,7 +87,7 @@
           </li>
           <li>
             <div class="flex m-2">
-              <check-icon />
+              <check-bold-icon />
               <span class="mx-2">
                 途中でエラーが発生した場合は全員退室後、再度入室してください
               </span>
@@ -112,7 +112,7 @@
             :isLoading="loading"
             @click="handleClick"
             ><div class="flex">
-              <connect-icon />
+              <human-greeting-proximity-icon />
               <span class="ml-2"> 接続を開始する </span>
             </div></MbqButtonPrimary
           >
