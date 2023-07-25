@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import TrophyIcon from 'vue-material-design-icons/Trophy.vue'
-  import FolderPlusIcon from 'vue-material-design-icons/FolderPlus.vue'
+  import TrophyOutlineIcon from 'vue-material-design-icons/TrophyOutline.vue'
+  import FolderPlusOutlineIcon from 'vue-material-design-icons/FolderPlusOutline.vue'
   import UpdateIcon from 'vue-material-design-icons/Update.vue'
 
   defineProps<{
@@ -19,13 +19,13 @@
     <ul>
       <li>
         <div class="flex">
-          <trophy-icon />
+          <trophy-outline-icon />
           <span class="ml-2"> 勝ち抜き人数: {{ numberOfWinner }}人 </span>
         </div>
       </li>
       <li>
         <div class="flex">
-          <folder-plus-icon /><span class="ml-1">作成日: {{ createdAt }}</span>
+          <folder-plus-outline-icon /><span class="ml-1">作成日: {{ createdAt }}</span>
         </div>
       </li>
       <li>
