@@ -1,7 +1,9 @@
 import Avatar from '~/utils/class/Avatar'
 import SyncDraggable from '~/utils/class/SyncDraggable'
+import { ParticipantData } from '~/types/participantData'
 
 export const useJudge = (initialNumberOfWinner: number) => {
+  const participantData = ref<ParticipantData[]>([])
   const owner = ref<Avatar>()
   const players: Ref<Avatar[]> = ref([])
   const losers: Ref<Avatar[]> = ref([])
@@ -11,6 +13,10 @@ export const useJudge = (initialNumberOfWinner: number) => {
   const questionVisible = ref(false)
   const isStandByGame = ref(true)
   const isEndOfGame = ref(false)
+
+  const addParticipantData = (data: ParticipantData) => {
+    participantData.value.push(data)
+  }
 
   const addOwner = (gameOwner: Avatar) => {
     owner.value = gameOwner
@@ -140,6 +146,7 @@ export const useJudge = (initialNumberOfWinner: number) => {
   }
 
   return {
+    participantData,
     owner,
     players,
     losers,
@@ -149,6 +156,7 @@ export const useJudge = (initialNumberOfWinner: number) => {
     questionVisible,
     isStandByGame,
     isEndOfGame,
+    addParticipantData,
     addOwner,
     addPlayer,
     setAllPlayers,

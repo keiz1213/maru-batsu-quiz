@@ -8,7 +8,7 @@
 
 <template>
   <div
-    class="avatar flex-col z-10 animate__animated"
+    class="avatar flex-col z-10 animate__animated w-28 break-all"
     data-answer=""
     data-state=""
     :id="avatar.id"

@@ -1,5 +1,6 @@
 import { AvatarParams } from '~/types/avatarParams'
 import { ChatMessage } from '~/types/chatMessage'
+import { ParticipantData } from '~/types/participantData'
 import Avatar from '~/utils/class/Avatar'
 import ReactiveVenue from './ReactiveVenue'
 
@@ -8,6 +9,10 @@ class NonInfluentialAction {
 
   constructor(initialNumberOfWinner: number) {
     this.reactiveVenue = new ReactiveVenue(initialNumberOfWinner)
+  }
+
+  addParticipant = (participantData: ParticipantData) => {
+    this.reactiveVenue.judge.addParticipantData(participantData)
   }
 
   startTheGame = (avatar: Avatar) => {
@@ -59,10 +64,6 @@ class NonInfluentialAction {
 
   executeJudge = (correctAnswer: string) => {
     this.reactiveVenue.judge.judge(correctAnswer)
-  }
-
-  addParticipantName = (participantName: string) => {
-    this.reactiveVenue.publication.addPublisherName(participantName)
   }
 
   setLoading = () => {

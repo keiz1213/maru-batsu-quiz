@@ -34,7 +34,13 @@ class OwnerAvatar extends Avatar {
     this.skyway!.channel!.onPublicationListChanged.add(async () => {
       const publisherName = this.skyway!.channel!.publications.slice(-1)[0]
         .publisher.name as string
-      this.nonInfluentialAction!.addParticipantName(publisherName)
+      const publisherAvatarUrl = this.skyway!.channel!.publications.slice(-1)[0]
+        .publisher.metadata as string
+      const participantData = {
+        name: publisherName,
+        avatarUrl: publisherAvatarUrl
+      }
+      this.nonInfluentialAction!.addParticipant(participantData)
     })
   }
 
@@ -122,9 +128,13 @@ class OwnerAvatar extends Avatar {
           allPublications[i],
           playerIndex
         )
-        console.log(`[:promptSubscribeToOwnerForAllPlayers] ${i}人目にownerをサブスクするように促します`)
+        console.log(
+          `[:promptSubscribeToOwnerForAllPlayers] ${i}人目にownerをサブスクするように促します`
+        )
         await this.checkPlayerSubscribedToOwner(playerIndex, 10)
-        console.log(`[:promptSubscribeToOwnerForAllPlayers] ${i}人目がownerをサブスクサブスク完了しました`)
+        console.log(
+          `[:promptSubscribeToOwnerForAllPlayers] ${i}人目がownerをサブスクサブスク完了しました`
+        )
       }
     } catch {
       throw new Error()
@@ -137,11 +147,15 @@ class OwnerAvatar extends Avatar {
     // 例) 参加者5 - 1(owner) -1(0start) = 3(maxIndex)
     const maxIndex = numberOfParticipants - 2
     if (index > maxIndex) {
-      console.log(`[:promptSubscribeToAllPlayersForPlayer] 全player同士のサブスクを完了しました`)
+      console.log(
+        `[:promptSubscribeToAllPlayersForPlayer] 全player同士のサブスクを完了しました`
+      )
       this.nonInfluentialAction!.startTheGame(this)
       this.influentialAction!.promptStartTheGame()
     } else {
-      console.log(`[:promptSubscribeToAllPlayersForPlayer] index=${index} のplayerに対して他の全playerをサブスクするように促します`)
+      console.log(
+        `[:promptSubscribeToAllPlayersForPlayer] index=${index} のplayerに対して他の全playerをサブスクするように促します`
+      )
       this.influentialAction!.promptSubscribeToAllPlayers(index)
     }
   }
@@ -162,7 +176,9 @@ class OwnerAvatar extends Avatar {
       this.sendMyAvatar()
       console.log(`[:startConnection] 全playerに対してownerのavatarを送信完了`)
       this.sendAllPlayerAvatars(players)
-      console.log(`[:startConnection] 全playerに対して全playerのavatarを送信完了`)
+      console.log(
+        `[:startConnection] 全playerに対して全playerのavatarを送信完了`
+      )
       console.log(`[:startConnection] player同士のサブスクを開始します`)
       this.promptSubscribeToAllPlayersForPlayer(0)
     } catch {

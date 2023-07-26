@@ -1,6 +1,8 @@
 import Avatar from '~/utils/class/Avatar'
+import { ParticipantData } from '~/types/participantData'
 
 class Judge {
+  participantData: Ref<ParticipantData[]>
   owner: Ref<Avatar | undefined>
   players: Ref<Avatar[]>
   losers: Ref<Avatar[]>
@@ -10,6 +12,7 @@ class Judge {
   questionVisible: Ref<boolean>
   isStandByGame: Ref<boolean>
   isEndOfGame: Ref<boolean>
+  addParticipantData: Function
   addOwner: Function
   addPlayer: Function
   setAllPlayers: Function
@@ -20,6 +23,7 @@ class Judge {
 
   constructor(initialNumberOfWinner: number) {
     const {
+      participantData,
       owner,
       players,
       losers,
@@ -29,6 +33,7 @@ class Judge {
       questionVisible,
       isStandByGame,
       isEndOfGame,
+      addParticipantData,
       addOwner,
       addPlayer,
       setAllPlayers,
@@ -38,6 +43,7 @@ class Judge {
       judge
     } = useJudge(initialNumberOfWinner)
 
+    this.participantData = participantData
     this.owner = owner
     this.players = players
     this.losers = losers
@@ -47,6 +53,7 @@ class Judge {
     this.questionVisible = questionVisible
     this.isStandByGame = isStandByGame
     this.isEndOfGame = isEndOfGame
+    this.addParticipantData = addParticipantData
     this.addOwner = addOwner
     this.addPlayer = addPlayer
     this.setAllPlayers = setAllPlayers

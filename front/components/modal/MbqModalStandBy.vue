@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import { ParticipantData } from '~/types/participantData'
   import Avatar from '~/utils/class/Avatar'
   import { VueFinalModal } from 'vue-final-modal'
   import CheckBoldIcon from 'vue-material-design-icons/CheckBold.vue'
@@ -8,7 +9,7 @@
   defineProps<{
     players: Avatar[]
     isOwner: boolean
-    publisherNames: string[]
+    participantData: ParticipantData[]
   }>()
 
   const emit = defineEmits<{
@@ -97,12 +98,17 @@
       </div>
       <div v-if="isOwner" class="my-5">
         <div class="my-5">
-          <p class="text-center">{{ publisherNames.length }}人が入室済み</p>
+          <p class="text-center">{{ participantData.length }}人が入室済み</p>
         </div>
         <div>
           <ul class="w-2/3 bg-mac-finder-top mx-auto p-5 rounded-lg">
-            <li v-for="(name, index) in publisherNames" :key="index">
-              {{ name }} が入室済み
+            <li v-for="(data, index) in participantData" :key="index">
+              <div class="flex my-3">
+                <img
+                  class="h-12 w-12 rounded-full border-2 border-primary object-cover object-center block"
+                  :src="data.avatarUrl"
+                /><span class="mt-3 ml-2">{{ data.name }} が入室済み</span>
+              </div>
             </li>
           </ul>
         </div>

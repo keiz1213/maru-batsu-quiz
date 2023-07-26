@@ -51,13 +51,11 @@ class SkyWay {
     return localDataStream
   }
 
-  createAgent = async (
-    channel: P2PRoom,
-    userName: string
-  ): Promise<LocalP2PRoomMember> => {
+  createAgent = async (channel: P2PRoom): Promise<LocalP2PRoomMember> => {
+    const nameForSkyWay = this.filterUserNameForSkyWay()
     const agent = await channel.join({
-      metadata: '',
-      name: userName
+      metadata: this.user.avatar_url,
+      name: nameForSkyWay
     })
     return agent
   }
@@ -82,7 +80,7 @@ class SkyWay {
       this.game.channel_name
     )
     const localDataStream = await this.createLocalDataStream()
-    const agent = await this.createAgent(channel, this.user.name)
+    const agent = await this.createAgent(channel)
     const publication = await this.createPublication(agent, localDataStream)
 
     this.channel = channel
@@ -113,6 +111,23 @@ class SkyWay {
 
   isPlayerEnterable = (channel: P2PRoom) => {
     return !this.isChannelMetadataEmpty(channel) && !this.isError(channel)
+  }
+
+  filterUserNameForSkyWay = () => {
+    const userName = this.user.name
+    if (userName === 'anonymous') {
+      return this.user.uid
+    }
+    const pattern = /^(?![*]$)[.A-Za-z0-9%*_-]+$/
+    if (!pattern.test(userName)) {
+      if (userName.includes(' ')) {
+        return userName.split(' ').join('')
+      } else {
+        return this.user.uid
+      }
+    } else {
+      return userName
+    }
   }
 }
 

@@ -21,12 +21,14 @@
   const ownerId = game.user_id as number
   const skyWay = new SkyWay(user, game)
   await skyWay.initiarizeSkyWay()
+  const userName = skyWay.filterUserNameForSkyWay()
   const nonInfluentialAction = new NonInfluentialAction(game.number_of_winner)
   const influentialAction = new InfluentialAction(skyWay.localDataStream!)
+
   const initialAvatarParams = [
     currentUserId.value.toString(),
     isGameOwner(ownerId) ? true : false,
-    user.name,
+    userName,
     user.avatar_url,
     null,
     skyWay,
@@ -34,6 +36,7 @@
     nonInfluentialAction
   ] as const
 
+  const participantData = nonInfluentialAction.reactiveVenue.participantData
   const owner = nonInfluentialAction.reactiveVenue.owner
   const players = nonInfluentialAction.reactiveVenue.players
   const losers = nonInfluentialAction.reactiveVenue.losers
@@ -46,7 +49,6 @@
   const announceText = nonInfluentialAction.reactiveVenue.announceText
   const chatVisible = nonInfluentialAction.reactiveVenue.chatVisible
   const chatMessages = nonInfluentialAction.reactiveVenue.chatMessages
-  const publisherNames = nonInfluentialAction.reactiveVenue.publisherNames
   const timeElapsed = nonInfluentialAction.reactiveVenue.timeElapsed
   const timeLimit = nonInfluentialAction.reactiveVenue.timeLimit
   const loading = nonInfluentialAction.reactiveVenue.loading
@@ -87,7 +89,7 @@
     @start-connection="
       avatar instanceof OwnerAvatar ? avatar.startConnection(players) : null
     "
-    :publisherNames="publisherNames"
+    :participantData="participantData"
   />
 
   <MbqModalCheck
