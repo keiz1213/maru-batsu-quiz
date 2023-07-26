@@ -30,71 +30,11 @@
       </div>
       <div id="right" class="w-[500px] h-[500px]">
         <h1 class="text-3xl font-bold text-center my-24">
-          オンラインイベントを盛り上げよう
+          ○×クイズでオンラインイベントを盛り上げよう
         </h1>
         <div class="text-center">
           <MbqButtonGithub :onClick="login" :isLoading="loading" />
         </div>
-      </div>
-    </div>
-    <div id="bottom" class="flex justify-between w-[1300px] mx-auto my-32">
-      <div class="w-[400px] h-[420px] bg-slate-100 rounded-2xl">
-        <h2 class="text-3xl text-center my-5">1. クイズを作る</h2>
-        <p class="text-lg mx-7">
-          ○✗クイズを作成したらゲーム会場のURLが発行されます
-        </p>
-        <img
-          class="mx-auto pt-10"
-          src="../assets/images/create.png"
-          width="300px"
-          height="300px"
-          alt=""
-        />
-        <p class="text-center pt-3">
-          Illustration by
-          <a href="https://icons8.com/illustrations/author/lZpGtGw5182N"
-            >Elisabet Guba</a
-          >
-          from <a href="https://icons8.com/illustrations">Ouch!</a>
-        </p>
-      </div>
-      <div class="w-[400px] h-[420px] bg-slate-100 rounded-2xl">
-        <h2 class="text-3xl text-center my-5">2. URLをシェア</h2>
-        <p class="text-lg mx-7">発行されたURLを参加予定者にシェアしましょう</p>
-        <img
-          class="mx-auto"
-          src="../assets/images/share.png"
-          width="300px"
-          height="300px"
-          alt=""
-        />
-        <p class="text-center">
-          Illustration by
-          <a href="https://icons8.com/illustrations/author/lZpGtGw5182N"
-            >Elisabet Guba</a
-          >
-          from <a href="https://icons8.com/illustrations">Ouch!</a>
-        </p>
-      </div>
-      <div class="w-[400px] h-[420px] bg-slate-100 rounded-2xl">
-        <h2 class="text-3xl text-center my-5">3. 遊ぶ</h2>
-        <p class="text-lg mx-7">
-          みんなで同じURLにアクセスして○✗クイズで遊びましょう！
-        </p>
-        <img
-          class="mx-auto"
-          src="../assets/images/winner.png"
-          width="300px"
-          height="300px"
-          alt=""
-        />
-        <p class="text-center">
-          Illustration by
-          <a href="https://icons8.com/illustrations/author/VKgWUPlqQ7Ea"
-            >AlexManokhi</a
-          >
-          from <a href="https://icons8.com/illustrations">Ouch!</a>
-        </p>
       </div>
     </div>
   </div>
