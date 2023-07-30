@@ -4,10 +4,10 @@ FactoryBot.define do
     description { 'it is test game' }
     number_of_winner { 1 }
     sequence(:channel_name) { |n| "test-channel-#{n}" }
-    association :user
+    user
 
     trait :with_quizzes do
-      after(:create) { |game| create_list(:quiz, 3, game: game)}
+      after(:create) { |game| create_list(:quiz, 3, game:) }
     end
   end
 end

@@ -1,28 +1,23 @@
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::CurrentUser::UserIds', type: :request do
+RSpec.describe 'Api::V1::CurrentUser::UserIds' do
   let(:user) { create(:user) }
-  let(:valid_headers) {{
-    Authorization: create_valid_token(user)
-  }}
-  let(:invalid_headers) {{
-    Authorization: create_invalid_token(user)
-  }}
+  let(:valid_headers) { create_valid_headers(user) }
+  let(:invalid_headers) { create_invalid_headers(user) }
 
   describe 'GET /api/v1/current_user/user_ids' do
-    context 'as an authenticated user' do
-      it 'get user_id of current_user' do
+    context 'when an authenticated user' do
+      it 'can get user_id of current_user' do
         user_id = user.id
         get api_v1_current_user_user_id_path, headers: valid_headers
-        expect(response).to have_http_status(200)
-        expect(JSON.parse(response.body)).to eq (user_id)
+        expect(response.parsed_body).to eq(user_id)
       end
     end
 
-    context 'as an unauthenticated user' do
-      it 'returns status 401 (unauthorized)' do
+    context 'when an unauthenticated user' do
+      it 'can not user_id of current_user with invalid id_token' do
         get api_v1_current_user_user_id_path, headers: invalid_headers
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
       end
     end
   end

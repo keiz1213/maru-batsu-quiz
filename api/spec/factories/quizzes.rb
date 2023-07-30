@@ -3,6 +3,6 @@ FactoryBot.define do
     question { 'test-question' }
     correct_answer { '◯' }
     explanation { 'test-explanation' }
-    association :game
+    game
   end
 end
