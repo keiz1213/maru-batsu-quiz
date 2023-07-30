@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :quiz do
-    game_id { 1 }
-    question { 'MyString' }
-    correct_answer { 'MyString' }
-    explanation { 'MyString' }
+    question { 'test-question' }
+    correct_answer { 'test-answer' }
+    explanation { 'test-explanation' }
+    association :game
   end
 end

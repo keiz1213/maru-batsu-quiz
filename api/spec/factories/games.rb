@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :game do
-    user_id { 1 }
-    title { 'MyString' }
-    description { 'MyString' }
-    number_of_member { 1 }
-    channel_name { 'MyString' }
+    title { 'test-game' }
+    description { 'it is test game' }
+    number_of_winner { 1 }
+    sequence(:channel_name) { |n| "test-channel-#{n}" }
+    association :user
   end
 end

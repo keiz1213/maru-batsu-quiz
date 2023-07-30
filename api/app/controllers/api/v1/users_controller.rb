@@ -1,4 +1,5 @@
 class Api::V1::UsersController < ApplicationController
+  rescue_from ArgumentError, with: :render_unauthorized_error
   skip_before_action :authenticate_with_firebase_id_token!, only: %i[create]
 
   def show

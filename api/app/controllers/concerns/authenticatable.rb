@@ -7,7 +7,7 @@ module Authenticatable
 
   def current_user
     authenticate_user!
-  rescue AuthenticationError
+  rescue AuthenticationError, ArgumentError
     nil
   end
 
