@@ -31,7 +31,6 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
-  config.include AuthenticateStub
   config.include FirebaseIdTokenHelper
 
   config.before(:each) do
