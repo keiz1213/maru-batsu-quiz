@@ -32,6 +32,7 @@ end
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include FirebaseIdTokenHelper
+  config.include FirebaseAuthenticationHelper
   config.include GameSpecHelper
   config.before do
     FirebaseIdToken.test!

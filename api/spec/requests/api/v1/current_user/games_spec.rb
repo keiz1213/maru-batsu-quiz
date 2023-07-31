@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Api::V1::CurrentUser::Games' do
   let(:user) { create(:user) }
-  let!(:games) { create_list(:game, 5, :with_quizzes, user: user) }
+  let!(:games) { create_list(:game, 5, :with_quizzes, user:) }
   let(:valid_headers) { create_valid_headers(user) }
   let(:invalid_headers) { create_invalid_headers(user) }
 
