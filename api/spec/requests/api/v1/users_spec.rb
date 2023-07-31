@@ -49,7 +49,7 @@ RSpec.describe 'Api::V1::Users' do
         new_user.avatar_url = nil
         user_stub_from_id_token(new_user)
         expect do
-          post api_v1_users_path, headers: create_valid_headers(new_user)
+          post api_v1_users_path(new_user)
         end.not_to change(User, :count)
       end
     end
@@ -84,7 +84,7 @@ RSpec.describe 'Api::V1::Users' do
     end
 
     context 'when an unauthenticated user' do
-      it 'can not delete a user with invalid id_token' do
+      it 'can not delete a user without id_token' do
         expect do
           delete api_v1_user_path(user)
         end.not_to change(User, :count)
