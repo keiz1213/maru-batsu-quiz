@@ -1,8 +1,4 @@
 <script setup lang="ts">
-  defineProps<{
-    buttonType: 'button' | 'submit' | 'reset'
-  }>()
-
   const emits = defineEmits<{
     (e: 'click'): void
   }>()
