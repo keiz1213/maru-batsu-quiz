@@ -1,7 +1,6 @@
 <script setup lang="ts">
   const props = defineProps<{
     modelValue: string
-    id: string
   }>()
 
   const emits = defineEmits<{
@@ -16,13 +15,13 @@
 
 <template>
   <MbqItemContainer>
-    <MbqLabel :id="props.id">説明</MbqLabel>
+    <MbqLabel :labelFor="'form-description'">説明</MbqLabel>
     <VeeField
-      :name="'description'"
+      name="form-description"
+      id="form-description"
       :rules="'required'"
       as="textarea"
       v-model="modelValue"
-      :id="props.id"
       rows="4"
       class="p-2.5 w-full text-md bg-gray-50 rounded-lg border border-gray-300 focus:border-my-blue"
     ></VeeField>

@@ -23,7 +23,7 @@
 
 <template>
   <MbqItemContainer>
-    <MbqLabel :id="id">{{ labelName }}</MbqLabel>
+    <MbqLabel :labelFor="id">{{ labelName }}</MbqLabel>
     <MbqFrameLg :id="id">
       <MbqButtonClipboard
         v-if="isVenueUrl()"

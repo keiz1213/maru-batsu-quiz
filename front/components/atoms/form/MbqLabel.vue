@@ -1,11 +1,11 @@
 <script setup lang="ts">
   defineProps<{
-    id: string
+    labelFor: string
   }>()
 </script>
 
 <template>
-  <label :for="id" class="block text-md m-2">
+  <label :for="labelFor" class="block text-md m-2">
     <slot />
   </label>
 </template>

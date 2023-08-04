@@ -1,7 +1,7 @@
 // @vitest-environment nuxt
 
 import { Game } from '~/types/game'
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { mount, VueWrapper } from '@vue/test-utils'
 import MbqCardGame from '../MbqCardGame.vue'
 import TrophyOutlineIcon from 'vue-material-design-icons/TrophyOutline.vue'

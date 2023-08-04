@@ -8,7 +8,7 @@
 
 <template>
   <MbqItemContainer>
-    <MbqLabel :id="'table-quizzes'">クイズ</MbqLabel>
+    <MbqLabel :labelFor="'table-quizzes'">クイズ</MbqLabel>
     <table
       class="w-full table-fixed border-separate rounded-lg border-t border-x border-gray-200 border-spacing-0 overflow-hidden"
     >

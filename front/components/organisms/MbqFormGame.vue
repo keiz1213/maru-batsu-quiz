@@ -151,7 +151,6 @@
         ></MbqFormGameTitle>
 
         <MbqFormGameDescription
-          :id="'new-description'"
           v-model:modelValue="game.description"
         ></MbqFormGameDescription>
 
@@ -170,7 +169,6 @@
         >
 
         <MbqFormGameNumberOfWinner
-          :id="'new-number-of-winner'"
           v-model:modelValue="game.number_of_winner"
         ></MbqFormGameNumberOfWinner>
 

@@ -42,8 +42,8 @@
 
 <template>
   <MbqItemContainer>
-    <MbqLabel :id="`new-quiz-${quizNumber}`">クイズ{{ quizNumber }}</MbqLabel>
-    <MbqFrameMd :id="`new-quiz-${quizNumber}`">
+    <MbqLabel :labelFor="`form-quiz-${quizNumber}`">クイズ{{ quizNumber }}</MbqLabel>
+    <MbqFrameMd :id="`form-quiz-${quizNumber}`">
       <div class="flex justify-end">
         <MbqButtonCirculeCross
           v-show="!isLastQuiz()"
@@ -51,9 +51,10 @@
           :button-type="'button'"
         />
       </div>
-      <MbqLabel :id="`new-question-${quizNumber}`">問題</MbqLabel>
+      <MbqLabel :labelFor="`form-question-${quizNumber}`">問題</MbqLabel>
       <VeeField
-        :name="`question-${quizNumber}`"
+        :id="`form-question-${quizNumber}`"
+        :name="`form-question-${quizNumber}`"
         label="question"
         :rules="'required'"
         as="textarea"
@@ -67,18 +68,20 @@
         :name="`question-${quizNumber}`"
         class="text-red-700 block m-2"
       />
-      <MbqLabel :id="`new-correct-answer-${quizNumber}`">正解</MbqLabel>
+      <MbqLabel :labelFor="`form-correct-answer-${quizNumber}`">正解</MbqLabel>
       <select
         v-model="correctAnswer"
-        :id="`new-correct-answer-${quizNumber}`"
+        :id="`form-correct-answer-${quizNumber}`"
+        :name="`form-correct-answer-${quizNumber}`"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg select select-bordered block w-full max-w-xs p-2.5"
       >
         <option>◯</option>
         <option>✕</option>
       </select>
-      <MbqLabel :id="`new-explanation-${quizNumber}`">解説</MbqLabel>
+      <MbqLabel :labelFor="`form-explanation-${quizNumber}`">解説</MbqLabel>
       <VeeField
-        :name="`explanation-${quizNumber}`"
+        :id="`form-explanation-${quizNumber}`"
+        :name="`form-explanation-${quizNumber}`"
         label="explanation"
         :rules="'required'"
         as="textarea"
