@@ -77,6 +77,7 @@ export default defineNuxtConfig({
     }
   },
   modules: [
+    'nuxt-vitest',
     [
       '@vee-validate/nuxt',
       {
