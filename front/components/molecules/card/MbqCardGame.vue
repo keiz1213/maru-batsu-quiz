@@ -11,24 +11,29 @@
     })
     return dateTimeFormat.format(new Date(date))
   }
+
+  const navigate = (game: Game) => {
+    return navigateTo({
+      path: `/games/${game.id}`
+    })
+  }
 </script>
 
 <template>
   <div class="mx-auto">
-    <NuxtLink :to="`/games/${game.id}`">
-      <div
-        class="h-72 w-96 bg-white border border-gray-200 rounded-lg break-all relative hover:brightness-[0.97]"
+    <div
+      id="card-container"
+      class="h-72 w-96 bg-white border border-gray-200 rounded-lg break-all relative hover:brightness-[0.97] hover:cursor-pointer"
+      @click="navigate(game)"
+    >
+      <MbqCardHeader :title="game.title"></MbqCardHeader>
+      <MbqCardContent
+        :description="game.description"
+        :numberOfWinner="game.number_of_winner"
+        :createdAt="format(game.created_at)"
+        :updatedAt="format(game.updated_at)"
       >
-        <MbqCardHeader :title="game.title"></MbqCardHeader>
-        <MbqCardContent
-          :description="game.description"
-          :numberOfWinner="game.number_of_winner"
-          :createdAt="format(game.created_at)"
-          :updatedAt="format(game.updated_at)"
-        >
-        </MbqCardContent>
-      </div>
-    </NuxtLink>
+      </MbqCardContent>
+    </div>
   </div>
 </template>
-~/types/game
