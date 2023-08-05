@@ -12,7 +12,6 @@ describe('MbqCardGame', () => {
   let game: Game
   let wrapper: VueWrapper
 
-
   beforeEach(() => {
     game = {
       id: 1,

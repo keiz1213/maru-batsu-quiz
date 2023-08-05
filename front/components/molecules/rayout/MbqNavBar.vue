@@ -26,7 +26,9 @@
             <NuxtLink v-if="!isLoggedIn" :to="'/howToPlay'">
               <MbqButtonPrimary
                 ><div class="flex">
-                  <nintendo-game-boy-icon /><span class="ml-3">遊び方を見る</span>
+                  <nintendo-game-boy-icon /><span class="ml-3"
+                    >遊び方を見る</span
+                  >
                 </div></MbqButtonPrimary
               >
             </NuxtLink>
@@ -46,12 +48,15 @@
                   class="block w-full py-3 text-left pl-3"
                 >
                   <div class="flex">
-                    <nintendo-game-boy-icon /><span class="ml-3">遊び方を見る</span>
+                    <nintendo-game-boy-icon /><span class="ml-3"
+                      >遊び方を見る</span
+                    >
                   </div>
                 </NuxtLink>
               </li>
               <li>
                 <button
+                  id="logout-button"
                   @click="logout"
                   class="block w-full py-3 text-left pl-3"
                 >
