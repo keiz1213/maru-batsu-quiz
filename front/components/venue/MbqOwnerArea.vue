@@ -31,7 +31,10 @@
           class="flex flex-col justify-center items-center gap-4 bg-mac-finder-top min-h-[185px] rounded-lg m-3 mt-0"
         >
           <div>
-            <MbqButtonPrimary @click="emit('announce')" :isLoading="isLoading"
+            <MbqButtonPrimary
+              id="question-button"
+              @click="emit('announce')"
+              :isLoading="isLoading"
               ><div class="flex">
                 <chat-question-outline-icon />
                 <span class="ml-1"
@@ -42,6 +45,7 @@
           </div>
           <div>
             <MbqButtonSecondary
+              id="check-question-button"
               :button-type="'button'"
               @click="emit('check-question')"
               ><div class="flex">
@@ -54,7 +58,7 @@
       </div>
       <div
         v-else
-        class="overflow-auto h-[185px] bg-mac-finder-top p-3 m-3 mt-0 rounded-lg"
+        class="overflow-auto h-[185px] bg-mac-finder-top p-3 m-3 mt-0 rounded-lg" id="check-game-description"
       >
         <p class="leading-loose break-words whitespace-pre-wrap">
           {{ description }}

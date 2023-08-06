@@ -13,11 +13,13 @@
     data-state=""
     :id="avatar.id"
   >
-    <p class="text-center line-clamp-1">{{ avatar.name }}</p>
+    <p :id="`avatar-name-${avatar.id}`" class="text-center line-clamp-1">
+      {{ avatar.name }}
+    </p>
     <div
       class="w-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 m-5 mt-1"
     >
-      <img :src="avatar.avatarUrl" />
+      <img :id="`avatar-img-${avatar.id}`" :src="avatar.avatarUrl" />
     </div>
   </div>
 </template>

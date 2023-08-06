@@ -26,7 +26,11 @@
         id="chat-display"
         class="h-[300px] border-b overflow-auto px-4 pt-4 pb-14 break-all"
       >
-        <div v-for="(chatMessage, index) in messages" :key="index">
+        <div
+          v-for="(chatMessage, index) in messages"
+          :key="index"
+          :id="`chat-message-${index + 1}`"
+        >
           <div v-if="chatMessage.avatarId != myId" class="chat chat-start">
             <div class="chat-image avatar">
               <div class="w-10 rounded-full">
@@ -49,7 +53,7 @@
           class="input input-bordered w-[250px] bg-mac-finder-top"
           placeholder="Hello World!"
         />
-        <button @click="send" class="btn btn-primary">送信</button>
+        <button id="chat-send-button" @click="send" class="btn btn-primary">送信</button>
       </div>
     </div>
   </div>

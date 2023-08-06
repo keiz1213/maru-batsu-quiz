@@ -56,8 +56,8 @@ export const useJudge = (initialNumberOfWinner: number) => {
 
   const startGame = (avatar: Avatar) => {
     SyncDraggable.setDraggable(avatar)
-    SyncDraggable.setDropzone('◯', avatar)
-    SyncDraggable.setDropzone('✕', avatar)
+    SyncDraggable.setDropzone('maru', avatar)
+    SyncDraggable.setDropzone('batsu', avatar)
     isStandByGame.value = false
   }
 

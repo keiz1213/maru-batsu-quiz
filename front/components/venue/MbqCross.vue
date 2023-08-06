@@ -1,6 +1,6 @@
 <template>
   <div
-    id="✕"
+    id="batsu"
     class="w-[475px] h-[420px] bg-white border border-gray-200 rounded-lg break-all"
   >
     <img
