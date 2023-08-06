@@ -31,4 +31,3 @@
     </table>
   </MbqItemContainer>
 </template>
-~/types/quiz

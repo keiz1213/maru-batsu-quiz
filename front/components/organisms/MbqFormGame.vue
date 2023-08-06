@@ -146,7 +146,6 @@
       <MbqH1>ゲーム{{ isEditGame ? '編集' : '作成' }}</MbqH1>
       <VeeForm @submit="onSubmit" @invalid-submit="onInvalidSubmit">
         <MbqFormGameTitle
-          :id="'new-game-name'"
           v-model:modelValue="game.title"
         ></MbqFormGameTitle>
 

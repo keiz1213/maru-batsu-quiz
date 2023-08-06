@@ -54,18 +54,18 @@
       <MbqItemGame
         :content="game.description"
         :labelName="'説明'"
-        :id="'show-game-description'"
+        :id="'item-game-description'"
       />
       <MbqTableQuiz :quizzes="game.quizzes" />
       <MbqItemGame
         :content="game.number_of_winner"
         :labelName="'勝ち抜き人数'"
-        :id="'show-game-number-of-winner'"
+        :id="'item-game-number-of-winner'"
       />
       <MbqItemGame
         :content="gameVenueUrl"
         :labelName="'ゲーム会場URL'"
-        :id="'show-game-venue-url'"
+        :id="'item-game-venue-url'"
       />
       <div class="flex justify-evenly mt-16">
         <MbqButtonPrimary @click="select"
@@ -101,4 +101,3 @@
     </div>
   </TheContainer>
 </template>
-~/types/game

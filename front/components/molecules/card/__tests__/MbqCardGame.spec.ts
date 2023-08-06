@@ -14,13 +14,16 @@ describe('MbqCardGame', () => {
 
   beforeEach(() => {
     game = {
+      user_id: 1,
       id: 1,
+      channel_name: 'test name',
       title: 'Test Game',
       description: 'This is a test game',
+      quizzes: [],
       number_of_winner: 3,
       created_at: '2023-08-04T12:34:56Z',
       updated_at: '2023-08-04T14:22:33Z'
-    } as Game
+    }
 
     wrapper = mount(MbqCardGame, {
       props: {

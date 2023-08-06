@@ -18,4 +18,3 @@
     </div>
   </TheContainer>
 </template>
-~/types/game

@@ -3,7 +3,7 @@
 import { describe, it, expect, vi, beforeAll } from 'vitest'
 import useAuthMock from '~/composables/__tests__/mock/useAuthMock'
 import { mockNuxtImport } from 'nuxt-vitest/utils'
-import { mount, shallowMount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import MbqNavBar from '../MbqNavBar.vue'
 
 describe('MbqNavBar', () => {
