@@ -3,7 +3,7 @@
 import Avatar from '~/utils/class/Avatar'
 import { ChatMessage } from '~/types/chatMessage'
 import { describe, it, expect } from 'vitest'
-import { mount, VueWrapper } from '@vue/test-utils'
+import { shallowMount, VueWrapper } from '@vue/test-utils'
 import MbqChat from '../MbqChat.vue'
 
 describe('MbqChat', () => {
@@ -47,7 +47,7 @@ describe('MbqChat', () => {
 
   describe('render', () => {
     it('render chat messages', () => {
-      wrapper = mount(MbqChat, {
+      wrapper = shallowMount(MbqChat, {
         props: {
           messages: chatMessages,
           myId: avatar1.id
@@ -63,7 +63,7 @@ describe('MbqChat', () => {
         (chatMessage) => chatMessage.avatarId === avatar1.id
       )
 
-      wrapper = mount(MbqChat, {
+      wrapper = shallowMount(MbqChat, {
         props: {
           messages: chatMessages,
           myId: avatar1.id
@@ -79,7 +79,7 @@ describe('MbqChat', () => {
         (chatMessage) => chatMessage.avatarId != avatar1.id
       )
 
-      wrapper = mount(MbqChat, {
+      wrapper = shallowMount(MbqChat, {
         props: {
           messages: chatMessages,
           myId: avatar1.id
@@ -93,7 +93,7 @@ describe('MbqChat', () => {
 
   describe('emit', () => {
     it('emit is fired when send button is clicked', async () => {
-      wrapper = mount(MbqChat, {
+      wrapper = shallowMount(MbqChat, {
         props: {
           messages: chatMessages,
           myId: avatar1.id

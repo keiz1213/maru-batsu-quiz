@@ -70,7 +70,9 @@ describe('MbqOwnerArea', () => {
 
     it('render question button', () => {
       const button = wrapper.find('#question-button')
-      expect(button.text()).toBe(`${props.currentQuizNumber + 1} 問目を出題する`)
+      expect(button.text()).toBe(
+        `${props.currentQuizNumber + 1} 問目を出題する`
+      )
     })
 
     it('render quiz check button', () => {

@@ -42,7 +42,9 @@
 
 <template>
   <MbqItemContainer>
-    <MbqLabel :labelFor="`form-quiz-${quizNumber}`">クイズ{{ quizNumber }}</MbqLabel>
+    <MbqLabel :labelFor="`form-quiz-${quizNumber}`"
+      >クイズ{{ quizNumber }}</MbqLabel
+    >
     <MbqFrameMd :id="`form-quiz-${quizNumber}`">
       <div class="flex justify-end">
         <MbqButtonCirculeCross
@@ -54,7 +56,7 @@
       <MbqLabel :labelFor="`form-question-${quizNumber}`">問題</MbqLabel>
       <VeeField
         :id="`form-question-${quizNumber}`"
-        :name="`form-question-${quizNumber}`"
+        :name="`question-${quizNumber}`"
         label="question"
         :rules="'required'"
         as="textarea"
@@ -72,7 +74,7 @@
       <select
         v-model="correctAnswer"
         :id="`form-correct-answer-${quizNumber}`"
-        :name="`form-correct-answer-${quizNumber}`"
+        :name="'correct-answer'"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg select select-bordered block w-full max-w-xs p-2.5"
       >
         <option>◯</option>
@@ -81,7 +83,7 @@
       <MbqLabel :labelFor="`form-explanation-${quizNumber}`">解説</MbqLabel>
       <VeeField
         :id="`form-explanation-${quizNumber}`"
-        :name="`form-explanation-${quizNumber}`"
+        :name="`explanation-${quizNumber}`"
         label="explanation"
         :rules="'required'"
         as="textarea"

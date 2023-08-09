@@ -2,7 +2,7 @@
 
 import Avatar from '~/utils/class/Avatar'
 import { describe, it, expect } from 'vitest'
-import { mount, VueWrapper } from '@vue/test-utils'
+import { shallowMount, VueWrapper } from '@vue/test-utils'
 import MbqAvatar from '../MbqAvatar.vue'
 
 describe('MbqAvatar', () => {
@@ -21,7 +21,7 @@ describe('MbqAvatar', () => {
       null
     )
 
-    wrapper = mount(MbqAvatar, {
+    wrapper = shallowMount(MbqAvatar, {
       props: {
         avatar: avatar
       }

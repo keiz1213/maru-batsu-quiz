@@ -1,12 +1,12 @@
 import { describe, it, expect } from 'vitest'
-import { VueWrapper, mount } from '@vue/test-utils'
+import { VueWrapper, shallowMount } from '@vue/test-utils'
 import MbqCardContent from '../MbqCardContent.vue'
 
 describe('MbqCardContent', () => {
   let wrapper: VueWrapper
 
   beforeEach(() => {
-    wrapper = mount(MbqCardContent, {
+    wrapper = shallowMount(MbqCardContent, {
       props: {
         description: 'test description',
         numberOfWinner: 1,
@@ -21,7 +21,9 @@ describe('MbqCardContent', () => {
   })
 
   it('render correctly with number of winner', () => {
-    expect(wrapper.find('#card-number-of-winner').text()).toBe('勝ち抜き人数: 1人')
+    expect(wrapper.find('#card-number-of-winner').text()).toBe(
+      '勝ち抜き人数: 1人'
+    )
   })
 
   it('render correctly with created at', () => {

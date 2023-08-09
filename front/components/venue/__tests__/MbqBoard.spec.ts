@@ -23,12 +23,12 @@ describe('MbqBoard', () => {
         props: props
       })
     })
-  
+
     it('display announce text', () => {
       const announceContainer = wrapper.find('#announce-container')
       expect(announceContainer.text()).toBe(`$ ${props.announceText}`)
     })
-  
+
     it('timer with the set time limit is displayed', () => {
       const limit = wrapper.find('.time-left-label')
       expect(limit.text()).toBe(`00:${props.limit}`)
@@ -78,5 +78,4 @@ describe('MbqBoard', () => {
       expect(limit.text()).toBe('00:07')
     })
   })
-
 })

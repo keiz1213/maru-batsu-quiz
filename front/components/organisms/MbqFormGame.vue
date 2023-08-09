@@ -145,9 +145,7 @@
     <div class="px-40">
       <MbqH1>ゲーム{{ isEditGame ? '編集' : '作成' }}</MbqH1>
       <VeeForm @submit="onSubmit" @invalid-submit="onInvalidSubmit">
-        <MbqFormGameTitle
-          v-model:modelValue="game.title"
-        ></MbqFormGameTitle>
+        <MbqFormGameTitle v-model:modelValue="game.title"></MbqFormGameTitle>
 
         <MbqFormGameDescription
           v-model:modelValue="game.description"

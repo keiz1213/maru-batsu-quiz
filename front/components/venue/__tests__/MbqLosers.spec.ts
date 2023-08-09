@@ -2,7 +2,7 @@
 
 import Avatar from '~/utils/class/Avatar'
 import { describe, it, expect } from 'vitest'
-import { mount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import MbqLosers from '../MbqLosers.vue'
 
 describe('MbqLosers', () => {
@@ -17,7 +17,7 @@ describe('MbqLosers', () => {
       null,
       null
     )
-  
+
     const avatar2 = new Avatar(
       '2',
       false,
@@ -30,7 +30,7 @@ describe('MbqLosers', () => {
     )
 
     const avatars = [avatar1, avatar2]
-    const wrapper = mount(MbqLosers, {
+    const wrapper = shallowMount(MbqLosers, {
       props: {
         losers: avatars
       }

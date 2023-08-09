@@ -53,7 +53,9 @@
           class="input input-bordered w-[250px] bg-mac-finder-top"
           placeholder="Hello World!"
         />
-        <button id="chat-send-button" @click="send" class="btn btn-primary">送信</button>
+        <button id="chat-send-button" @click="send" class="btn btn-primary">
+          送信
+        </button>
       </div>
     </div>
   </div>

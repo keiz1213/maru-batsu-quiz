@@ -58,7 +58,8 @@
       </div>
       <div
         v-else
-        class="overflow-auto h-[185px] bg-mac-finder-top p-3 m-3 mt-0 rounded-lg" id="check-game-description"
+        class="overflow-auto h-[185px] bg-mac-finder-top p-3 m-3 mt-0 rounded-lg"
+        id="check-game-description"
       >
         <p class="leading-loose break-words whitespace-pre-wrap">
           {{ description }}

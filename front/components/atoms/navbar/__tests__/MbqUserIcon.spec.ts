@@ -1,24 +1,35 @@
 // @vitest-environment nuxt
 
 import { describe, it, expect, vi, beforeAll } from 'vitest'
-import { mount } from '@vue/test-utils'
-import useAuthMock from '~/composables/__tests__/mock/useAuthMock'
-import { mockNuxtImport } from 'nuxt-vitest/utils'
+import { shallowMount } from '@vue/test-utils'
 import MbqUserIcon from '../MbqUserIcon.vue'
 
 describe('MbqUserIcon', () => {
-  beforeAll(() => {
-    mockNuxtImport('useAuth', () => {
-      return () => useAuthMock()
-    })
+  afterEach(() => {
+    vi.restoreAllMocks()
   })
 
-  afterEach(() => {
-    vi.resetAllMocks()
+  const mocks = vi.hoisted(() => {
+    return {
+      useAuth: vi.fn()
+    }
+  })
+
+  vi.mock('~/composables/useAuth', () => {
+    return {
+      useAuth: mocks.useAuth
+    }
   })
 
   it('when user logged in, renders user photo', () => {
-    const wrapper = mount(MbqUserIcon)
+    mocks.useAuth.mockReturnValueOnce({
+      user: {
+        value: {
+          photoURL: 'https://example.com/photo.jpg'
+        }
+      }
+    })
+    const wrapper = shallowMount(MbqUserIcon)
     expect(wrapper.attributes('src')).toBe('https://example.com/photo.jpg')
   })
 })

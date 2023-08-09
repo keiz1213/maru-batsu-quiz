@@ -122,14 +122,18 @@ describe('MbqFormGame', () => {
         const descriptionForm = wrapper.findComponent({
           name: 'MbqFormGameDescription'
         })
-        expect(descriptionForm.find('textarea').element.value).toBe(game.description)
+        expect(descriptionForm.find('textarea').element.value).toBe(
+          game.description
+        )
       })
 
       it('game number of winner is rendered', () => {
         const numberOfWinnerForm = wrapper.findComponent({
           name: 'MbqFormGameNumberOfWinner'
         })
-        expect(numberOfWinnerForm.find('select').element.value).toBe(game.number_of_winner.toString())
+        expect(numberOfWinnerForm.find('select').element.value).toBe(
+          game.number_of_winner.toString()
+        )
       })
     })
 
@@ -146,7 +150,9 @@ describe('MbqFormGame', () => {
           name: 'MbqFormQuiz'
         })
         const secondQuiz = quizzes.at(1)
-        const questionForm = secondQuiz!.find('#form-question-2') as DOMWrapper<HTMLTextAreaElement>
+        const questionForm = secondQuiz!.find(
+          '#form-question-2'
+        ) as DOMWrapper<HTMLTextAreaElement>
         expect(questionForm.element.value).toBe(game.quizzes[1].question)
       })
 
@@ -155,8 +161,12 @@ describe('MbqFormGame', () => {
           name: 'MbqFormQuiz'
         })
         const secondQuiz = quizzes.at(1)
-        const correctAnswerForm = secondQuiz!.find('#form-correct-answer-2') as DOMWrapper<HTMLSelectElement>
-        expect(correctAnswerForm.element.value).toBe(game.quizzes[1].correct_answer)
+        const correctAnswerForm = secondQuiz!.find(
+          '#form-correct-answer-2'
+        ) as DOMWrapper<HTMLSelectElement>
+        expect(correctAnswerForm.element.value).toBe(
+          game.quizzes[1].correct_answer
+        )
       })
 
       it('explanation is rendered', () => {
@@ -164,8 +174,12 @@ describe('MbqFormGame', () => {
           name: 'MbqFormQuiz'
         })
         const secondQuiz = quizzes.at(1)
-        const correctAnswerForm = secondQuiz!.find('#form-explanation-2') as DOMWrapper<HTMLTextAreaElement>
-        expect(correctAnswerForm.element.value).toBe(game.quizzes[1].explanation)
+        const correctAnswerForm = secondQuiz!.find(
+          '#form-explanation-2'
+        ) as DOMWrapper<HTMLTextAreaElement>
+        expect(correctAnswerForm.element.value).toBe(
+          game.quizzes[1].explanation
+        )
       })
     })
 

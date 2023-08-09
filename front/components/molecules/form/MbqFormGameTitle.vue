@@ -18,7 +18,7 @@
     <MbqLabel :labelFor="'form-title'">名前</MbqLabel>
     <VeeField
       id="form-title"
-      name="form-title"
+      name="title"
       :rules="'required'"
       type="text"
       v-model="modelValue"

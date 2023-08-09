@@ -1,16 +1,16 @@
 import { describe, it, expect } from 'vitest'
-import { mount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import MbqButtonDanger from '../MbqButtonDanger.vue'
 
 describe('MbqButtonDanger', () => {
   it('emits click event when clicked', async () => {
-    const wrapper = mount(MbqButtonDanger)
+    const wrapper = shallowMount(MbqButtonDanger)
     await wrapper.trigger('click')
     expect(wrapper.emitted()).toBeTruthy()
   })
 
   it('buttonType property is submit', () => {
-    const wrapper = mount(MbqButtonDanger, {
+    const wrapper = shallowMount(MbqButtonDanger, {
       props: {
         buttonType: 'submit'
       }
@@ -19,7 +19,7 @@ describe('MbqButtonDanger', () => {
   })
 
   it('loading animation is displayed', () => {
-    const wrapper = mount(MbqButtonDanger, {
+    const wrapper = shallowMount(MbqButtonDanger, {
       props: {
         isLoading: true
       }
@@ -28,7 +28,7 @@ describe('MbqButtonDanger', () => {
   })
 
   it('loading animation is not displayed', () => {
-    const wrapper = mount(MbqButtonDanger, {
+    const wrapper = shallowMount(MbqButtonDanger, {
       props: {
         isLoading: false
       }

@@ -17,4 +17,3 @@ describe('MbqAnswer', () => {
     expect(batsuZone.exists()).toBeTruthy()
   })
 })
-

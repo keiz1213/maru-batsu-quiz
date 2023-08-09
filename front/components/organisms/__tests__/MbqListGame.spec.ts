@@ -2,7 +2,7 @@
 
 import { Game } from '~/types/game'
 import { describe, it, expect } from 'vitest'
-import { mount, VueWrapper, DOMWrapper } from '@vue/test-utils'
+import { mount, VueWrapper } from '@vue/test-utils'
 import MbqListGame from '../MbqListGame.vue'
 
 describe('MbqListGame', () => {

@@ -1,11 +1,10 @@
 import { describe, it, expect } from 'vitest'
-import { mount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import MbqCardHeader from '../MbqCardHeader.vue'
 
 describe('MbqCardHeader', () => {
-
   it('render correctly with title', () => {
-    const wrapper = mount(MbqCardHeader, {
+    const wrapper = shallowMount(MbqCardHeader, {
       props: {
         title: 'test game'
       }

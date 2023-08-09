@@ -13,10 +13,13 @@ export const useChat = () => {
   const inVisible = () => {
     chatVisible.value = false
   }
+
   const adjustScrollTop = (): void => {
     const chatArea = document.getElementById('chat-display') as HTMLElement
-    const chatAreaHeight = chatArea.scrollHeight
-    chatArea.scrollTop = chatAreaHeight
+    if (chatArea !== null) {
+      const chatAreaHeight = chatArea.scrollHeight
+      chatArea.scrollTop = chatAreaHeight
+    }
   }
 
   const addChatMessage = (chatMessage: ChatMessage): void => {
