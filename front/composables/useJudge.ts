@@ -67,15 +67,25 @@ export const useJudge = (initialNumberOfWinner: number) => {
     }
   }
 
+  const convert = (answer: string) => {
+    if (answer === 'maru') {
+      return '◯'
+    } else if (answer === 'batsu') {
+      return '✕'
+    } else {
+      return ''
+    }
+  }
+
   const isLoser = (player: Avatar, correctAnswer: string) => {
     const avatarElement = document.getElementById(player.id) as HTMLElement
-    const answer = avatarElement.dataset.answer
+    const answer = convert(avatarElement.dataset.answer!)
     return correctAnswer != answer || answer === ''
   }
 
   const isWinner = (player: Avatar, correctAnswer: string) => {
     const avatarElement = document.getElementById(player.id) as HTMLElement
-    const answer = avatarElement.dataset.answer
+    const answer = convert(avatarElement.dataset.answer!)
     return correctAnswer === answer
   }
 
