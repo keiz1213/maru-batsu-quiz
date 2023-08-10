@@ -25,11 +25,11 @@
       'hover:brightness-[0.9]',
       'w-56',
       'h-16',
-      { 'brightness-[0.9]': isLoading }
+      { 'brightness-[0.9]': isLoading },
+      { 'pointer-events-none': isLoading }
     ]"
     @click="handleClick"
     :type="buttonType"
-    :disabled="isLoading"
   >
     <div
       v-if="isLoading"
