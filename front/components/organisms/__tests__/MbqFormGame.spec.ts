@@ -11,7 +11,7 @@ describe('MbqFormGame', () => {
   let wrapper: VueWrapper
 
   describe('when the game props is missing', () => {
-    beforeEach(async() => {
+    beforeEach(async () => {
       wrapper = await mountSuspended(MbqFormGame, { route: '/games/new' })
     })
 
