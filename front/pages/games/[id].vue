@@ -9,6 +9,10 @@
 
   const gameId = route.params.id as string
   const game = await getGame(gameId)
+
+  useHead({
+    title: game.title
+  })
 </script>
 
 <template>

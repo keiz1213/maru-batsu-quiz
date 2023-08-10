@@ -3,6 +3,7 @@
 import { Game } from '~/types/game'
 import { describe, it, expect } from 'vitest'
 import { mount, VueWrapper, DOMWrapper } from '@vue/test-utils'
+import { mountSuspended } from 'nuxt-vitest/utils'
 import MbqFormGame from '../MbqFormGame.vue'
 
 describe('MbqFormGame', () => {
@@ -10,8 +11,8 @@ describe('MbqFormGame', () => {
   let wrapper: VueWrapper
 
   describe('when the game props is missing', () => {
-    beforeEach(() => {
-      wrapper = mount(MbqFormGame)
+    beforeEach(async() => {
+      wrapper = await mountSuspended(MbqFormGame, { route: '/games/new' })
     })
 
     describe('game', () => {

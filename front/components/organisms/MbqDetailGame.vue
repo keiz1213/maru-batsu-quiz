@@ -41,10 +41,6 @@
       )
     }
   }
-
-  useHead({
-    title: props.game.title
-  })
 </script>
 
 <template>

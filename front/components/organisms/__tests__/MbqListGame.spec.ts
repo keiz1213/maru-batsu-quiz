@@ -12,7 +12,11 @@ describe('MbqListGame', () => {
 
   describe('when the games props is missing', () => {
     beforeEach(() => {
-      wrapper = mount(MbqListGame)
+      wrapper = mount(MbqListGame, {
+        props: {
+          games: null
+        }
+      })
     })
 
     it('games are not rendered', () => {

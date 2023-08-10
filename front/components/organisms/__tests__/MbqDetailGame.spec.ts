@@ -2,14 +2,15 @@
 
 import { Game } from '~/types/game'
 import { describe, it, expect } from 'vitest'
-import { mount, VueWrapper } from '@vue/test-utils'
+import { VueWrapper } from '@vue/test-utils'
+import { mountSuspended } from 'nuxt-vitest/utils'
 import MbqDetailGame from '../MbqDetailGame.vue'
 
 describe('MbqDetailGame', () => {
   let game: Game
   let wrapper: VueWrapper
 
-  beforeEach(() => {
+  beforeEach(async () => {
     game = {
       user_id: 1,
       id: 1,
@@ -32,7 +33,7 @@ describe('MbqDetailGame', () => {
       created_at: '2023-08-04T12:34:56Z',
       updated_at: '2023-08-04T14:22:33Z'
     }
-    wrapper = mount(MbqDetailGame, {
+    wrapper = await mountSuspended(MbqDetailGame, {
       props: {
         game: game
       }
@@ -65,14 +66,14 @@ describe('MbqDetailGame', () => {
     })
 
     it('game venue url', () => {
-      const frontURL = '(http:\\/\\/localhost:8080|http:\\/\\/localhost:3000)'
-      const gameVenuePath = `\\/games\\/${game.id}\\/venue`
-      const queryParams = `\\?title=Test\\+Game`
-      const regexString = `${frontURL}${gameVenuePath}${queryParams}`
-      const regex = new RegExp(regexString)
+      const config = useRuntimeConfig()
+      const frontUrl = config.public.frontURL
+      const gameVenuePath = `/games/${game.id}/venue`
+      const queryParams = new URLSearchParams({ title: game.title })
+      const gameVenueUrl = `${frontUrl}${gameVenuePath}?${queryParams.toString()}`
       const venueUrl = wrapper.find('#item-game-venue-url')
       const trimmedURL = venueUrl.text().replace(/^Copied!/, '')
-      expect(trimmedURL).toMatch(regex)
+      expect(trimmedURL).toBe(gameVenueUrl)
     })
   })
 })

@@ -11,6 +11,11 @@ jobs:
     name: verify
     runs-on: ubuntu-latest
 
+    env:
+      FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+      FIREBASE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
+      FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+
     steps:
       - name: checkout
         uses: actions/checkout@v3
