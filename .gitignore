@@ -12,6 +12,8 @@
 /front/.npm
 /front/cypress/videos
 /front/cypress/screenshots
+/front/cypress.env.json
+/front/serviceAccount.json
 
 # Ignore bundler config.
 /api/.bundle
