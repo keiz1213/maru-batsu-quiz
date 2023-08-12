@@ -13,6 +13,9 @@ describe('auth', () => {
     })
 
     context('logged in', () => {
+      after(() => {
+        cy.logout()
+      })
       it('accessing the root page, redirected to the home page', () => {
         cy.login()
         cy.visit('/')
