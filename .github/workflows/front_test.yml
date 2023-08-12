@@ -15,6 +15,7 @@ jobs:
       FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
       FIREBASE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
       FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+      CYPRESS_TEST_UID: ${{ secrets.TEST_UID }}
     steps:
       - name: checkout
         uses: actions/checkout@v3
@@ -34,13 +35,8 @@ jobs:
           cd front
           npm run lint
           npm run test:unit
-
       - name: Cypress run
         uses: cypress-io/github-action@v5
-      - name: Write the cypress.env.json file
-        run: |
-          echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.env.json
-
         with:
           config: baseUrl=http://localhost:3000
           working-directory: front
