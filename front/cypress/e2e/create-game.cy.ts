@@ -27,6 +27,10 @@ describe('create a game', () => {
       fixture: 'game'
     })
 
+    cy.intercept('GET', '**/api/v1/current_user/user_id', {
+      body: 1
+    })
+
     cy.visit('games/new')
     cy.contains('ゲーム作成')
     cy.get('[data-cy="form-title"]').type('Test Game')

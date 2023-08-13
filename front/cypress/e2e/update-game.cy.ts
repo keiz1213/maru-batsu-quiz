@@ -11,6 +11,10 @@ describe('update a game', () => {
   })
 
   it('If there are empty fields, the update cannot be performed', () => {
+    cy.intercept('GET', '**/api/v1/current_user/user_id', {
+      body: 1
+    })
+
     cy.visit('games/1')
     cy.contains('Test Game')
     cy.contains('編集する').click()
@@ -25,6 +29,10 @@ describe('update a game', () => {
   it('can update a game by providing all the required information', () => {
     cy.intercept('PUT', '**/api/v1/games/1', {
       fixture: 'game'
+    })
+
+    cy.intercept('GET', '**/api/v1/current_user/user_id', {
+      body: 1
     })
 
     cy.visit('games/1')
