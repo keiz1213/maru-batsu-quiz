@@ -19,11 +19,11 @@ describe('create a game', () => {
   })
 
   it('can create a game by providing all the required information', () => {
-    cy.intercept('POST', '/api/v1/games/', {
+    cy.intercept('POST', '**/api/v1/games/', {
       fixture: 'game'
     })
 
-    cy.intercept('GET', '/api/v1/games/1', {
+    cy.intercept('GET', '**/api/v1/games/1', {
       fixture: 'game'
     })
 
