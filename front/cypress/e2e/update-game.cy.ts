@@ -1,9 +1,9 @@
 describe('update a game', () => {
   beforeEach(() => {
     cy.login()
-    cy.intercept('GET', '/api/v1/games/1', {
-      fixture: 'game'
-    })
+    // cy.intercept('GET', '/api/v1/games/1', {
+    //   fixture: 'game'
+    // })
   })
 
   afterEach(() => {
@@ -11,6 +11,9 @@ describe('update a game', () => {
   })
 
   it('If there are empty fields, the update cannot be performed', () => {
+    cy.intercept('GET', '/api/v1/games/1', {
+      fixture: 'game'
+    })
     cy.visit('games/1')
     cy.contains('Test Game')
     cy.contains('編集する').click()
@@ -23,6 +26,10 @@ describe('update a game', () => {
   })
 
   it('can update a game by providing all the required information', () => {
+    cy.intercept('GET', '/api/v1/games/1', {
+      fixture: 'game'
+    })
+
     cy.intercept('PUT', '/api/v1/games/1', {
       fixture: 'game'
     })
