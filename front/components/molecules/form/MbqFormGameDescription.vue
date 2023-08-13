@@ -17,6 +17,7 @@
   <MbqItemContainer>
     <MbqLabel :labelFor="'form-description'">説明</MbqLabel>
     <VeeField
+      data-cy="form-description"
       name="description"
       id="form-description"
       :rules="'required'"

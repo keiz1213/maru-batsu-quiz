@@ -9,7 +9,7 @@
     game?: Game
   }>()
 
-  const { loading, setLoading } = useLoading()
+  const { loading, setLoading, clearLoading } = useLoading()
   const { setToast, notifyOnSpot } = useToast()
 
   const defaultInitialQuizCount = 3
@@ -28,6 +28,7 @@
       setToast('ゲームを作成しました!', 'success')
       navigateTo(`/games/${createdGame.id}`)
     } catch {
+      clearLoading()
       notifyOnSpot(
         'ゲームの作成に失敗しました。再度やり直してください。',
         'error'
@@ -42,6 +43,7 @@
       setToast('ゲームを更新しました!', 'success')
       navigateTo(`/games/${game.id}`)
     } catch {
+      clearLoading()
       notifyOnSpot(
         'ゲームの更新に失敗しました。再度やり直してください。',
         'error'

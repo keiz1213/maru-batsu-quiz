@@ -11,7 +11,7 @@ class Api::V1::GamesController < ApplicationController
     build_quizzes(game)
 
     if game.save
-      render json: game, status: :ok
+      render json: game, status: :created
     else
       render json: { status: 'unprocessable_entity' }, status: :unprocessable_entity
     end

@@ -45,7 +45,10 @@
     <MbqLabel :labelFor="`form-quiz-${quizNumber}`"
       >クイズ{{ quizNumber }}</MbqLabel
     >
-    <MbqFrameMd :id="`form-quiz-${quizNumber}`">
+    <MbqFrameMd
+      :id="`form-quiz-${quizNumber}`"
+      :data-cy="`form-quiz-${quizNumber}`"
+    >
       <div class="flex justify-end">
         <MbqButtonCirculeCross
           v-show="!isLastQuiz()"
@@ -55,6 +58,7 @@
       </div>
       <MbqLabel :labelFor="`form-question-${quizNumber}`">問題</MbqLabel>
       <VeeField
+        :data-cy="`form-question-${quizNumber}`"
         :id="`form-question-${quizNumber}`"
         :name="`question-${quizNumber}`"
         label="question"
@@ -72,6 +76,7 @@
       />
       <MbqLabel :labelFor="`form-correct-answer-${quizNumber}`">正解</MbqLabel>
       <select
+        :data-cy="`form-correct-answer-${quizNumber}`"
         v-model="correctAnswer"
         :id="`form-correct-answer-${quizNumber}`"
         :name="'correct-answer'"
@@ -82,6 +87,7 @@
       </select>
       <MbqLabel :labelFor="`form-explanation-${quizNumber}`">解説</MbqLabel>
       <VeeField
+        :data-cy="`form-explanation-${quizNumber}`"
         :id="`form-explanation-${quizNumber}`"
         :name="`explanation-${quizNumber}`"
         label="explanation"

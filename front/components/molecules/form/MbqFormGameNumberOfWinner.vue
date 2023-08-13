@@ -28,6 +28,7 @@
   <MbqItemContainer>
     <MbqLabel :labelFor="'form-number-of-winner'">勝ち抜き人数</MbqLabel>
     <select
+      data-cy="form-number-of-winner"
       id="form-number-of-winner"
       name="form-number-of-winner"
       v-model="modelValue"

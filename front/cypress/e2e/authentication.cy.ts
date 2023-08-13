@@ -13,17 +13,19 @@ describe('auth', () => {
     })
 
     context('logged in', () => {
-      after(() => {
+      beforeEach(() => {
+        cy.login()
+      })
+
+      afterEach(() => {
         cy.logout()
       })
       it('accessing the root page, redirected to the home page', () => {
-        cy.login()
         cy.visit('/')
         cy.url().should('match', /home/)
       })
 
       it('accessing the login page, redirected to the home page', () => {
-        cy.login()
         cy.visit('/login')
         cy.url().should('match', /home/)
       })
