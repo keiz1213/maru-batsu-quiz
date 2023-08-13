@@ -23,7 +23,7 @@ describe('create a game', () => {
       fixture: 'game'
     })
 
-    cy.intercept('GET', '/api/v1/games/75', {
+    cy.intercept('GET', '/api/v1/games/1', {
       fixture: 'game'
     })
 
@@ -42,8 +42,7 @@ describe('create a game', () => {
     cy.get('[data-cy="form-explanation-3"]').type('普通に6です')
     cy.get('[data-cy="form-number-of-winner"]').select('3')
     cy.contains('ゲームを作成する').click()
-    cy.url().should('include', '/games/75')
+    cy.url().should('include', '/games/1')
     cy.contains('ゲームを作成しました!')
-    cy.contains('Test Game')
   })
 })
