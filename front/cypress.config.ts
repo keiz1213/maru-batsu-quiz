@@ -9,6 +9,7 @@ export default defineConfig({
         projectId: process.env.FIREBASE_PROJECT_ID
       })
     },
-    baseUrl: 'http://localhost:3000'
+    baseUrl: 'http://localhost:8080',
+    defaultCommandTimeout: 10000
   }
 })
