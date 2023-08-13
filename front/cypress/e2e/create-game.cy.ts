@@ -21,7 +21,7 @@ describe('create a game', () => {
   it('can create a game by providing all the required information', () => {
     cy.intercept('POST', '**/api/v1/games/', {
       fixture: 'game'
-    })
+    }).as('createGame')
 
     cy.intercept('GET', '**/api/v1/games/1', {
       fixture: 'game'
@@ -46,6 +46,8 @@ describe('create a game', () => {
     cy.get('[data-cy="form-explanation-3"]').type('普通に6です')
     cy.get('[data-cy="form-number-of-winner"]').select('3')
     cy.contains('ゲームを作成する').click()
+    cy.wait('@createGame')
+    cy.get('@createGame').should('have.a.property', 'request')
     cy.url().should('include', '/games/1')
     cy.contains('ゲームを作成しました!')
   })

@@ -29,7 +29,7 @@ describe('update a game', () => {
   it('can update a game by providing all the required information', () => {
     cy.intercept('PUT', '**/api/v1/games/1', {
       fixture: 'game'
-    })
+    }).as('updateGame')
 
     cy.intercept('GET', '**/api/v1/current_user/user_id', {
       body: 1
@@ -42,6 +42,8 @@ describe('update a game', () => {
     cy.get('[data-cy="form-title"]').invoke('val').should('eq', 'Test Game')
     cy.get('[data-cy="form-title"]').type('updated game title')
     cy.contains('ゲームを更新する').click()
+    cy.wait('@updateGame')
+    cy.get('@updateGame').should('have.a.property', 'request')
     cy.url().should('include', '/games/1')
     cy.contains('ゲームを更新しました!')
   })

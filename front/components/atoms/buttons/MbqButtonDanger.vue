@@ -29,6 +29,7 @@
     ]"
     @click="handleClick()"
     :type="buttonType"
+    data-cy="danger"
   >
     <div
       v-if="isLoading"
