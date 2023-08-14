@@ -43,7 +43,7 @@ declare namespace Cypress {
 }
 
 Cypress.Commands.add('checkTitle', (expectedTitle?: string) => {
-  if(expectedTitle) {
+  if (expectedTitle) {
     cy.title().should('eq', `${expectedTitle} | マルバツクイズオンライン`)
   } else {
     cy.title().should('eq', 'マルバツクイズオンライン')
