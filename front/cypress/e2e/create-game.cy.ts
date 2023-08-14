@@ -9,7 +9,7 @@ describe('create a game', () => {
 
   it('game creation requires filling in all the necessary fields', () => {
     cy.visit('games/new')
-    cy.contains('ゲーム作成')
+    cy.checkTitle('新規ゲーム作成')
     cy.contains('ゲームを作成する').click()
     cy.contains('入力内容を確認してください')
     cy.contains('ゲーム名は必須項目です')
@@ -32,7 +32,7 @@ describe('create a game', () => {
     })
 
     cy.visit('games/new')
-    cy.contains('ゲーム作成')
+    cy.checkTitle('新規ゲーム作成')
     cy.get('[data-cy="form-title"]').type('Test Game')
     cy.get('[data-cy="form-description"]').type('This is a test game')
     cy.get('[data-cy="form-question-1"]').type('1 + 1 = 2 ?')
@@ -58,7 +58,7 @@ describe('create a game', () => {
     })
     cy.visit('/home')
     cy.contains('新しいゲームを作成する').click()
-    cy.contains('ゲーム作成')
+    cy.checkTitle('新規ゲーム作成')
     cy.get('[data-cy="form-description"]').type('This is a test game')
     cy.on('window:confirm', cy.stub().as('confirmStub'))
     cy.go('back')

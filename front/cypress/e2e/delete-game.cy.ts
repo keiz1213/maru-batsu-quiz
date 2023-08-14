@@ -13,7 +13,7 @@ describe('delete a game', () => {
     })
     cy.login()
     cy.visit('games/1')
-    cy.contains('Test Game')
+    cy.checkTitle('Test Game')
     cy.contains('削除').click()
     cy.contains('本当に削除してもいいですか？')
     cy.get('[data-cy="danger"]').click()

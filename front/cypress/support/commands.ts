@@ -35,3 +35,17 @@
 //     }
 //   }
 // }
+
+declare namespace Cypress {
+  interface Chainable {
+    checkTitle(expectedTitle?: string): void
+  }
+}
+
+Cypress.Commands.add('checkTitle', (expectedTitle?: string) => {
+  if(expectedTitle) {
+    cy.title().should('eq', `${expectedTitle} | マルバツクイズオンライン`)
+  } else {
+    cy.title().should('eq', 'マルバツクイズオンライン')
+  }
+})

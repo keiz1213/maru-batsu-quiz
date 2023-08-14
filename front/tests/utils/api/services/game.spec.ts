@@ -1,4 +1,10 @@
-import { getGames, getGame, postGame, putGame, deleteGame } from '~/utils/api/services/game'
+import {
+  getGames,
+  getGame,
+  postGame,
+  putGame,
+  deleteGame
+} from '~/utils/api/services/game'
 import { describe, it, expect, vi } from 'vitest'
 
 describe('game', () => {
