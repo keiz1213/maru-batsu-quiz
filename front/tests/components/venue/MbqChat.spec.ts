@@ -4,7 +4,7 @@ import Avatar from '~/utils/class/Avatar'
 import { ChatMessage } from '~/types/chatMessage'
 import { describe, it, expect } from 'vitest'
 import { shallowMount, VueWrapper } from '@vue/test-utils'
-import MbqChat from '../MbqChat.vue'
+import MbqChat from '~/components/venue/MbqChat.vue'
 
 describe('MbqChat', () => {
   let wrapper: VueWrapper

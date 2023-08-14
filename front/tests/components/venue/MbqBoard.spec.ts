@@ -2,7 +2,7 @@
 
 import { describe, it, expect } from 'vitest'
 import { mount, VueWrapper } from '@vue/test-utils'
-import MbqBoard from '../MbqBoard.vue'
+import MbqBoard from '~/components/venue/MbqBoard.vue'
 
 describe('MbqBoard', () => {
   let wrapper: VueWrapper

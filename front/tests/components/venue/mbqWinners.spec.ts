@@ -3,9 +3,9 @@
 import Avatar from '~/utils/class/Avatar'
 import { describe, it, expect } from 'vitest'
 import { shallowMount } from '@vue/test-utils'
-import MbqLosers from '../MbqLosers.vue'
+import MbqWinners from '~/components/venue/MbqWinners.vue'
 
-describe('MbqLosers', () => {
+describe('MbqWinners', () => {
   it('render avatars', () => {
     const avatar1 = new Avatar(
       '1',
@@ -30,9 +30,10 @@ describe('MbqLosers', () => {
     )
 
     const avatars = [avatar1, avatar2]
-    const wrapper = shallowMount(MbqLosers, {
+    const wrapper = shallowMount(MbqWinners, {
       props: {
-        losers: avatars
+        winners: avatars,
+        title: 'winners'
       }
     })
     const avatarComponents = wrapper.findAllComponents({

@@ -2,7 +2,7 @@
 
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import MbqAnswer from '../MbqAnswer.vue'
+import MbqAnswer from '~/components/venue/MbqAnswer.vue'
 
 describe('MbqAnswer', () => {
   it("render '◯' zone", () => {

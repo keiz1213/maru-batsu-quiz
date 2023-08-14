@@ -4,7 +4,7 @@ import Avatar from '~/utils/class/Avatar'
 import { Quiz } from '~/types/quiz'
 import { describe, it, expect } from 'vitest'
 import { mount, VueWrapper } from '@vue/test-utils'
-import MbqOwnerArea from '../MbqOwnerArea.vue'
+import MbqOwnerArea from '~/components/venue/MbqOwnerArea.vue'
 
 describe('MbqOwnerArea', () => {
   let wrapper: VueWrapper

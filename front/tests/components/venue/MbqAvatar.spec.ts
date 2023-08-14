@@ -3,7 +3,7 @@
 import Avatar from '~/utils/class/Avatar'
 import { describe, it, expect } from 'vitest'
 import { shallowMount, VueWrapper } from '@vue/test-utils'
-import MbqAvatar from '../MbqAvatar.vue'
+import MbqAvatar from '~/components/venue/MbqAvatar.vue'
 
 describe('MbqAvatar', () => {
   let wrapper: VueWrapper

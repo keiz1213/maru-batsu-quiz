@@ -3,7 +3,7 @@
 import Avatar from '~/utils/class/Avatar'
 import { describe, it, expect } from 'vitest'
 import { shallowMount } from '@vue/test-utils'
-import MbqPlayers from '../MbqPlayers.vue'
+import MbqPlayers from '~/components/venue/MbqPlayers.vue'
 
 describe('MbqPlayers', () => {
   it('render avatars', () => {
