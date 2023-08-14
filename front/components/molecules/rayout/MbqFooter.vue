@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full border-t pt-5">
+  <div class="w-full pt-5">
     <footer>
       <div>
         <nav>

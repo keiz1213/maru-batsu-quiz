@@ -1,5 +1,5 @@
 export const useAnnounce = () => {
-  const announceText = ref('ここに問題')
+  const announceText = ref('')
 
   const updateAnnounceText = (data: string) => {
     announceText.value = data
