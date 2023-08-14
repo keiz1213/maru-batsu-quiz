@@ -64,4 +64,20 @@ describe('create a game', () => {
     cy.go('back')
     cy.get('@confirmStub').should('be.calledOnce')
   })
+
+  it('can increase the number of quizzes', () => {
+    cy.visit('/games/new')
+    cy.checkTitle('新規ゲーム作成')
+    cy.get('[data-cy^="form-quiz-"]').should('have.length', 3)
+    cy.contains('+ クイズを追加する').click()
+    cy.get('[data-cy^="form-quiz-"]').should('have.length', 4)
+  })
+
+  it('can decrease the number of quizzes', () => {
+    cy.visit('/games/new')
+    cy.checkTitle('新規ゲーム作成')
+    cy.get('[data-cy^="form-quiz-"]').should('have.length', 3)
+    cy.get('[data-cy="circle-cross-button"]').first().click()
+    cy.get('[data-cy^="form-quiz-"]').should('have.length', 2)
+  })
 })

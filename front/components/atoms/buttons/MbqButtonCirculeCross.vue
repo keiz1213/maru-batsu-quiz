@@ -16,6 +16,7 @@
     class="h-8 w-8 rounded-full bg-white hover:brightness-[0.9]"
     @click="handleClick"
     :type="buttonType"
+    data-cy="circle-cross-button"
   >
     ✕
   </button>
