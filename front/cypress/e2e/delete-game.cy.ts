@@ -1,4 +1,4 @@
-describe('update a game', () => {
+describe('delete a game', () => {
   it('can delete a game only creater', () => {
     cy.intercept('DELETE', '**/api/v1/games/1', {
       statusCode: 200

@@ -51,4 +51,17 @@ describe('create a game', () => {
     cy.url().should('include', '/games/1')
     cy.contains('ゲームを作成しました!')
   })
+
+  it('display warning on browser back during input', () => {
+    cy.intercept('GET', '**/api/v1/current_user/games', {
+      fixture: 'games'
+    })
+    cy.visit('/home')
+    cy.contains('新しいゲームを作成する').click()
+    cy.contains('ゲーム作成')
+    cy.get('[data-cy="form-description"]').type('This is a test game')
+    cy.on('window:confirm', cy.stub().as('confirmStub'))
+    cy.go('back')
+    cy.get('@confirmStub').should('be.calledOnce')
+  })
 })
