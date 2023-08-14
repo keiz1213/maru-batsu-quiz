@@ -7,9 +7,9 @@
 <template>
   <NuxtLink :href="href">
     <img
-      src="../../../assets/images/logo-trim.png"
-      width="80"
-      height="80"
+      src="../../../assets/images/logo.png"
+      width="150"
+      height="100"
       alt="logo"
     />
   </NuxtLink>

@@ -15,14 +15,14 @@
 </script>
 
 <template>
-  <div class="bg-white px-3 py-0 fixed w-full z-10 border-b h-[80px]">
+  <div class="bg-white px-3 fixed w-full z-10 border-b h-[70px]">
     <header>
       <div class="flex items-center justify-between">
-        <div class="pt-2">
+        <div>
           <MbqBrand :href="isLoggedIn ? '/home' : '/'"></MbqBrand>
         </div>
         <div class="flex h-[69px]">
-          <div class="my-2 mr-3">
+          <div class="my-[6px] mr-3">
             <NuxtLink v-if="!isLoggedIn" :to="'/howToPlay'">
               <MbqButtonPrimary
                 ><div class="flex">
@@ -45,7 +45,7 @@
               <li>
                 <NuxtLink
                   :to="'/howToPlay'"
-                  class="block w-full py-3 text-left pl-3"
+                  class="block w-full py-2 text-left pl-3"
                 >
                   <div class="flex">
                     <nintendo-game-boy-icon /><span class="ml-3"
