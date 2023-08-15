@@ -3,14 +3,10 @@
   import Avatar from '~/utils/class/Avatar'
   import { VueFinalModal } from 'vue-final-modal'
 
-  const props = defineProps<{
+  defineProps<{
     winners: Avatar[]
     quizzes: Quiz[]
   }>()
-
-  watch(props, () => {
-    bothSidesCracker()
-  })
 
   const backToHome = () => {
     navigateTo('/home', { external: true })

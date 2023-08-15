@@ -55,15 +55,18 @@ export const useJudge = (initialNumberOfWinner: number) => {
   }
 
   const startGame = (avatar: Avatar) => {
+    const { notifyOnSpot } = useToast()
     SyncDraggable.setDraggable(avatar)
     SyncDraggable.setDropzone('maru', avatar)
     SyncDraggable.setDropzone('batsu', avatar)
     isStandByGame.value = false
+    notifyOnSpot('接続が完了しました。ゲームを開始できます。', 'success')
   }
 
   const checkEndOfGame = () => {
     if (numberOfWinner.value === 0) {
       isEndOfGame.value = true
+      fireWorks()
     }
   }
 

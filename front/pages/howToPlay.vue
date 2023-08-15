@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import HeadCogOutlineIcon from 'vue-material-design-icons/HeadCogOutline.vue'
-  import HeadLightbulbOutlineIcon from 'vue-material-design-icons/HeadLightbulbOutline.vue'
+  import ChatQuestionOutlineIcon from 'vue-material-design-icons/ChatQuestionOutline.vue'
+  import ChatAlertOutlineIcon from 'vue-material-design-icons/ChatAlertOutline.vue'
   definePageMeta({
     layout: 'mbq-after-login'
   })
@@ -18,31 +18,11 @@
       <div>
         <MbqH1>遊び方</MbqH1>
       </div>
-      <div class="w-[400px] bg-slate-100 rounded-2xl p-6">
-        <ul>
-          <li class="py-1">
-            <div class="flex">
-              <head-cog-outline-icon />
-              <a class="hover:text-gray-500 ml-3" href="#questioner"
-                >出題者として</a
-              >
-            </div>
-          </li>
-          <li class="py-1">
-            <div class="flex">
-              <head-lightbulb-outline-icon />
-              <a class="hover:text-gray-500 ml-3" href="#answerer"
-                >回答者として</a
-              >
-            </div>
-          </li>
-        </ul>
-      </div>
       <div id="questioner" class="">
         <div class="mt-10">
           <h2 class="text-2xl">
             <div class="flex">
-              <head-cog-outline-icon :size="31" />
+              <chat-question-outline-icon :size="31" />
               <span class="ml-3">出題者として</span>
             </div>
           </h2>
@@ -50,21 +30,28 @@
         <div class="my-12">
           <HowToPlay
             :title="'1. ゲームを作成する'"
-            :description="'「新しいゲームを作成する」からゲームを作成します。クイズ数は必要に応じて増減できます。'"
+            :description="'ホームの「新しいゲームを作成する」からゲームを作成します。'"
             :fileName="'demo-create-new-game'"
           ></HowToPlay>
         </div>
         <div class="my-12">
           <HowToPlay
-            :title="'2. URLにアクセスする'"
-            :description="'ゲームの作成が完了したら「ゲーム会場へ入る」を押して最初にアクセスしておきます。'"
+            :title="'2. 会場URLをコピーする'"
+            :description="'ゲームの作成が完了したら、そのゲームの会場URLが発行されるのでそれをコピーします。'"
+            :fileName="'demo-copy-url'"
+          ></HowToPlay>
+        </div>
+        <div class="my-12">
+          <HowToPlay
+            :title="'3. ゲーム会場にアクセス'"
+            :description="'ゲームの作者が一番最初にゲーム会場にアクセスしてください。アクセス方法は、ゲーム詳細ページの「ゲーム会場へ入る」をクリックしてください。作者が会場に入っていないと、他の参加者が会場に入れないので注意してください。'"
             :fileName="'demo-go-to-venue'"
           ></HowToPlay>
         </div>
         <div class="my-12">
           <HowToPlay
-            :title="'3. URLをシェア'"
-            :description="'作成者がアクセスしたら、URLを参加予定者にシェアします。'"
+            :title="'4. 会場URLを参加者にシェア'"
+            :description="'ゲーム作者が会場に入った状態で、先程コピーしたURLを参加者にシェアします。'"
             :fileName="'share-url'"
           ></HowToPlay>
           <div class="flex justify-end">
@@ -79,32 +66,32 @@
         </div>
         <div class="my-12">
           <HowToPlay
-            :title="'4. 参加者のアクセスを待つ'"
-            :description="'作成者からは誰が会場にアクセスしてきたか確認できるようになっているので、参加予定者が全員アクセスするまで待ちます。'"
-            :fileName="'waiting-connect'"
+            :title="'5. 参加者がゲーム会場にアクセスするのを待つ'"
+            :description="'参加者全員がシェアしたURLにアクセスするのを待ちます。アクセスした人は「入室済み」となります。'"
+            :fileName="'demo-wait'"
           ></HowToPlay>
-          <div class="flex justify-end">
-            <span>
+          <!-- <div class="flex justify-end"> -->
+            <!-- <span>
               Illustration by
               <a href="https://icons8.com/illustrations/author/259416"
                 >Marina Green</a
               >
               from <a href="https://icons8.com/illustrations">Ouch!</a>
-            </span>
-          </div>
+            </span> -->
+          <!-- </div> -->
         </div>
         <div class="my-12">
           <HowToPlay
-            :title="'5. 参加者が揃ったら接続開始'"
-            :description="'参加予定者が全員アクセスしたのを確認して「接続を開始する」を押します。'"
-            :fileName="'demo-connecting'"
+            :title="'6. 参加者全員が会場に入ったことを確認する'"
+            :description="'ゲーム作成者には、どの参加者がゲーム会場にアクセスしてきたかわかるようになっています。全参加者が入室したことを確認できたら、「ゲームを開始する」をクリックします。クリックすると接続が始まるので接続が終わるまで待ちます。'"
+            :fileName="'demo-start'"
           ></HowToPlay>
         </div>
         <div class="my-12">
           <HowToPlay
-            :title="'6. クイズを出題する'"
-            :description="'接続が完了するとゲームが開始できるようになるので、準備ができたら出題ボタンを押してクイズを出題しましょう。出題ボタンを押すと出題、回答、正解発表、判定、解説までが自動で行われます。解説まで終わったら次の問題が出題できるようになります。'"
-            :fileName="'demo-how-to-question'"
+            :title="'7. ゲームを開始'"
+            :description="'接続が完了するとクイズが出題できるようになります。画面右上にゲーム作者用のメニューがあるのでそこから出題します。「n問目を出題する」というボタンを一度クリックすると、出題、回答、判定、解説まで自動で行われます。解説まで終わると次のクイズを出題できるようになります。'"
+            :fileName="'demo-play'"
           ></HowToPlay>
         </div>
       </div>
@@ -112,7 +99,7 @@
         <div>
           <h2 class="text-2xl">
             <div class="flex">
-              <head-lightbulb-outline-icon :size="31" />
+              <chat-alert-outline-icon :size="31" />
               <span class="ml-3">回答者として</span>
             </div>
           </h2>
@@ -136,7 +123,7 @@
         <div class="my-12">
           <HowToPlay
             :title="'2. 接続が完了するまで待機'"
-            :description="'アクセスできたら、全参加者が接続するまで待機します。'"
+            :description="'アクセスできたら、ゲームが開始されるまで待機します。'"
             :fileName="'demo-wait-connecting'"
           ></HowToPlay>
         </div>

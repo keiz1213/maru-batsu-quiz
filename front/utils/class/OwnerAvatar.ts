@@ -30,6 +30,12 @@ class OwnerAvatar extends Avatar {
     )
   }
 
+  calculateProgress = (numberOfPlayers: number) => {
+    const progress = (1 / 3) * (1 / numberOfPlayers)
+    const { addCompleted } = useProgress()
+    addCompleted(progress * 100)
+  }
+
   onPlayerEnterChannel = () => {
     this.skyway!.channel!.onPublicationListChanged.add(async () => {
       const publisherName = this.skyway!.channel!.publications.slice(-1)[0]
@@ -94,6 +100,7 @@ class OwnerAvatar extends Avatar {
           .id as string
         const stream = await this.subscribeTo(playerPublicationId)
         await this.onDataWrite(stream)
+        this.calculateProgress(numberOfParticipant - 1)
         console.log(`[:subscribeToAllPlayers] ${i}人目をサブスク完了`)
       }
     } catch {
@@ -132,6 +139,9 @@ class OwnerAvatar extends Avatar {
           `[:promptSubscribeToOwnerForAllPlayers] ${i}人目にownerをサブスクするように促します`
         )
         await this.checkPlayerSubscribedToOwner(playerIndex, 10)
+        this.calculateProgress(
+          allPublications.length - 1
+        )
         console.log(
           `[:promptSubscribeToOwnerForAllPlayers] ${i}人目がownerをサブスクサブスク完了しました`
         )
@@ -157,6 +167,9 @@ class OwnerAvatar extends Avatar {
         `[:promptSubscribeToAllPlayersForPlayer] index=${index} のplayerに対して他の全playerをサブスクするように促します`
       )
       this.influentialAction!.promptSubscribeToAllPlayers(index)
+      this.calculateProgress(
+        numberOfParticipants - 1
+      )
     }
   }
 

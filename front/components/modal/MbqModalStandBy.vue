@@ -17,6 +17,7 @@
   }>()
 
   const { loading, setLoading } = useLoading()
+  const { completed } = useProgress()
 
   const handleClick = () => {
     emit('start-connection')
@@ -29,6 +30,10 @@
     content-class="w-3/4 h-3/4 m-auto bg-white rounded-lg space-y-2 absolute inset-0"
   >
     <div class="absolute inset-0 overflow-auto">
+      <div class="flex justify-between mx-5 mt-5">
+        <MbqMascot :animateClass="'animate__bounce'" />
+        <MbqMascot :animateClass="'animate__rubberBand'" />
+      </div>
       <div v-if="isOwner" class="my-5 mx-auto w-2/3">
         <h2 class="text-center text-xl my-2">
           <div class="flex">
@@ -50,7 +55,7 @@
           <div class="flex">
             <information-outline-icon :size="28" />
             <span class="ml-2">
-              参加予定者が全員入室済みになったら「接続開始する」を押してください
+              全員入室済みになったら「ゲームを開始する」を押してください
             </span>
           </div>
         </h2>
@@ -112,16 +117,22 @@
             </li>
           </ul>
         </div>
-        <div class="w-2/3 mx-auto my-10 text-center">
+        <div class="w-2/3 mx-auto my-5 text-center">
           <MbqButtonPrimary
             :button-type="'button'"
             :isLoading="loading"
             @click="handleClick"
             ><div class="flex">
               <human-greeting-proximity-icon />
-              <span class="ml-2"> 接続を開始する </span>
+              <span class="ml-2"> ゲームを開始する </span>
             </div></MbqButtonPrimary
           >
+          <progress
+            class="block mx-auto mt-5 progress progress-info w-56"
+            max="100"
+            :value="completed"
+            id="progress"
+          ></progress>
         </div>
       </div>
       <div
@@ -141,6 +152,10 @@
             :avatar="player"
           />
         </div>
+      </div>
+      <div class="flex justify-between mx-5 my-10">
+        <MbqMascot :animateClass="'animate__tada'" />
+        <MbqMascot :animateClass="'animate__heartBeat'" />
       </div>
     </div>
   </VueFinalModal>
