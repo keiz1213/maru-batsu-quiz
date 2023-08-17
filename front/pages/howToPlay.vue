@@ -13,12 +13,34 @@
 </script>
 
 <template>
+  <div class="w-[180px] h-full bg-slate-200 fixed top-[70px]">
+    <div class="w-full">
+      <ul class="">
+        <li>
+          <a class="block" href="#questioner">
+            <div class="flex p-4 hover:bg-slate-300 hover:cursor-pointer">
+              <chat-question-outline-icon />
+              <span class="ml-3">出題者として</span>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="block" href="#answerer">
+            <div class="flex p-4 hover:bg-slate-300 hover:cursor-pointer">
+              <chat-alert-outline-icon />
+              <span class="ml-3">回答者として</span>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
   <TheContainer>
-    <div class="flex flex-col px-40">
+    <div class="flex flex-col px-48 min-w-[1000px]">
       <div>
         <MbqH1>遊び方</MbqH1>
       </div>
-      <div id="questioner" class="">
+      <div id="questioner">
         <div class="mt-10">
           <h2 class="text-2xl">
             <div class="flex">
@@ -70,15 +92,6 @@
             :description="'参加者全員がシェアしたURLにアクセスするのを待ちます。アクセスした人は「入室済み」となります。'"
             :fileName="'demo-wait'"
           ></HowToPlay>
-          <!-- <div class="flex justify-end"> -->
-            <!-- <span>
-              Illustration by
-              <a href="https://icons8.com/illustrations/author/259416"
-                >Marina Green</a
-              >
-              from <a href="https://icons8.com/illustrations">Ouch!</a>
-            </span> -->
-          <!-- </div> -->
         </div>
         <div class="my-12">
           <HowToPlay
