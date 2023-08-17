@@ -50,7 +50,7 @@ describe('MbqCardGame', () => {
     describe('number of winner', () => {
       it('correct number of winner', () => {
         const numberOfWinner = wrapper.find('#card-number-of-winner')
-        expect(numberOfWinner.text()).toBe('勝ち抜き人数: 3人')
+        expect(numberOfWinner.text()).toBe('勝者枠: 3人')
       })
 
       it('render trophy icon', () => {

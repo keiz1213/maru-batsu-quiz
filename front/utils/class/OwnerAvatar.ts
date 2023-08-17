@@ -139,9 +139,7 @@ class OwnerAvatar extends Avatar {
           `[:promptSubscribeToOwnerForAllPlayers] ${i}人目にownerをサブスクするように促します`
         )
         await this.checkPlayerSubscribedToOwner(playerIndex, 10)
-        this.calculateProgress(
-          allPublications.length - 1
-        )
+        this.calculateProgress(allPublications.length - 1)
         console.log(
           `[:promptSubscribeToOwnerForAllPlayers] ${i}人目がownerをサブスクサブスク完了しました`
         )
@@ -167,9 +165,7 @@ class OwnerAvatar extends Avatar {
         `[:promptSubscribeToAllPlayersForPlayer] index=${index} のplayerに対して他の全playerをサブスクするように促します`
       )
       this.influentialAction!.promptSubscribeToAllPlayers(index)
-      this.calculateProgress(
-        numberOfParticipants - 1
-      )
+      this.calculateProgress(numberOfParticipants - 1)
     }
   }
 

@@ -21,9 +21,7 @@ describe('MbqCardContent', () => {
   })
 
   it('render correctly with number of winner', () => {
-    expect(wrapper.find('#card-number-of-winner').text()).toBe(
-      '勝ち抜き人数: 1人'
-    )
+    expect(wrapper.find('#card-number-of-winner').text()).toBe('勝者枠: 1人')
   })
 
   it('render correctly with created at', () => {

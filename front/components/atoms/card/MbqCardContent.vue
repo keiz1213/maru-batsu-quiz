@@ -20,8 +20,8 @@
       <li>
         <div class="flex">
           <trophy-outline-icon />
-          <span id="card-number-of-winner" class="ml-2">
-            勝ち抜き人数: {{ numberOfWinner }}人
+          <span id="card-number-of-winner" class="ml-1">
+            勝者枠: {{ numberOfWinner }}人
           </span>
         </div>
       </li>

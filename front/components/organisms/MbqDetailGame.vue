@@ -55,7 +55,7 @@
       <MbqTableQuiz :quizzes="game.quizzes" />
       <MbqItemGame
         :content="game.number_of_winner"
-        :labelName="'勝ち抜き人数'"
+        :labelName="'勝者枠'"
         :id="'item-game-number-of-winner'"
       />
       <MbqItemGame
