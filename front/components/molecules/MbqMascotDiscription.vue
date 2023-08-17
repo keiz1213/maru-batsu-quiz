@@ -7,7 +7,7 @@
   <div class="flex">
     <img
       class="h-20 w-20 rounded-full border-2 border-primary object-cover object-center block"
-      src="../../assets/images/logo2.png"
+      src="../../assets/images/mascot.png"
     />
     <div class="chat chat-start">
       <div class="chat-bubble chat-bubble-primary">

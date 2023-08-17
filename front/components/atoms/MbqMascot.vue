@@ -16,7 +16,7 @@
         'animate__infinite',
         animateClass
       ]"
-      src="../../assets/images/logo2.png"
+      src="../../assets/images/mascot.png"
     />
   </div>
 </template>
