@@ -44,7 +44,7 @@
             >
               <li>
                 <NuxtLink
-                  :to="'/howToPlay'"
+                  :to="'/how-to-play'"
                   class="block w-full py-2 text-left pl-3"
                 >
                   <div class="flex">
@@ -67,7 +67,7 @@
               </li>
               <li>
                 <NuxtLink
-                  :to="'/withdrawalConfirmation'"
+                  :to="'/withdrawal-confirmation'"
                   class="block w-full py-3 text-left pl-3"
                 >
                   <div class="flex">
