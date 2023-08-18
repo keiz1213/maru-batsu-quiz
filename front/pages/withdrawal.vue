@@ -3,7 +3,21 @@
     layout: 'mbq-after-login'
   })
   useHead({
-    title: '退会完了'
+    title: '退会完了',
+    meta: [
+      {
+        name: 'description',
+        content: '退会完了'
+      },
+      {
+        name: 'og:title',
+        content: '退会完了'
+      },
+      {
+        name: 'og:description',
+        content: '退会完了'
+      }
+    ]
   })
 </script>
 

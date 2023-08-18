@@ -4,7 +4,21 @@
   })
 
   useHead({
-    title: 'プライバシーポリシー'
+    title: 'プライバシーポリシー',
+    meta: [
+      {
+        name: 'description',
+        content: 'プライバシーポリシー'
+      },
+      {
+        name: 'og:title',
+        content: 'プライバシーポリシー'
+      },
+      {
+        name: 'og:description',
+        content: 'プライバシーポリシー'
+      }
+    ]
   })
 
   const router = useRouter()

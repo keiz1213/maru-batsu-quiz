@@ -20,7 +20,7 @@
 </script>
 
 <template>
-  <div class="flex flex-col min-h-screen bg-slate-100">
+  <div class="flex flex-col min-h-screen min-w-[1300px]">
     <MbqNavBar @logout="logout"></MbqNavBar>
     <slot />
     <MbqFooter class="mt-auto"></MbqFooter>

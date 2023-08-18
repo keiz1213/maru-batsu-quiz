@@ -5,7 +5,21 @@
   })
 
   useHead({
-    title: 'ログイン'
+    title: 'ログイン',
+    meta: [
+      {
+        name: 'description',
+        content: 'ログインページ'
+      },
+      {
+        name: 'og:title',
+        content: 'ログイン'
+      },
+      {
+        name: 'og:description',
+        content: 'ログインページ'
+      }
+    ]
   })
 
   const { login, loading } = useAuth()

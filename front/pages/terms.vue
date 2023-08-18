@@ -4,7 +4,21 @@
   })
 
   useHead({
-    title: '利用規約'
+    title: '利用規約',
+    meta: [
+      {
+        name: 'description',
+        content: '利用規約'
+      },
+      {
+        name: 'og:title',
+        content: '利用規約'
+      },
+      {
+        name: 'og:description',
+        content: '利用規約'
+      }
+    ]
   })
 
   const router = useRouter()

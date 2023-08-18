@@ -11,7 +11,21 @@
   const game = await getGame(gameId)
 
   useHead({
-    title: game.title
+    title: game.title,
+    meta: [
+      {
+        name: 'description',
+        content: 'ゲーム詳細'
+      },
+      {
+        name: 'og:title',
+        content: game.title
+      },
+      {
+        name: 'og:description',
+        content: 'ゲーム詳細'
+      }
+    ]
   })
 </script>
 

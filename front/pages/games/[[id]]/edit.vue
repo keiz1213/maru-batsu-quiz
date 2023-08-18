@@ -7,7 +7,21 @@
   })
 
   useHead({
-    title: 'ゲーム編集'
+    title: 'ゲーム編集',
+    meta: [
+      {
+        name: 'description',
+        content: 'ゲーム編集'
+      },
+      {
+        name: 'og:title',
+        content: 'ゲーム編集'
+      },
+      {
+        name: 'og:description',
+        content: 'ゲーム編集'
+      }
+    ]
   })
 
   const route = useRoute()

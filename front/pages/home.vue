@@ -7,7 +7,21 @@
   })
 
   useHead({
-    title: 'ホーム'
+    title: 'ホーム',
+    meta: [
+      {
+        name: 'description',
+        content: 'ユーザーのゲーム一覧'
+      },
+      {
+        name: 'og:title',
+        content: 'ホーム'
+      },
+      {
+        name: 'og:description',
+        content: 'ユーザーのゲーム一覧'
+      }
+    ]
   })
 
   const games = await getGames()

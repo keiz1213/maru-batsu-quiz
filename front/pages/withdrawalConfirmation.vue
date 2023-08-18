@@ -5,7 +5,21 @@
   })
 
   useHead({
-    title: '退会の確認'
+    title: '退会の確認',
+    meta: [
+      {
+        name: 'description',
+        content: '退会の確認'
+      },
+      {
+        name: 'og:title',
+        content: '退会の確認'
+      },
+      {
+        name: 'og:description',
+        content: '退会の確認'
+      }
+    ]
   })
 
   const { withdrawal, loading } = useAuth()

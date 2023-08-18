@@ -32,7 +32,7 @@
         <ul class="mt-24 mb-14">
           <li>
             <span class="text-5xl font-bold text-center my-3 text-gradient"
-              >仲間と</span
+              >友達を誘って</span
             >
           </li>
           <li>
@@ -54,7 +54,7 @@
     <div id="middle" class="w-[1300px] h-[500px] mx-auto">
       <div>
         <div>
-          <h3 class="text-3xl py-7 text-center">特徴</h3>
+          <h3 class="text-4xl py-7 text-center">POINT</h3>
         </div>
         <div class="flex">
           <div class="w-1/3 h-[400px] mx-3 bg-slate-200 rounded-2xl p-7">

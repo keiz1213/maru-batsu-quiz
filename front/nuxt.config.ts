@@ -27,11 +27,12 @@ export default defineNuxtConfig({
         },
         {
           name: 'og:image',
-          content: '#'
+          content:
+            'https://marubatsu-quiz-online.com/assets/images/logo-ogp.png'
         },
         {
           name: 'og:url',
-          content: '#'
+          content: 'https://marubatsu-quiz-online.com'
         },
         {
           name: 'twitter:card',
@@ -44,7 +45,8 @@ export default defineNuxtConfig({
         },
         {
           name: 'twitter:image',
-          content: '#'
+          content:
+            'https://marubatsu-quiz-online.com/assets/images/logo-ogp.png'
         }
       ]
     }

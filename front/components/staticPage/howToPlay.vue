@@ -14,7 +14,7 @@
   <div>
     <h3 class="text-xl my-4">{{ title }}</h3>
     <div class="bg-slate-200 rounded-2xl p-6">
-      <div class="">
+      <div>
         <img
           class="block mx-auto"
           v-if="fileName"
