@@ -28,7 +28,7 @@ export default defineNuxtConfig({
         {
           name: 'og:image',
           content:
-            'https://marubatsu-quiz-online.com/assets/images/logo-ogp.png'
+            'https://www.marubatsu-quiz-online.com/assets/images/logo-ogp.png'
         },
         {
           name: 'og:url',
@@ -50,14 +50,12 @@ export default defineNuxtConfig({
         },
         {
           name: 'twitter:site',
-          content:
-            '@Nakamura'
+          content: '@Nakamura'
         },
         {
           name: 'twitter:title',
-          content:
-            'マルバツクイズオンライン'
-        },
+          content: 'マルバツクイズオンライン'
+        }
       ]
     }
   },
