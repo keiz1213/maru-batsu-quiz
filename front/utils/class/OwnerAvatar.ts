@@ -186,7 +186,7 @@ class OwnerAvatar extends Avatar {
       // console.log(`[:startConnection] 全playerに対してownerのavatarを送信完了`)
       this.sendAllPlayerAvatars(players)
       // console.log(
-        // `[:startConnection] 全playerに対して全playerのavatarを送信完了`
+      // `[:startConnection] 全playerに対して全playerのavatarを送信完了`
       // )
       // console.log(`[:startConnection] player同士のサブスクを開始します`)
       this.promptSubscribeToAllPlayersForPlayer(0)
