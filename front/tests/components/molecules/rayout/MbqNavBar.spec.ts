@@ -15,7 +15,7 @@ describe('MbqNavBar', () => {
     }
   })
 
-  vi.mock('~/composables/useAuth', () => {
+  vi.mock('~/composables/use-auth', () => {
     return {
       useAuth: mocks.useAuth
     }

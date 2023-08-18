@@ -1,7 +1,7 @@
 <script setup lang="ts">
   definePageMeta({
-    layout: 'mbq-after-login',
-    middleware: ['logged-in-redirect']
+    layout: 'mbq-default',
+    middleware: ['loggedin-redirect']
   })
 
   const { login, loading } = useAuth()

@@ -1,4 +1,4 @@
-import { getSkyWayToken } from '~/utils/api/services/skywayToken'
+import { getSkyWayToken } from '~/utils/api/services/skyway-token'
 import { describe, it, expect, vi } from 'vitest'
 
 describe('getSkyWayToken', () => {
@@ -12,7 +12,7 @@ describe('getSkyWayToken', () => {
     }
   })
 
-  vi.mock('~/composables/useCustomFetch', () => {
+  vi.mock('~/composables/use-custom-fetch', () => {
     return {
       useCustomFetch: mocks.useCustomFetch
     }

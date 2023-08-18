@@ -10,7 +10,7 @@ import {
 } from '@skyway-sdk/room'
 import type { User } from '~/types/user'
 import { Game } from '~/types/game'
-import { getSkyWayToken } from '~/utils/api/services/skywayToken'
+import { getSkyWayToken } from '~/utils/api/services/skyway-token'
 
 class SkyWay {
   user: User

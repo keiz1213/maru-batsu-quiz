@@ -1,6 +1,6 @@
 <script setup lang="ts">
   definePageMeta({
-    layout: 'mbq-after-login'
+    layout: 'mbq-default'
   })
 
   useHead({

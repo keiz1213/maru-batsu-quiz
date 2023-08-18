@@ -2,7 +2,7 @@
   import ChatQuestionOutlineIcon from 'vue-material-design-icons/ChatQuestionOutline.vue'
   import ChatAlertOutlineIcon from 'vue-material-design-icons/ChatAlertOutline.vue'
   definePageMeta({
-    layout: 'mbq-after-login'
+    layout: 'mbq-default'
   })
 
   useHead({

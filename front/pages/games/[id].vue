@@ -2,7 +2,7 @@
   import { getGame } from '~/utils/api/services/game'
 
   definePageMeta({
-    layout: 'mbq-after-login',
+    layout: 'mbq-default',
     middleware: ['auth', 'creator-only']
   })
   const route = useRoute()

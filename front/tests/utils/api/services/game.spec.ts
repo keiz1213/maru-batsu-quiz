@@ -66,7 +66,7 @@ describe('game', () => {
 
   const games = [game1, game2]
 
-  vi.mock('~/composables/useCustomFetch', () => {
+  vi.mock('~/composables/use-custom-fetch', () => {
     return {
       useCustomFetch: mocks.useCustomFetch
     }

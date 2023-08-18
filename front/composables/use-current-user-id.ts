@@ -1,5 +1,5 @@
 import type { User } from 'firebase/auth'
-import { getCurrentUserId } from '~/utils/api/services/currentUserId'
+import { getCurrentUserId } from '~/utils/api/services/current-user-id'
 
 export const useCurrentUserId = () => {
   const currentUserId = useState<number>('currentUserId', () => {

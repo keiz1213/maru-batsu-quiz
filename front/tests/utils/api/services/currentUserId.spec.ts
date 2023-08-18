@@ -1,4 +1,4 @@
-import { getCurrentUserId } from '~/utils/api/services/currentUserId'
+import { getCurrentUserId } from '~/utils/api/services/current-user-id'
 import { describe, it, expect, vi } from 'vitest'
 
 describe('getCurrentUserId', () => {
@@ -12,7 +12,7 @@ describe('getCurrentUserId', () => {
     }
   })
 
-  vi.mock('~/composables/useCustomFetch', () => {
+  vi.mock('~/composables/use-custom-fetch', () => {
     return {
       useCustomFetch: mocks.useCustomFetch
     }
