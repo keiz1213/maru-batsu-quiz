@@ -23,7 +23,7 @@
         </div>
         <div class="flex h-[69px]">
           <div class="my-[6px] mr-3">
-            <NuxtLink v-if="!isLoggedIn" :to="'/howToPlay'">
+            <NuxtLink v-if="!isLoggedIn" :to="'/how-to-play'">
               <MbqButtonPrimary
                 ><div class="flex">
                   <nintendo-game-boy-icon /><span class="ml-3"
