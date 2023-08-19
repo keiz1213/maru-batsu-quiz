@@ -78,7 +78,7 @@
         </NuxtLink>
       </div>
       <div class="flex justify-end">
-        <p @click="confirm" class="underline hover:cursor-pointer text-red-600">
+        <p @click="confirm" class="underline hover:cursor-pointer text-slate-400">
           削除
         </p>
       </div>
