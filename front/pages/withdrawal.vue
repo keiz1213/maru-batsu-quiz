@@ -23,6 +23,7 @@
 
 <template>
   <TheContainer>
+    <MbqH1>退会完了</MbqH1>
     <h2 class="text-3xl text-center mt-48">
       ご利用ありがとうございました。またのご利用お待ちしています。
     </h2>

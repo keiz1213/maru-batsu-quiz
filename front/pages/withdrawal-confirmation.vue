@@ -29,7 +29,7 @@
 
 <template>
   <TheContainer>
-    <h1 class="text-4xl text-center">退会</h1>
+    <MbqH1>退会</MbqH1>
     <h2 class="text-3xl text-center mt-48">
       今まで作成した○×クイズが全て消去されますがよろしいでしょうか？
     </h2>
