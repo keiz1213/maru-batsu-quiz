@@ -15,13 +15,14 @@
 
 <template>
   <MbqItemContainer>
-    <MbqLabel :labelFor="'form-title'">名前</MbqLabel>
+    <MbqLabel :labelFor="'form-title'">ゲーム名</MbqLabel>
     <VeeField
       data-cy="form-title"
       id="form-title"
       name="title"
       :rules="'required'"
       type="text"
+      placeholder="新入社員歓迎ミートアップ"
       v-model="modelValue"
       class="bg-gray-50 border border-gray-300 text-md rounded-lg focus:border-my-blue w-full p-2.5"
     >
