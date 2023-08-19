@@ -144,50 +144,44 @@
 
 <template>
   <TheContainer>
-    <div class="px-40">
-      <MbqH1>ゲーム{{ isEditGame ? '編集' : '作成' }}</MbqH1>
-      <VeeForm @submit="onSubmit" @invalid-submit="onInvalidSubmit">
-        <MbqFormGameTitle v-model:modelValue="game.title"></MbqFormGameTitle>
-
-        <MbqFormGameDescription
-          v-model:modelValue="game.description"
-        ></MbqFormGameDescription>
-
-        <MbqFormQuiz
-          v-for="(quiz, index) in quizzes"
-          :key="index"
-          :index="index"
-          v-model:quizzesLength="quizzes.length"
-          v-model:question="quiz.question"
-          v-model:correctAnswer="quiz.correct_answer"
-          v-model:explanation="quiz.explanation"
-          @removeQuiz="removeQuiz"
-        ></MbqFormQuiz>
-        <MbqButtonSecondary @click="addQuiz" :button-type="'button'"
-          >+ クイズを追加する</MbqButtonSecondary
+    <MbqH1>ゲーム{{ isEditGame ? '編集' : '作成' }}</MbqH1>
+    <VeeForm @submit="onSubmit" @invalid-submit="onInvalidSubmit">
+      <MbqFormGameTitle v-model:modelValue="game.title"></MbqFormGameTitle>
+      <MbqFormGameDescription
+        v-model:modelValue="game.description"
+      ></MbqFormGameDescription>
+      <MbqFormQuiz
+        v-for="(quiz, index) in quizzes"
+        :key="index"
+        :index="index"
+        v-model:quizzesLength="quizzes.length"
+        v-model:question="quiz.question"
+        v-model:correctAnswer="quiz.correct_answer"
+        v-model:explanation="quiz.explanation"
+        @removeQuiz="removeQuiz"
+      ></MbqFormQuiz>
+      <MbqButtonSecondary @click="addQuiz" :button-type="'button'"
+        >+ クイズを追加する</MbqButtonSecondary
+      >
+      <MbqFormGameNumberOfWinner
+        v-model:modelValue="game.number_of_winner"
+      ></MbqFormGameNumberOfWinner>
+      <div class="flex justify-center">
+        <MbqButtonPrimary
+          v-if="isEditGame"
+          :buttonType="'submit'"
+          :isLoading="loading"
         >
-
-        <MbqFormGameNumberOfWinner
-          v-model:modelValue="game.number_of_winner"
-        ></MbqFormGameNumberOfWinner>
-
-        <div class="flex justify-center">
-          <MbqButtonPrimary
-            v-if="isEditGame"
-            :buttonType="'submit'"
-            :isLoading="loading"
-          >
-            <div class="flex">
-              <update-icon /><span class="ml-1">ゲームを更新する</span>
-            </div>
-          </MbqButtonPrimary>
-          <MbqButtonPrimary v-else :buttonType="'submit'" :isLoading="loading">
-            <div class="flex">
-              <folder-plus-icon /><span class="ml-1">ゲームを作成する</span>
-            </div>
-          </MbqButtonPrimary>
-        </div>
-      </VeeForm>
-    </div>
+          <div class="flex">
+            <update-icon /><span class="ml-1">ゲームを更新する</span>
+          </div>
+        </MbqButtonPrimary>
+        <MbqButtonPrimary v-else :buttonType="'submit'" :isLoading="loading">
+          <div class="flex">
+            <folder-plus-icon /><span class="ml-1">ゲームを作成する</span>
+          </div>
+        </MbqButtonPrimary>
+      </div>
+    </VeeForm>
   </TheContainer>
 </template>

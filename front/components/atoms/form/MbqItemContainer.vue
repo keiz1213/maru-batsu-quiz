@@ -1,5 +1,5 @@
 <template>
-  <div class="my-6">
+  <div class="my-6 min-w-[400px]">
     <slot />
   </div>
 </template>

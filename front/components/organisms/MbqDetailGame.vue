@@ -45,55 +45,53 @@
 
 <template>
   <TheContainer>
-    <div class="px-40">
-      <MbqH1>{{ game.title }}</MbqH1>
-      <MbqItemGame
-        :content="game.description"
-        :labelName="'説明'"
-        :id="'item-game-description'"
-      />
-      <MbqTableQuiz :quizzes="game.quizzes" />
-      <MbqItemGame
-        :content="game.number_of_winner"
-        :labelName="'勝者枠'"
-        :id="'item-game-number-of-winner'"
-      />
-      <MbqItemGame
-        :content="gameVenueUrl"
-        :labelName="'ゲーム会場URL'"
-        :id="'item-game-venue-url'"
-      />
-      <div class="flex justify-evenly mt-16">
-        <MbqButtonPrimary @click="select"
+    <MbqH1>{{ game.title }}</MbqH1>
+    <MbqItemGame
+      :content="game.description"
+      :labelName="'説明'"
+      :id="'item-game-description'"
+    />
+    <MbqTableQuiz :quizzes="game.quizzes" />
+    <MbqItemGame
+      :content="game.number_of_winner"
+      :labelName="'勝者枠'"
+      :id="'item-game-number-of-winner'"
+    />
+    <MbqItemGame
+      :content="gameVenueUrl"
+      :labelName="'ゲーム会場URL'"
+      :id="'item-game-venue-url'"
+    />
+    <div class="flex justify-evenly mt-16">
+      <MbqButtonPrimary @click="select"
+        ><div class="flex">
+          <login-variant-icon /><span class="ml-1">ゲーム会場へ入る</span>
+        </div></MbqButtonPrimary
+      >
+      <NuxtLink :to="`/games/${gameId}/edit`">
+        <MbqButtonSecondary :buttonType="'button'"
           ><div class="flex">
-            <login-variant-icon /><span class="ml-1">ゲーム会場へ入る</span>
-          </div></MbqButtonPrimary
+            <pencil-icon /><span class="ml-7">編集する</span>
+          </div></MbqButtonSecondary
         >
-        <NuxtLink :to="`/games/${gameId}/edit`">
-          <MbqButtonSecondary :buttonType="'button'"
-            ><div class="flex">
-              <pencil-icon /><span class="ml-7">編集する</span>
-            </div></MbqButtonSecondary
-          >
-        </NuxtLink>
-      </div>
-      <div class="flex justify-end">
-        <p @click="confirm" class="underline hover:cursor-pointer text-slate-400">
-          削除
-        </p>
-      </div>
-      <MbqModalSelect
-        v-model="showSelect"
-        title="チャットは使いますか？"
-        @chat-mode="goToVenueWithChat"
-        @non-caht-mode="goToVenue"
-      />
-      <MbqModalConfirm
-        v-model="showConfirm"
-        title="本当に削除してもいいですか？"
-        @destroy-game="destroyGame"
-        @cancel="cancel"
-      />
+      </NuxtLink>
     </div>
+    <div class="flex justify-end">
+      <p @click="confirm" class="underline hover:cursor-pointer text-slate-400">
+        削除
+      </p>
+    </div>
+    <MbqModalSelect
+      v-model="showSelect"
+      title="チャットは使いますか？"
+      @chat-mode="goToVenueWithChat"
+      @non-caht-mode="goToVenue"
+    />
+    <MbqModalConfirm
+      v-model="showConfirm"
+      title="本当に削除してもいいですか？"
+      @destroy-game="destroyGame"
+      @cancel="cancel"
+    />
   </TheContainer>
 </template>

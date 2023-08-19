@@ -8,7 +8,7 @@
 </script>
 
 <template>
-  <div class="min-w-full w-[1300px] mt-10">
+  <div class="min-w-full w-[1300px] mt-[70px]">
     <div id="top" class="flex w-[1300px] mx-auto pt-10">
       <div id="left" class="w-[800px] h-[500px]">
         <div
@@ -29,23 +29,11 @@
         <div class="w-[800px] h-[8px] bg-slate-400 rounded-b-lg"></div>
       </div>
       <div id="right" class="w-[500px] h-[500px]">
-        <ul class="mt-24 mb-14">
-          <li>
-            <span class="text-5xl font-bold text-center my-3 text-gradient"
-              >友達を誘って</span
-            >
-          </li>
-          <li>
-            <span class="text-5xl font-bold text-center my-3 text-gradient"
-              >オンラインで</span
-            >
-          </li>
-          <li>
-            <span class="text-5xl font-bold text-center my-3 text-gradient"
-              >○×クイズを楽しもう</span
-            >
-          </li>
-        </ul>
+        <h1 class="text-5xl font-bold my-3 text-gradient text-left leading-normal mt-24 mb-14 ml-7">
+          仲間を誘って<br>
+          オンラインで<br>
+          ○×クイズを楽しもう
+        </h1>
         <div class="text-center">
           <MbqButtonGithub :onClick="login" :isLoading="loading" />
         </div>
@@ -54,11 +42,11 @@
     <div id="middle" class="w-[1300px] h-[500px] mx-auto">
       <div>
         <div>
-          <h3 class="text-4xl py-7 text-center">POINT</h3>
+          <h2 class="text-4xl py-7 text-center">POINT</h2>
         </div>
         <div class="flex">
           <div class="w-1/3 h-[400px] mx-3 bg-slate-200 rounded-2xl p-7">
-            <h4 class="text-3xl text-center mb-5">無料で遊べる</h4>
+            <h3 class="text-3xl text-center mb-5">無料で遊べる</h3>
             <span
               >無料で遊べます。ただし、参加する人全てGitHubのアカウントが必要です。</span
             >
@@ -70,7 +58,7 @@
             />
           </div>
           <div class="w-1/3 h-[400px] mx-3 bg-slate-200 rounded-2xl p-7">
-            <h4 class="text-3xl text-center mb-5">リアルタイム通信</h4>
+            <h3 class="text-3xl text-center mb-5">リアルタイム通信</h3>
             <span
               >誰が、どれくらいの人数の人が、○ or ✗
               と答えているか、また回答に迷っている様子がリアルタイムで見れます。</span
@@ -83,7 +71,7 @@
             />
           </div>
           <div class="w-1/3 h-[400px] mx-3 bg-slate-200 rounded-2xl p-7">
-            <h4 class="text-3xl text-center mb-5">操作が簡単</h4>
+            <h3 class="text-3xl text-center mb-5">操作が簡単</h3>
             <span
               >参加者全員がアバターとなって一つの会場に集合します。参加者は自分のアバターを動かして◯か✕か回答できます。</span
             >

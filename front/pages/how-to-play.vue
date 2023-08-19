@@ -51,10 +51,8 @@
       </div>
     </div>
     <div class="flex flex-col px-48 mt-[90px] ml-[80px]">
-      <div>
-        <MbqH1>遊び方</MbqH1>
-      </div>
-      <div id="questioner">
+      <MbqH1>遊び方</MbqH1>
+      <div id="questioner" class="min-w-[400px]">
         <div class="mt-10">
           <h2 class="text-2xl">
             <div class="flex">
