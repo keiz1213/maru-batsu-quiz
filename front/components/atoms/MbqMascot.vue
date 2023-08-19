@@ -17,6 +17,7 @@
         animateClass
       ]"
       src="../../assets/images/mascot.png"
+      alt="mascot"
     />
   </div>
 </template>

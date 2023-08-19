@@ -7,7 +7,7 @@
       class="mx-auto my-[70px]"
       src="~/assets/images/circle-circle-outline-svgrepo-com.svg"
       width="280"
-      alt=""
+      alt="circle"
     />
   </div>
 </template>

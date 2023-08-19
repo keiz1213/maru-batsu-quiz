@@ -112,6 +112,7 @@
                 <img
                   class="h-12 w-12 rounded-full border-2 border-primary object-cover object-center block"
                   :src="data.avatarUrl"
+                  alt="user-icon"
                 /><span class="mt-3 ml-2">{{ data.name }} が入室済み</span>
               </div>
             </li>

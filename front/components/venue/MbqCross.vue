@@ -7,7 +7,7 @@
       class="mx-auto my-[70px]"
       src="~/assets/images/cross-mark-svgrepo-com.svg"
       width="280"
-      alt=""
+      alt="cross"
     />
   </div>
 </template>

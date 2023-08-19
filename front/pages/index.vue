@@ -18,7 +18,7 @@
             class="w-[8px] h-[8px] rounded-full bg-green-500 absolute top-1 left-[300px]"
           ></div>
           <div class="w-[580px] h-[360px] mx-auto">
-            <img src="../assets/images/demo1.png" alt="" />
+            <img src="../assets/images/demo1.png" alt="demo" />
           </div>
         </div>
         <div class="w-[800px] h-[25px] bg-slate-300 relative">
@@ -66,7 +66,7 @@
               class="block mx-auto mt-9"
               src="../assets/images/free.svg"
               width="180px"
-              alt=""
+              alt="free-icon"
             />
           </div>
           <div class="w-1/3 h-[400px] mx-3 bg-slate-200 rounded-2xl p-7">
@@ -79,7 +79,7 @@
               class="block mx-auto mt-5"
               src="../assets/images/network.svg"
               width="180px"
-              alt=""
+              alt="network-icon"
             />
           </div>
           <div class="w-1/3 h-[400px] mx-3 bg-slate-200 rounded-2xl p-7">
@@ -91,7 +91,7 @@
               class="block mx-auto mt-5"
               src="../assets/images/beginner.svg"
               width="180px"
-              alt=""
+              alt="beginner-icon"
             />
           </div>
         </div>
