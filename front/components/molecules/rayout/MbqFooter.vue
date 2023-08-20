@@ -7,6 +7,13 @@
           <li class="p-5">
             <NuxtLink :to="'/privacy'">プライバシーポリシー</NuxtLink>
           </li>
+          <li class="p-5">
+            Illustration by
+            <a href="https://icons8.com/illustrations/author/zD2oqC8lLBBA"
+              >Icons 8</a
+            >
+            from <a href="https://icons8.com/illustrations">Ouch!</a>
+          </li>
           <li class="p-4 pl-5">
             <NuxtLink :to="'https://github.com/keiz1213/maru-batsu-quiz'">
               <svg

@@ -66,15 +66,6 @@
             :description="'ゲーム作者が会場に入った状態で、先程コピーしたURLを参加者にシェアします。'"
             :fileName="'share-url'"
           ></HowToPlay>
-          <div class="flex justify-end">
-            <span>
-              Illustration by
-              <a href="https://icons8.com/illustrations/author/259416"
-                >Marina Green</a
-              >
-              from <a href="https://icons8.com/illustrations">Ouch!</a>
-            </span>
-          </div>
         </div>
         <div class="my-12">
           <HowToPlay
@@ -113,15 +104,6 @@
             :description="'出題者からシェアされたURLにアクセスします。'"
             :fileName="'access-url'"
           ></HowToPlay>
-          <div class="flex justify-end">
-            <span>
-              Illustration by
-              <a href="https://icons8.com/illustrations/author/iAdLsFJOKDrk"
-                >Tanya Krasutska</a
-              >
-              from <a href="https://icons8.com/illustrations">Ouch!</a>
-            </span>
-          </div>
         </div>
         <div class="my-12">
           <HowToPlay
