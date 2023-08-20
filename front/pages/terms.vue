@@ -26,7 +26,7 @@
 
 <template>
   <TheContainer>
-    <div class="flex flex-col gap-10 min-w-[400px]">
+    <div class="flex flex-col gap-10">
       <MbqH1>利用規約</MbqH1>
       <div>
         <h2>

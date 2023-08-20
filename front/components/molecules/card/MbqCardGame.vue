@@ -23,7 +23,7 @@
   <div class="mx-auto">
     <div
       id="card-container"
-      class="h-72 w-96 bg-white border border-gray-200 rounded-lg break-all relative hover:brightness-[0.97] hover:cursor-pointer"
+      class="h-72 w-80 bg-white border border-gray-200 rounded-lg break-all relative hover:brightness-[0.97] hover:cursor-pointer"
       @click="navigate(game)"
     >
       <MbqCardHeader :title="game.title"></MbqCardHeader>

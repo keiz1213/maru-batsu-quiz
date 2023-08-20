@@ -1,5 +1,5 @@
 <template>
-  <div class="xl:container mx-auto my-28 px-32">
+  <div class="container mx-auto my-28 px-10 max-w-full">
     <slot />
   </div>
 </template>

@@ -23,7 +23,8 @@
       'px-4',
       'text-md',
       'hover:brightness-[0.9]',
-      'w-48',
+      'w-full',
+      'md:w-48',
       { 'brightness-[0.9]': isLoading },
       { 'pointer-events-none': isLoading }
     ]"

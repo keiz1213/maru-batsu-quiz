@@ -52,10 +52,8 @@
           <div v-else class="mt-1.5">
             <NuxtLink :to="'/how-to-play'">
               <MbqButtonPrimary
-                ><div class="flex">
-                  <nintendo-game-boy-icon /><span class="ml-3"
-                    >遊び方を見る</span
-                  >
+                ><div class="flex justify-center">
+                  <nintendo-game-boy-icon /><span>遊び方を見る</span>
                 </div></MbqButtonPrimary
               >
             </NuxtLink>

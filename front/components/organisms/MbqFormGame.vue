@@ -172,12 +172,12 @@
           :buttonType="'submit'"
           :isLoading="loading"
         >
-          <div class="flex">
+          <div class="flex justify-center">
             <update-icon /><span class="ml-1">ゲームを更新する</span>
           </div>
         </MbqButtonPrimary>
         <MbqButtonPrimary v-else :buttonType="'submit'" :isLoading="loading">
-          <div class="flex">
+          <div class="flex justify-center">
             <folder-plus-icon /><span class="ml-1">ゲームを作成する</span>
           </div>
         </MbqButtonPrimary>

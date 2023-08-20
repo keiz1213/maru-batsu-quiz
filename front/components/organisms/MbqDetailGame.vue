@@ -62,19 +62,23 @@
       :labelName="'ゲーム会場URL'"
       :id="'item-game-venue-url'"
     />
-    <div class="flex justify-evenly mt-16">
-      <MbqButtonPrimary @click="select"
-        ><div class="flex">
-          <login-variant-icon /><span class="ml-1">ゲーム会場へ入る</span>
-        </div></MbqButtonPrimary
-      >
-      <NuxtLink :to="`/games/${gameId}/edit`">
-        <MbqButtonSecondary :buttonType="'button'"
-          ><div class="flex">
-            <pencil-icon /><span class="ml-7">編集する</span>
-          </div></MbqButtonSecondary
+    <div class="mt-16 md:flex md:justify-evenly">
+      <div class="mt-2">
+        <MbqButtonPrimary @click="select"
+          ><div class="flex justify-center">
+            <login-variant-icon /><span class="ml-1">ゲーム会場へ入る</span>
+          </div></MbqButtonPrimary
         >
-      </NuxtLink>
+      </div>
+      <div class="mt-2">
+        <NuxtLink :to="`/games/${gameId}/edit`">
+          <MbqButtonSecondary :buttonType="'button'"
+            ><div class="flex justify-center">
+              <pencil-icon /><span class="ml-2">編集する</span>
+            </div></MbqButtonSecondary
+          >
+        </NuxtLink>
+      </div>
     </div>
     <div class="flex justify-end">
       <p @click="confirm" class="underline hover:cursor-pointer text-slate-400">

@@ -9,7 +9,7 @@
 <template>
   <div class="mx-auto">
     <div
-      class="h-72 w-96 bg-white border border-gray-200 rounded-lg break-all flex justify-center hover:brightness-[0.97] hover:cursor-pointer"
+      class="h-72 w-80 bg-white border border-gray-200 rounded-lg break-all flex justify-center hover:brightness-[0.97] hover:cursor-pointer"
       @click="navigate"
     >
       <div class="h-32 my-auto">
