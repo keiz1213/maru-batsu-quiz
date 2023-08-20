@@ -63,7 +63,7 @@
       :id="'item-game-venue-url'"
     />
     <div class="mt-16 md:flex md:justify-evenly">
-      <div class="mt-2">
+      <div class="mt-2 hidden xl:block">
         <MbqButtonPrimary @click="select"
           ><div class="flex justify-center">
             <login-variant-icon /><span class="ml-1">ゲーム会場へ入る</span>
