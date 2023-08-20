@@ -2,7 +2,7 @@
   <footer class="w-full pt-5">
     <div>
       <nav>
-        <ul class="flex justify-center">
+        <ul class="text-xs grid grid-cols-2 border-t md:flex md:justify-center md:text-base">
           <li class="p-5"><NuxtLink :to="'/terms'">利用規約</NuxtLink></li>
           <li class="p-5">
             <NuxtLink :to="'/privacy'">プライバシーポリシー</NuxtLink>
