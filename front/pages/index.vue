@@ -8,79 +8,100 @@
 </script>
 
 <template>
-  <div class="min-w-full w-[1300px] mt-[70px]">
-    <div id="top" class="flex w-[1300px] mx-auto pt-10">
-      <div id="left" class="w-[800px] h-[500px]">
-        <div
-          class="w-[620px] h-[360px] bg-black mx-auto mt-10 pt-5 rounded-t-lg relative"
-        >
-          <div
-            class="w-[8px] h-[8px] rounded-full bg-green-500 absolute top-1 left-[300px]"
-          ></div>
-          <div class="w-[580px] h-[360px] mx-auto">
-            <img src="../assets/images/demo1.png" alt="demo" />
+  <div class="max-w-full xl:mt-[70px]">
+    <div class="max-w-full">
+      <div
+        id="top"
+        class="xl:flex xl:justify-center max-w-[1400px] mx-auto"
+      >
+        <div id="left" class="max-w-full text-center">
+          <h1
+            class="text-3xl font-bold my-3 text-gradient text-left leading-normal mt-24 mb-14 ml-7 xl:text-5xl md:text-5xl"
+          >
+            仲間を誘って<br />
+            オンラインで<br />
+            ○×クイズを楽しもう
+          </h1>
+          <div class="text-center">
+            <MbqButtonGithub :onClick="login" :isLoading="loading" />
           </div>
         </div>
-        <div class="w-[800px] h-[25px] bg-slate-300 relative">
-          <div
-            class="w-[120px] h-[8px] bg-slate-400 absolute rounded-b-lg left-[340px]"
-          ></div>
-        </div>
-        <div class="w-[800px] h-[8px] bg-slate-400 rounded-b-lg"></div>
-      </div>
-      <div id="right" class="w-[500px] h-[500px]">
-        <h1 class="text-5xl font-bold my-3 text-gradient text-left leading-normal mt-24 mb-14 ml-7">
-          仲間を誘って<br>
-          オンラインで<br>
-          ○×クイズを楽しもう
-        </h1>
-        <div class="text-center">
-          <MbqButtonGithub :onClick="login" :isLoading="loading" />
+        <div id="right" class="max-w-full my-10">
+          <div>
+            <div class="px-12 xl:px-24">
+              <div
+                class="sm:max-w-[640px] px-[20px] bg-black mx-auto mt-10 pt-5 rounded-t-lg relative"
+              >
+                <div
+                  class="w-[8px] h-[8px] rounded-full bg-green-500 absolute top-1 left-[47%]"
+                ></div>
+                <img
+                  src="../assets/images/demo1.png"
+                  class="sm:max-w-[600px] block mx-auto"
+                  alt="demo"
+                />
+              </div>
+            </div>
+            <div class="">
+              <div
+                class="sm:max-w-[800px] h-[25px] bg-slate-300 relative mx-auto"
+              >
+                <div
+                  class="w-[120px] h-[8px] bg-slate-400 absolute rounded-b-lg left-[40%]"
+                ></div>
+              </div>
+              <div
+                class="sm:max-w-[800px] h-[8px] bg-slate-400 rounded-b-lg mx-auto"
+              ></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div id="middle" class="w-[1300px] h-[500px] mx-auto">
-      <div>
+    <div class="max-w-full bg-purple-100 my-10 py-16">
+      <div id="middle" class="max-w-[1400px] mx-auto">
         <div>
-          <h2 class="text-4xl py-7 text-center">POINT</h2>
-        </div>
-        <div class="flex">
-          <div class="w-1/3 h-[400px] mx-3 bg-slate-200 rounded-2xl p-7">
-            <h3 class="text-3xl text-center mb-5">無料で遊べる</h3>
-            <span
-              >無料で遊べます。ただし、参加する人全てGitHubのアカウントが必要です。</span
-            >
-            <img
-              class="block mx-auto mt-9"
-              src="../assets/images/free.svg"
-              width="180px"
-              alt="free-icon"
-            />
+          <div>
+            <h2 class="text-4xl pb-7 text-center">POINT</h2>
           </div>
-          <div class="w-1/3 h-[400px] mx-3 bg-slate-200 rounded-2xl p-7">
-            <h3 class="text-3xl text-center mb-5">リアルタイム通信</h3>
-            <span
-              >誰が、どれくらいの人数の人が、○ or ✗
-              と答えているか、また回答に迷っている様子がリアルタイムで見れます。</span
-            >
-            <img
-              class="block mx-auto mt-5"
-              src="../assets/images/network.svg"
-              width="180px"
-              alt="network-icon"
-            />
-          </div>
-          <div class="w-1/3 h-[400px] mx-3 bg-slate-200 rounded-2xl p-7">
-            <h3 class="text-3xl text-center mb-5">操作が簡単</h3>
-            <span
-              >参加者全員がアバターとなって一つの会場に集合します。参加者は自分のアバターを動かして◯か✕か回答できます。</span
-            >
-            <img
-              class="block mx-auto mt-5"
-              src="../assets/images/beginner.svg"
-              width="180px"
-              alt="beginner-icon"
-            />
+          <div class="md:flex">
+            <div class="max-w-full mx-3 mb-5 bg-white rounded-2xl p-7 md:w-1/3">
+              <h3 class="text-3xl text-center mb-5">無料で遊べる</h3>
+              <span
+                >無料で遊べます。ただし、参加する人全てGitHubのアカウントが必要です。</span
+              >
+              <img
+                class="block mx-auto mt-9"
+                src="../assets/images/free.svg"
+                width="180px"
+                alt="free-icon"
+              />
+            </div>
+            <div class="max-w-full mx-3 mb-5 bg-white rounded-2xl p-7 md:w-1/3">
+              <h3 class="text-3xl text-center mb-5">リアルタイム</h3>
+              <span
+                >誰が、どれくらいの人数の人が、○ or ✗
+                と答えているか、また回答に迷っている様子がリアルタイムで見れます。</span
+              >
+              <img
+                class="block mx-auto mt-5"
+                src="../assets/images/network.svg"
+                width="180px"
+                alt="network-icon"
+              />
+            </div>
+            <div class="max-w-full mx-3 mb-5 bg-white rounded-2xl p-7 md:w-1/3">
+              <h3 class="text-3xl text-center mb-5">操作が簡単</h3>
+              <span
+                >参加者全員がアバターとなって一つの会場に集合します。参加者は自分のアバターを動かして◯か✕か回答できます。</span
+              >
+              <img
+                class="block mx-auto mt-5"
+                src="../assets/images/beginner.svg"
+                width="180px"
+                alt="beginner-icon"
+              />
+            </div>
           </div>
         </div>
       </div>

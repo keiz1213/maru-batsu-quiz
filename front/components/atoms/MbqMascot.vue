@@ -16,7 +16,7 @@
         'animate__infinite',
         animateClass
       ]"
-      src="../../assets/images/mascot.png"
+      src="../../assets/images/mascot-bg.png"
       alt="mascot"
     />
   </div>
