@@ -27,32 +27,10 @@
 </script>
 
 <template>
-  <div>
-    <div class="w-[180px] h-full bg-slate-200 fixed top-[70px] z-10">
-      <div>
-        <ul>
-          <li>
-            <a class="block" href="#questioner">
-              <div class="flex p-4 hover:bg-slate-300 hover:cursor-pointer">
-                <chat-question-outline-icon />
-                <span class="ml-3">出題者として</span>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a class="block" href="#answerer">
-              <div class="flex p-4 hover:bg-slate-300 hover:cursor-pointer">
-                <chat-alert-outline-icon />
-                <span class="ml-3">回答者として</span>
-              </div>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="flex flex-col px-48 mt-[90px] ml-[80px]">
+  <div class="max-w-full xl:mt-[70px]">
+    <div class="flex flex-col mt-[90px] max-w-[1200px] mx-auto px-1">
       <MbqH1>遊び方</MbqH1>
-      <div id="questioner" class="min-w-[400px]">
+      <div id="questioner" class="">
         <div class="mt-10">
           <h2 class="text-2xl">
             <div class="flex">

@@ -2,12 +2,15 @@
   import NintendoGameBoyIcon from 'vue-material-design-icons/NintendoGameBoy.vue'
   import LogoutIcon from 'vue-material-design-icons/Logout.vue'
   import HandWaveOutlineIcon from 'vue-material-design-icons/HandWaveOutline.vue'
+  import ChatQuestionOutlineIcon from 'vue-material-design-icons/ChatQuestionOutline.vue'
+  import ChatAlertOutlineIcon from 'vue-material-design-icons/ChatAlertOutline.vue'
 
   const emits = defineEmits<{
     (e: 'logout'): void
   }>()
 
   const { isLoggedIn } = useAuth()
+  const route = useRoute()
 
   const logout = () => {
     emits('logout')
@@ -21,16 +24,42 @@
         <MbqBrand :href="isLoggedIn ? '/home' : '/'"></MbqBrand>
       </div>
       <div class="flex h-[69px]">
-        <div class="my-[6px] mr-3">
-          <NuxtLink v-if="!isLoggedIn" :to="'/how-to-play'">
-            <MbqButtonPrimary
-              ><div class="flex">
-                <nintendo-game-boy-icon /><span class="ml-3"
-                  >遊び方を見る</span
-                >
-              </div></MbqButtonPrimary
-            >
-          </NuxtLink>
+        <div v-if="!isLoggedIn" class="">
+          <nav v-if="route.path === '/how-to-play'">
+            <ul class="flex gap-1">
+              <li>
+                <a class="block" href="#questioner">
+                  <div
+                    class="flex h-[69px] hover:bg-slate-100 hover:cursor-pointer"
+                  >
+                    <chat-question-outline-icon class="my-auto" />
+                    <span class="my-auto">出題者</span>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a class="block" href="#answerer">
+                  <div
+                    class="flex h-[69px] hover:bg-slate-100 hover:cursor-pointer"
+                  >
+                    <chat-alert-outline-icon class="my-auto" />
+                    <span class="my-auto">回答者</span>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <div v-else class="mt-1.5">
+            <NuxtLink :to="'/how-to-play'">
+              <MbqButtonPrimary
+                ><div class="flex">
+                  <nintendo-game-boy-icon /><span class="ml-3"
+                    >遊び方を見る</span
+                  >
+                </div></MbqButtonPrimary
+              >
+            </NuxtLink>
+          </div>
         </div>
         <div
           v-if="isLoggedIn"

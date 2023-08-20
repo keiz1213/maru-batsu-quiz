@@ -19,7 +19,11 @@
     <div
       class="w-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 m-5 mt-1"
     >
-      <img :id="`avatar-img-${avatar.id}`" :src="avatar.avatarUrl" alt="avatar" />
+      <img
+        :id="`avatar-img-${avatar.id}`"
+        :src="avatar.avatarUrl"
+        alt="avatar"
+      />
     </div>
   </div>
 </template>

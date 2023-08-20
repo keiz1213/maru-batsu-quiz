@@ -10,13 +10,10 @@
 <template>
   <div class="max-w-full xl:mt-[70px]">
     <div class="max-w-full">
-      <div
-        id="top"
-        class="xl:flex xl:justify-center max-w-[1400px] mx-auto"
-      >
+      <div id="top" class="xl:flex xl:justify-center max-w-[1400px] mx-auto">
         <div id="left" class="max-w-full text-center">
           <h1
-            class="text-3xl font-bold my-3 text-gradient text-left leading-normal mt-24 mb-14 ml-7 xl:text-5xl md:text-5xl"
+            class="text-3xl font-bold my-3 text-gradient text-left leading-normal mt-24 mb-14 ml-7 xl:text-5xl xl:leading-normal md:text-5xl md:leading-normal"
           >
             仲間を誘って<br />
             オンラインで<br />
@@ -47,7 +44,7 @@
                 class="sm:max-w-[800px] h-[25px] bg-slate-300 relative mx-auto"
               >
                 <div
-                  class="w-[120px] h-[8px] bg-slate-400 absolute rounded-b-lg left-[40%]"
+                  class="w-[120px] h-[8px] bg-slate-400 absolute rounded-b-lg left-[35%] md:left-[40%]"
                 ></div>
               </div>
               <div
