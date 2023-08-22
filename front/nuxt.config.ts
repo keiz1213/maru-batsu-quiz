@@ -39,6 +39,10 @@ export default defineNuxtConfig({
           content: 'summary_large_image'
         },
         {
+          name: 'twitter:title',
+          content: 'マルバツクイズオンライン'
+        },
+        {
           name: 'twitter:description',
           content:
             'オンラインでマルバツクイズが遊べるサービスです。誰が、どれくらいの人数の人が、○ or ✗ と答えているか、また回答に迷っている様子がリアルタイムで見れる機能が備わっています。'

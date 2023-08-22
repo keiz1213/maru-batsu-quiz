@@ -59,11 +59,15 @@
       <div id="middle" class="max-w-[1400px] mx-auto">
         <div>
           <div>
-            <h2 class="text-5xl pb-7 text-center text-purple-500 font-bold">POINT</h2>
+            <h2 class="text-5xl pb-7 text-center text-purple-500 font-bold">
+              POINT
+            </h2>
           </div>
           <div class="md:flex">
             <div class="max-w-full mx-3 mb-5 bg-white rounded-2xl p-7 md:w-1/3">
-              <h3 class="text-3xl text-center mb-5 text-purple-500 font-bold">無料で遊べる</h3>
+              <h3 class="text-3xl text-center mb-5 text-purple-500 font-bold">
+                無料で遊べる
+              </h3>
               <span
                 >無料で遊べます。ただし、参加する人全てGitHubのアカウントが必要です。</span
               >
@@ -75,7 +79,9 @@
               />
             </div>
             <div class="max-w-full mx-3 mb-5 bg-white rounded-2xl p-7 md:w-1/3">
-              <h3 class="text-3xl text-center mb-5 text-purple-500 font-bold">リアルタイム</h3>
+              <h3 class="text-3xl text-center mb-5 text-purple-500 font-bold">
+                リアルタイム
+              </h3>
               <span
                 >誰が、どれくらいの人数の人が、○ or ✗
                 と答えているか、また回答に迷っている様子がリアルタイムで見れます。</span
@@ -88,7 +94,9 @@
               />
             </div>
             <div class="max-w-full mx-3 mb-5 bg-white rounded-2xl p-7 md:w-1/3">
-              <h3 class="text-3xl text-center mb-5 text-purple-500 font-bold">操作が簡単</h3>
+              <h3 class="text-3xl text-center mb-5 text-purple-500 font-bold">
+                操作が簡単
+              </h3>
               <span
                 >参加者全員がアバターとなって一つの会場に集合します。参加者は自分のアバターを動かして◯か✕か回答できます。</span
               >
