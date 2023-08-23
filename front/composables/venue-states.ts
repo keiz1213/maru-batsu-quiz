@@ -1,0 +1,279 @@
+import { ParticipantData } from '~/types/participantData'
+import { ChatMessage } from '~/types/chatMessage'
+import Avatar from '~/utils/class/Avatar'
+
+export const useParticipantData = () => {
+  const participantData = useState<ParticipantData[]>(
+    'participant-data',
+    () => {
+      return []
+    }
+  )
+
+  const addParticipantData = (data: ParticipantData) => {
+    participantData.value.push(data)
+  }
+
+  return {
+    participantData,
+    addParticipantData
+  }
+}
+
+export const useOwner = () => {
+  const owner = useState<Avatar | {}>('owner', () => {
+    return {}
+  })
+
+  const addOwner = (ownerAvatar: Avatar) => {
+    owner.value = ownerAvatar
+  }
+
+  return {
+    owner,
+    addOwner
+  }
+}
+
+export const usePlayers = () => {
+  const players = useState<Avatar[]>('players', () => {
+    return []
+  })
+
+  const addPlayer = (player: Avatar) => {
+    players.value.push(player)
+  }
+
+  const setAllPlayers = (allPlayers: Avatar[]) => {
+    players.value = allPlayers
+  }
+
+  return {
+    players,
+    addPlayer,
+    setAllPlayers
+  }
+}
+
+export const useLosers = () => {
+  const losers = useState<Avatar[]>('losers', () => {
+    return []
+  })
+
+  const addLoser = (loser: Avatar) => {
+    losers.value.push(loser)
+  }
+
+  return {
+    losers,
+    addLoser
+  }
+}
+
+export const useWinners = () => {
+  const winners = useState<Avatar[]>('winners', () => {
+    return []
+  })
+
+  const addWinner = (winner: Avatar) => {
+    winners.value.push(winner)
+  }
+
+  return {
+    winners,
+    addWinner
+  }
+}
+
+export const useNumberOfWinner = () => {
+  const numberOfWinner = useState<number>('number-of-winner', () => {
+    return 0
+  })
+
+  const setNumberOfWinner = (initialNumberOfWinner: number) => {
+    numberOfWinner.value = initialNumberOfWinner
+  }
+
+  const subtractNumberOfWinner = (subtractBy: number) => {
+    numberOfWinner.value -= subtractBy
+  }
+
+  return {
+    numberOfWinner,
+    setNumberOfWinner,
+    subtractNumberOfWinner
+  }
+}
+
+export const useCurrentQuizNumber = () => {
+  const currentQuizNumber = useState<number>('current-quiz-number', () => {
+    return 0
+  })
+
+  const incrementCurrentQuizNumber = () => {
+    currentQuizNumber.value++
+  }
+
+  return {
+    currentQuizNumber,
+    incrementCurrentQuizNumber
+  }
+}
+
+export const useQuestionVisible = () => {
+  const questionVisible = useState<boolean>('question-visible', () => {
+    return false
+  })
+
+  const openQuestion = () => {
+    questionVisible.value = true
+  }
+
+  const closeQuestion = () => {
+    questionVisible.value = false
+  }
+
+  return {
+    questionVisible,
+    openQuestion,
+    closeQuestion
+  }
+}
+
+export const useGameState = () => {
+  const standByGame = useState<boolean>('stand-by-game', () => {
+    return true
+  })
+
+  const endOfGame = useState<boolean>('end-of-game', () => {
+    return false
+  })
+
+  const startGame = () => {
+    standByGame.value = false
+  }
+
+  const endGame = () => {
+    endOfGame.value = true
+  }
+
+  return {
+    standByGame,
+    endOfGame,
+    startGame,
+    endGame
+  }
+}
+
+export const useChat = () => {
+  const chatVisible = useState<boolean>('chat-visible', () => {
+    return false
+  })
+
+  const chatMessages = useState<ChatMessage[]>('chat-messages', () => {
+    return []
+  })
+
+  const visible = () => {
+    chatVisible.value = true
+  }
+
+  const inVisible = () => {
+    chatVisible.value = false
+  }
+
+  const addChatMessage = (chatMessage: ChatMessage): void => {
+    chatMessages.value.push(chatMessage)
+  }
+
+  return {
+    chatVisible,
+    chatMessages,
+    visible,
+    inVisible,
+    addChatMessage
+  }
+}
+
+export const useAnnounce = () => {
+  const announceText = useState<string>('announce-text', () => {
+    return ''
+  })
+
+  const updateAnnounceText = (text: string) => {
+    announceText.value = text
+  }
+
+  return {
+    announceText,
+    updateAnnounceText
+  }
+}
+
+export const useTimer = () => {
+  const timeElapsed = useState<number>('time-elapsed', () => {
+    return 0
+  })
+
+  const timerInterval = useState<any>('time-interval', () => {
+    return null
+  })
+
+  const timeLimit = useState<number>('time-limit', () => {
+    return 10
+  })
+
+  const startTimer = () => {
+    timerInterval.value = setInterval(() => {
+      if (++timeElapsed.value === timeLimit.value) {
+        clearInterval(timerInterval.value)
+      }
+    }, 1000)
+  }
+
+  const resetTimer = (): void => {
+    timeElapsed.value = 0
+    timeLimit.value = 10
+  }
+  return {
+    timeElapsed,
+    timeLimit,
+    startTimer,
+    resetTimer
+  }
+}
+
+export const useLoading = () => {
+  const loading = useState<boolean>('loading', () => {
+    return false
+  })
+
+  const setLoading = () => {
+    loading.value = true
+  }
+
+  const clearLoading = () => {
+    loading.value = false
+  }
+
+  return {
+    loading,
+    setLoading,
+    clearLoading
+  }
+}
+
+export const useProgress = () => {
+  const completed = useState<number>('completed', () => {
+    return 0
+  })
+
+  const addCompleted = (num: number) => {
+    completed.value += num
+  }
+
+  return {
+    completed,
+    addCompleted
+  }
+}
