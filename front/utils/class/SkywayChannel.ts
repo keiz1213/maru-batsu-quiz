@@ -51,9 +51,7 @@ class SkywayChannel {
   }
 
   subscribe = async (publicationId: string): Promise<RemoteDataStream> => {
-    const subscription = await this.agent!.subscribe(
-      publicationId
-    )
+    const subscription = await this.agent!.subscribe(publicationId)
     const remoteDataStream = subscription?.stream as RemoteDataStream
     return remoteDataStream
   }
@@ -67,18 +65,6 @@ class SkywayChannel {
     value: string
   ) => {
     await publication.publisher.updateMetadata(value)
-  }
-
-  setChannelMetadataUpdatedhandler = () => {
-    this.channel!.onMetadataUpdated.add((e) => {
-      if (e.metadata === 'error') {
-        const { notifyOnSpot } = useToast()
-        notifyOnSpot(
-          'エラーが発生しました。ゲームを中断し、再度アクセスしてください',
-          'error'
-        )
-      }
-    })
   }
 
   filterUserNameForChannel = () => {
@@ -96,6 +82,16 @@ class SkywayChannel {
     } else {
       return userName
     }
+  }
+
+  findChannel = async () => {
+    const skyWayToken = await getSkyWayToken()
+    const context = await SkyWayContext.Create(skyWayToken)
+    const channel = await SkyWayRoom.FindOrCreate(context, {
+      type: 'p2p',
+      name: this.game.channel_name
+    })
+    return channel
   }
 
   hasNoMembers = (channel: P2PRoom) => {

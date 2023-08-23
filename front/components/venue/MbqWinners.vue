@@ -33,7 +33,7 @@
           <MbqAvatar
             v-for="winner in winners"
             class="animate__bounce"
-            :key="winner.id"
+            :key="winner.avatarId"
             :avatar="winner"
           />
         </div>

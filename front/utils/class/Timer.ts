@@ -1,16 +1,12 @@
 class Timer {
-  timeElapsed: Ref<number>
-  timeLimit: Ref<number>
-  startTimer: Function
-  resetTimer: Function
+  startTimer = () => {
+    const { startTimer } = useTimer()
+    startTimer()
+  }
 
-  constructor() {
-    const { timeElapsed, timeLimit, startTimer, resetTimer } = useTimer()
-
-    this.timeElapsed = timeElapsed
-    this.timeLimit = timeLimit
-    this.startTimer = startTimer
-    this.resetTimer = resetTimer
+  resetTimer = () => {
+    const { resetTimer } = useTimer()
+    resetTimer()
   }
 }
 

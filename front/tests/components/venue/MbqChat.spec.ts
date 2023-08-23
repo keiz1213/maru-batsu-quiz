@@ -8,84 +8,80 @@ import MbqChat from '~/components/venue/MbqChat.vue'
 
 describe('MbqChat', () => {
   let wrapper: VueWrapper
-  let avatar1: Avatar
-  let avatar2: Avatar
+  let myAvatarStub: Avatar
+  let otherAvatarStub: Avatar
   let myChatMessage1: ChatMessage
   let myChatMessage2: ChatMessage
   let otherUserMessage: ChatMessage
   let chatMessages: ChatMessage[]
 
   beforeEach(() => {
-    avatar1 = new Avatar(
-      '1',
-      true,
-      'test avatar1',
-      'https://example.com/1/photo.jpg',
-      null,
-      null,
-      null,
-      null
-    )
+    myAvatarStub = {
+      avatarId: 'avatar-1',
+      avatarName: 'test',
+      avatarImage: 'https://example.com/u/72614612/1?v=4/',
+      avatarIndex: null,
+      skywayChannel: null,
+      skywayDataStream: null,
+      venueActivity: null
+    } as Avatar
 
-    avatar2 = new Avatar(
-      '2',
-      false,
-      'test avatar2',
-      'https://example.com/2/photo.jpg',
-      null,
-      null,
-      null,
-      null
-    )
+    otherAvatarStub = {
+      avatarId: 'avatar-2',
+      avatarName: 'test2',
+      avatarImage: 'https://example.com/u/72614612/2?v=4',
+      avatarIndex: null,
+      skywayChannel: null,
+      skywayDataStream: null,
+      venueActivity: null
+    } as Avatar
 
-    myChatMessage1 = avatar1.createChatMessage('my message 1')
-    otherUserMessage = avatar2.createChatMessage('other user message')
-    myChatMessage2 = avatar1.createChatMessage('my message 2')
+    myChatMessage1 = {
+      avatarId: myAvatarStub.avatarId,
+      avatarImage: myAvatarStub.avatarImage,
+      content: 'my message 1'
+    } as ChatMessage
+
+    myChatMessage2 = {
+      avatarId: myAvatarStub.avatarId,
+      avatarImage: myAvatarStub.avatarImage,
+      content: 'my message 2'
+    } as ChatMessage
+
+    otherUserMessage = {
+      avatarId: otherAvatarStub.avatarId,
+      avatarImage: otherAvatarStub.avatarImage,
+      content: 'other user message'
+    } as ChatMessage
 
     chatMessages = [myChatMessage1, otherUserMessage, myChatMessage2]
+
+    wrapper = shallowMount(MbqChat, {
+      props: {
+        messages: chatMessages,
+        myId: myAvatarStub.avatarId
+      }
+    })
   })
 
   describe('render', () => {
     it('render chat messages', () => {
-      wrapper = shallowMount(MbqChat, {
-        props: {
-          messages: chatMessages,
-          myId: avatar1.id
-        }
-      })
-
       const messages = wrapper.findAll('[id^="chat-message-"]')
       expect(messages.length).toBe(chatMessages.length)
     })
 
-    it("my own message have 'chat-end' class", () => {
+    it("own message have 'chat-end' class", () => {
       const myMessages = chatMessages.filter(
-        (chatMessage) => chatMessage.avatarId === avatar1.id
+        (chatMessage) => chatMessage.avatarId === myAvatarStub.avatarId
       )
-
-      wrapper = shallowMount(MbqChat, {
-        props: {
-          messages: chatMessages,
-          myId: avatar1.id
-        }
-      })
-
       const messages = wrapper.findAll('.chat-end')
       expect(messages.length).toBe(myMessages.length)
     })
 
     it("other user's message are displayed with an icon", () => {
       const otherUserChatMessages = chatMessages.filter(
-        (chatMessage) => chatMessage.avatarId != avatar1.id
+        (chatMessage) => chatMessage.avatarId === otherAvatarStub.avatarId
       )
-
-      wrapper = shallowMount(MbqChat, {
-        props: {
-          messages: chatMessages,
-          myId: avatar1.id
-        }
-      })
-
       const userIcons = wrapper.findAll('img')
       expect(userIcons.length).toBe(otherUserChatMessages.length)
     })
@@ -93,13 +89,6 @@ describe('MbqChat', () => {
 
   describe('emit', () => {
     it('emit is fired when send button is clicked', async () => {
-      wrapper = shallowMount(MbqChat, {
-        props: {
-          messages: chatMessages,
-          myId: avatar1.id
-        }
-      })
-
       const sendButton = wrapper.find('#chat-send-button')
       const input = wrapper.find('input')
 

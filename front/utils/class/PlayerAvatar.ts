@@ -1,99 +1,87 @@
+import { User } from '~/types/user'
 import { AvatarParams } from '~/types/avatarParams'
 import { ChatMessage } from '~/types/chatMessage'
 import Avatar from '~/utils/class/Avatar'
-import SkyWay from '~/utils/class/SkyWay'
-import InfluentialAction from '~/utils/class/InfluentialAction'
-import NonInfluentialAction from '~/utils/class/NonInfluentialAction'
-import { RoomPublication, RemoteDataStream } from '@skyway-sdk/room'
+import VenueActivity from './VenueActivity'
+import SkywayChannel from './SkywayChannel'
+import SkywayDataStream from './SkywayDataStream'
+import { RemoteDataStream } from '@skyway-sdk/room'
 
 class PlayerAvatar extends Avatar {
   constructor(
-    id: string,
-    owner: boolean,
-    name: string,
-    avatarUrl: string,
-    index: number | null,
-    skyway: SkyWay | null,
-    influentialAction: InfluentialAction | null,
-    nonInfluentialAction: NonInfluentialAction | null
+    user: User,
+    skywayChannel: SkywayChannel,
+    skywayDataStream: SkywayDataStream,
+    venueActivity: VenueActivity
   ) {
-    super(
-      id,
-      owner,
-      name,
-      avatarUrl,
-      index,
-      skyway,
-      influentialAction,
-      nonInfluentialAction
-    )
+    super(user, skywayChannel, skywayDataStream, venueActivity)
   }
 
   setMyIndex = (myIndx: number) => {
-    this.index = myIndx
+    this.avatarIndex = myIndx
   }
 
-  onMyMetaDataUpdated = () => {
-    this.skyway!.agent!.onMetadataUpdated.add(async () => {
+  setHandleMyMetadataUpdated = () => {
+    const agent = this.skywayChannel!.agent!
+    agent.onMetadataUpdated.add(async () => {
       try {
-        const myIndx = this.skyway!.agent!.metadata as string
-        this.setMyIndex(parseInt(myIndx))
+        const myIndex = agent.metadata as string
+        this.setMyIndex(parseInt(myIndex))
         await this.subscribeToOwner()
-        this.sendMyAvatar()
+        this.skywayDataStream!.writeAvatar(this)
       } catch {
-        this.nonInfluentialAction!.notifySkyWayError()
-        this.updateChannelMetadataWith('error')
+        this.skywayChannel!.updateChannelMetadata('error')
       }
     })
   }
 
-  setUpChannel = () => {
-    this.onMyMetaDataUpdated()
-    this.onChannelMetadataUpdated()
+  setUpChannel = async () => {
+    this.setHandleMyMetadataUpdated()
+    this.setHandleChannelMetadataUpdated()
   }
 
-  onDataWrite = async (stream: RemoteDataStream) => {
+  setHandleDataWrite = async (dataStream: RemoteDataStream) => {
     await new Promise<void>(async (resolve) => {
-      stream.onData.add(async (message) => {
+      dataStream.onData.add(async (message) => {
         const { reactionName, data } = JSON.parse(message as string)
         const announceText: string = data
 
         switch (reactionName) {
-          case 'startTheGame':
-            this.nonInfluentialAction!.startTheGame(this)
+          case 'startGame':
+            this.venueActivity!.startGame(this)
             break
           case 'setAvatar':
             const avatar: Avatar = data
-            this.nonInfluentialAction!.setAvatar(avatar)
+            this.venueActivity!.setAvatar(avatar)
             break
           case 'setAllPlayerAvatars':
             const players: Avatar[] = data
-            this.nonInfluentialAction!.setAllPlayerAvatars(players)
+            this.venueActivity!.setAllPlayerAvatars(players)
             break
           case 'moveAvatar':
             const avatarParams: AvatarParams = data
-            this.nonInfluentialAction!.moveAvatar(avatarParams)
+            this.venueActivity!.moveAvatar(avatarParams)
             break
           case 'reflectAnnounceText':
             if (announceText === 'ストップ！') {
-              this.lockMyAvatar()
+              this.venueActivity!.lockAvatar(this)
             }
-            this.nonInfluentialAction!.reflectAnnounceText(announceText)
+            this.venueActivity!.reflectAnnounceText(announceText)
             break
-          case 'startTheQuiz':
-            this.nonInfluentialAction!.startTheQuiz(announceText)
+          case 'startQuiz':
+            this.venueActivity!.startQuiz(announceText)
             break
           case 'checkExplanation':
-            this.unLockMyAvatar()
-            this.nonInfluentialAction!.checkExplanation(announceText)
+            this.venueActivity!.unLockAvatar(this)
+            this.venueActivity!.checkExplanation(announceText)
             break
           case 'reflectChatMessage':
             const chatMessage: ChatMessage = data
-            this.nonInfluentialAction!.reflectChatMessage(chatMessage)
+            this.venueActivity!.reflectChatMessage(chatMessage)
             break
-          case 'executeJudge':
+          case 'judge':
             const correctAnswer: string = data
-            this.nonInfluentialAction!.executeJudge(correctAnswer)
+            this.venueActivity!.judge(correctAnswer)
             break
           case 'subscribeToAllPlayers':
             const index: number = data
@@ -107,16 +95,15 @@ class PlayerAvatar extends Avatar {
     })
   }
 
-  // player → owner
   subscribeToOwner = async () => {
     try {
-      const myIndex = this.index as number
-      const ownerPublication = this.skyway!.channel!
-        .publications[0] as RoomPublication
-      const ownerPublicationId = ownerPublication?.id as string
-      const stream = await this.subscribeTo(ownerPublicationId)
-      await this.onDataWrite(stream)
-      await this.updateParticipantMetadataWith(
+      const skywayChannel = this.skywayChannel!
+      const myIndex = this.avatarIndex!
+      const ownerPublication = skywayChannel.channel!.publications[0]
+      const ownerPublicationId = ownerPublication.id
+      const dataStream = await skywayChannel.subscribe(ownerPublicationId)
+      await this.setHandleDataWrite(dataStream)
+      await skywayChannel.updateParticipantMetadata(
         ownerPublication,
         myIndex.toString()
       )
@@ -125,26 +112,26 @@ class PlayerAvatar extends Avatar {
     }
   }
 
-  subscribeToAllPlayers = async (specifiedIndex: number) => {
+  subscribeToAllPlayers = async (subscriberIndex: number) => {
     try {
-      const myIndex = this.index as number
-      if (specifiedIndex === myIndex) {
-        const numberOfParticipant = this.skyway!.channel!.publications
-          .length as number
+      const myIndex = this.avatarIndex!
+      if (subscriberIndex === myIndex) {
+        const channel = this.skywayChannel!.channel!
+        const myPublication = this.skywayChannel!.publication!
+        const numberOfParticipant = channel.publications.length
         for (let i = 1; i < numberOfParticipant; i++) {
-          if (
-            this.skyway!.channel!.publications[i] === this.skyway!.publication
+          if (channel.publications[i] === myPublication) continue
+          const playerPublicationId = channel.publications[i].id
+          const dataStream = await this.skywayChannel!.subscribe(
+            playerPublicationId
           )
-            continue
-          const playerPublicationId = this.skyway!.channel!.publications[i]
-            .id as string
-          const stream = await this.subscribeTo(playerPublicationId)
-          await this.onDataWrite(stream)
+          await this.setHandleDataWrite(dataStream)
         }
-        this.influentialAction!.reportSubscribedAllPlayers(myIndex + 1)
+        const nextSubscriberIndex = myIndex + 1
+        this.skywayDataStream!.reportSubscribedAllPlayers(nextSubscriberIndex)
       }
     } catch {
-      this.updateChannelMetadataWith('error')
+      this.skywayChannel!.updateChannelMetadata('error')
     }
   }
 }

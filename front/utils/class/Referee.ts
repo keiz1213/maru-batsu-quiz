@@ -3,7 +3,10 @@ import Avatar from '~/utils/class/Avatar'
 import SyncDraggable from '~/utils/class/SyncDraggable'
 
 class Referee {
-  constructor(game: Game) {
+  draggable: SyncDraggable
+
+  constructor(game: Game, draggable: SyncDraggable) {
+    this.draggable = draggable
     const initialNumberOfWinner = game.number_of_winner
     const { setNumberOfWinner } = useNumberOfWinner()
     setNumberOfWinner(initialNumberOfWinner)
@@ -12,10 +15,12 @@ class Referee {
   startGame = (avatar: Avatar) => {
     const { startGame } = useGameState()
     const { notifyOnSpot } = useToast()
-    SyncDraggable.setDraggable(avatar)
-    SyncDraggable.setDropzone('maru', avatar)
-    SyncDraggable.setDropzone('batsu', avatar)
+    const { clearLoading } = useLoading()
+    this.draggable.setDraggable(avatar)
+    this.draggable.setDropzone('maru', avatar)
+    this.draggable.setDropzone('batsu', avatar)
     startGame()
+    clearLoading()
     notifyOnSpot('接続が完了しました。ゲームを開始できます。', 'success')
   }
 
@@ -39,34 +44,40 @@ class Referee {
   }
 
   checkLoser = (player: Avatar, correctAnswer: string) => {
-    const avatarElement = document.getElementById(player.id) as HTMLElement
+    const avatarElement = document.getElementById(
+      player.avatarId
+    ) as HTMLElement
     const answer = this.convert(avatarElement.dataset.answer!)
     return correctAnswer != answer || answer === ''
   }
 
   checkWinner = (player: Avatar, correctAnswer: string) => {
-    const avatarElement = document.getElementById(player.id) as HTMLElement
+    const avatarElement = document.getElementById(
+      player.avatarId
+    ) as HTMLElement
     const answer = this.convert(avatarElement.dataset.answer!)
     return correctAnswer === answer
   }
 
   addLoser = (loser: Avatar) => {
     const { addLoser } = useLosers()
-    const avatarElement = document.getElementById(loser.id) as HTMLElement
+    const avatarElement = document.getElementById(loser.avatarId) as HTMLElement
     avatarElement.classList.add('animate__rotateOut')
     avatarElement.classList.remove('z-10')
     avatarElement.dataset.state = 'loser'
-    SyncDraggable.unsetDraggable(loser)
+    this.draggable.unsetDraggable(loser)
     addLoser(loser)
   }
 
   addWinner = (winner: Avatar) => {
     const { addWinner } = useWinners()
-    const avatarElement = document.getElementById(winner.id) as HTMLElement
+    const avatarElement = document.getElementById(
+      winner.avatarId
+    ) as HTMLElement
     avatarElement.classList.add('animate__fadeOut')
     avatarElement.classList.remove('z-10')
     avatarElement.dataset.state = 'winner'
-    SyncDraggable.unsetDraggable(winner)
+    this.draggable.unsetDraggable(winner)
     addWinner(winner)
   }
 
@@ -75,7 +86,7 @@ class Referee {
     let winnersInPlayers: Avatar[] = []
     for (let i = 0; i < players.value.length; i++) {
       const avatarElement = document.getElementById(
-        players.value[i].id
+        players.value[i].avatarId
       ) as HTMLElement
       if (avatarElement.dataset.state != '') continue
       const player = players.value[i] as Avatar
@@ -91,7 +102,7 @@ class Referee {
     let losersInPlayers: Avatar[] = []
     for (let i = 0; i < players.value.length; i++) {
       const avatarElement = document.getElementById(
-        players.value[i].id
+        players.value[i].avatarId
       ) as HTMLElement
       if (avatarElement.dataset.state != '') continue
       const player = players.value[i] as Avatar

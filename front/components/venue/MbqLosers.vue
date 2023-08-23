@@ -14,7 +14,7 @@
       <MbqAvatar
         class="animate__bounce"
         v-for="loser in losers"
-        :key="loser.id"
+        :key="loser.avatarId"
         :avatar="loser"
       />
     </div>

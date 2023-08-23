@@ -1,5 +1,5 @@
 export interface ChatMessage {
   avatarId: string
-  avatarUrl: string
+  avatarImage: string
   content: string
 }

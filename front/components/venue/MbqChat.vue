@@ -34,7 +34,7 @@
           <div v-if="chatMessage.avatarId != myId" class="chat chat-start">
             <div class="chat-image avatar">
               <div class="w-10 rounded-full">
-                <img :src="chatMessage.avatarUrl" alt="user-icon" />
+                <img :src="chatMessage.avatarImage" alt="user-icon" />
               </div>
             </div>
             <div class="chat-bubble chat-bubble-primary">

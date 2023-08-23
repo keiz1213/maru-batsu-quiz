@@ -3,10 +3,7 @@ import Avatar from '~/utils/class/Avatar'
 import interact from 'interactjs'
 
 export class SyncDraggable {
-  private static dragMoveListener(
-    event: Interact.InteractEvent,
-    avatar: Avatar
-  ): void {
+  dragMoveListener(event: Interact.InteractEvent, avatar: Avatar): void {
     const target = event.target as HTMLElement
     const dataX = target.getAttribute('data-x') as string
     const dataY = target.getAttribute('data-y') as string
@@ -14,22 +11,19 @@ export class SyncDraggable {
     const y = ((parseFloat(dataY) || 0) + event.dy).toString()
     const answer = target.getAttribute('data-answer') as string
     const avatarParams: AvatarParams = {
-      id: avatar.id,
+      id: avatar.avatarId,
       x: x,
       y: y,
       answer: answer
     }
-
-    avatar.influentialAction!.writeAvatarParams(avatarParams)
-
+    avatar.skywayDataStream!.writeAvatarParams(avatarParams)
     target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
     target.setAttribute('data-x', x)
     target.setAttribute('data-y', y)
-    target.setAttribute('data-draggable', 'draggable')
   }
 
-  static setDraggable(avatar: Avatar): void {
-    interact(`#${avatar.id}`).draggable({
+  setDraggable(avatar: Avatar): void {
+    interact(`#${avatar.avatarId}`).draggable({
       inertia: true,
       autoScroll: true,
       listeners: {
@@ -45,19 +39,19 @@ export class SyncDraggable {
     })
   }
 
-  static unsetDraggable(avatar: Avatar): void {
-    interact(`#${avatar.id}`).unset()
+  unsetDraggable(avatar: Avatar): void {
+    interact(`#${avatar.avatarId}`).unset()
   }
 
-  static setDropzone(answer: string, avatar: Avatar): void {
+  setDropzone(answer: string, avatar: Avatar): void {
     interact(`#${answer}`).dropzone({
-      accept: `#${avatar.id}`,
+      accept: `#${avatar.avatarId}`,
       overlap: 0.5,
-      ondragenter: function (event) {
+      ondragenter: (event) => {
         const draggableElement = event.relatedTarget
         draggableElement.dataset.answer = answer
       },
-      ondragleave: function (event) {
+      ondragleave: (event) => {
         const draggableElement = event.relatedTarget
         draggableElement.dataset.answer = ''
       }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { Quiz } from '~/types/quiz'
-  import Avatar from '~/utils/class/Avatar'
   import { VueFinalModal } from 'vue-final-modal'
+  import Avatar from '~/utils/class/Avatar'
 
   defineProps<{
     winners: Avatar[]
@@ -27,17 +27,18 @@
       <div class="flex justify-center">
         <MbqAvatar
           v-for="winner in winners"
-          :key="winner.id"
+          :key="winner.avatarId"
           :avatar="winner"
         />
       </div>
       <div>
         <MbqTableQuiz :quizzes="quizzes" />
       </div>
-      <p @click="backToHome" class="underline hover:cursor-pointer mb-10">
-        ←ホームに戻る
-      </p>
+      <div class="mb-10">
+        <span @click="backToHome" class="underline hover:cursor-pointer">
+          ←ホームに戻る
+        </span>
+      </div>
     </div>
   </VueFinalModal>
 </template>
-~/types/quiz

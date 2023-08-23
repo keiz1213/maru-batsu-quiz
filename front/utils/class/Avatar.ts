@@ -1,96 +1,67 @@
-import { ChatMessage } from '~/types/chatMessage'
-import { RoomPublication, RemoteDataStream } from '@skyway-sdk/room'
-import SkyWay from '~/utils/class/SkyWay'
-import InfluentialAction from '~/utils/class/InfluentialAction'
-import NonInfluentialAction from '~/utils/class/NonInfluentialAction'
-import SyncDraggable from '~/utils/class/SyncDraggable'
+import { User } from '~/types/user'
+import VenueActivity from './VenueActivity'
+import SkywayChannel from './SkywayChannel'
+import SkywayDataStream from './SkywayDataStream'
 
 class Avatar {
-  id: string
-  owner: boolean
-  name: string
-  avatarUrl: string
-  index: number | null
-  skyway: SkyWay | null
-  influentialAction: InfluentialAction | null
-  nonInfluentialAction: NonInfluentialAction | null
+  avatarId: string
+  avatarName: string
+  avatarImage: string
+  avatarIndex: number | null
+  skywayChannel: SkywayChannel | null
+  skywayDataStream: SkywayDataStream | null
+  venueActivity: VenueActivity | null
 
   constructor(
-    id: string,
-    owner: boolean,
-    name: string,
-    avatarUrl: string,
-    index: number | null,
-    skyway: SkyWay | null,
-    influentialAction: InfluentialAction | null,
-    nonInfluentialAction: NonInfluentialAction | null
+    user: User,
+    skywayChannel: SkywayChannel,
+    skywayDataStream: SkywayDataStream,
+    venueActivity: VenueActivity
   ) {
-    this.id = `avatar-${id}`
-    this.owner = owner
-    this.name = name
-    this.avatarUrl = avatarUrl
-    this.index = index
-    this.skyway = skyway
-    this.influentialAction = influentialAction
-    this.nonInfluentialAction = nonInfluentialAction
+    this.avatarId = `avatar-${user.id}`
+    this.avatarName = user.name
+    this.avatarImage = user.avatar_url
+    this.avatarIndex = null
+    this.skywayChannel = skywayChannel
+    this.skywayDataStream = skywayDataStream
+    this.venueActivity = venueActivity
   }
 
-  subscribeTo = async (publicationId: string): Promise<RemoteDataStream> => {
-    const subscription = await this.skyway!.agent!.subscribe(publicationId)
-    const remoteDataStream = subscription?.stream as RemoteDataStream
-    return remoteDataStream
+  createMockAvatar = () => {
+    const mockAvatar = {
+      avatarId: this.avatarId,
+      avatarName: this.avatarName,
+      avatarImage: this.avatarImage,
+      avatarIndex: this.avatarIndex,
+      skywayChannel: null,
+      skywayDataStream: null,
+      venueActivity: null
+    } as Avatar
+    return mockAvatar
   }
 
-  updateChannelMetadataWith = async (value: string) => {
-    await this.skyway!.channel!.updateMetadata(value)
-  }
-
-  updateParticipantMetadataWith = async (
-    publication: RoomPublication,
-    value: string
-  ) => {
-    await publication.publisher.updateMetadata(value)
-  }
-
-  onChannelMetadataUpdated = () => {
-    this.skyway!.channel!.onMetadataUpdated.add((e) => {
+  setHandleChannelMetadataUpdated = () => {
+    const channel = this.skywayChannel!.channel!
+    channel.onMetadataUpdated.add((e) => {
       if (e.metadata === 'error') {
-        this.nonInfluentialAction!.notifySkyWayError()
+        this.venueActivity!.notifyError()
       }
     })
   }
 
   leaveChannel = () => {
-    this.updateChannelMetadataWith('error')
+    this.skywayChannel!.updateChannelMetadata('error')
     localStorage.clear()
-    this.skyway!.agent!.leave()
-  }
-
-  sendMyAvatar = () => {
-    this.influentialAction!.writeAvatar(this)
-  }
-
-  lockMyAvatar = () => {
-    SyncDraggable.unsetDraggable(this)
-  }
-
-  unLockMyAvatar = () => {
-    SyncDraggable.setDraggable(this)
-  }
-
-  createChatMessage = (newMessage: string): ChatMessage => {
-    const chatMessage = {
-      avatarId: this.id,
-      avatarUrl: this.avatarUrl,
-      content: newMessage
-    }
-    return chatMessage
+    this.skywayChannel!.agent!.leave()
   }
 
   sendChatMessage = (newMessage: string) => {
-    const chatMessage = this.createChatMessage(newMessage)
-    this.nonInfluentialAction!.reflectChatMessage(chatMessage)
-    this.influentialAction!.writeChatMessage(chatMessage)
+    const chatMessage = this.venueActivity!.chat.createChatMessage(
+      this,
+      newMessage
+    )
+    this.venueActivity!.reflectChatMessage(chatMessage)
+    this.skywayDataStream!.writeChatMessage(chatMessage)
   }
 
   delay = (ms: number) => {

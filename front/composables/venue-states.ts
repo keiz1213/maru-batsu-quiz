@@ -1,22 +1,38 @@
-import { ParticipantData } from '~/types/participantData'
+import { PlayerData } from '~/types/playerData'
 import { ChatMessage } from '~/types/chatMessage'
 import Avatar from '~/utils/class/Avatar'
 
-export const useParticipantData = () => {
-  const participantData = useState<ParticipantData[]>(
-    'participant-data',
-    () => {
-      return []
-    }
-  )
+export const usePlayerData = () => {
+  const playerData = useState<PlayerData[]>('player-data', () => {
+    return []
+  })
 
-  const addParticipantData = (data: ParticipantData) => {
-    participantData.value.push(data)
+  const addPlayerData = (data: PlayerData) => {
+    playerData.value.push(data)
   }
 
   return {
-    participantData,
-    addParticipantData
+    playerData,
+    addPlayerData
+  }
+}
+
+export const useMyAvatar = () => {
+  const myAvatarId = useState<string>('my-avatar-id', () => {
+    return ''
+  })
+
+  const setMyAvatarId = (avatarId: string) => {
+    myAvatarId.value = avatarId
+  }
+
+  const isMyAvatar = (avatar: Avatar) => {
+    return myAvatarId.value === avatar.avatarId
+  }
+
+  return {
+    setMyAvatarId,
+    isMyAvatar
   }
 }
 

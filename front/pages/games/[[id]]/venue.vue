@@ -1,17 +1,35 @@
 <script setup lang="ts">
-  import OwnerAvatar from '~/utils/class/OwnerAvatar'
-  import PlayerAvatar from '~/utils/class/PlayerAvatar'
-  import InfluentialAction from '~/utils/class/InfluentialAction'
-  import NonInfluentialAction from '~/utils/class/NonInfluentialAction'
-  import SkyWay from '~/utils/class/SkyWay'
   import { getGame } from '~/utils/api/services/game'
   import { getUser } from '~/utils/api/services/user'
+  import Announce from '~/utils/class/Announce'
+  import Chat from '~/utils/class/Chat'
+  import OwnerAvatar from '~/utils/class/OwnerAvatar'
+  import PlayerAvatar from '~/utils/class/PlayerAvatar'
+  import Referee from '~/utils/class/Referee'
+  import SkywayChannel from '~/utils/class/SkywayChannel'
+  import SkywayDataStream from '~/utils/class/SkywayDataStream'
+  import SyncDraggable from '~/utils/class/SyncDraggable'
+  import Timer from '~/utils/class/Timer'
+  import VenueActivity from '~/utils/class/VenueActivity'
 
   definePageMeta({
     middleware: ['auth', 'venue-status']
   })
 
   const { currentUserId, isGameOwner } = useCurrentUserId()
+  const { playerData } = usePlayerData()
+  const { owner } = useOwner()
+  const { players } = usePlayers()
+  const { losers } = useLosers()
+  const { winners } = useWinners()
+  const { numberOfWinner } = useNumberOfWinner()
+  const { currentQuizNumber } = useCurrentQuizNumber()
+  const { questionVisible } = useQuestionVisible()
+  const { chatVisible, chatMessages } = useChat()
+  const { standByGame, endOfGame } = useGameState()
+  const { announceText } = useAnnounce()
+  const { timeElapsed, timeLimit } = useTimer()
+  const { loading } = useLoading()
 
   let avatar: PlayerAvatar | OwnerAvatar
   const route = useRoute()
@@ -19,47 +37,27 @@
   const game = await getGame(gameId)
   const user = await getUser(currentUserId.value)
   const ownerId = game.user_id as number
-  const skyWay = new SkyWay(user, game)
-  await skyWay.initiarizeSkyWay()
-  const userName = skyWay.filterUserNameForSkyWay()
-  const nonInfluentialAction = new NonInfluentialAction(game.number_of_winner)
-  const influentialAction = new InfluentialAction(skyWay.localDataStream!)
-
-  const initialAvatarParams = [
-    currentUserId.value.toString(),
-    isGameOwner(ownerId) ? true : false,
-    userName,
-    user.avatar_url,
-    null,
-    skyWay,
-    influentialAction,
-    nonInfluentialAction
+  const skywayChannel = new SkywayChannel(user, game)
+  await skywayChannel.joinChannel()
+  const skywayDataStream = new SkywayDataStream(skywayChannel)
+  const venueActivity = new VenueActivity(
+    new Referee(game, new SyncDraggable()),
+    new Chat(),
+    new Announce(),
+    new Timer()
+  )
+  const avatarInstanceProps = [
+    user,
+    skywayChannel,
+    skywayDataStream,
+    venueActivity
   ] as const
 
-  const participantData = nonInfluentialAction.reactiveVenue.participantData
-  const owner = nonInfluentialAction.reactiveVenue.owner
-  const players = nonInfluentialAction.reactiveVenue.players
-  const losers = nonInfluentialAction.reactiveVenue.losers
-  const winners = nonInfluentialAction.reactiveVenue.winners
-  const numberOfWinner = nonInfluentialAction.reactiveVenue.numberOfWinner
-  const currentQuizNumber = nonInfluentialAction.reactiveVenue.currentQuizNumber
-  const questionVisible = nonInfluentialAction.reactiveVenue.questionVisible
-  const isStandByGame = nonInfluentialAction.reactiveVenue.isStandByGame
-  const isEndOfGame = nonInfluentialAction.reactiveVenue.isEndOfGame
-  const announceText = nonInfluentialAction.reactiveVenue.announceText
-  const chatVisible = nonInfluentialAction.reactiveVenue.chatVisible
-  const chatMessages = nonInfluentialAction.reactiveVenue.chatMessages
-  const timeElapsed = nonInfluentialAction.reactiveVenue.timeElapsed
-  const timeLimit = nonInfluentialAction.reactiveVenue.timeLimit
-  const loading = nonInfluentialAction.reactiveVenue.loading
-
-  if (isGameOwner(ownerId)) {
-    avatar = new OwnerAvatar(...initialAvatarParams)
-    avatar.setUpChannel(chatVisible.value)
-  } else {
-    avatar = new PlayerAvatar(...initialAvatarParams)
-    avatar.setUpChannel()
-  }
+  avatar = isGameOwner(ownerId)
+    ? new OwnerAvatar(...avatarInstanceProps)
+    : new PlayerAvatar(...avatarInstanceProps)
+  avatar.venueActivity!.setMyAvatarId(avatar.avatarId)
+  avatar.setUpChannel()
 
   useHead({
     title: `${game.title} | マルバツクイズオンライン`
@@ -76,27 +74,29 @@
 
 <template>
   <MbqModalEnd
-    v-model="isEndOfGame"
+    v-model="endOfGame"
     :winners="winners"
     :quizzes="game.quizzes"
     :background="'interactive'"
   />
   <MbqModalStandBy
-    v-model="isStandByGame"
+    v-model="standByGame"
     :isOwner="isGameOwner(ownerId)"
     :players="players"
     :background="'interactive'"
     @start-connection="
       avatar instanceof OwnerAvatar ? avatar.startConnection(players) : null
     "
-    :participantData="participantData"
+    :playerData="playerData"
   />
 
   <MbqModalCheck
     v-model="questionVisible"
     :quizzes="game.quizzes"
     @close-question="
-      avatar instanceof OwnerAvatar ? avatar.closeCheckQuestion() : null
+      avatar instanceof OwnerAvatar
+        ? avatar.venueActivity!.closeQuestion()
+        : null
     "
   />
 
@@ -132,7 +132,9 @@
                   : null
               "
               @check-question="
-                avatar instanceof OwnerAvatar ? avatar.checkQuestion() : null
+                avatar instanceof OwnerAvatar
+                  ? avatar.venueActivity!.openQuestion()
+                  : null
               "
               :description="game.description"
               :isLoading="loading"
@@ -149,7 +151,7 @@
         <div v-if="chatVisible" id="chat-container">
           <div id="chat-area">
             <MbqChat
-              :myId="avatar.id"
+              :myId="avatar.avatarId"
               :messages="chatMessages"
               @update:messages="avatar.sendChatMessage"
             />

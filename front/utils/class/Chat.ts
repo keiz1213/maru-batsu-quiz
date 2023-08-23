@@ -1,21 +1,38 @@
 import { ChatMessage } from '~/types/chatMessage'
+import Avatar from './Avatar'
 
 class Chat {
-  chatVisible: Ref<boolean>
-  chatMessages: Ref<ChatMessage[]>
-  visible: Function
-  inVisible: Function
-  addChatMessage: Function
+  visble = () => {
+    const { visible } = useChat()
+    visible()
+  }
 
-  constructor() {
-    const { chatVisible, chatMessages, visible, inVisible, addChatMessage } =
-      useChat()
+  inVisible = () => {
+    const { inVisible } = useChat()
+    inVisible()
+  }
 
-    this.chatVisible = chatVisible
-    this.chatMessages = chatMessages
-    this.visible = visible
-    this.inVisible = inVisible
-    this.addChatMessage = addChatMessage
+  adjustScrollTop = (): void => {
+    const chatArea = document.getElementById('chat-display') as HTMLElement
+    if (chatArea !== null) {
+      const chatAreaHeight = chatArea.scrollHeight
+      chatArea.scrollTop = chatAreaHeight
+    }
+  }
+
+  createChatMessage = (avatar: Avatar, newMessage: string): ChatMessage => {
+    const chatMessage = {
+      avatarId: avatar.avatarId,
+      avatarImage: avatar.avatarImage,
+      content: newMessage
+    }
+    return chatMessage
+  }
+
+  addChatMessage = (chatMessage: ChatMessage) => {
+    const { addChatMessage } = useChat()
+    addChatMessage(chatMessage)
+    this.adjustScrollTop()
   }
 }
 

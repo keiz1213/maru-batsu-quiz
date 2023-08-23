@@ -1,13 +1,14 @@
 import { ChatMessage } from '~/types/chatMessage'
 import { AvatarParams } from '~/types/avatarParams'
-import Avatar from './Avatar'
 import { LocalDataStream } from '@skyway-sdk/room'
+import Avatar from './Avatar'
+import SkywayChannel from './SkywayChannel'
 
-export class InfluentialAction {
+class SkywayDataStream {
   localDataStream: LocalDataStream
 
-  constructor(localDataStream: LocalDataStream) {
-    this.localDataStream = localDataStream
+  constructor(skywayChannel: SkywayChannel) {
+    this.localDataStream = skywayChannel.localDataStream!
   }
 
   write(
@@ -22,23 +23,13 @@ export class InfluentialAction {
     )
   }
 
-  promptStartTheGame() {
-    this.write('startTheGame', '')
+  promptStartGame() {
+    this.write('startGame', '')
   }
 
   writeAvatar(avatar: Avatar) {
-    const numericStringFromAvatarId = avatar.id.replace(/\D/g, '')
-    const writableAvatar = new Avatar(
-      numericStringFromAvatarId,
-      avatar.owner,
-      avatar.name,
-      avatar.avatarUrl,
-      avatar.index,
-      null,
-      null,
-      null
-    )
-    this.write('setAvatar', writableAvatar)
+    const mockAvatar = avatar.createMockAvatar()
+    this.write('setAvatar', mockAvatar)
   }
 
   writeAllPlayerAvatars(players: Avatar[]) {
@@ -53,8 +44,8 @@ export class InfluentialAction {
     this.write('reflectAnnounceText', announceText)
   }
 
-  promptStartTheQuiz(announceText: string) {
-    this.write('startTheQuiz', announceText)
+  promptStartQuiz(announceText: string) {
+    this.write('startQuiz', announceText)
   }
 
   promptCheckExplanation(announceText: string) {
@@ -65,8 +56,8 @@ export class InfluentialAction {
     this.write('reflectChatMessage', chatMessage)
   }
 
-  promptExecuteJudge(correctAnswer: string) {
-    this.write('executeJudge', correctAnswer)
+  promptJudge(correctAnswer: string) {
+    this.write('judge', correctAnswer)
   }
 
   promptSubscribeToAllPlayers(index: number) {
@@ -74,8 +65,8 @@ export class InfluentialAction {
   }
 
   reportSubscribedAllPlayers(index: number) {
-    this.write('promptSubscribeToAllPlayersForPlayer', index)
+    this.write('promptPlayersForMutualSubscriptions', index)
   }
 }
 
-export default InfluentialAction
+export default SkywayDataStream

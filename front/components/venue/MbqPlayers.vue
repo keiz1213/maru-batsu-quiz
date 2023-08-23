@@ -32,7 +32,7 @@
         <div class="grid grid-cols-4 gap-x-3 p-6">
           <MbqAvatar
             v-for="player in players"
-            :key="player.id"
+            :key="player.avatarId"
             :avatar="player"
           />
         </div>

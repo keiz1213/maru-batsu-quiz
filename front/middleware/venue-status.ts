@@ -1,6 +1,6 @@
-import SkyWay from '~/utils/class/SkyWay'
 import { getGame } from '~/utils/api/services/game'
 import { getUser } from '~/utils/api/services/user'
+import SkywayChannel from '~/utils/class/SkywayChannel'
 
 export default defineNuxtRouteMiddleware(async (to) => {
   const { currentUserId, isGameOwner } = useCurrentUserId()
@@ -11,11 +11,11 @@ export default defineNuxtRouteMiddleware(async (to) => {
   const game = await getGame(gameId)
   const user = await getUser(currentUserId.value)
   const ownerId = game.user_id!
-  const skyway = new SkyWay(user, game)
-  const channel = await skyway.findOrCreateChannelForCheck()
+  const skywayChannel = new SkywayChannel(user, game)
+  const channel = await skywayChannel.findChannel()
 
   if (isGameOwner(ownerId)) {
-    if (skyway.isOwnerEnterable(channel)) {
+    if (skywayChannel.isOwnerEnterable(channel)) {
       if (localStorage.getItem('chat')) {
         visible()
       }
@@ -27,8 +27,8 @@ export default defineNuxtRouteMiddleware(async (to) => {
       )
       return navigateTo('/home')
     }
-  } else if (skyway.isPlayerEnterable(channel)) {
-    if (skyway.isChatEnabled(channel)) {
+  } else if (skywayChannel.isPlayerEnterable(channel)) {
+    if (skywayChannel.isChatEnabled(channel)) {
       visible()
     }
     return

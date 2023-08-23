@@ -7,38 +7,37 @@ import MbqAvatar from '~/components/venue/MbqAvatar.vue'
 
 describe('MbqAvatar', () => {
   let wrapper: VueWrapper
-  let avatar: Avatar
+  let avatarStub: Avatar
 
   beforeEach(() => {
-    avatar = new Avatar(
-      '1',
-      true,
-      'test avatar',
-      'https://example.com/photo.jpg',
-      null,
-      null,
-      null,
-      null
-    )
+    avatarStub = {
+      avatarId: 'avatar-1',
+      avatarName: 'test',
+      avatarImage: 'https://example.com/u/72614612/1?v=4',
+      avatarIndex: null,
+      skywayChannel: null,
+      skywayDataStream: null,
+      venueActivity: null
+    } as Avatar
 
     wrapper = shallowMount(MbqAvatar, {
       props: {
-        avatar: avatar
+        avatar: avatarStub
       }
     })
   })
 
   it('element id', () => {
-    expect(wrapper.attributes('id')).toBe(`${avatar.id}`)
+    expect(wrapper.attributes('id')).toBe(`${avatarStub.avatarId}`)
   })
 
   it('desplay avatar name', () => {
-    const avatarName = wrapper.find(`#avatar-name-${avatar.id}`)
-    expect(avatarName.text()).toBe(avatar.name)
+    const avatarName = wrapper.find(`#avatar-name-${avatarStub.avatarId}`)
+    expect(avatarName.text()).toBe(avatarStub.avatarName)
   })
 
   it('set avatar url', () => {
-    const avatarName = wrapper.find(`#avatar-img-${avatar.id}`)
-    expect(avatarName.attributes('src')).toBe(avatar.avatarUrl)
+    const avatarName = wrapper.find(`#avatar-img-${avatarStub.avatarId}`)
+    expect(avatarName.attributes('src')).toBe(avatarStub.avatarImage)
   })
 })
