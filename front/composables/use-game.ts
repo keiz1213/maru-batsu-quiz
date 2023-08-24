@@ -1,5 +1,5 @@
 import { Game } from '~/types/game'
-import { getGames } from '~/utils/api/services/game'
+import { getCurrentUserGames } from '~/utils/api/services/game'
 
 export const useGame = () => {
   const games = useState<Game[]>('games', () => {
@@ -20,7 +20,7 @@ export const useGame = () => {
 
   const resetGamesStore = async () => {
     clearGamesStore()
-    const fetchedGames = await getGames()
+    const fetchedGames = await getCurrentUserGames()
     setGamesStore(fetchedGames)
   }
 
@@ -32,7 +32,7 @@ export const useGame = () => {
   const checkGamesStore = async () => {
     const { isLoggedIn } = useFirebaseAuth()
     if (isLoggedIn.value && games.value.length === 0) {
-      const fetchedGames = await getGames()
+      const fetchedGames = await getCurrentUserGames()
       setGamesStore(fetchedGames)
     }
   }

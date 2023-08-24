@@ -1,6 +1,6 @@
 import { Game } from '~/types/game'
 
-export const getGames = async (): Promise<Game[]> => {
+export const getCurrentUserGames = async (): Promise<Game[]> => {
   const { data, error } = await useCustomFetch(`/api/v1/current_user/games`, {
     method: 'get'
   })

@@ -1,5 +1,5 @@
 import {
-  getGames,
+  getCurrentUserGames,
   getGame,
   postGame,
   putGame,
@@ -72,14 +72,14 @@ describe('game', () => {
     }
   })
 
-  describe('getGames', () => {
+  describe('getCurrentUserGames', () => {
     it("fetch current user's games", async () => {
       mocks.useCustomFetch.mockReturnValueOnce({
         data: { value: games },
         error: { value: false }
       })
 
-      const result = await getGames()
+      const result = await getCurrentUserGames()
       expect(result[1]).toEqual(games[1])
       expect(mocks.useCustomFetch).toHaveBeenCalledWith(
         '/api/v1/current_user/games',
@@ -89,7 +89,7 @@ describe('game', () => {
 
     it('throw error', async () => {
       mocks.useCustomFetch.mockReturnValueOnce({ error: { value: true } })
-      await expect(getGames()).rejects.toThrow(Error)
+      await expect(getCurrentUserGames()).rejects.toThrow(Error)
       expect(mocks.useCustomFetch).toHaveBeenCalledWith(
         '/api/v1/current_user/games',
         { method: 'get' }
