@@ -4,20 +4,13 @@
     labelName: string
     id: string
   }>()
-  const { toClipboard } = useClipboard()
+
+  defineEmits<{
+    (e: 'copy-to-clipboard'): void
+  }>()
 
   const isVenueUrl = () => {
     return props.labelName === 'ゲーム会場URL'
-  }
-
-  const copy = async () => {
-    const url = props.content as string
-    const tip = document.getElementById('tooltip') as HTMLElement
-    await toClipboard(url)
-    tip.classList.toggle('hidden')
-    setTimeout(() => {
-      tip.classList.toggle('hidden')
-    }, 1000)
   }
 </script>
 
@@ -27,7 +20,7 @@
     <MbqFrameLg :id="id">
       <MbqButtonClipboard
         v-if="isVenueUrl()"
-        @click="copy"
+        @click="$emit('copy-to-clipboard')"
         :button-type="'button'"
       />
       <p class="text-xl whitespace-pre-wrap">

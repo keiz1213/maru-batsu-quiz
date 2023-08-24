@@ -24,9 +24,14 @@
   const goToVenue = () => {
     navigateTo(gameVenueUrl, { external: true })
   }
+
   const goToVenueWithChat = () => {
     localStorage.setItem('chat', 'enabled')
     navigateTo(gameVenueUrl, { external: true })
+  }
+
+  const copyVenueUrl = () => {
+    copyToClipboard(gameVenueUrl)
   }
 
   const destroyGame = async () => {
@@ -61,6 +66,7 @@
       :content="gameVenueUrl"
       :labelName="'ゲーム会場URL'"
       :id="'item-game-venue-url'"
+      @copy-to-clipboard="copyVenueUrl"
     />
     <div class="mt-16 md:flex md:justify-evenly">
       <div class="mt-2 hidden xl:block">
