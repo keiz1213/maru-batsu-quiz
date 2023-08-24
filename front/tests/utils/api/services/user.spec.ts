@@ -1,4 +1,4 @@
-import { getUser, postUser, deleteUser } from '~/utils/api/services/user'
+import { postUser, deleteUser } from '~/utils/api/services/user'
 import { describe, it, expect, vi } from 'vitest'
 
 describe('user', () => {
@@ -25,31 +25,6 @@ describe('user', () => {
     avatar_url: 'https://example.com/photo.jpg',
     games: []
   }
-
-  describe('getUser', () => {
-    it('fetch a user', async () => {
-      mocks.useCustomFetch.mockReturnValueOnce({
-        data: { value: user },
-        error: { value: false }
-      })
-
-      const result = await getUser(user.id)
-      expect(result).toEqual(user)
-      expect(mocks.useCustomFetch).toHaveBeenCalledWith(
-        `/api/v1/users/${user.id}`,
-        { method: 'get' }
-      )
-    })
-
-    it('throw error', async () => {
-      mocks.useCustomFetch.mockReturnValueOnce({ error: { value: true } })
-      await expect(getUser(user.id)).rejects.toThrow(Error)
-      expect(mocks.useCustomFetch).toHaveBeenCalledWith(
-        `/api/v1/users/${user.id}`,
-        { method: 'get' }
-      )
-    })
-  })
 
   describe('postUser', () => {
     it('post a user', async () => {
