@@ -7,6 +7,8 @@
     (e: 'destroy-game'): void
     (e: 'cancel'): void
   }>()
+
+  const { loading } = useLoading()
 </script>
 <template>
   <VueFinalModal
@@ -28,6 +30,7 @@
         class="mx-3"
         @click="emit('destroy-game')"
         :button-type="'button'"
+        :is-loading="loading"
         >削除</MbqButtonDanger
       >
     </div>

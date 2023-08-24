@@ -9,6 +9,7 @@
   }>()
 
   const { setToast, notifyOnSpot } = useToast()
+  const { setLoading, clearLoading } = useLoading()
   const { resetGamesStore } = useGame()
 
   const config = useRuntimeConfig()
@@ -38,11 +39,14 @@
 
   const destroyGame = async () => {
     try {
+      setLoading()
       await deleteGame(gameId)
       setToast('ゲームを削除しました!', 'success')
       await resetGamesStore()
+      clearLoading()
       navigateTo('/home')
     } catch {
+      clearLoading()
       notifyOnSpot(
         'ゲームの削除に失敗しました。再度やり直してください。',
         'error'

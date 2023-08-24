@@ -23,6 +23,8 @@ describe('MbqUserIcon', () => {
         currentUser: currentUser
       }
     })
-    expect(wrapper.attributes('src')).toBe('https://example.com/u/72614612/1?v=4/')
+    expect(wrapper.attributes('src')).toBe(
+      'https://example.com/u/72614612/1?v=4/'
+    )
   })
 })
