@@ -5,5 +5,5 @@ export interface User {
   uid: string
   name: string
   avatar_url: string
-  games: Array<Game> | null
+  games: Array<Game>
 }

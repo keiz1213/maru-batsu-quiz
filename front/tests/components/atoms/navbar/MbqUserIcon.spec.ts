@@ -1,5 +1,6 @@
 // @vitest-environment nuxt
 
+import { User } from '~/types/user'
 import { describe, it, expect, vi, beforeAll } from 'vitest'
 import { shallowMount } from '@vue/test-utils'
 import MbqUserIcon from '~/components/atoms/navbar/MbqUserIcon.vue'
@@ -9,27 +10,20 @@ describe('MbqUserIcon', () => {
     vi.restoreAllMocks()
   })
 
-  const mocks = vi.hoisted(() => {
-    return {
-      useAuth: vi.fn()
-    }
-  })
-
-  vi.mock('~/composables/use-auth', () => {
-    return {
-      useAuth: mocks.useAuth
-    }
-  })
+  const currentUserMock = {
+    id: 1,
+    uid: 'test',
+    name: 'testName',
+    avatar_url: 'https://example.com/u/72614612/1?v=4/',
+    games: []
+  } as User
 
   it('when user logged in, renders user photo', () => {
-    mocks.useAuth.mockReturnValueOnce({
-      user: {
-        value: {
-          photoURL: 'https://example.com/photo.jpg'
-        }
+    const wrapper = shallowMount(MbqUserIcon, {
+      props: {
+        currentUser: currentUserMock
       }
     })
-    const wrapper = shallowMount(MbqUserIcon)
-    expect(wrapper.attributes('src')).toBe('https://example.com/photo.jpg')
+    expect(wrapper.attributes('src')).toBe('https://example.com/u/72614612/1?v=4/')
   })
 })

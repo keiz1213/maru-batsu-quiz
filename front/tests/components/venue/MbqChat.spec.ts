@@ -8,15 +8,15 @@ import MbqChat from '~/components/venue/MbqChat.vue'
 
 describe('MbqChat', () => {
   let wrapper: VueWrapper
-  let myAvatarStub: Avatar
-  let otherAvatarStub: Avatar
+  let myAvatarMock: Avatar
+  let otherAvatarMock: Avatar
   let myChatMessage1: ChatMessage
   let myChatMessage2: ChatMessage
   let otherUserMessage: ChatMessage
   let chatMessages: ChatMessage[]
 
   beforeEach(() => {
-    myAvatarStub = {
+    myAvatarMock = {
       avatarId: 'avatar-1',
       avatarName: 'test',
       avatarImage: 'https://example.com/u/72614612/1?v=4/',
@@ -26,7 +26,7 @@ describe('MbqChat', () => {
       venueActivity: null
     } as Avatar
 
-    otherAvatarStub = {
+    otherAvatarMock = {
       avatarId: 'avatar-2',
       avatarName: 'test2',
       avatarImage: 'https://example.com/u/72614612/2?v=4',
@@ -37,20 +37,20 @@ describe('MbqChat', () => {
     } as Avatar
 
     myChatMessage1 = {
-      avatarId: myAvatarStub.avatarId,
-      avatarImage: myAvatarStub.avatarImage,
+      avatarId: myAvatarMock.avatarId,
+      avatarImage: myAvatarMock.avatarImage,
       content: 'my message 1'
     } as ChatMessage
 
     myChatMessage2 = {
-      avatarId: myAvatarStub.avatarId,
-      avatarImage: myAvatarStub.avatarImage,
+      avatarId: myAvatarMock.avatarId,
+      avatarImage: myAvatarMock.avatarImage,
       content: 'my message 2'
     } as ChatMessage
 
     otherUserMessage = {
-      avatarId: otherAvatarStub.avatarId,
-      avatarImage: otherAvatarStub.avatarImage,
+      avatarId: otherAvatarMock.avatarId,
+      avatarImage: otherAvatarMock.avatarImage,
       content: 'other user message'
     } as ChatMessage
 
@@ -59,7 +59,7 @@ describe('MbqChat', () => {
     wrapper = shallowMount(MbqChat, {
       props: {
         messages: chatMessages,
-        myId: myAvatarStub.avatarId
+        myId: myAvatarMock.avatarId
       }
     })
   })
@@ -72,7 +72,7 @@ describe('MbqChat', () => {
 
     it("own message have 'chat-end' class", () => {
       const myMessages = chatMessages.filter(
-        (chatMessage) => chatMessage.avatarId === myAvatarStub.avatarId
+        (chatMessage) => chatMessage.avatarId === myAvatarMock.avatarId
       )
       const messages = wrapper.findAll('.chat-end')
       expect(messages.length).toBe(myMessages.length)
@@ -80,7 +80,7 @@ describe('MbqChat', () => {
 
     it("other user's message are displayed with an icon", () => {
       const otherUserChatMessages = chatMessages.filter(
-        (chatMessage) => chatMessage.avatarId === otherAvatarStub.avatarId
+        (chatMessage) => chatMessage.avatarId === otherAvatarMock.avatarId
       )
       const userIcons = wrapper.findAll('img')
       expect(userIcons.length).toBe(otherUserChatMessages.length)

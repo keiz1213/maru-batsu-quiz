@@ -1,9 +1,10 @@
 import { postUser, deleteUser } from '@/utils/api/services/user'
 
 export const useAuth = () => {
-  const { loading, setLoading, clearLoading } = useLoading()
+  const { setLoading, clearLoading } = useLoading()
   const { setToast, notifyOnSpot } = useToast()
-  const { setCurrentUserId, clearCurrentUserId } = useCurrentUserId()
+  const { clearCurrentUserStore } = useCurrentUser()
+  const { clearGamesStore } = useGame()
   const { redirectPath, clearRedirectPath, isForwarding } =
     useFriendlyForwarding()
   const {
@@ -19,9 +20,9 @@ export const useAuth = () => {
     try {
       setLoading()
       await firebaseLogin()
-      const receivedUser = await postUser()
-      setCurrentUserId(receivedUser.id)
+      await postUser()
       setToast('ログインしました！', 'success')
+      clearLoading()
       if (isForwarding.value) {
         navigateTo(redirectPath.value)
         clearRedirectPath()
@@ -39,9 +40,11 @@ export const useAuth = () => {
     try {
       setLoading()
       await firebaseLogout()
-      clearCurrentUserId()
+      clearCurrentUserStore()
+      clearGamesStore()
       setToast('ログアウトしました！', 'success')
       navigateTo('/')
+      clearLoading()
     } catch {
       clearLoading()
       notifyOnSpot('ログアウトに失敗しました', 'error')
@@ -52,13 +55,13 @@ export const useAuth = () => {
     try {
       setLoading()
       await deleteUser(userId)
-      clearCurrentUserId()
+      clearCurrentUserStore()
+      clearGamesStore()
       await firebaseWithdrawal()
       navigateTo('/withdrawal')
+      clearLoading()
     } catch {
-      if (user.value) {
-        await postUser()
-      }
+      user.value ? await postUser() : null
       clearLoading()
       notifyOnSpot('退会に失敗しました', 'error')
     }
@@ -68,7 +71,6 @@ export const useAuth = () => {
     user,
     isLoggedIn,
     checkAuthState,
-    loading,
     login,
     logout,
     withdrawal

@@ -11,6 +11,8 @@
 
   const { loading, setLoading, clearLoading } = useLoading()
   const { setToast, notifyOnSpot } = useToast()
+  const { currentUser } = useCurrentUser()
+  const { resetGamesStore } = useGame()
 
   const defaultInitialQuizCount = 3
   const isEditGame = computed(() => !!props.game)
@@ -23,10 +25,11 @@
   const createGame = async (game: Game): Promise<void> => {
     try {
       setLoading()
-      const { currentUserId } = useCurrentUserId()
-      const createdGame = await postGame(currentUserId.value, game)
+      const createdGame = await postGame(currentUser.value.id, game)
+      await resetGamesStore()
       setToast('ゲームを作成しました!', 'success')
       navigateTo(`/games/${createdGame.id}`)
+      clearLoading()
     } catch {
       clearLoading()
       notifyOnSpot(
@@ -40,8 +43,10 @@
     try {
       setLoading()
       await putGame(game)
+      await resetGamesStore()
       setToast('ゲームを更新しました!', 'success')
       navigateTo(`/games/${game.id}`)
+      clearLoading()
     } catch {
       clearLoading()
       notifyOnSpot(

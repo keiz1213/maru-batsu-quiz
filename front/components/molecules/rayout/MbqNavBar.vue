@@ -10,6 +10,7 @@
   }>()
 
   const { isLoggedIn } = useAuth()
+  const { currentUser } = useCurrentUser()
   const route = useRoute()
 
   const logout = () => {
@@ -63,7 +64,7 @@
           v-if="isLoggedIn"
           class="dropdown dropdown-end dropdown-hover my-3"
         >
-          <MbqUserIcon tabindex="0"></MbqUserIcon>
+          <MbqUserIcon :currentUser="currentUser" tabindex="0"></MbqUserIcon>
           <ul
             tabindex="0"
             class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"

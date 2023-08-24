@@ -14,7 +14,7 @@ describe('MbqListGame', () => {
     beforeEach(() => {
       wrapper = mount(MbqListGame, {
         props: {
-          games: null
+          games: []
         }
       })
     })

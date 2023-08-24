@@ -22,7 +22,8 @@
     ]
   })
 
-  const { login, loading } = useAuth()
+  const { login } = useAuth()
+  const { loading } = useLoading()
 </script>
 
 <template>

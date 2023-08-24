@@ -22,8 +22,9 @@
     ]
   })
 
-  const { withdrawal, loading } = useAuth()
-  const { currentUserId } = useCurrentUserId()
+  const { withdrawal } = useAuth()
+  const { loading } = useLoading()
+  const { currentUser } = useCurrentUser()
   const router = useRouter()
 </script>
 
@@ -35,7 +36,7 @@
     </h2>
     <MbqButtonDanger
       :isLoading="loading"
-      @click="withdrawal(currentUserId)"
+      @click="withdrawal(currentUser.id)"
       class="block mx-auto my-36"
     >
       退会する

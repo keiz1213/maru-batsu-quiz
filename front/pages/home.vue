@@ -1,6 +1,4 @@
 <script setup lang="ts">
-  import { getGames } from '~/utils/api/services/game'
-
   definePageMeta({
     middleware: 'auth',
     layout: 'mbq-default'
@@ -24,7 +22,7 @@
     ]
   })
 
-  const games = await getGames()
+  const { games } = useGame()
 </script>
 
 <template>

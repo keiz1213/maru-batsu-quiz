@@ -1,6 +1,5 @@
 <script setup lang="ts">
   import { getGame } from '~/utils/api/services/game'
-  import { getUser } from '~/utils/api/services/user'
   import Announce from '~/utils/class/Announce'
   import Chat from '~/utils/class/Chat'
   import OwnerAvatar from '~/utils/class/OwnerAvatar'
@@ -16,7 +15,7 @@
     middleware: ['auth', 'venue-status']
   })
 
-  const { currentUserId, isGameOwner } = useCurrentUserId()
+  const { currentUser, isOwner } = useCurrentUser()
   const { playerData } = usePlayerData()
   const { owner } = useOwner()
   const { players } = usePlayers()
@@ -37,9 +36,7 @@
   const route = useRoute()
   const gameId = route.params.id as string
   const game = await getGame(gameId)
-  const user = await getUser(currentUserId.value)
-  const ownerId = game.user_id as number
-  const skywayChannel = new SkywayChannel(user, game)
+  const skywayChannel = new SkywayChannel(currentUser.value, game)
   await skywayChannel.joinChannel()
   const skywayDataStream = new SkywayDataStream(skywayChannel)
   const venueActivity = new VenueActivity(
@@ -49,13 +46,13 @@
     new Timer()
   )
   const avatarInstanceProps = [
-    user,
+    currentUser.value,
     skywayChannel,
     skywayDataStream,
     venueActivity
   ] as const
 
-  avatar = isGameOwner(ownerId)
+  avatar = isOwner(game)
     ? new OwnerAvatar(...avatarInstanceProps)
     : new PlayerAvatar(...avatarInstanceProps)
   avatar.venueActivity!.setMyAvatarId(avatar.avatarId)
@@ -83,7 +80,7 @@
   />
   <MbqModalStandBy
     v-model="standByGame"
-    :isOwner="isGameOwner(ownerId)"
+    :isOwner="isOwner(game)"
     :players="players"
     :background="'interactive'"
     @start-connection="
@@ -124,7 +121,7 @@
           <div id="questioner-area">
             <MbqOwnerArea
               :owner="(owner as OwnerAvatar)"
-              :isOwner="isGameOwner(ownerId)"
+              :isOwner="isOwner(game)"
               :quizzes="game.quizzes"
               :currentQuizNumber="currentQuizNumber"
               @announce="

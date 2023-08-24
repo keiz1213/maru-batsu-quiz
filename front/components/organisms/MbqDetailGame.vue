@@ -9,6 +9,8 @@
   }>()
 
   const { setToast, notifyOnSpot } = useToast()
+  const { resetGamesStore } = useGame()
+
   const config = useRuntimeConfig()
   const gameId = props.game.id as number
   const frontUrl = config.public.frontURL
@@ -38,6 +40,7 @@
     try {
       await deleteGame(gameId)
       setToast('ゲームを削除しました!', 'success')
+      await resetGamesStore()
       navigateTo('/home')
     } catch {
       notifyOnSpot(

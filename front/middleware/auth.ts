@@ -1,10 +1,12 @@
 export default defineNuxtRouteMiddleware(async (to) => {
-  const { checkAuthState, isLoggedIn, user } = useAuth()
-  const { checkCurrentUserId } = useCurrentUserId()
+  const { checkAuthState, isLoggedIn } = useAuth()
   const { setRedirectPath } = useFriendlyForwarding()
+  const { checkCurrentUserStore } = useCurrentUser()
+  const { checkGamesStore } = useGame()
 
   await checkAuthState()
-  await checkCurrentUserId(user.value)
+  await checkCurrentUserStore()
+  await checkGamesStore()
 
   if (!isLoggedIn.value) {
     setRedirectPath(to.fullPath)

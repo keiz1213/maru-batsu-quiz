@@ -1,20 +1,17 @@
 import { getGame } from '~/utils/api/services/game'
-import { getUser } from '~/utils/api/services/user'
 import SkywayChannel from '~/utils/class/SkywayChannel'
 
 export default defineNuxtRouteMiddleware(async (to) => {
-  const { currentUserId, isGameOwner } = useCurrentUserId()
+  const { currentUser, isOwner } = useCurrentUser()
   const { setToast } = useToast()
   const { visible } = useChat()
 
   const gameId = to.params.id as string
   const game = await getGame(gameId)
-  const user = await getUser(currentUserId.value)
-  const ownerId = game.user_id!
-  const skywayChannel = new SkywayChannel(user, game)
+  const skywayChannel = new SkywayChannel(currentUser.value, game)
   const channel = await skywayChannel.findChannel()
 
-  if (isGameOwner(ownerId)) {
+  if (isOwner(game)) {
     if (skywayChannel.isOwnerEnterable(channel)) {
       if (localStorage.getItem('chat')) {
         visible()
