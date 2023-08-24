@@ -7,7 +7,6 @@ Rails.application.routes.draw do
       resource :skyway_token, only: %i[show]
 
       namespace :current_user do
-        resource :user_id, only: %i[show]
         resources :games, only: %i[index]
       end
     end
