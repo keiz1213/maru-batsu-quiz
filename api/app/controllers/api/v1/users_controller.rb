@@ -2,11 +2,6 @@ class Api::V1::UsersController < ApplicationController
   rescue_from ArgumentError, with: :render_unauthorized_error
   skip_before_action :authenticate_with_firebase_id_token!, only: %i[create]
 
-  def show
-    user = User.find(params[:id])
-    render json: user.as_json(include: :games), status: :ok
-  end
-
   def create
     fetch_certificates
     raise ArgumentError, 'BadRequest Parameter' if payload.blank?

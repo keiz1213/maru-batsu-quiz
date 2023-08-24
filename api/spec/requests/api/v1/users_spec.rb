@@ -1,25 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Api::V1::Users' do
-  describe 'GET /api/v1/users/:user_id' do
-    let(:user) { create(:user) }
-
-    context 'when an authenticated user' do
-      it 'can loads a user' do
-        authenticated_user_stub(user)
-        get api_v1_user_path(user)
-        expect(response.parsed_body['id']).to eq(user.id)
-      end
-    end
-
-    context 'when an unauthenticated user' do
-      it 'can not loads a user without id_token' do
-        get api_v1_user_path(user)
-        expect(response).to have_http_status(:unauthorized)
-      end
-    end
-  end
-
   describe 'POST /api/v1/users' do
     let(:new_user) { build(:user) }
 
