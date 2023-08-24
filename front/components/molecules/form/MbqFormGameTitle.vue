@@ -24,7 +24,7 @@
       type="text"
       placeholder="新入社員歓迎ミートアップ"
       v-model="modelValue"
-      class="bg-gray-50 border border-gray-300 text-md rounded-lg focus:border-my-blue w-full p-2.5"
+      class="bg-gray-50 border border-gray-300 text-md rounded-lg w-full p-2.5"
     >
     </VeeField>
     <VeeErrorMessage name="title" class="text-red-700 block m-2" />

@@ -25,7 +25,7 @@
       placeholder="これから一緒に働く仲間と○✕クイズで親睦を深めましょう！最後まで残った1名に素敵なプレゼントがあります！"
       v-model="modelValue"
       rows="4"
-      class="p-2.5 w-full text-md bg-gray-50 rounded-lg border border-gray-300 focus:border-my-blue"
+      class="p-2.5 w-full text-md bg-gray-50 rounded-lg border border-gray-300"
     ></VeeField>
     <VeeErrorMessage :name="'description'" class="text-red-700 block m-2" />
   </MbqItemContainer>
