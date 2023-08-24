@@ -259,37 +259,57 @@ export const useTimer = () => {
   }
 }
 
-export const useLoading = () => {
-  const loading = useState<boolean>('loading', () => {
+export const useConnectionLoading = () => {
+  const connectionLoading = useState<boolean>('connectionLoading', () => {
     return false
   })
 
-  const setLoading = () => {
-    loading.value = true
+  const setConnectionLoading = () => {
+    connectionLoading.value = true
   }
 
-  const clearLoading = () => {
-    loading.value = false
+  const clearConnectionLoading = () => {
+    connectionLoading.value = false
   }
 
   return {
-    loading,
-    setLoading,
-    clearLoading
+    connectionLoading,
+    setConnectionLoading,
+    clearConnectionLoading
   }
 }
 
-export const useProgress = () => {
-  const completed = useState<number>('completed', () => {
-    return 0
+export const useQuizLoading = () => {
+  const quizLoading = useState<boolean>('quizLoading', () => {
+    return false
   })
 
-  const addCompleted = (num: number) => {
-    completed.value += num
+  const setQuizLoading = () => {
+    quizLoading.value = true
+  }
+
+  const clearQuizLoading = () => {
+    quizLoading.value = false
   }
 
   return {
-    completed,
-    addCompleted
+    quizLoading,
+    setQuizLoading,
+    clearQuizLoading
+  }
+}
+
+export const useConnectionProgress = () => {
+  const connectionProgress = useState<number>('connectionProgress', () => {
+    return 0
+  })
+
+  const addProgress = (progress: number) => {
+    connectionProgress.value += progress
+  }
+
+  return {
+    connectionProgress,
+    addProgress
   }
 }

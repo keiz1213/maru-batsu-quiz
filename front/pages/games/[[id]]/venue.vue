@@ -29,7 +29,9 @@
   const { standByGame, endOfGame } = useGameState()
   const { announceText } = useAnnounce()
   const { timeElapsed, timeLimit } = useTimer()
-  const { loading } = useLoading()
+  const { quizLoading } = useQuizLoading()
+  const { connectionLoading } = useConnectionLoading()
+  const { connectionProgress } = useConnectionProgress()
 
   let avatar: PlayerAvatar | OwnerAvatar
   const route = useRoute()
@@ -88,6 +90,8 @@
       avatar instanceof OwnerAvatar ? avatar.startConnection(players) : null
     "
     :playerData="playerData"
+    :isLoading="connectionLoading"
+    :connectionProgress="connectionProgress"
   />
 
   <MbqModalCheck
@@ -137,7 +141,7 @@
                   : null
               "
               :description="game.description"
-              :isLoading="loading"
+              :isLoading="quizLoading"
             />
           </div>
         </div>

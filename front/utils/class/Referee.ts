@@ -15,12 +15,10 @@ class Referee {
   startGame = (avatar: Avatar) => {
     const { startGame } = useGameState()
     const { notifyOnSpot } = useToast()
-    const { clearLoading } = useLoading()
     this.draggable.setDraggable(avatar)
     this.draggable.setDropzone('maru', avatar)
     this.draggable.setDropzone('batsu', avatar)
     startGame()
-    clearLoading()
     notifyOnSpot('接続が完了しました。ゲームを開始できます。', 'success')
   }
 

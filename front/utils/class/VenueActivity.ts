@@ -89,8 +89,6 @@ class VenueActivity {
 
   checkExplanation = (announceText: string) => {
     this.timer.resetTimer()
-    const { clearLoading } = useLoading()
-    clearLoading()
     this.announce.updateAnnounceText(announceText)
   }
 
@@ -112,20 +110,30 @@ class VenueActivity {
     closeQuestion()
   }
 
-  setLoading = () => {
-    const { setLoading } = useLoading()
-    setLoading()
+  setQuizLoading = () => {
+    const { setQuizLoading } = useQuizLoading()
+    setQuizLoading()
   }
 
-  clearLoading = () => {
-    const { clearLoading } = useLoading()
-    clearLoading()
+  clearQuizLoading = () => {
+    const { clearQuizLoading } = useQuizLoading()
+    clearQuizLoading()
+  }
+
+  setConnectionLoading = () => {
+    const { setConnectionLoading } = useConnectionLoading()
+    setConnectionLoading()
+  }
+
+  clearConnectionLoading = () => {
+    const { clearConnectionLoading } = useConnectionLoading()
+    clearConnectionLoading()
   }
 
   calculateProgress = (numberOfPlayers: number) => {
     const progress = (1 / 3) * (1 / numberOfPlayers)
-    const { addCompleted } = useProgress()
-    addCompleted(progress * 100)
+    const { addProgress } = useConnectionProgress()
+    addProgress(progress * 100)
   }
 
   notifyError = () => {

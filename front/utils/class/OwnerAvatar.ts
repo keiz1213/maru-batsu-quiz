@@ -147,6 +147,7 @@ class OwnerAvatar extends Avatar {
       )
       this.venueActivity!.startGame(this)
       this.skywayDataStream!.promptStartGame()
+      this.venueActivity!.clearConnectionLoading()
     } else {
       console.log(
         `[:promptPlayersForMutualSubscriptions] index:${index} のplayerに対して他の全playerをサブスクするように促します`
@@ -158,6 +159,7 @@ class OwnerAvatar extends Avatar {
 
   startConnection = async (players: Avatar[]) => {
     try {
+      this.venueActivity!.setConnectionLoading()
       console.log(`[:startConnection] 接続開始`)
       await this.skywayChannel!.updateChannelMetadata('')
       console.log(`[:startConnection] channelのmetadataをクリア`)
@@ -232,7 +234,7 @@ class OwnerAvatar extends Avatar {
   }
 
   announce = async (currentQuizNumber: number, quiz: Quiz) => {
-    this.venueActivity!.setLoading()
+    this.venueActivity!.setQuizLoading()
     const question = quiz.question
     const correctAnswer = quiz.correct_answer
     const explanation = quiz.explanation
@@ -254,7 +256,7 @@ class OwnerAvatar extends Avatar {
     await this.delay(3000)
     this.announceExplanation(explanation)
     this.announceJudge(correctAnswer)
-    this.venueActivity!.clearLoading()
+    this.venueActivity!.clearQuizLoading()
   }
 }
 

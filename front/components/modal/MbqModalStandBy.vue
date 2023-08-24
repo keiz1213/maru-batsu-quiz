@@ -10,18 +10,16 @@
     players: Avatar[]
     isOwner: boolean
     playerData: PlayerData[]
+    isLoading: boolean
+    connectionProgress: number
   }>()
 
   const emit = defineEmits<{
     (e: 'start-connection'): void
   }>()
 
-  const { loading, setLoading } = useLoading()
-  const { completed } = useProgress()
-
   const handleClick = () => {
     emit('start-connection')
-    setLoading()
   }
 </script>
 <template>
@@ -121,7 +119,7 @@
         <div class="w-2/3 mx-auto my-5 text-center">
           <MbqButtonPrimary
             :button-type="'button'"
-            :isLoading="loading"
+            :isLoading="isLoading"
             @click="handleClick"
             ><div class="flex">
               <human-greeting-proximity-icon />
@@ -131,7 +129,7 @@
           <progress
             class="block mx-auto mt-5 progress progress-info w-56"
             max="100"
-            :value="completed"
+            :value="connectionProgress"
             id="progress"
           ></progress>
         </div>
@@ -161,4 +159,3 @@
     </div>
   </VueFinalModal>
 </template>
-~/types/playerData
