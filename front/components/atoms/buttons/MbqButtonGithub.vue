@@ -19,9 +19,8 @@
       'text-white',
       'rounded-md',
       'bg-black',
-      'py-4',
+      'py-3',
       'px-4',
-      'text-sm',
       'hover:brightness-[0.9]',
       'w-56',
       'h-16',
@@ -31,11 +30,11 @@
     @click="handleClick"
     :type="buttonType"
   >
-    <div
+    <span
       v-if="isLoading"
       id="loading"
-      class="animate-spin h-5 w-5 border-4 border-gray-300 rounded-full border-t-transparent mx-auto"
-    ></div>
+      class="loading loading-spinner loading-lg"
+    ></span>
     <span v-else>
       <svg
         class="inline align-middle"

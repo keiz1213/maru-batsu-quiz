@@ -19,11 +19,12 @@
       'text-white',
       'rounded-md',
       'bg-slate-400',
-      'py-4',
+      'py-3',
       'px-4',
       'text-md',
       'hover:brightness-[0.9]',
       'w-full',
+      'h-16',
       'md:w-48',
       { 'brightness-[0.9]': isLoading },
       { 'pointer-events-none': isLoading }
@@ -32,11 +33,11 @@
     :type="buttonType"
     data-cy="danger"
   >
-    <div
+    <span
       v-if="isLoading"
       id="loading"
-      class="animate-spin h-5 w-5 border-4 border-gray-300 rounded-full border-t-transparent mx-auto px-2 py-2"
-    ></div>
+      class="loading loading-spinner loading-lg"
+    ></span>
     <slot v-else />
   </button>
 </template>

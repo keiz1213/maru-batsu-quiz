@@ -139,9 +139,10 @@
       >
         <MbqMacBar :title="'Entry'" />
         <div class="flex justify-center" aria-label="読み込み中">
-          <div
-            class="animate-spin h-10 w-10 border-4 border-blue-300 rounded-full border-t-transparent mt-3"
-          ></div>
+          <span
+            id="loading"
+            class="loading loading-bars loading-lg mt-4 text-primary"
+          ></span>
         </div>
         <div class="grid grid-cols-4 gap-x-3 p-6">
           <MbqAvatar
