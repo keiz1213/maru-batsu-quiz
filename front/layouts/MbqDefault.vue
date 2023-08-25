@@ -7,7 +7,7 @@
     }
   })
 
-  const { logout } = useAuth()
+  const { logout, isLoggedIn } = useAuth()
   const { toast, clearToast, notify } = useToast()
   const route = useRoute()
 
@@ -21,7 +21,8 @@
 
 <template>
   <div class="flex flex-col min-h-screen">
-    <MbqNavBar @logout="logout"></MbqNavBar>
+    <MbqLoggedInNavBar v-if="isLoggedIn" @logout="logout" />
+    <MbqNavBar v-else />
     <slot />
     <MbqFooter class="mt-auto"></MbqFooter>
   </div>

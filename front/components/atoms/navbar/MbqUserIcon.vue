@@ -8,6 +8,7 @@
 
 <template>
   <img
+    v-if="currentUser.id != 0"
     class="h-12 w-12 rounded-full border-2 border-primary object-cover object-center"
     :src="currentUser.avatar_url"
     alt="user-icon"
