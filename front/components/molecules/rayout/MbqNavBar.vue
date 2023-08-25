@@ -19,7 +19,7 @@
               <li>
                 <a class="block" href="#questioner">
                   <div
-                    class="flex h-[69px] p-3 hover:bg-slate-100 hover:cursor-pointer"
+                    class="flex h-[69px] p-3 hover:bg-purple-100 hover:cursor-pointer"
                   >
                     <chat-question-outline-icon class="my-auto" />
                     <span class="my-auto">出題者</span>
@@ -29,7 +29,7 @@
               <li>
                 <a class="block" href="#answerer">
                   <div
-                    class="flex h-[69px] p-3 hover:bg-slate-100 hover:cursor-pointer"
+                    class="flex h-[69px] p-3 hover:bg-purple-100 hover:cursor-pointer"
                   >
                     <chat-alert-outline-icon class="my-auto" />
                     <span class="my-auto">回答者</span>

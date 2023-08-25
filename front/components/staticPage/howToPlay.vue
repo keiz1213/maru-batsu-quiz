@@ -13,7 +13,7 @@
 <template>
   <div>
     <h3 class="text-xl my-4">{{ title }}</h3>
-    <div class="bg-slate-200 rounded-2xl p-6">
+    <div class="bg-purple-100 rounded-2xl p-6">
       <div>
         <img
           class="block mx-auto"

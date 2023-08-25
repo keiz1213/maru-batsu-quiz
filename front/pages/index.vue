@@ -116,13 +116,13 @@
       <div class="max-w-[1400px] mx-auto">
         <div>
           <div>
-            <h2 class="text-4xl pb-7 text-center">ご利用シーン</h2>
+            <h2 class="text-4xl pb-7 text-center">こんな時に</h2>
           </div>
           <div class="md:flex">
             <div
-              class="max-w-full mx-3 mb-5 bg-slate-100 rounded-2xl p-7 md:w-1/3"
+              class="max-w-full mx-3 mb-5 bg-purple-100 rounded-2xl p-7 md:w-1/3"
             >
-              <h3 class="text-3xl text-center mb-5">
+              <h3 class="text-3xl text-center mb-5 text-purple-500 font-bold">
                 オンラインイベントの余興
               </h3>
               <span
@@ -136,9 +136,9 @@
               />
             </div>
             <div
-              class="max-w-full mx-3 mb-5 bg-slate-100 rounded-2xl p-7 md:w-1/3"
+              class="max-w-full mx-3 mb-5 bg-purple-100 rounded-2xl p-7 md:w-1/3"
             >
-              <h3 class="text-3xl text-center mb-5">新入社員歓迎会</h3>
+              <h3 class="text-3xl text-center mb-5 text-purple-500 font-bold">新入社員歓迎会</h3>
               <span
                 >新入社員歓迎会などにもご利用いただけます。その会社にまつわるクイズや、一般常識を問うクイズなどを作成すると盛り上がるかもしれません。</span
               >
@@ -150,9 +150,9 @@
               />
             </div>
             <div
-              class="max-w-full mx-3 mb-5 bg-slate-100 rounded-2xl p-7 md:w-1/3"
+              class="max-w-full mx-3 mb-5 bg-purple-100 rounded-2xl p-7 md:w-1/3"
             >
-              <h3 class="text-3xl text-center mb-5">オンライン飲み会</h3>
+              <h3 class="text-3xl text-center mb-5 text-purple-500 font-bold">オンライン飲み会</h3>
               <span
                 >仲間と話しながらお酒を飲むだけでも楽しいですが、マルバツクイズで遊ぶと更に楽しくなります。ルールも簡単で誰でもわかるので気軽に遊べます。</span
               >
