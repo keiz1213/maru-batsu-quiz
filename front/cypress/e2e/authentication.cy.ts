@@ -22,6 +22,9 @@ describe('auth', () => {
   context('logged in', () => {
     beforeEach(() => {
       cy.login()
+      cy.intercept('POST', '**/api/v1/users', {
+        fixture: 'user/current-user'
+      })
     })
 
     afterEach(() => {

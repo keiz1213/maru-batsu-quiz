@@ -1,6 +1,12 @@
 describe('create a game', () => {
   beforeEach(() => {
     cy.login()
+    cy.intercept('GET', '**/api/v1/current_user/games', {
+      fixture: 'game/games'
+    })
+    cy.intercept('POST', '**/api/v1/users', {
+      fixture: 'user/current-user'
+    })
   })
 
   afterEach(() => {
@@ -8,7 +14,8 @@ describe('create a game', () => {
   })
 
   it('game creation requires filling in all the necessary fields', () => {
-    cy.visit('games/new')
+    cy.visit('/home')
+    cy.contains('新しいゲームを作成する').click()
     cy.checkTitle('新規ゲーム作成')
     cy.contains('ゲームを作成する').click()
     cy.contains('入力内容を確認してください')
@@ -23,17 +30,6 @@ describe('create a game', () => {
       fixture: 'game/game'
     }).as('createGame')
 
-    cy.intercept('GET', '**/api/v1/current_user/games', {
-      fixture: 'game/games'
-    })
-
-    cy.intercept('GET', '**/api/v1/games/1', {
-      fixture: 'game/game'
-    })
-
-    cy.intercept('POST', '**/api/v1/users', {
-      fixture: 'user/current-user'
-    })
     cy.visit('/home')
     cy.contains('新しいゲームを作成する').click()
     cy.checkTitle('新規ゲーム作成')
@@ -57,9 +53,6 @@ describe('create a game', () => {
   })
 
   it('display warning on browser back during input', () => {
-    cy.intercept('GET', '**/api/v1/current_user/games', {
-      fixture: 'game/games'
-    })
     cy.visit('/home')
     cy.contains('新しいゲームを作成する').click()
     cy.checkTitle('新規ゲーム作成')
@@ -70,7 +63,8 @@ describe('create a game', () => {
   })
 
   it('can increase the number of quizzes', () => {
-    cy.visit('/games/new')
+    cy.visit('/home')
+    cy.contains('新しいゲームを作成する').click()
     cy.checkTitle('新規ゲーム作成')
     cy.get('[data-cy^="form-quiz-"]').should('have.length', 3)
     cy.contains('+ クイズを追加する').click()
@@ -78,7 +72,8 @@ describe('create a game', () => {
   })
 
   it('can decrease the number of quizzes', () => {
-    cy.visit('/games/new')
+    cy.visit('/home')
+    cy.contains('新しいゲームを作成する').click()
     cy.checkTitle('新規ゲーム作成')
     cy.get('[data-cy^="form-quiz-"]').should('have.length', 3)
     cy.get('[data-cy="circle-cross-button"]').first().click()
