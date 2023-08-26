@@ -101,7 +101,9 @@
       </div>
       <div v-if="isOwner" class="my-5">
         <div class="my-5">
-          <p class="text-center">{{ participantMetaData.length }}人が入室済み</p>
+          <p class="text-center">
+            {{ participantMetaData.length }}人が入室済み
+          </p>
         </div>
         <div>
           <ul class="w-2/3 bg-mac-finder-top mx-auto p-5 rounded-lg">

@@ -58,7 +58,10 @@
         />
       </div>
       <div class="my-6">
-        <QuizTemplate :quizzes="game.quizzes" @update-quizzes="updateQuizzes" />
+        <QuizFormTemplate
+          :quizzes="game.quizzes"
+          @update-quizzes="updateQuizzes"
+        />
       </div>
       <div>
         <MbqButtonSecondary @click="addQuiz" :button-type="'button'"

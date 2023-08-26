@@ -9,7 +9,7 @@
 
   const numberOfWinner = computed({
     get: () => props.numberOfWinner,
-    set: (value) =>emits('update-number-of-winner', value)
+    set: (value) => emits('update-number-of-winner', value)
   })
 
   const maxNumberOfWinner = 3
@@ -22,7 +22,9 @@
 
 <template>
   <div>
-    <label for="form-number-of-winner" class="block text-md mb-2 ml-2">勝者枠</label>
+    <label for="form-number-of-winner" class="block text-md mb-2 ml-2"
+      >勝者枠</label
+    >
     <select
       data-cy="form-number-of-winner"
       id="form-number-of-winner"

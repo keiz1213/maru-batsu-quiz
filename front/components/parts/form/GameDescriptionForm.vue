@@ -15,7 +15,9 @@
 
 <template>
   <div>
-    <label for="form-description" class="block text-md mb-2 ml-2">ゲームの説明</label>
+    <label for="form-description" class="block text-md mb-2 ml-2"
+      >ゲームの説明</label
+    >
     <VeeField
       data-cy="form-description"
       name="description"

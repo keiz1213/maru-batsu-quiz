@@ -32,5 +32,5 @@
 </script>
 
 <template>
-  <MbqDetailGame :game="game" />
+  <DetailGameView />
 </template>
