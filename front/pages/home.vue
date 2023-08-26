@@ -21,11 +21,8 @@
       }
     ]
   })
-
-  // const { games } = useGame()
 </script>
 
 <template>
-  <!-- <MbqListGame :games="games" /> -->
   <HomeView />
 </template>
