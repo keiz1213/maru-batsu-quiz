@@ -1,5 +1,5 @@
 import { AvatarParams } from '~/types/avatarParams'
-import { PlayerData } from '~/types/playerData'
+import { ParticipantMetaData } from '~/types/participantMetaData'
 import { ChatMessage } from '~/types/chatMessage'
 import Avatar from './Avatar'
 import Referee from './Referee'
@@ -33,9 +33,9 @@ class VenueActivity {
     this.referee.draggable.setDraggable(avatar)
   }
 
-  addPlayerData = (playerData: PlayerData) => {
-    const { addPlayerData } = usePlayerData()
-    addPlayerData(playerData)
+  addParticipantMetaData = (participantMetaData: ParticipantMetaData) => {
+    const { addParticipantMetaData } = useParticipantMetaData()
+    addParticipantMetaData(participantMetaData)
   }
 
   addOwner = (avatar: Avatar) => {

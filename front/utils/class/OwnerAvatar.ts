@@ -18,6 +18,18 @@ class OwnerAvatar extends Avatar {
     super(user, skywayChannel, skywayDataStream, venueActivity)
   }
 
+  addOwnerData = () => {
+    const channel = this.skywayChannel!.channel!
+    const owner = channel.publications[0].publisher
+    const ownerName = owner.name as string
+    const ownerImageUrl = owner.metadata as string
+    const ownerData = {
+      name: ownerName,
+      imageUrl: ownerImageUrl
+    }
+    this.venueActivity!.addParticipantMetaData(ownerData)
+  }
+
   setHandlePlayerEntry = () => {
     const channel = this.skywayChannel!.channel!
     channel.onPublicationListChanged.add(() => {
@@ -28,7 +40,7 @@ class OwnerAvatar extends Avatar {
         name: playerName,
         imageUrl: playerImageUrl
       }
-      this.venueActivity!.addPlayerData(playerData)
+      this.venueActivity!.addParticipantMetaData(playerData)
     })
   }
 
@@ -41,6 +53,7 @@ class OwnerAvatar extends Avatar {
       await skywayChannel.updateChannelMetadata('accetable')
     }
     this.setHandleChannelMetadataUpdated()
+    this.addOwnerData()
     this.venueActivity!.addOwner(this)
     this.setHandlePlayerEntry()
   }

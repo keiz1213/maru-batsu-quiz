@@ -1,19 +1,22 @@
-import { PlayerData } from '~/types/playerData'
+import { ParticipantMetaData } from '~/types/participantMetaData'
 import { ChatMessage } from '~/types/chatMessage'
 import Avatar from '~/utils/class/Avatar'
 
-export const usePlayerData = () => {
-  const playerData = useState<PlayerData[]>('player-data', () => {
-    return []
-  })
+export const useParticipantMetaData = () => {
+  const participantMetaData = useState<ParticipantMetaData[]>(
+    'participant-meta-data',
+    () => {
+      return []
+    }
+  )
 
-  const addPlayerData = (data: PlayerData) => {
-    playerData.value.push(data)
+  const addParticipantMetaData = (metaData: ParticipantMetaData) => {
+    participantMetaData.value.push(metaData)
   }
 
   return {
-    playerData,
-    addPlayerData
+    participantMetaData,
+    addParticipantMetaData
   }
 }
 

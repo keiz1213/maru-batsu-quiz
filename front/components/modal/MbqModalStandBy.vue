@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { PlayerData } from '~/types/playerData'
+  import { ParticipantMetaData } from '~/types/playerData'
   import Avatar from '~/utils/class/Avatar'
   import { VueFinalModal } from 'vue-final-modal'
   import CheckBoldIcon from 'vue-material-design-icons/CheckBold.vue'
@@ -9,7 +9,7 @@
   defineProps<{
     players: Avatar[]
     isOwner: boolean
-    playerData: PlayerData[]
+    participantMetaData: ParticipantMetaData[]
     isLoading: boolean
     connectionProgress: number
   }>()
@@ -101,11 +101,11 @@
       </div>
       <div v-if="isOwner" class="my-5">
         <div class="my-5">
-          <p class="text-center">{{ playerData.length }}人が入室済み</p>
+          <p class="text-center">{{ participantMetaData.length }}人が入室済み</p>
         </div>
         <div>
           <ul class="w-2/3 bg-mac-finder-top mx-auto p-5 rounded-lg">
-            <li v-for="(data, index) in playerData" :key="index">
+            <li v-for="(data, index) in participantMetaData" :key="index">
               <div class="flex my-3">
                 <img
                   class="h-12 w-12 rounded-full border-2 border-primary object-cover object-center block"

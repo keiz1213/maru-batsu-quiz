@@ -16,7 +16,7 @@
   })
 
   const { currentUser, isOwner } = useCurrentUser()
-  const { playerData } = usePlayerData()
+  const { participantMetaData } = useParticipantMetaData()
   const { owner } = useOwner()
   const { players } = usePlayers()
   const { losers } = useLosers()
@@ -86,7 +86,7 @@
     @start-connection="
       avatar instanceof OwnerAvatar ? avatar.startConnection(players) : null
     "
-    :playerData="playerData"
+    :participantMetaData="participantMetaData"
     :isLoading="connectionLoading"
     :connectionProgress="connectionProgress"
   />
