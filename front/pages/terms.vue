@@ -20,8 +20,6 @@
       }
     ]
   })
-
-  const router = useRouter()
 </script>
 
 <template>
@@ -228,10 +226,8 @@
           </li>
         </ol>
       </div>
-      <span
-        @click="router.back"
-        class="mt-16 text-2xl underline hover:cursor-pointer w-20"
-        >←戻る</span
+      <span class="mt-16 text-2xl underline hover:cursor-pointer w-20"
+        ><NuxtLink :to="'/'">←Top</NuxtLink></span
       >
     </div>
   </TheContainer>

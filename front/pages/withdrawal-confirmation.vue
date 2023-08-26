@@ -25,7 +25,6 @@
   const { withdrawal } = useAuth()
   const { loading } = useLoading()
   const { currentUser } = useCurrentUser()
-  const router = useRouter()
 </script>
 
 <template>
@@ -41,11 +40,8 @@
     >
       退会する
     </MbqButtonDanger>
-    <p
-      @click="router.back"
-      class="mt-16 text-2xl underline hover:cursor-pointer"
+    <span class="mt-16 text-2xl underline hover:cursor-pointer w-20"
+      ><NuxtLink :to="'/'">←Top</NuxtLink></span
     >
-      ←戻る
-    </p>
   </TheContainer>
 </template>

@@ -94,7 +94,10 @@
       </div>
     </div>
     <div class="flex justify-end">
-      <p @click="confirm" class="underline hover:cursor-pointer text-slate-400 mt-3">
+      <p
+        @click="confirm"
+        class="underline hover:cursor-pointer text-slate-400 mt-3"
+      >
         削除
       </p>
     </div>
