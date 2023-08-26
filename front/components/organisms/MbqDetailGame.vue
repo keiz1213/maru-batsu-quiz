@@ -76,7 +76,7 @@
       @copy-to-clipboard="copyVenueUrl"
     />
     <div class="mt-16 md:flex md:justify-evenly">
-      <div class="mt-2 hidden xl:block">
+      <div class="mt-2 hidden sm:block">
         <MbqButtonPrimary @click="select"
           ><div class="flex justify-center">
             <login-variant-icon /><span class="ml-1">ゲーム会場へ入る</span>
@@ -94,7 +94,7 @@
       </div>
     </div>
     <div class="flex justify-end">
-      <p @click="confirm" class="underline hover:cursor-pointer text-slate-400">
+      <p @click="confirm" class="underline hover:cursor-pointer text-slate-400 mt-3">
         削除
       </p>
     </div>
