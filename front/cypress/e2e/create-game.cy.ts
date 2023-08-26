@@ -20,18 +20,22 @@ describe('create a game', () => {
 
   it('can create a game by providing all the required information', () => {
     cy.intercept('POST', '**/api/v1/games/', {
-      fixture: 'game'
+      fixture: 'game/game'
     }).as('createGame')
 
+    cy.intercept('GET', '**/api/v1/current_user/games', {
+      fixture: 'game/games'
+    })
+
     cy.intercept('GET', '**/api/v1/games/1', {
-      fixture: 'game'
+      fixture: 'game/game'
     })
 
-    cy.intercept('GET', '**/api/v1/current_user/user_id', {
-      body: 1
+    cy.intercept('POST', '**/api/v1/users', {
+      fixture: 'user/current-user'
     })
-
-    cy.visit('games/new')
+    cy.visit('/home')
+    cy.contains('新しいゲームを作成する').click()
     cy.checkTitle('新規ゲーム作成')
     cy.get('[data-cy="form-title"]').type('Test Game')
     cy.get('[data-cy="form-description"]').type('This is a test game')
@@ -54,7 +58,7 @@ describe('create a game', () => {
 
   it('display warning on browser back during input', () => {
     cy.intercept('GET', '**/api/v1/current_user/games', {
-      fixture: 'games'
+      fixture: 'game/games'
     })
     cy.visit('/home')
     cy.contains('新しいゲームを作成する').click()

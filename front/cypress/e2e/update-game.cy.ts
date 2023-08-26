@@ -2,7 +2,10 @@ describe('update a game', () => {
   beforeEach(() => {
     cy.login()
     cy.intercept('GET', '**/api/v1/games/1', {
-      fixture: 'game'
+      fixture: 'game/game'
+    })
+    cy.intercept('GET', '**/api/v1/current_user/games', {
+      fixture: 'game/games'
     })
   })
 
@@ -11,11 +14,12 @@ describe('update a game', () => {
   })
 
   it('If there are empty fields, the update cannot be performed', () => {
-    cy.intercept('GET', '**/api/v1/current_user/user_id', {
-      body: 1
+    cy.intercept('POST', '**/api/v1/users', {
+      fixture: 'user/current-user'
     })
 
-    cy.visit('games/1')
+    cy.visit('/home')
+    cy.contains('Test Game').click()
     cy.contains('Test Game')
     cy.contains('編集する').click()
     cy.checkTitle('ゲーム編集')
@@ -27,15 +31,16 @@ describe('update a game', () => {
   })
 
   it('can update a game by providing all the required information', () => {
-    cy.intercept('PUT', '**/api/v1/games/1', {
-      fixture: 'game'
-    }).as('updateGame')
-
-    cy.intercept('GET', '**/api/v1/current_user/user_id', {
-      body: 1
+    cy.intercept('POST', '**/api/v1/users', {
+      fixture: 'user/current-user'
     })
 
-    cy.visit('games/1')
+    cy.intercept('PUT', '**/api/v1/games/1', {
+      fixture: 'game/game'
+    }).as('updateGame')
+
+    cy.visit('/home')
+    cy.contains('Test Game').click()
     cy.contains('Test Game')
     cy.contains('編集する').click()
     cy.checkTitle('ゲーム編集')
@@ -48,17 +53,17 @@ describe('update a game', () => {
     cy.contains('ゲームを更新しました!')
   })
 
-  it('Only the game creator can access the game details page', () => {
-    cy.intercept('GET', '**/api/v1/current_user/user_id', {
-      body: 2
+  it('someone who is not the creator cannot access the details of the game.', () => {
+    cy.intercept('POST', '**/api/v1/users', {
+      fixture: 'user/other-user'
     })
     cy.visit('games/1')
     cy.url().should('include', '/home')
   })
 
-  it('Only the game creator can access the game edit page', () => {
-    cy.intercept('GET', '**/api/v1/current_user/user_id', {
-      body: 2
+  it('someone who is not the creator cannot access the edit page of the game.', () => {
+    cy.intercept('POST', '**/api/v1/users', {
+      fixture: 'user/other-user'
     })
     cy.visit('games/1/edit')
     cy.url().should('include', '/home')

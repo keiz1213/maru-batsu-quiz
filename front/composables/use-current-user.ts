@@ -14,7 +14,7 @@ export const useCurrentUser = () => {
   })
 
   const isOwner = (game: Game | undefined) => {
-    return currentUser.value.id === game?.user_id
+    return currentUser.value.id == game?.user_id
   }
 
   const setCurrentUserStore = (user: User) => {
@@ -35,7 +35,7 @@ export const useCurrentUser = () => {
     const { isLoggedIn } = useFirebaseAuth()
     if (isLoggedIn.value && currentUser.value.id === 0) {
       const fetchedUser = await postUser()
-      currentUser.value = fetchedUser
+      setCurrentUserStore(fetchedUser)
     }
   }
 
