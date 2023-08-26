@@ -4,7 +4,7 @@
   import UpdateIcon from 'vue-material-design-icons/Update.vue'
 
   const props = defineProps<{
-    newGame: Game
+    game: Game
   }>()
 
   const { loading } = useLoading()
@@ -15,20 +15,20 @@
     (e: 'invalid-submit'): void
   }>()
 
-  const newGame = computed({
-    get: () => props.newGame,
+  const game = computed({
+    get: () => props.game,
     set: (value) => emits('update-game', value)
   })
 
-  const updateTitle = (title: string) => (newGame.value.title = title)
+  const updateTitle = (title: string) => (game.value.title = title)
 
   const updateDescription = (description: string) =>
-    (newGame.value.description = description)
+    (game.value.description = description)
 
-  const updateQuizzes = (quizzes: Quiz[]) => (newGame.value.quizzes = quizzes)
+  const updateQuizzes = (quizzes: Quiz[]) => (game.value.quizzes = quizzes)
 
   const updateNumberOfWinner = (numberOfWinner: number) =>
-    (newGame.value.number_of_winner = numberOfWinner)
+    (game.value.number_of_winner = numberOfWinner)
 
   const emitSubmit = () => emits('submit')
 
@@ -40,28 +40,25 @@
       correct_answer: '◯',
       explanation: ''
     })
-    props.newGame.quizzes.push(quiz)
+    props.game.quizzes.push(quiz)
   }
 </script>
 
 <template>
   <div>
-    <MbqH1>ゲーム作成</MbqH1>
+    <MbqH1>ゲーム{{ game.id === null ? '作成' : '更新' }}</MbqH1>
     <VeeForm @submit="emitSubmit" @invalid-submit="emitInvalidSubmit">
       <div class="my-6">
-        <GameTitleForm :title="newGame.title" @update-title="updateTitle" />
+        <GameTitleForm :title="game.title" @update-title="updateTitle" />
       </div>
       <div class="my-6">
         <GameDescriptionForm
-          :description="newGame.description"
+          :description="game.description"
           @update-description="updateDescription"
         />
       </div>
       <div class="my-6">
-        <QuizTemplate
-          :quizzes="newGame.quizzes"
-          @update-quizzes="updateQuizzes"
-        />
+        <QuizTemplate :quizzes="game.quizzes" @update-quizzes="updateQuizzes" />
       </div>
       <div>
         <MbqButtonSecondary @click="addQuiz" :button-type="'button'"
@@ -70,14 +67,16 @@
       </div>
       <div class="my-6">
         <GameNumberOfWinnerForm
-          :numberOfWinner="newGame.number_of_winner"
+          :numberOfWinner="game.number_of_winner"
           @update-number-of-winner="updateNumberOfWinner"
         />
       </div>
       <div class="flex justify-center">
         <MbqButtonPrimary :buttonType="'submit'" :isLoading="loading">
           <div class="flex justify-center">
-            <update-icon /><span class="ml-1">ゲームを作成する</span>
+            <update-icon /><span class="ml-1"
+              >ゲームを{{ game.id === null ? '作成' : '更新' }}する</span
+            >
           </div>
         </MbqButtonPrimary>
       </div>

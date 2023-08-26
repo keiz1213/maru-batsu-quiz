@@ -1,6 +1,4 @@
 <script setup lang="ts">
-  import { getGame } from '~/utils/api/services/game'
-
   definePageMeta({
     layout: 'mbq-default',
     middleware: ['auth', 'creator-only']
@@ -23,13 +21,8 @@
       }
     ]
   })
-
-  const route = useRoute()
-
-  const gameId = route.params.id as string
-  const game = await getGame(gameId)
 </script>
 
 <template>
-  <MbqFormGame :game="game" />
+  <EditGameView />
 </template>

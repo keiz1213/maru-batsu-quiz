@@ -1,74 +1,51 @@
 <script setup lang="ts">
   import { Game } from '~/types/game'
-  import { Quiz } from '~/types/quiz'
-  import { postGame } from '~/utils/api/services/game'
+  import { putGame } from '~/utils/api/services/game'
 
-  const { currentUser } = useCurrentUser()
   const { setToast, notifyOnSpot } = useToast()
   const { setLoading, clearLoading } = useLoading()
-  const { resetGamesStore } = useGame()
-  const defaultInitialQuizCount = 3
+  const { getGameStore, resetGamesStore } = useGame()
+  const route = useRoute()
   const isEditing = ref(false)
-  const quizzes = ref<Quiz[]>([])
-  let newGame = reactive<Game>({
-    user_id: null,
-    id: null,
-    title: '',
-    description: '',
-    quizzes: quizzes.value,
-    number_of_winner: 1,
-    channel_name: '',
-    created_at: '',
-    updated_at: ''
-  })
-
+  const gameId = route.params.id as string
+  let createdGame = getGameStore(parseInt(gameId)) as Game
   const editing = () => (isEditing.value = true)
   const done = () => (isEditing.value = false)
 
   const updateGameProps = (game: Game) => {
-    newGame = game
+    createdGame = game
   }
 
-  const createGame = async (newGame: Game): Promise<void> => {
+  const updateGame = async (game: Game): Promise<void> => {
     try {
       done()
       setLoading()
-      const createdGame = await postGame(currentUser.value.id, newGame)
+      await putGame(game)
       await resetGamesStore()
-      setToast('ゲームを作成しました!', 'success')
-      navigateTo(`/games/${createdGame.id}`)
+      setToast('ゲームを更新しました!', 'success')
+      navigateTo(`/games/${game.id}`)
       clearLoading()
     } catch {
-      editing()
       clearLoading()
+      editing()
       notifyOnSpot(
-        'ゲームの作成に失敗しました。再度やり直してください。',
+        'ゲームの更新に失敗しました。再度やり直してください。',
         'error'
       )
     }
   }
 
-  const confirmSave = (event: BeforeUnloadEvent) => {
+  const confirmSave = async (event: BeforeUnloadEvent) => {
     if (isEditing.value) {
       event.preventDefault()
       event.returnValue = ''
+      await resetGamesStore()
     }
   }
 
-  onBeforeMount(() => {
-    for (let i = 0; i < defaultInitialQuizCount; i++) {
-      const quiz: Quiz = reactive({
-        question: '',
-        correct_answer: '◯',
-        explanation: ''
-      })
-      quizzes.value.push(quiz)
-    }
-  })
-
   onMounted(() => {
     window.addEventListener('beforeunload', confirmSave)
-    watch(newGame, () => {
+    watch(createdGame, () => {
       editing()
     })
   })
@@ -77,12 +54,13 @@
     window.removeEventListener('beforeunload', confirmSave)
   })
 
-  onBeforeRouteLeave((to, from, next) => {
+  onBeforeRouteLeave(async (to, from, next) => {
     if (isEditing.value) {
       let answer = window.confirm(
         '編集した内容が破棄されますがよろしいですか？'
       )
       if (answer) {
+        await resetGamesStore()
         next()
       } else {
         next(false)
@@ -96,9 +74,9 @@
 <template>
   <TheContainer>
     <GameFormTemplate
-      :game="newGame"
+      :game="createdGame"
       @update-game="updateGameProps"
-      @submit="createGame(newGame)"
+      @submit="updateGame(createdGame)"
       @invalid-submit="notifyOnSpot('入力内容を確認してください', 'error')"
     />
   </TheContainer>
