@@ -10,7 +10,14 @@
   <header class="bg-white px-3 fixed w-full z-10 border-b h-[70px]">
     <div class="flex items-center justify-between">
       <div>
-        <MbqBrand href="/"></MbqBrand>
+        <NuxtLink :to="'/'">
+          <img
+            src="../../../assets/images/logo.png"
+            width="150"
+            height="100"
+            alt="logo"
+          />
+        </NuxtLink>
       </div>
       <div class="flex h-[69px]">
         <div>

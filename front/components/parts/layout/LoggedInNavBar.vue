@@ -18,11 +18,23 @@
   <header class="bg-white px-3 fixed w-full z-10 border-b h-[70px]">
     <div class="flex items-center justify-between">
       <div>
-        <MbqBrand href="/home"></MbqBrand>
+        <NuxtLink :to="'/home'">
+          <img
+            src="../../../assets/images/logo.png"
+            width="150"
+            height="100"
+            alt="logo"
+          />
+        </NuxtLink>
       </div>
       <div class="flex h-[69px]">
         <div class="dropdown dropdown-end dropdown-hover my-3">
-          <MbqUserIcon :currentUser="currentUser" tabindex="0"></MbqUserIcon>
+          <img
+            v-if="currentUser.id != 0"
+            class="h-12 w-12 rounded-full border-2 border-primary object-cover object-center"
+            :src="currentUser.avatar_url"
+            alt="user-icon"
+          />
           <ul
             tabindex="0"
             class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
