@@ -28,7 +28,7 @@
         />
       </div>
       <div>
-        <MbqTableQuiz :quizzes="quizzes" />
+        <QuizTable :quizzes="quizzes" />
       </div>
       <div class="mb-10">
         <span class="mt-16 text-md underline hover:cursor-pointer w-20"

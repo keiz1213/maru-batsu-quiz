@@ -31,7 +31,7 @@
           class="flex flex-col justify-center items-center gap-4 bg-mac-finder-top min-h-[185px] rounded-lg m-3 mt-0"
         >
           <div>
-            <MbqButtonPrimary
+            <PrimaryButton
               id="question-button"
               @click="emit('announce')"
               :isLoading="isLoading"
@@ -41,10 +41,10 @@
                   >{{ currentQuizNumber + 1 }} 問目を出題する</span
                 >
               </div>
-            </MbqButtonPrimary>
+            </PrimaryButton>
           </div>
           <div>
-            <MbqButtonSecondary
+            <SecondaryButton
               id="check-question-button"
               :button-type="'button'"
               @click="emit('check-question')"
@@ -52,7 +52,7 @@
                 <format-list-checks-icon />
                 <span class="ml-2">問題を確認する</span>
               </div>
-            </MbqButtonSecondary>
+            </SecondaryButton>
           </div>
         </div>
       </div>
