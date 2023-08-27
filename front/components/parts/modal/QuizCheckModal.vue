@@ -19,10 +19,10 @@
   >
     <div class="absolute inset-0 h-full overflow-auto px-12">
       <div class="flex justify-end mt-4">
-        <MbqButtonCirculeCross @click="emit('close-question')" />
+        <CirculeCrossButton @click="emit('close-question')" />
       </div>
       <div>
-        <MbqTableQuiz :quizzes="quizzes" />
+        <QuizTable :quizzes="quizzes" />
       </div>
     </div>
   </VueFinalModal>

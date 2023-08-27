@@ -27,7 +27,7 @@
 
 <template>
   <h2 class="text-4xl text-center mt-56">ログインしてください</h2>
-  <MbqButtonGithub
+  <GithubButton
     @click="login"
     :isLoading="loading"
     class="block mx-auto my-36"

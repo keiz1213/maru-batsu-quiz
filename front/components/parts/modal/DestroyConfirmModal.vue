@@ -20,18 +20,18 @@
     </h1>
     <slot />
     <div class="flex px-9">
-      <MbqButtonSecondary
+      <SecondaryButton
         class="mx-3"
         @click="emit('cancel')"
         :button-type="'button'"
-        >キャンセル</MbqButtonSecondary
+        >キャンセル</SecondaryButton
       >
-      <MbqButtonDanger
+      <DangerButton
         class="mx-3"
         @click="emit('destroy-game')"
         :button-type="'button'"
         :is-loading="loading"
-        >削除</MbqButtonDanger
+        >削除</DangerButton
       >
     </div>
   </VueFinalModal>

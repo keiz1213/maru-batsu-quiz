@@ -16,7 +16,7 @@
     <div
       class="w-full p-4 bg-white border border-gray-200 rounded-lg sm:p-6 md:p-8 break-all relative"
     >
-      <MbqButtonClipboard
+      <ClipboardButton
         @click="$emit('copy-to-clipboard')"
         :button-type="'button'"
       />

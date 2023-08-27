@@ -20,7 +20,7 @@
             ○×クイズを楽しもう
           </h1>
           <div class="text-center">
-            <MbqButtonGithub :onClick="login" :isLoading="loading" />
+            <GithubButton :onClick="login" :isLoading="loading" />
           </div>
         </div>
         <div id="right" class="max-w-full my-16">

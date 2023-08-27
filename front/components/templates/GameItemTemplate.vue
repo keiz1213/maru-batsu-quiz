@@ -64,18 +64,18 @@
   <div>
     <div class="mt-16 md:flex md:justify-evenly">
       <div class="mt-2 hidden sm:block">
-        <MbqButtonPrimary @click="select"
+        <PrimaryButton @click="select"
           ><div class="flex justify-center">
             <login-variant-icon /><span class="ml-1">ゲーム会場へ入る</span>
-          </div></MbqButtonPrimary
+          </div></PrimaryButton
         >
       </div>
       <div class="mt-2">
         <NuxtLink :to="`/games/${game.id}/edit`">
-          <MbqButtonSecondary :buttonType="'button'"
+          <SecondaryButton :buttonType="'button'"
             ><div class="flex justify-center">
               <pencil-icon /><span class="ml-2">編集する</span>
-            </div></MbqButtonSecondary
+            </div></SecondaryButton
           >
         </NuxtLink>
       </div>

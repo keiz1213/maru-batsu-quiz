@@ -64,8 +64,8 @@
         />
       </div>
       <div>
-        <MbqButtonSecondary @click="addQuiz" :button-type="'button'"
-          >+ クイズを追加する</MbqButtonSecondary
+        <SecondaryButton @click="addQuiz" :button-type="'button'"
+          >+ クイズを追加する</SecondaryButton
         >
       </div>
       <div class="my-6">
@@ -75,13 +75,13 @@
         />
       </div>
       <div class="flex justify-center">
-        <MbqButtonPrimary :buttonType="'submit'" :isLoading="loading">
+        <PrimaryButton :buttonType="'submit'" :isLoading="loading">
           <div class="flex justify-center">
             <update-icon /><span class="ml-1"
               >ゲームを{{ game.id === null ? '作成' : '更新' }}する</span
             >
           </div>
-        </MbqButtonPrimary>
+        </PrimaryButton>
       </div>
     </VeeForm>
   </div>

@@ -119,14 +119,14 @@
           </ul>
         </div>
         <div class="w-2/3 mx-auto my-5 text-center">
-          <MbqButtonPrimary
+          <PrimaryButton
             :button-type="'button'"
             :isLoading="isLoading"
             @click="handleClick"
             ><div class="flex">
               <human-greeting-proximity-icon />
               <span class="ml-2"> ゲームを開始する </span>
-            </div></MbqButtonPrimary
+            </div></PrimaryButton
           >
           <progress
             class="block mx-auto mt-5 progress progress-info w-56"

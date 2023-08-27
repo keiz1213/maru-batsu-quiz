@@ -47,7 +47,7 @@
       class="w-full max-w-2xl p-4 bg-white border border-gray-300 rounded-lg relative"
     >
       <div class="absolute right-2 top-2">
-        <MbqButtonCirculeCross
+        <CirculeCrossButton
           v-show="props.quizzesLength != 1"
           @click="remove(props.index)"
           :button-type="'button'"

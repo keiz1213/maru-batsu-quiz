@@ -20,21 +20,21 @@
     </h1>
     <slot />
     <div class="flex px-9">
-      <MbqButtonPrimary
+      <PrimaryButton
         class="mx-3"
         @click="emit('chat-mode')"
         :button-type="'button'"
         ><div class="flex">
           <chat-plus-outline-icon /><span class="ml-7">Chat有り</span>
-        </div></MbqButtonPrimary
+        </div></PrimaryButton
       >
-      <MbqButtonSecondary
+      <SecondaryButton
         class="mx-3"
         @click="emit('non-caht-mode')"
         :button-type="'button'"
         ><div class="flex">
           <chat-minus-outline-icon /><span class="ml-7">Chat無し</span>
-        </div></MbqButtonSecondary
+        </div></SecondaryButton
       >
     </div>
   </VueFinalModal>
