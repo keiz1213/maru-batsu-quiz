@@ -34,13 +34,13 @@
 </script>
 
 <template>
-  <MbqModalSelect
+  <ChatSelectModal
     v-model="showSelect"
     title="チャットは使いますか？"
     @chat-mode="goToVenueWithChat"
     @non-caht-mode="goToVenue"
   />
-  <MbqModalConfirm
+  <DestroyConfirmModal
     v-model="showConfirm"
     title="本当に削除してもいいですか？"
     @destroy-game="emitDestroyGame"

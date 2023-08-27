@@ -73,13 +73,13 @@
 </script>
 
 <template>
-  <MbqModalEnd
+  <EndOfGameModal
     v-model="endOfGame"
     :winners="winners"
     :quizzes="game.quizzes"
     :background="'interactive'"
   />
-  <MbqModalStandBy
+  <StandByGameModal
     v-model="standByGame"
     :isOwner="isOwner(game)"
     :players="players"
@@ -92,7 +92,7 @@
     :connectionProgress="connectionProgress"
   />
 
-  <MbqModalCheck
+  <QuizCheckModal
     v-model="questionVisible"
     :quizzes="game.quizzes"
     @close-question="
