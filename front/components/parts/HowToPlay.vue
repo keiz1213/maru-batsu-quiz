@@ -21,7 +21,7 @@
           :src="generateImgPath(fileName!)"
           :alt="fileName"
         />
-        <MbqMascotDiscription class="mt-10" :message="description" />
+        <NavigatorMascot class="mt-10" :message="description" />
       </div>
     </div>
   </div>

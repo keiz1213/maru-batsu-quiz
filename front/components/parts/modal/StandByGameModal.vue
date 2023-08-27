@@ -29,8 +29,8 @@
   >
     <div class="absolute inset-0 overflow-auto">
       <div class="flex justify-between mx-5 mt-5">
-        <MbqMascot :animateClass="'animate__bounce'" />
-        <MbqMascot :animateClass="'animate__rubberBand'" />
+        <Mascot :animateClass="'animate__bounce'" />
+        <Mascot :animateClass="'animate__rubberBand'" />
       </div>
       <div v-if="isOwner" class="my-5 mx-auto w-2/3">
         <h2 class="text-center text-xl my-2">
@@ -156,8 +156,8 @@
         </div>
       </div>
       <div class="flex justify-between mx-5 my-10">
-        <MbqMascot :animateClass="'animate__tada'" />
-        <MbqMascot :animateClass="'animate__heartBeat'" />
+        <Mascot :animateClass="'animate__tada'" />
+        <Mascot :animateClass="'animate__heartBeat'" />
       </div>
     </div>
   </VueFinalModal>
