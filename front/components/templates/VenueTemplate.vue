@@ -1,14 +1,5 @@
 <script setup lang="ts">
-  definePageMeta({
-    layout: false,
-    middleware: ['auth', 'venue-status']
-  })
-</script>
-
-<template>
-  <VenueView />
-</template>
-<!-- <script setup lang="ts">
+  import { Game } from '~/types/game'
   import { getGame } from '~/utils/api/services/game'
   import Announce from '~/utils/class/Announce'
   import Chat from '~/utils/class/Chat'
@@ -21,10 +12,10 @@
   import Timer from '~/utils/class/Timer'
   import VenueActivity from '~/utils/class/VenueActivity'
 
-  definePageMeta({
-    layout: false,
-    middleware: ['auth', 'venue-status']
-  })
+  const props = defineProps<{
+    avatar: OwnerAvatar | PlayerAvatar
+    game: Game
+  }>()
 
   const { currentUser, isOwner } = useCurrentUser()
   const { participantMetaData } = useParticipantMetaData()
@@ -43,42 +34,14 @@
   const { connectionLoading } = useConnectionLoading()
   const { connectionProgress } = useConnectionProgress()
 
-  let avatar: PlayerAvatar | OwnerAvatar
-  const route = useRoute()
-  const gameId = route.params.id as string
-  const game = await getGame(gameId)
-  const skywayChannel = new SkywayChannel(currentUser.value, game)
-  await skywayChannel.joinChannel()
-  const skywayDataStream = new SkywayDataStream(skywayChannel)
-  const venueActivity = new VenueActivity(
-    new Referee(game, new SyncDraggable()),
-    new Chat(),
-    new Announce(),
-    new Timer()
-  )
-  const avatarInstanceProps = [
-    currentUser.value,
-    skywayChannel,
-    skywayDataStream,
-    venueActivity
-  ] as const
-
-  avatar = isOwner(game)
-    ? new OwnerAvatar(...avatarInstanceProps)
-    : new PlayerAvatar(...avatarInstanceProps)
-  avatar.venueActivity!.setMyAvatarId(avatar.avatarId)
-  avatar.setUpChannel()
-
-  useHead({
-    title: `${game.title} | マルバツクイズオンライン`
-  })
+  props.avatar.setUp()
 
   onMounted(() => {
-    window.addEventListener('beforeunload', avatar.leaveChannel)
+    window.addEventListener('beforeunload', props.avatar.leaveChannel)
   })
 
   onUnmounted(() => {
-    window.removeEventListener('beforeunload', avatar.leaveChannel)
+    window.removeEventListener('beforeunload', props.avatar.leaveChannel)
   })
 </script>
 
@@ -187,4 +150,4 @@
       </div>
     </div>
   </div>
-</template> -->
+</template>

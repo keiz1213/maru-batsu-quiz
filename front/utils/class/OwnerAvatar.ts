@@ -18,6 +18,11 @@ class OwnerAvatar extends Avatar {
     super(user, skywayChannel, skywayDataStream, venueActivity)
   }
 
+  setUp = () => {
+    this.venueActivity!.setMyAvatarId(this.avatarId)
+    this.setUpChannel()
+  }
+
   addOwnerData = () => {
     const channel = this.skywayChannel!.channel!
     const owner = channel.publications[0].publisher

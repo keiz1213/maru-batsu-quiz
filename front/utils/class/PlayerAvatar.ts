@@ -17,6 +17,11 @@ class PlayerAvatar extends Avatar {
     super(user, skywayChannel, skywayDataStream, venueActivity)
   }
 
+  setUp = () => {
+    this.venueActivity!.setMyAvatarId(this.avatarId)
+    this.setUpChannel()
+  }
+
   setMyIndex = (myIndx: number) => {
     this.avatarIndex = myIndx
   }
