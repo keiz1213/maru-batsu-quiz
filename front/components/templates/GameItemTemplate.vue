@@ -47,7 +47,7 @@
     @cancel="cancel"
   />
   <div>
-    <MbqH1>{{ game.title }}</MbqH1>
+    <TheH1>{{ game.title }}</TheH1>
   </div>
   <div class="my-6">
     <GameDescription :description="game.description" />

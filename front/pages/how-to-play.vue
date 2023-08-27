@@ -24,7 +24,7 @@
 <template>
   <div class="max-w-full xl:mt-[70px]">
     <div class="flex flex-col mt-[90px] max-w-[1200px] mx-auto px-1">
-      <MbqH1>遊び方</MbqH1>
+      <TheH1>遊び方</TheH1>
       <div id="questioner" class="">
         <div class="mt-10">
           <h2 class="text-2xl">

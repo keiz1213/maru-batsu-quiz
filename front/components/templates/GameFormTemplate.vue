@@ -46,7 +46,7 @@
 
 <template>
   <div>
-    <MbqH1>ゲーム{{ game.id === null ? '作成' : '更新' }}</MbqH1>
+    <TheH1>ゲーム{{ game.id === null ? '作成' : '更新' }}</TheH1>
     <VeeForm @submit="emitSubmit" @invalid-submit="emitInvalidSubmit">
       <div class="my-6">
         <GameTitleForm :title="game.title" @update-title="updateTitle" />
