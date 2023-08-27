@@ -1,7 +1,4 @@
 <script setup lang="ts">
-  definePageMeta({
-    layout: 'mbq-default'
-  })
   useHead({
     title: '退会完了',
     meta: [

@@ -1,9 +1,6 @@
 <script setup lang="ts">
   import ChatQuestionOutlineIcon from 'vue-material-design-icons/ChatQuestionOutline.vue'
   import ChatAlertOutlineIcon from 'vue-material-design-icons/ChatAlertOutline.vue'
-  definePageMeta({
-    layout: 'mbq-default'
-  })
 
   useHead({
     title: '遊び方',

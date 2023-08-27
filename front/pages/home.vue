@@ -1,7 +1,6 @@
 <script setup lang="ts">
   definePageMeta({
-    middleware: 'auth',
-    layout: 'mbq-default'
+    middleware: 'auth'
   })
 
   useHead({

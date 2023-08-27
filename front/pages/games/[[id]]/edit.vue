@@ -1,6 +1,5 @@
 <script setup lang="ts">
   definePageMeta({
-    layout: 'mbq-default',
     middleware: ['auth', 'creator-only']
   })
 

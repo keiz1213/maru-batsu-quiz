@@ -1,8 +1,4 @@
 <script setup lang="ts">
-  definePageMeta({
-    layout: 'mbq-default'
-  })
-
   useHead({
     title: '利用規約',
     meta: [

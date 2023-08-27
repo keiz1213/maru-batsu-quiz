@@ -12,6 +12,7 @@
   import VenueActivity from '~/utils/class/VenueActivity'
 
   definePageMeta({
+    layout: false,
     middleware: ['auth', 'venue-status']
   })
 

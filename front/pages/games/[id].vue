@@ -2,7 +2,6 @@
   import { Game } from '~/types/game'
 
   definePageMeta({
-    layout: 'mbq-default',
     middleware: ['auth', 'creator-only']
   })
 
