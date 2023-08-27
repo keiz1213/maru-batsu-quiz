@@ -1,17 +1,16 @@
 <script setup lang="ts">
-  import { ParticipantMetaData } from '~/types/playerData'
-  import Avatar from '~/utils/class/Avatar'
+  import { Game } from '~/types/game'
+  import { ParticipantMetaData } from '~/types/participantMetaData'
+  import PlayerAvatar from '~/utils/class/PlayerAvatar'
   import { VueFinalModal } from 'vue-final-modal'
   import CheckBoldIcon from 'vue-material-design-icons/CheckBold.vue'
   import HumanGreetingProximityIcon from 'vue-material-design-icons/HumanGreetingProximity.vue'
   import InformationOutlineIcon from 'vue-material-design-icons/InformationOutline.vue'
 
   defineProps<{
-    players: Avatar[]
-    isOwner: boolean
+    game: Game
+    players: PlayerAvatar[]
     participantMetaData: ParticipantMetaData[]
-    isLoading: boolean
-    connectionProgress: number
   }>()
 
   const emit = defineEmits<{
@@ -21,6 +20,10 @@
   const handleClick = () => {
     emit('start-connection')
   }
+
+  const { isOwner } = useCurrentUser()
+  const { connectionLoading } = useConnectionLoading()
+  const { connectionProgress } = useConnectionProgress()
 </script>
 <template>
   <VueFinalModal
@@ -32,7 +35,7 @@
         <Mascot :animateClass="'animate__bounce'" />
         <Mascot :animateClass="'animate__rubberBand'" />
       </div>
-      <div v-if="isOwner" class="my-5 mx-auto w-2/3">
+      <div v-if="isOwner(game)" class="my-5 mx-auto w-2/3">
         <h2 class="text-center text-xl my-2">
           <div class="flex">
             <information-outline-icon :size="28" />
@@ -99,7 +102,7 @@
           </li>
         </ul>
       </div>
-      <div v-if="isOwner" class="my-5">
+      <div v-if="isOwner(game)" class="my-5">
         <div class="my-5">
           <p class="text-center">
             {{ participantMetaData.length }}人が入室済み
@@ -121,7 +124,7 @@
         <div class="w-2/3 mx-auto my-5 text-center">
           <PrimaryButton
             :button-type="'button'"
-            :isLoading="isLoading"
+            :isLoading="connectionLoading"
             @click="handleClick"
             ><div class="flex">
               <human-greeting-proximity-icon />
@@ -139,7 +142,7 @@
       <div
         class="w-2/3 min-h-[400px] m-auto my-10 rounded-lg border border-mac-finder-side"
       >
-        <MbqMacBar :title="'Entry'" />
+        <MacBar :title="'Entry'" />
         <div class="flex justify-center" aria-label="読み込み中">
           <span
             id="loading"
@@ -147,7 +150,7 @@
           ></span>
         </div>
         <div class="grid grid-cols-4 gap-x-3 p-6">
-          <MbqAvatar
+          <Avatar
             class="animate__bounce"
             v-for="player in players"
             :key="player.avatarId"

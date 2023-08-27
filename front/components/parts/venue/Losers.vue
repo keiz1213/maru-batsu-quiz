@@ -1,8 +1,8 @@
 <script setup lang="ts">
-  import Avatar from '~/utils/class/Avatar'
+  import PlayerAvatar from '~/utils/class/PlayerAvatar'
 
   defineProps<{
-    losers: Avatar[]
+    losers: PlayerAvatar[]
   }>()
 </script>
 
@@ -11,7 +11,7 @@
     class="w-[1320px] pt-2 pl-2 h-56 backdrop-blur-sm bg-white/30 rounded-lg break-all my-4"
   >
     <div>
-      <MbqAvatar
+      <Avatar
         class="animate__bounce"
         v-for="loser in losers"
         :key="loser.avatarId"

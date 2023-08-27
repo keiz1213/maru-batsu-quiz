@@ -1,6 +1,8 @@
 import { ParticipantMetaData } from '~/types/participantMetaData'
 import { ChatMessage } from '~/types/chatMessage'
 import Avatar from '~/utils/class/Avatar'
+import OwnerAvatar from '~/utils/class/OwnerAvatar'
+import PlayerAvatar from '~/utils/class/PlayerAvatar'
 
 export const useParticipantMetaData = () => {
   const participantMetaData = useState<ParticipantMetaData[]>(
@@ -40,11 +42,11 @@ export const useMyAvatar = () => {
 }
 
 export const useOwner = () => {
-  const owner = useState<Avatar | {}>('owner', () => {
+  const owner = useState<OwnerAvatar | {}>('owner', () => {
     return {}
   })
 
-  const addOwner = (ownerAvatar: Avatar) => {
+  const addOwner = (ownerAvatar: OwnerAvatar) => {
     owner.value = ownerAvatar
   }
 
@@ -55,15 +57,15 @@ export const useOwner = () => {
 }
 
 export const usePlayers = () => {
-  const players = useState<Avatar[]>('players', () => {
+  const players = useState<PlayerAvatar[]>('players', () => {
     return []
   })
 
-  const addPlayer = (player: Avatar) => {
+  const addPlayer = (player: PlayerAvatar) => {
     players.value.push(player)
   }
 
-  const setAllPlayers = (allPlayers: Avatar[]) => {
+  const setAllPlayers = (allPlayers: PlayerAvatar[]) => {
     players.value = allPlayers
   }
 
@@ -75,11 +77,11 @@ export const usePlayers = () => {
 }
 
 export const useLosers = () => {
-  const losers = useState<Avatar[]>('losers', () => {
+  const losers = useState<PlayerAvatar[]>('losers', () => {
     return []
   })
 
-  const addLoser = (loser: Avatar) => {
+  const addLoser = (loser: PlayerAvatar) => {
     losers.value.push(loser)
   }
 
@@ -90,11 +92,11 @@ export const useLosers = () => {
 }
 
 export const useWinners = () => {
-  const winners = useState<Avatar[]>('winners', () => {
+  const winners = useState<PlayerAvatar[]>('winners', () => {
     return []
   })
 
-  const addWinner = (winner: Avatar) => {
+  const addWinner = (winner: PlayerAvatar) => {
     winners.value.push(winner)
   }
 

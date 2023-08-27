@@ -34,8 +34,18 @@
   const avatar = isOwner(game)
     ? new OwnerAvatar(...avatarInstanceProps)
     : new PlayerAvatar(...avatarInstanceProps)
+
+  avatar.setUp()
+
+  onMounted(() => {
+    window.addEventListener('beforeunload', avatar.leaveChannel)
+  })
+
+  onUnmounted(() => {
+    window.removeEventListener('beforeunload', avatar.leaveChannel)
+  })
 </script>
 
 <template>
-  <VenueTemplate :avatar="avatar" :game="game"/>
+  <VenueTemplate :avatar="avatar" :game="game" />
 </template>

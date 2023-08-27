@@ -1,10 +1,10 @@
 <script setup lang="ts">
   import { Quiz } from '~/types/quiz'
   import { VueFinalModal } from 'vue-final-modal'
-  import Avatar from '~/utils/class/Avatar'
+  import PlayerAvatar from '~/utils/class/PlayerAvatar'
 
   defineProps<{
-    winners: Avatar[]
+    winners: PlayerAvatar[]
     quizzes: Quiz[]
   }>()
 </script>
@@ -16,12 +16,16 @@
     overlay-transition="vfm-fade"
   >
     <div class="absolute inset-0 h-full overflow-auto px-12">
-      <h1 class="text-3xl text-center my-6 animate__animated animate__flip">
-        Congratulations!
-      </h1>
+      <div class="text-center">
+        <h1
+          class="text-4xl my-6 animate__animated animate__flip text-gradient font-bold"
+        >
+          Congratulations!
+        </h1>
+      </div>
       <slot />
       <div class="flex justify-center">
-        <MbqAvatar
+        <Avatar
           v-for="winner in winners"
           :key="winner.avatarId"
           :avatar="winner"
@@ -38,3 +42,13 @@
     </div>
   </VueFinalModal>
 </template>
+
+<style scoped>
+  .text-gradient {
+    display: inline-block;
+    background: -webkit-linear-gradient(19deg, #21d4fd 0%, #b721ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: blue;
+  }
+</style>

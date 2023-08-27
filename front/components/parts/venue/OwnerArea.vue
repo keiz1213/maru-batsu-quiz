@@ -1,32 +1,32 @@
 <script setup lang="ts">
-  import { Quiz } from '~/types/quiz'
-  import Avatar from '~/utils/class/Avatar'
+  import { Game } from '~/types/game'
+  import OwnerAvatar from '~/utils/class/OwnerAvatar'
   import ChatQuestionOutlineIcon from 'vue-material-design-icons/ChatQuestionOutline.vue'
   import FormatListChecksIcon from 'vue-material-design-icons/FormatListChecks.vue'
 
   defineProps<{
-    owner: Avatar | undefined
-    quizzes: Quiz[]
+    owner: OwnerAvatar | undefined
+    game: Game
     currentQuizNumber: number
-    isOwner: boolean
-    description: string
-    isLoading: boolean
   }>()
 
   const emit = defineEmits<{
     (e: 'announce'): void
     (e: 'check-question'): void
   }>()
+
+  const { isOwner } = useCurrentUser()
+  const { quizLoading } = useQuizLoading()
 </script>
 
 <template>
   <div class="w-[350px] h-[350px] bg-white rounded-lg flex flex-col mx-2">
-    <MbqMacBar :title="'Owner'" />
+    <MacBar :title="'Owner'" />
     <div v-if="owner" class="flex justify-center mt-2">
-      <MbqAvatar :avatar="owner" />
+      <Avatar :avatar="owner" />
     </div>
     <div class="w-[350px] h-full bg-white rounded-lg">
-      <div v-if="isOwner">
+      <div v-if="isOwner(game)">
         <div
           class="flex flex-col justify-center items-center gap-4 bg-mac-finder-top min-h-[185px] rounded-lg m-3 mt-0"
         >
@@ -34,7 +34,7 @@
             <PrimaryButton
               id="question-button"
               @click="emit('announce')"
-              :isLoading="isLoading"
+              :isLoading="quizLoading"
               ><div class="flex">
                 <chat-question-outline-icon />
                 <span class="ml-1"
@@ -62,7 +62,7 @@
         id="check-game-description"
       >
         <p class="leading-loose break-words whitespace-pre-wrap">
-          {{ description }}
+          {{ game.description }}
         </p>
       </div>
     </div>

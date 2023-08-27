@@ -4,13 +4,9 @@
     limit: number
   }>()
 
-  const padToTwo = (num: number) => {
-    return String(num).padStart(2, '0')
-  }
+  const padToTwo = (num: number) => String(num).padStart(2, '0')
 
-  const timeLeft = () => {
-    return props.limit - props.elapsed
-  }
+  const timeLeft = () => props.limit - props.elapsed
 
   const timeLeftString = () => {
     const minutes = Math.floor(timeLeft() / 60)
@@ -53,35 +49,27 @@
 </template>
 
 <style scoped>
-  /* Sets the container's height and width */
   .root {
     height: 130px;
     width: 130px;
     position: relative;
   }
 
-  /* Removes SVG styling that would hide the time label */
   .circle {
     fill: none;
     stroke: none;
   }
 
-  /* The SVG path that displays the timer's progress */
   .time-elapsed-path {
     stroke-width: 7px;
     stroke: #424242;
   }
 
   .time-left-container {
-    /* Size should be the same as that of parent container */
     height: inherit;
     width: inherit;
-
-    /* Place container on top of circle ring */
     position: absolute;
     top: 0;
-
-    /* Center content (label) vertically and horizontally  */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -94,25 +82,15 @@
   }
 
   .time-left-path {
-    /* Same thickness as the original ring */
     stroke-width: 7px;
-
-    /* Rounds the path endings  */
     stroke-linecap: round;
-
-    /* Makes sure the animation starts at the top of the circle */
     transform: rotate(90deg);
     transform-origin: center;
-
-    /* One second aligns with the speed of the countdown timer */
     transition: 1s linear all;
-
-    /* Colors the ring */
     stroke: rgb(0, 255, 64);
   }
 
   .svg {
-    /* Flips the svg and makes the animation to move left-to-right */
     transform: scaleX(-1);
   }
 </style>

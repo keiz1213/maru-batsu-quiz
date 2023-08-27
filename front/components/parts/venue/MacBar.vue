@@ -8,7 +8,7 @@
   <div
     class="w-full h-7 bg-neutral-200 flex relative rounded-t-lg justify-center"
   >
-    <MbqMacButtons />
+    <MacButtons />
     <p>{{ title }}</p>
   </div>
 </template>

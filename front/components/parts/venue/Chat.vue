@@ -2,36 +2,39 @@
   import { ChatMessage } from '~/types/chatMessage'
 
   defineProps<{
-    messages: Array<ChatMessage>
-    myId: string
+    chatMessages: ChatMessage[]
+    myAvatarId: string
   }>()
 
   const emit = defineEmits<{
-    (e: 'update:messages', message: string): void
+    (e: 'send-message', message: string): void
   }>()
 
   const message = ref('')
 
   const send = () => {
-    emit('update:messages', message.value)
+    emit('send-message', message.value)
     message.value = ''
   }
 </script>
 
 <template>
   <div class="w-[350px] h-[420px] bg-white rounded-lg mx-2 flex flex-col">
-    <MbqMacBar :title="'Chat'" />
+    <MacBar :title="'Chat'" />
     <div>
       <div
         id="chat-display"
         class="h-[300px] border-b overflow-auto px-4 pt-4 pb-14 break-all"
       >
         <div
-          v-for="(chatMessage, index) in messages"
+          v-for="(chatMessage, index) in chatMessages"
           :key="index"
           :id="`chat-message-${index + 1}`"
         >
-          <div v-if="chatMessage.avatarId != myId" class="chat chat-start">
+          <div
+            v-if="chatMessage.avatarId != myAvatarId"
+            class="chat chat-start"
+          >
             <div class="chat-image avatar">
               <div class="w-10 rounded-full">
                 <img :src="chatMessage.avatarImage" alt="user-icon" />

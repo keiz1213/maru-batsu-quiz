@@ -1,9 +1,8 @@
 <script setup lang="ts">
-  import Avatar from '~/utils/class/Avatar'
+  import PlayerAvatar from '~/utils/class/PlayerAvatar'
 
   defineProps<{
-    winners: Avatar[]
-    title: string
+    winners: PlayerAvatar[]
   }>()
 </script>
 
@@ -16,7 +15,7 @@
         class="w-[140px] bg-mac-finder-side h-[598px] rounded-l-lg relative z-0"
       >
         <div class="h-[50px]">
-          <MbqMacButtons />
+          <MacButtons />
         </div>
       </div>
     </div>
@@ -24,13 +23,13 @@
       <div class="w-[508px] h-[50px] bg-mac-finder-top rounded-tr-lg">
         <div class="flex pl-5 pt-3">
           <div>
-            <p>{{ title }}</p>
+            <span>Winners</span>
           </div>
         </div>
       </div>
       <div class="w-[508px] h-[548px] rounded-br-lg break-all bg-white">
         <div class="grid grid-cols-4 gap-x-3 p-6">
-          <MbqAvatar
+          <Avatar
             v-for="winner in winners"
             class="animate__bounce"
             :key="winner.avatarId"
