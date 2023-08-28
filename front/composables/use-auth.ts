@@ -73,6 +73,6 @@ export const useAuth = () => {
     checkAuthState,
     login,
     logout,
-    withdrawal
+    withdrawal,
   }
 }
