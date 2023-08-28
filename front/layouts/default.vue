@@ -7,7 +7,8 @@
     }
   })
 
-  const { logout, isLoggedIn } = useAuth()
+  const { logout } = useAuth()
+  const { isLoggedIn } = useFirebaseAuth()
   const { toast, clearToast, notify } = useToast()
   const route = useRoute()
 

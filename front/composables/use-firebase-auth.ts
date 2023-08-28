@@ -11,7 +11,9 @@ import {
 
 export const useFirebaseAuth = () => {
   const auth = getAuth()
-  const user = ref<User | null>(auth.currentUser)
+  const user = useState<User | null>('user', () => {
+    return auth.currentUser
+  })
   const isLoggedIn = computed(() => !!user.value)
 
   auth.onIdTokenChanged((authUser) => (user.value = authUser))

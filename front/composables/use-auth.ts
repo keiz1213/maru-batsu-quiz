@@ -12,7 +12,6 @@ export const useAuth = () => {
     isLoggedIn,
     firebaseLogin,
     firebaseLogout,
-    checkAuthState,
     firebaseWithdrawal
   } = useFirebaseAuth()
 
@@ -68,9 +67,6 @@ export const useAuth = () => {
   }
 
   return {
-    user,
-    isLoggedIn,
-    checkAuthState,
     login,
     logout,
     withdrawal,

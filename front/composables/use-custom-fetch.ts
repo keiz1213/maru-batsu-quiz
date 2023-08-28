@@ -5,7 +5,7 @@ export const useCustomFetch = async <T>(
   url: string,
   options: UseFetchOptions<T> = {}
 ) => {
-  const { user } = useAuth()
+  const { user } = useFirebaseAuth()
   const firebaseIdToken = (await user.value?.getIdToken()) as string
   const config = useRuntimeConfig()
 

@@ -1,5 +1,5 @@
 export default defineNuxtRouteMiddleware(async () => {
-  const { checkAuthState, isLoggedIn } = useAuth()
+  const { checkAuthState, isLoggedIn } = useFirebaseAuth()
 
   await checkAuthState()
   if (isLoggedIn.value) {

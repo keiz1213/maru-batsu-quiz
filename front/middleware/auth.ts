@@ -1,5 +1,5 @@
 export default defineNuxtRouteMiddleware(async (to) => {
-  const { checkAuthState, isLoggedIn } = useAuth()
+  const { checkAuthState, isLoggedIn } = useFirebaseAuth()
   const { setRedirectPath } = useFriendlyForwarding()
   const { checkCurrentUserStore } = useCurrentUser()
   const { checkGamesStore } = useGame()
