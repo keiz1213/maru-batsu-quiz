@@ -11,7 +11,9 @@ export const useFriendlyForwarding = () => {
     redirectPath.value = ''
   }
 
-  const isForwarding = computed(() => !!redirectPath.value)
+  const isForwarding = () => {
+    return redirectPath.value != ''
+  }
 
   return { redirectPath, setRedirectPath, clearRedirectPath, isForwarding }
 }

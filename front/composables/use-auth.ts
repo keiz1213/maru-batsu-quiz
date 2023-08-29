@@ -22,7 +22,7 @@ export const useAuth = () => {
       await postUser()
       setToast('ログインしました！', 'success')
       clearLoading()
-      if (isForwarding.value) {
+      if (isForwarding()) {
         navigateTo(redirectPath.value)
         clearRedirectPath()
       } else {
@@ -54,9 +54,9 @@ export const useAuth = () => {
     try {
       setLoading()
       await deleteUser(userId)
+      await firebaseWithdrawal()
       clearCurrentUserStore()
       clearGamesStore()
-      await firebaseWithdrawal()
       navigateTo('/withdrawal')
       clearLoading()
     } catch {
