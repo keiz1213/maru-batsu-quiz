@@ -52,7 +52,7 @@ it('default currentUser', () => {
   expect(currentUser.value).toEqual(defaultCurrentUser)
 })
 
-it('setCurrentUserStore', () => {
+it('can set currentUser', () => {
   const authenticatedUser = {
     id: 1,
     uid: 'test',
@@ -66,7 +66,7 @@ it('setCurrentUserStore', () => {
   expect(currentUser.value).toEqual(authenticatedUser)
 })
 
-it('clearCurrentUserStore', () => {
+it('can clear currentUser', () => {
   const defaultCurrentUser = {
     id: 0,
     uid: '',
@@ -91,7 +91,7 @@ it('clearCurrentUserStore', () => {
   expect(currentUser.value).toEqual(defaultCurrentUser)
 })
 
-it('isOwner', () => {
+it('can be determined whether the user is the owner', () => {
   const game = {
     user_id: 1,
     id: 1,

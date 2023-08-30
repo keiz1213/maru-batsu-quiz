@@ -6,12 +6,8 @@ export const useGame = () => {
     return []
   })
 
-  const addGameStore = (game: Game) => {
-    games.value.push(game)
-  }
-
-  const setGamesStore = (games: Game[]) => {
-    games.forEach((game) => addGameStore(game))
+  const setGamesStore = (agames: Game[]) => {
+    games.value = agames
   }
 
   const clearGamesStore = () => {
