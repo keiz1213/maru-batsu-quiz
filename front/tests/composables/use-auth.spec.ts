@@ -1,7 +1,5 @@
 // @vitest-environment nuxt
 import { vi, expect, it } from 'vitest'
-import { useLoading } from '~/composables/use-loading'
-import { useAuth } from '~/composables/use-auth'
 import { postUser, deleteUser } from '@/utils/api/services/user'
 
 afterEach(() => {
@@ -97,6 +95,12 @@ vi.mock('~/composables/use-firebase-auth', () => {
   }
 })
 
+vi.mock('~/composables/use-current-user', () => {
+  return {
+    useCurrentUser: mocks.useCurrentUser
+  }
+})
+
 vi.mock('~/utils/api/services/user', async () => {
   const userService = (await vi.importActual(
     '~/utils/api/services/user'
@@ -105,12 +109,6 @@ vi.mock('~/utils/api/services/user', async () => {
     ...userService,
     postUser: mocks.postUser,
     deleteUser: mocks.deleteUser
-  }
-})
-
-vi.mock('~/composables/use-current-user', () => {
-  return {
-    useCurrentUser: mocks.useCurrentUser
   }
 })
 
@@ -293,6 +291,7 @@ describe('withdrawal', () => {
     expect(clearGamesStore).not.toHaveBeenCalledOnce()
     expect(clearLoading).toHaveBeenCalledOnce()
   })
+
   it('if Delete User fails, user should not be able to withdrawal', async () => {
     mocks.useFirebaseAuth.mockReturnValue({
       user: vi.fn(),
