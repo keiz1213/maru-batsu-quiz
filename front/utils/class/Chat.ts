@@ -1,4 +1,4 @@
-import { ChatMessage } from '~/types/chatMessage'
+import { ChatMessage } from '~/types/ChatMessage'
 import Avatar from './Avatar'
 
 class Chat {
