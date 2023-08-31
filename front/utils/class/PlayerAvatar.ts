@@ -2,6 +2,7 @@ import { User } from '~/types/user'
 import { AvatarParams } from '~/types/avatarParams'
 import { ChatMessage } from '~/types/chatMessage'
 import Avatar from '~/utils/class/Avatar'
+import OwnerAvatar from '~/utils/class/OwnerAvatar'
 import VenueActivity from './VenueActivity'
 import SkywayChannel from './SkywayChannel'
 import SkywayDataStream from './SkywayDataStream'
@@ -56,11 +57,11 @@ class PlayerAvatar extends Avatar {
             this.venueActivity!.startGame(this)
             break
           case 'setAvatar':
-            const avatar: Avatar = data
+            const avatar: OwnerAvatar | PlayerAvatar = data
             this.venueActivity!.setAvatar(avatar)
             break
           case 'setAllPlayerAvatars':
-            const players: Avatar[] = data
+            const players: PlayerAvatar[] = data
             this.venueActivity!.setAllPlayerAvatars(players)
             break
           case 'moveAvatar':

@@ -1,5 +1,5 @@
 // @vitest-environment nuxt
-
+import { useToast } from '~/composables/use-toast'
 import { expect, it } from 'vitest'
 
 afterEach(() => {
@@ -81,4 +81,9 @@ it('can notify error toast.', () => {
   notify('test toast!', 'error')
   expect(mocks.error).toHaveBeenCalledWith('test toast!', { autoClose: false })
   expect(mocks.success).not.toHaveBeenCalledOnce()
+})
+
+it('notyfy on spot', () => {
+// TO DO
+
 })

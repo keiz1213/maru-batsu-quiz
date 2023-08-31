@@ -12,7 +12,7 @@ class Chat {
     inVisible()
   }
 
-  adjustScrollTop = (): void => {
+  adjustScrollTop = () => {
     const chatArea = document.getElementById('chat-display') as HTMLElement
     if (chatArea !== null) {
       const chatAreaHeight = chatArea.scrollHeight

@@ -1,7 +1,9 @@
 import { AvatarParams } from '~/types/avatarParams'
 import { ParticipantMetaData } from '~/types/participantMetaData'
 import { ChatMessage } from '~/types/chatMessage'
-import Avatar from './Avatar'
+import Avatar from '~/utils/class/Avatar'
+import OwnerAvatar from '~/utils/class/OwnerAvatar'
+import PlayerAvatar from '~/utils/class/PlayerAvatar'
 import Referee from './Referee'
 import Chat from './Chat'
 import Announce from './Announce'
@@ -38,12 +40,12 @@ class VenueActivity {
     addParticipantMetaData(participantMetaData)
   }
 
-  addOwner = (avatar: Avatar) => {
+  addOwner = (avatar: OwnerAvatar) => {
     const { addOwner } = useOwner()
     addOwner(avatar)
   }
 
-  addPlayer = (avatar: Avatar) => {
+  addPlayer = (avatar: PlayerAvatar) => {
     const { addPlayer } = usePlayers()
     addPlayer(avatar)
   }
@@ -52,9 +54,9 @@ class VenueActivity {
     this.referee.startGame(avatar)
   }
 
-  setAvatar = (avatar: Avatar) => {
+  setAvatar = (avatar: OwnerAvatar | PlayerAvatar) => {
     if (!document.getElementById(avatar.avatarId)) {
-      if (avatar.avatarIndex === null) {
+      if (avatar instanceof OwnerAvatar) {
         this.addOwner(avatar)
       } else {
         this.addPlayer(avatar)
@@ -62,7 +64,7 @@ class VenueActivity {
     }
   }
 
-  setAllPlayerAvatars = (players: Avatar[]) => {
+  setAllPlayerAvatars = (players: PlayerAvatar[]) => {
     const { setAllPlayers } = usePlayers()
     setAllPlayers(players)
   }

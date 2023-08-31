@@ -4,6 +4,7 @@ import { ChatMessage } from '~/types/chatMessage'
 import { Quiz } from '~/types/quiz'
 import { RemoteDataStream } from '@skyway-sdk/room'
 import Avatar from '~/utils/class/Avatar'
+import PlayerAvatar from '~/utils/class/PlayerAvatar'
 import VenueActivity from './VenueActivity'
 import SkywayChannel from './SkywayChannel'
 import SkywayDataStream from './SkywayDataStream'
@@ -70,7 +71,7 @@ class OwnerAvatar extends Avatar {
 
         switch (reactionName) {
           case 'setAvatar':
-            const avatar: Avatar = data
+            const avatar: OwnerAvatar | PlayerAvatar = data
             this.venueActivity!.setAvatar(avatar)
             break
           case 'moveAvatar':

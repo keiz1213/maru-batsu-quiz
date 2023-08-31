@@ -36,6 +36,7 @@ export const useMyAvatar = () => {
   }
 
   return {
+    myAvatarId,
     setMyAvatarId,
     isMyAvatar
   }

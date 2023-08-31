@@ -1,5 +1,6 @@
 import { Game } from '~/types/game'
 import Avatar from '~/utils/class/Avatar'
+import PlayerAvatar from '~/utils/class/PlayerAvatar'
 import SyncDraggable from '~/utils/class/SyncDraggable'
 
 class Referee {
@@ -41,7 +42,7 @@ class Referee {
     }
   }
 
-  checkLoser = (player: Avatar, correctAnswer: string) => {
+  checkLoser = (player: PlayerAvatar, correctAnswer: string) => {
     const avatarElement = document.getElementById(
       player.avatarId
     ) as HTMLElement
@@ -49,7 +50,7 @@ class Referee {
     return correctAnswer != answer || answer === ''
   }
 
-  checkWinner = (player: Avatar, correctAnswer: string) => {
+  checkWinner = (player: PlayerAvatar, correctAnswer: string) => {
     const avatarElement = document.getElementById(
       player.avatarId
     ) as HTMLElement
@@ -57,7 +58,7 @@ class Referee {
     return correctAnswer === answer
   }
 
-  addLoser = (loser: Avatar) => {
+  addLoser = (loser: PlayerAvatar) => {
     const { addLoser } = useLosers()
     const avatarElement = document.getElementById(loser.avatarId) as HTMLElement
     avatarElement.classList.add('animate__rotateOut')
@@ -67,7 +68,7 @@ class Referee {
     addLoser(loser)
   }
 
-  addWinner = (winner: Avatar) => {
+  addWinner = (winner: PlayerAvatar) => {
     const { addWinner } = useWinners()
     const avatarElement = document.getElementById(
       winner.avatarId
@@ -81,13 +82,13 @@ class Referee {
 
   getWinnersFromPlayers = (correctAnswer: string) => {
     const { players } = usePlayers()
-    let winnersInPlayers: Avatar[] = []
+    let winnersInPlayers: PlayerAvatar[] = []
     for (let i = 0; i < players.value.length; i++) {
       const avatarElement = document.getElementById(
         players.value[i].avatarId
       ) as HTMLElement
       if (avatarElement.dataset.state != '') continue
-      const player = players.value[i] as Avatar
+      const player = players.value[i] as PlayerAvatar
       if (this.checkWinner(player, correctAnswer)) {
         winnersInPlayers.push(player)
       }
@@ -97,13 +98,13 @@ class Referee {
 
   getLosersFromPlayers = (correctAnswer: string): Avatar[] => {
     const { players } = usePlayers()
-    let losersInPlayers: Avatar[] = []
+    let losersInPlayers: PlayerAvatar[] = []
     for (let i = 0; i < players.value.length; i++) {
       const avatarElement = document.getElementById(
         players.value[i].avatarId
       ) as HTMLElement
       if (avatarElement.dataset.state != '') continue
-      const player = players.value[i] as Avatar
+      const player = players.value[i] as PlayerAvatar
       if (this.checkLoser(player, correctAnswer)) {
         losersInPlayers.push(player)
       }
