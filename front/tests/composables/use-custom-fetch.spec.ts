@@ -53,7 +53,7 @@ describe('authenticatedUser', () => {
     await useCustomFetch('/api/v1/users', {
       method: 'get'
     })
-  
+
     const params = {
       baseURL: 'http://localhost:3000',
       headers: {
@@ -62,7 +62,7 @@ describe('authenticatedUser', () => {
       key: '/api/v1/users',
       method: 'get'
     }
-  
+
     expect(mocks.useFetch).toHaveBeenCalledWith(
       '/api/v1/users',
       params,
@@ -87,7 +87,7 @@ describe('unauthenticatedUser', () => {
     await useCustomFetch('/api/v1/users', {
       method: 'get'
     })
-  
+
     const params = {
       baseURL: 'http://localhost:3000',
       headers: {
@@ -96,7 +96,7 @@ describe('unauthenticatedUser', () => {
       key: '/api/v1/users',
       method: 'get'
     }
-  
+
     expect(mocks.useFetch).toHaveBeenCalledWith(
       '/api/v1/users',
       params,
@@ -104,4 +104,3 @@ describe('unauthenticatedUser', () => {
     )
   })
 })
-

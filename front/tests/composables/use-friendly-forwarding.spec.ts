@@ -1,5 +1,4 @@
 // @vitest-environment nuxt
-
 import { expect, it } from 'vitest'
 
 afterEach(() => {
@@ -23,7 +22,8 @@ it('can set redirectPath', () => {
 
 it('can clear redirectPath', () => {
   const defaultRedirectPath = ''
-  const { redirectPath, setRedirectPath, clearRedirectPath } = useFriendlyForwarding()
+  const { redirectPath, setRedirectPath, clearRedirectPath } =
+    useFriendlyForwarding()
   expect(redirectPath.value).toEqual(defaultRedirectPath)
   setRedirectPath('/home')
   expect(redirectPath.value).toEqual('/home')

@@ -84,6 +84,5 @@ it('can notify error toast.', () => {
 })
 
 it('notyfy on spot', () => {
-// TO DO
-
+  // TO DO
 })

@@ -451,8 +451,7 @@ describe('useQuizLoading', () => {
   })
 
   it('switching from true to false for loading.', () => {
-    const { quizLoading, setQuizLoading, clearQuizLoading } =
-    useQuizLoading()
+    const { quizLoading, setQuizLoading, clearQuizLoading } = useQuizLoading()
     setQuizLoading()
     expect(quizLoading.value).toBeTruthy()
     clearQuizLoading()

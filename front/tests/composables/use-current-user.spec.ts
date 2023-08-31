@@ -1,5 +1,4 @@
 // @vitest-environment nuxt
-
 import { vi, expect, it } from 'vitest'
 
 afterEach(() => {

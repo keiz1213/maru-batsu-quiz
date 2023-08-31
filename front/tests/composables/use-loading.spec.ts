@@ -1,5 +1,4 @@
 // @vitest-environment nuxt
-
 import { expect, it } from 'vitest'
 
 afterEach(() => {
@@ -7,7 +6,7 @@ afterEach(() => {
   clearLoading()
 })
 
-it("default loading is false", () => {
+it('default loading is false', () => {
   const { loading } = useLoading()
   expect(loading.value).toBeFalsy()
 })
