@@ -1,6 +1,6 @@
 import { User } from '~/types/user'
 import { AvatarParams } from '~/types/avatarParams'
-import { ChatMessage } from '~/types/chatMessage'
+import { ChatMessage } from '~/types/ChatMessage'
 import { Quiz } from '~/types/quiz'
 import { RemoteDataStream } from '@skyway-sdk/room'
 import Avatar from '~/utils/class/Avatar'
@@ -22,6 +22,10 @@ class OwnerAvatar extends Avatar {
   setUp = () => {
     this.venueActivity!.setMyAvatarId(this.avatarId)
     this.setUpChannel()
+  }
+
+  delay = (ms: number) => {
+    return new Promise((resolve) => setTimeout(resolve, ms))
   }
 
   addOwnerData = () => {

@@ -63,10 +63,6 @@ class Avatar {
     this.venueActivity!.reflectChatMessage(chatMessage)
     this.skywayDataStream!.writeChatMessage(chatMessage)
   }
-
-  delay = (ms: number) => {
-    return new Promise((resolve) => setTimeout(resolve, ms))
-  }
 }
 
 export default Avatar
