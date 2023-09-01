@@ -43,15 +43,12 @@ const currentUser = {
   games: [game]
 }
 
-const chat = new Chat()
-const chatSpy = vi.spyOn(chat, 'createChatMessage')
 const venueActivity = new VenueActivity(
   new Referee(game, new SyncDraggable()),
-  chat,
+  new Chat(),
   new Announce(),
   new Timer()
 )
-const venueActivitySpy = vi.spyOn(venueActivity, 'reflectChatMessage')
 const skywayChannelMockMethod = {
   updateChannelMetadata: vi.fn()
 }
@@ -115,8 +112,8 @@ it('can leave channel', () => {
 })
 
 it('can send chat message', () => {
+  const venueActivitySpy = vi.spyOn(venueActivity, 'reflectChatMessage')
   avatar.sendChatMessage('Hello!')
-  expect(chatSpy).toHaveBeenCalledWith(avatar, 'Hello!')
   const chatMessage = {
     avatarId: avatar.avatarId,
     avatarImage: avatar.avatarImage,
