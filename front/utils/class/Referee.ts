@@ -96,7 +96,7 @@ class Referee {
     return winnersInPlayers
   }
 
-  getLosersFromPlayers = (correctAnswer: string): Avatar[] => {
+  getLosersFromPlayers = (correctAnswer: string) => {
     const { players } = usePlayers()
     let losersInPlayers: PlayerAvatar[] = []
     for (let i = 0; i < players.value.length; i++) {
