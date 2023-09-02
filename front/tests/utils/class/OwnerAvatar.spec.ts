@@ -138,6 +138,15 @@ const avatar = new OwnerAvatar(
   venueActivity
 )
 
+it('can perform the necessary actions to start the game.', () => {
+  const venueActivitySpy = vi.spyOn(venueActivity, 'setMyAvatarId')
+  const setUpChannelSpy = vi.spyOn(avatar, 'setUpChannel')
+
+  avatar.setUp()
+  expect(venueActivitySpy).toHaveBeenCalledWith(avatar.avatarId)
+  expect(setUpChannelSpy).toHaveBeenCalledOnce()
+})
+
 it('can add owner metadata', () => {
   const venueActivitySpy = vi.spyOn(venueActivity, 'addParticipantMetaData')
   avatar.addOwnerData()
@@ -202,21 +211,6 @@ it('can set a handler to respond when there is a write to the passed data stream
   } as any
   await avatar.setHandleDataWrite(remoteDataStreamMock)
   expect(remoteDataStreamMockMethod).toHaveBeenCalledOnce()
-})
-
-it('can subscribe to all players', async () => {
-  const numberOfPlayer = channelMock.publications.length - 1
-  const setHandleDataWriteSpy = vi.spyOn(avatar, 'setHandleDataWrite')
-  const venueActivitySpy = vi.spyOn(venueActivity, 'calculateProgress')
-
-  await avatar.subscribeToAllPlayers()
-
-  expect(skywayChannelMockMethod.subscribe).toHaveBeenCalledTimes(
-    numberOfPlayer
-  )
-  expect(setHandleDataWriteSpy).toHaveBeenCalledTimes(numberOfPlayer)
-  expect(venueActivitySpy).toHaveBeenCalledTimes(numberOfPlayer)
-  expect(venueActivitySpy).toHaveBeenCalledWith(numberOfPlayer)
 })
 
 it('can subscribe to all players', async () => {
