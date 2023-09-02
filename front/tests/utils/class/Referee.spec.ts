@@ -1,6 +1,5 @@
 // @vitest-environment nuxt
 import { expect, it, vi } from 'vitest'
-import Avatar from '~/utils/class/Avatar'
 import PlayerAvatar from '~/utils/class/PlayerAvatar'
 import Referee from '~/utils/class/Referee'
 import SyncDraggable from '~/utils/class/SyncDraggable'
