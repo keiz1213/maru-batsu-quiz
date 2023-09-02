@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { Game } from '~/types/game'
+  import useClipboard from 'vue-clipboard3'
   import LoginVariantIcon from 'vue-material-design-icons/LoginVariant.vue'
   import PencilIcon from 'vue-material-design-icons/Pencil.vue'
 
@@ -28,8 +29,14 @@
     navigateTo(props.gameVenueUrl, { external: true })
   }
 
-  const copyVenueUrl = () => {
-    copyToClipboard(props.gameVenueUrl)
+  const copyVenueUrl = async () => {
+    const { toClipboard } = useClipboard()
+    await toClipboard(props.gameVenueUrl)
+    const tip = document.getElementById('tooltip') as HTMLElement
+    tip.classList.toggle('hidden')
+    setTimeout(() => {
+      tip.classList.toggle('hidden')
+    }, 1000)
   }
 </script>
 
