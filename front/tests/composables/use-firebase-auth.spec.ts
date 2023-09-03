@@ -8,7 +8,7 @@ afterEach(() => {
 const mocks = vi.hoisted(() => {
   class MockedGithubAuthProvider {
     constructor() {}
-  
+
     static credentialFromResult() {
       return 'mockedCredential'
     }

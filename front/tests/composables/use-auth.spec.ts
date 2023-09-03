@@ -175,7 +175,10 @@ describe('logout', () => {
     expect(mocks.clearGamesStore).toHaveBeenCalledOnce()
     expect(mocks.clearLoading).toHaveBeenCalledOnce()
     expect(mocks.navigateTo).toHaveBeenCalledWith('/')
-    expect(mocks.setToast).toHaveBeenCalledWith('ログアウトしました！', 'success')
+    expect(mocks.setToast).toHaveBeenCalledWith(
+      'ログアウトしました！',
+      'success'
+    )
   })
 
   it('if Firebase Logout fails, user should not be able to logout', async () => {
@@ -189,7 +192,10 @@ describe('logout', () => {
     expect(mocks.clearGamesStore).not.toHaveBeenCalledOnce()
     expect(mocks.clearLoading).toHaveBeenCalledOnce()
     expect(mocks.navigateTo).not.toHaveBeenCalledOnce()
-    expect(mocks.notifyOnSpot).toHaveBeenCalledWith('ログアウトに失敗しました', 'error')
+    expect(mocks.notifyOnSpot).toHaveBeenCalledWith(
+      'ログアウトに失敗しました',
+      'error'
+    )
   })
 })
 
@@ -223,7 +229,10 @@ describe('withdrawal', () => {
     expect(mocks.clearLoading).toHaveBeenCalledOnce()
     expect(mocks.navigateTo).not.toHaveBeenCalledWith('/withdrawal')
     expect(mocks.postUser).toHaveBeenCalledOnce()
-    expect(mocks.notifyOnSpot).toHaveBeenCalledWith('退会に失敗しました', 'error')
+    expect(mocks.notifyOnSpot).toHaveBeenCalledWith(
+      '退会に失敗しました',
+      'error'
+    )
   })
 
   it('if Delete User fails, user should not be able to withdrawal', async () => {
@@ -238,6 +247,9 @@ describe('withdrawal', () => {
     expect(mocks.clearCurrentUserStore).not.toHaveBeenCalledOnce()
     expect(mocks.clearGamesStore).not.toHaveBeenCalledOnce()
     expect(mocks.clearLoading).toHaveBeenCalledOnce()
-    expect(mocks.notifyOnSpot).toHaveBeenCalledWith('退会に失敗しました', 'error')
+    expect(mocks.notifyOnSpot).toHaveBeenCalledWith(
+      '退会に失敗しました',
+      'error'
+    )
   })
 })

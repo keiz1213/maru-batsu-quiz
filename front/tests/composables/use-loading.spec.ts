@@ -29,6 +29,3 @@ describe('clearLoading', () => {
     expect(loading.value).toBeFalsy()
   })
 })
-
-
-

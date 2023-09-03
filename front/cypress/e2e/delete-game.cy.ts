@@ -26,7 +26,7 @@ describe('delete a game', () => {
     cy.wait('@deleteRequest')
     cy.get('@deleteRequest').should('have.a.property', 'request')
     cy.contains('ゲームを削除しました!')
-    cy.url().should('include', '/')
+    cy.url().should('include', '/home')
     cy.logout()
   })
 })
