@@ -1,6 +1,6 @@
 import { User } from '~/types/user'
 import { AvatarParams } from '~/types/avatarParams'
-import { ChatMessage } from '~/types/ChatMessage'
+import { ChatMessage } from '~/types/chatMessage'
 import { Quiz } from '~/types/quiz'
 import { RemoteDataStream } from '@skyway-sdk/room'
 import Avatar from '~/utils/class/Avatar'

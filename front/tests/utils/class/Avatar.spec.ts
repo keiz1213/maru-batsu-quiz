@@ -84,41 +84,50 @@ const avatar = new Avatar(
   venueActivity
 )
 
-it('can create your own mock avatar', () => {
-  const mockAvatar = avatar.createMockAvatar()
-  const expectedMockAvatar = {
-    avatarId: avatar.avatarId,
-    avatarName: avatar.avatarName,
-    avatarImage: avatar.avatarImage,
-    avatarIndex: avatar.avatarIndex,
-    skywayChannel: null,
-    skywayDataStream: null,
-    venueActivity: null
-  }
-  expect(mockAvatar).toEqual(expectedMockAvatar)
+describe('createMockAvatar', () => {
+  it('can create your own mock avatar', () => {
+    const mockAvatar = avatar.createMockAvatar()
+    const expectedMockAvatar = {
+      avatarId: avatar.avatarId,
+      avatarName: avatar.avatarName,
+      avatarImage: avatar.avatarImage,
+      avatarIndex: avatar.avatarIndex,
+      skywayChannel: null,
+      skywayDataStream: null,
+      venueActivity: null
+    }
+    expect(mockAvatar).toEqual(expectedMockAvatar)
+  })
 })
-
-it("can set a handler for when the channel's metadata is updated.", () => {
-  avatar.setHandleChannelMetadataUpdated()
-  expect(channelMock.onMetadataUpdated.add).toHaveBeenCalledOnce()
+describe('setHandleChannelMetadataUpdated', () => {
+  it("can set a handler for when the channel's metadata is updated.", () => {
+    avatar.setHandleChannelMetadataUpdated()
+    expect(channelMock.onMetadataUpdated.add).toHaveBeenCalledOnce()
+  })
 })
-
-it('can leave channel', () => {
-  const localStorageSpy = vi.spyOn(window.localStorage, 'clear')
-  avatar.leaveChannel()
-  expect(skywayChannelMockMethod.updateChannelMetadata).toHaveBeenCalledWith('error')
-  expect(localStorageSpy).toHaveBeenCalledOnce()
-  expect(agentMock.leave).toHaveBeenCalledOnce()
+describe('leaveChannel', () => {
+  it('can leave channel', () => {
+    const localStorageSpy = vi.spyOn(window.localStorage, 'clear')
+    avatar.leaveChannel()
+    expect(skywayChannelMockMethod.updateChannelMetadata).toHaveBeenCalledWith(
+      'error'
+    )
+    expect(localStorageSpy).toHaveBeenCalledOnce()
+    expect(agentMock.leave).toHaveBeenCalledOnce()
+  })
 })
-
-it('can send chat message', () => {
-  const venueActivitySpy = vi.spyOn(venueActivity, 'reflectChatMessage')
-  avatar.sendChatMessage('Hello!')
-  const chatMessage = {
-    avatarId: avatar.avatarId,
-    avatarImage: avatar.avatarImage,
-    content: 'Hello!'
-  }
-  expect(venueActivitySpy).toHaveBeenCalledWith(chatMessage)
-  expect(dataStreamMockMethod.writeChatMessage).toHaveBeenCalledWith(chatMessage)
+describe('sendChatMessage', () => {
+  it('can send chat message', () => {
+    const venueActivitySpy = vi.spyOn(venueActivity, 'reflectChatMessage')
+    avatar.sendChatMessage('Hello!')
+    const chatMessage = {
+      avatarId: avatar.avatarId,
+      avatarImage: avatar.avatarImage,
+      content: 'Hello!'
+    }
+    expect(venueActivitySpy).toHaveBeenCalledWith(chatMessage)
+    expect(dataStreamMockMethod.writeChatMessage).toHaveBeenCalledWith(
+      chatMessage
+    )
+  })
 })
