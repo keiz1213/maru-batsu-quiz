@@ -56,10 +56,10 @@ class VenueActivity {
 
   setAvatar = (avatar: OwnerAvatar | PlayerAvatar) => {
     if (!document.getElementById(avatar.avatarId)) {
-      if (avatar instanceof OwnerAvatar) {
-        this.addOwner(avatar)
+      if (avatar.avatarIndex === null) {
+        this.addOwner(avatar as OwnerAvatar)
       } else {
-        this.addPlayer(avatar)
+        this.addPlayer(avatar as PlayerAvatar)
       }
     }
   }

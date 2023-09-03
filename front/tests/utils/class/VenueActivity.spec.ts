@@ -267,6 +267,7 @@ describe('setAvatar', () => {
   describe('when avatar of player', () => {
     it('can set avatar of player', () => {
       const addPlayerSpy = vi.spyOn(venueActivity, 'addPlayer')
+      playerAvatar1.setMyIndex(0)
       venueActivity.setAvatar(playerAvatar1)
       expect(addPlayerSpy).toHaveBeenCalledWith(playerAvatar1)
     })
