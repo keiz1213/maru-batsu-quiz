@@ -1,7 +1,7 @@
 <script setup lang="ts">
   definePageMeta({
     layout: false,
-    middleware: ['auth', 'venue-status']
+    middleware: ['auth', 'entry-check']
   })
 </script>
 
