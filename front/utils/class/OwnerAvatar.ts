@@ -109,7 +109,6 @@ class OwnerAvatar extends Avatar {
         )
         await this.setHandleDataWrite(dataStream)
         this.venueActivity!.calculateProgress(numberOfParticipant - 1)
-        console.log(`[:subscribeToAllPlayers] ${i}人目をサブスク完了`)
       }
     } catch {
       throw new Error()
@@ -121,9 +120,6 @@ class OwnerAvatar extends Avatar {
     const maxIteration = 10
     while (iteration < maxIteration) {
       if (this.skywayChannel!.agent!.metadata === playerIndex) {
-        console.log(
-          `[:checkPlayerSubscribedToOwner] index:${playerIndex}のplayerがownerをサブスクしたか確認中・・`
-        )
         break
       }
       await this.delay(1000)
@@ -145,14 +141,8 @@ class OwnerAvatar extends Avatar {
           playerPublication,
           playerIndex
         )
-        console.log(
-          `[:promptOwnerSubscriptionToPlayers] ${i}人目にownerをサブスクするように促します`
-        )
         await this.checkPlayerSubscribedToOwner(playerIndex)
         this.venueActivity!.calculateProgress(numberOfParticipant - 1)
-        console.log(
-          `[:promptSubscribeToOwnerForAllPlayers] ${i}人目がownerをサブスクサブスク完了しました`
-        )
       }
     } catch {
       throw new Error()
@@ -162,19 +152,12 @@ class OwnerAvatar extends Avatar {
   promptPlayersForMutualSubscriptions = (index: number) => {
     const channel = this.skywayChannel!.channel!
     const numberOfParticipant = channel.publications.length
-    // 例) 参加者5 - 1(owner) -1(0start) = 3(maxIndex)
     const maxIndex = numberOfParticipant - 2
     if (index > maxIndex) {
-      console.log(
-        `[:promptPlayersForMutualSubscriptions] 全player同士のサブスクを完了しました`
-      )
       this.venueActivity!.startGame(this)
       this.skywayDataStream!.promptStartGame()
       this.venueActivity!.clearConnectionLoading()
     } else {
-      console.log(
-        `[:promptPlayersForMutualSubscriptions] index:${index} のplayerに対して他の全playerをサブスクするように促します`
-      )
       this.venueActivity!.calculateProgress(numberOfParticipant - 1)
       this.skywayDataStream!.promptSubscribeToAllPlayers(index)
     }
@@ -183,20 +166,11 @@ class OwnerAvatar extends Avatar {
   startConnection = async (players: Avatar[]) => {
     try {
       this.venueActivity!.setConnectionLoading()
-      console.log(`[:startConnection] 接続開始`)
       await this.skywayChannel!.updateChannelMetadata('')
-      console.log(`[:startConnection] channelのmetadataをクリア`)
       await this.subscribeToAllPlayers()
-      console.log(`[:startConnection] ownerが全playerサブスク完了`)
       await this.promptOwnerSubscriptionToPlayers()
-      console.log(`[:startConnection] 全playerがownerをサブスク完了`)
       this.skywayDataStream!.writeAvatar(this)
-      console.log(`[:startConnection] 全playerに対してownerのavatarを送信完了`)
       this.skywayDataStream!.writeAllPlayerAvatars(players)
-      console.log(
-        `[:startConnection] 全playerに対して全playerのavatarを送信完了`
-      )
-      console.log(`[:startConnection] player同士のサブスクを開始します`)
       this.promptPlayersForMutualSubscriptions(0)
     } catch {
       this.skywayChannel!.updateChannelMetadata('error')

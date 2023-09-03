@@ -36,7 +36,7 @@
   <TheContainer>
     <GameItemTemplate
       :game="game"
-      :gameVenueUrl="gameVenueUrl"
+      :game-venue-url="gameVenueUrl"
       @destroy-game="destroyGame"
     />
   </TheContainer>
