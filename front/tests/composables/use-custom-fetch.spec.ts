@@ -10,12 +10,7 @@ const mocks = vi.hoisted(() => {
     useFetch: vi.fn(),
     useFirebaseAuth: vi.fn(() => {
       return {
-        user: {},
-        isLoggedIn: vi.fn(),
-        firebaseLogin: vi.fn(),
-        firebaseLogout: vi.fn(),
-        checkAuthState: vi.fn(),
-        firebaseWithdrawal: vi.fn()
+        user: {}
       }
     })
   }
@@ -42,12 +37,7 @@ describe('authenticatedUser', () => {
         value: {
           getIdToken: () => 'testUserIdToken'
         }
-      },
-      isLoggedIn: vi.fn(),
-      firebaseLogin: vi.fn(),
-      firebaseLogout: vi.fn(),
-      checkAuthState: vi.fn(),
-      firebaseWithdrawal: vi.fn()
+      }
     })
 
     await useCustomFetch('/api/v1/users', {
@@ -76,12 +66,7 @@ describe('unauthenticatedUser', () => {
     mocks.useFirebaseAuth.mockReturnValueOnce({
       user: {
         value: null
-      },
-      isLoggedIn: vi.fn(),
-      firebaseLogin: vi.fn(),
-      firebaseLogout: vi.fn(),
-      checkAuthState: vi.fn(),
-      firebaseWithdrawal: vi.fn()
+      }
     })
 
     await useCustomFetch('/api/v1/users', {
