@@ -12,12 +12,7 @@ const mocks = vi.hoisted(() => {
   return {
     useFirebaseAuth: vi.fn(() => {
       return {
-        user: vi.fn(),
-        isLoggedIn: {},
-        firebaseLogin: vi.fn(),
-        firebaseLogout: vi.fn(),
-        checkAuthState: vi.fn(),
-        firebaseWithdrawal: vi.fn()
+        isLoggedIn: {}
       }
     }),
     getCurrentUserGames: vi.fn()
@@ -92,48 +87,51 @@ it('default games is empty', () => {
   expect(games.value).toHaveLength(0)
 })
 
-it('can get a game from game store', () => {
-  const { games, setGamesStore, getGameStore } = useGame()
-  expect(games.value).toHaveLength(0)
-  setGamesStore(gamesOfUser)
-  expect(games.value).toHaveLength(2)
-  const gameId = gamesOfUser[0].id as number
-  const game = getGameStore(gameId) as Game
-  expect(game.id).toBe(1)
+describe('setGamesStore', () => {
+  it('can set games', () => {
+    const { games, setGamesStore } = useGame()
+    expect(games.value).toHaveLength(0)
+    setGamesStore(gamesOfUser)
+    expect(games.value).toHaveLength(2)
+  })
 })
 
-it('can set games', () => {
-  const { games, setGamesStore, getGameStore } = useGame()
-  expect(games.value).toHaveLength(0)
-  setGamesStore(gamesOfUser)
-  expect(games.value).toHaveLength(2)
+describe('clearGamesStore', () => {
+  it('can clear games', () => {
+    const { games, setGamesStore, clearGamesStore } = useGame()
+    expect(games.value).toHaveLength(0)
+    setGamesStore(gamesOfUser)
+    expect(games.value).toHaveLength(2)
+    clearGamesStore()
+    expect(games.value).toHaveLength(0)
+  })
 })
 
-it('can clear games', () => {
-  const { games, setGamesStore, clearGamesStore } = useGame()
-  expect(games.value).toHaveLength(0)
-  setGamesStore(gamesOfUser)
-  expect(games.value).toHaveLength(2)
-  clearGamesStore()
-  expect(games.value).toHaveLength(0)
+describe('getGameStore', () => {
+  it('can get a game from game store', () => {
+    const { games, setGamesStore, getGameStore } = useGame()
+    expect(games.value).toHaveLength(0)
+    setGamesStore(gamesOfUser)
+    expect(games.value).toHaveLength(2)
+    const gameId = gamesOfUser[0].id as number
+    const game = getGameStore(gameId) as Game
+    expect(game.id).toBe(1)
+  })
 })
 
-it('can reset games', () => {
-  const { resetGamesStore } = useGame()
-  resetGamesStore()
-  expect(mocks.getCurrentUserGames).toHaveBeenCalledOnce()
+describe('resetGamesStore', () => {
+  it('can reset games', () => {
+    const { resetGamesStore } = useGame()
+    resetGamesStore()
+    expect(mocks.getCurrentUserGames).toHaveBeenCalledOnce()
+  })
 })
 
 describe('checkGamesStore', () => {
   describe('when loggedIn', () => {
     it('if games is empty, it can be reset.', () => {
       mocks.useFirebaseAuth.mockReturnValueOnce({
-        user: vi.fn(),
-        isLoggedIn: { value: true },
-        firebaseLogin: vi.fn(),
-        firebaseLogout: vi.fn(),
-        checkAuthState: vi.fn(),
-        firebaseWithdrawal: vi.fn()
+        isLoggedIn: { value: true }
       })
 
       const { games, checkGamesStore } = useGame()
@@ -145,12 +143,7 @@ describe('checkGamesStore', () => {
   describe('when not loggedIn', () => {
     it('can not reset games', () => {
       mocks.useFirebaseAuth.mockReturnValueOnce({
-        user: vi.fn(),
-        isLoggedIn: { value: false },
-        firebaseLogin: vi.fn(),
-        firebaseLogout: vi.fn(),
-        checkAuthState: vi.fn(),
-        firebaseWithdrawal: vi.fn()
+        isLoggedIn: { value: false }
       })
       const { games, checkGamesStore } = useGame()
       expect(games.value).toHaveLength(0)
