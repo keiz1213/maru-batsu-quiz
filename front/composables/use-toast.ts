@@ -39,7 +39,6 @@ export const useToast = () => {
   }
 
   const notifyOnSpot = (message: string, type: string) => {
-    setToast(message, type)
     notify(message, type)
     clearToast()
   }
