@@ -12,28 +12,32 @@ it("default redirectPath is ''", () => {
   expect(redirectPath.value).toEqual(defaultRedirectPath)
 })
 
-it('can set redirectPath', () => {
-  const defaultRedirectPath = ''
-  const { redirectPath, setRedirectPath } = useFriendlyForwarding()
-  expect(redirectPath.value).toEqual(defaultRedirectPath)
-  setRedirectPath('/home')
-  expect(redirectPath.value).toEqual('/home')
+describe('setRedirectPath', () => {
+  it('can set redirectPath', () => {
+    const defaultRedirectPath = ''
+    const { redirectPath, setRedirectPath } = useFriendlyForwarding()
+    expect(redirectPath.value).toEqual(defaultRedirectPath)
+    setRedirectPath('/home')
+    expect(redirectPath.value).toEqual('/home')
+  })
 })
-
-it('can clear redirectPath', () => {
-  const defaultRedirectPath = ''
-  const { redirectPath, setRedirectPath, clearRedirectPath } =
-    useFriendlyForwarding()
-  expect(redirectPath.value).toEqual(defaultRedirectPath)
-  setRedirectPath('/home')
-  expect(redirectPath.value).toEqual('/home')
-  clearRedirectPath()
-  expect(redirectPath.value).toEqual(defaultRedirectPath)
+describe('clearRedirectPath', () => {
+  it('can clear redirectPath', () => {
+    const defaultRedirectPath = ''
+    const { redirectPath, setRedirectPath, clearRedirectPath } =
+      useFriendlyForwarding()
+    expect(redirectPath.value).toEqual(defaultRedirectPath)
+    setRedirectPath('/home')
+    expect(redirectPath.value).toEqual('/home')
+    clearRedirectPath()
+    expect(redirectPath.value).toEqual(defaultRedirectPath)
+  })
 })
-
-it('can be confirmed whether a redirect should occur', () => {
-  const { setRedirectPath, isForwarding } = useFriendlyForwarding()
-  expect(isForwarding()).toBeFalsy()
-  setRedirectPath('/home')
-  expect(isForwarding()).toBeTruthy()
+describe('isForwarding', () => {
+  it('can be confirmed whether a redirect should occur', () => {
+    const { setRedirectPath, isForwarding } = useFriendlyForwarding()
+    expect(isForwarding()).toBeFalsy()
+    setRedirectPath('/home')
+    expect(isForwarding()).toBeTruthy()
+  })
 })
