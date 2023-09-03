@@ -32,7 +32,7 @@
   <StandByGameModal
     v-model="standByGame"
     :game="game"
-    :participantMetaData="participantMetaData"
+    :participant-meta-data="participantMetaData"
     :players="players"
     :background="'interactive'"
     @start-connection="
@@ -53,23 +53,23 @@
       id="main-container"
       class="bg-gradient-to-r from-violet-500 to-fuchsia-500 min-w-full w-[1350px]"
     >
-      <MacHeader :title="game.title" :numberOfWinner="numberOfWinner" />
-      <div id="ownner-container" class="flex justify-center my-12">
+      <MacHeader :title="game.title" :number-of-winner="numberOfWinner" />
+      <div id="top-container" class="flex justify-center my-12">
         <div id="board-container">
           <div id="board-area">
             <QuizBoard
-              :announceText="announceText"
+              :announce-text="announceText"
               :elapsed="timeElapsed"
               :limit="timeLimit"
             />
           </div>
         </div>
-        <div id="questioner-container">
-          <div id="questioner-area">
+        <div id="owner-container">
+          <div id="owner-area">
             <OwnerArea
               :owner="(owner as OwnerAvatar)"
               :game="game"
-              :currentQuizNumber="currentQuizNumber"
+              :current-quiz-number="currentQuizNumber"
               @announce="
                 avatar instanceof OwnerAvatar
                   ? avatar.announce(
@@ -96,8 +96,8 @@
         <div v-if="chatVisible" id="chat-container">
           <div id="chat-area">
             <Chat
-              :myAvatarId="avatar.avatarId"
-              :chatMessages="chatMessages"
+              :my-avatar-id="avatar.avatarId"
+              :chat-messages="chatMessages"
               @send-message="avatar.sendChatMessage"
             />
           </div>

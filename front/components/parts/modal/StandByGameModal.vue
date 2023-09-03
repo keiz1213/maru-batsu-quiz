@@ -124,7 +124,7 @@
         <div class="w-2/3 mx-auto my-5 text-center">
           <PrimaryButton
             :button-type="'button'"
-            :isLoading="connectionLoading"
+            :is-loading="connectionLoading"
             @click="handleClick"
             ><div class="flex">
               <human-greeting-proximity-icon />

@@ -33,7 +33,7 @@
       今まで作成した○×クイズが全て消去されますがよろしいでしょうか？
     </h2>
     <DangerButton
-      :isLoading="loading"
+      :is-loading="loading"
       @click="withdrawal(currentUser.id)"
       class="block mx-auto my-36"
     >

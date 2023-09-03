@@ -70,12 +70,12 @@
       </div>
       <div class="my-6">
         <GameNumberOfWinnerForm
-          :numberOfWinner="game.number_of_winner"
+          :number-of-winner="game.number_of_winner"
           @update-number-of-winner="updateNumberOfWinner"
         />
       </div>
       <div class="flex justify-center">
-        <PrimaryButton :buttonType="'submit'" :isLoading="loading">
+        <PrimaryButton :button-type="'submit'" :is-loading="loading">
           <div class="flex justify-center">
             <update-icon /><span class="ml-1"
               >ゲームを{{ game.id === null ? '作成' : '更新' }}する</span

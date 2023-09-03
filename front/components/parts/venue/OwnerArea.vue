@@ -34,7 +34,7 @@
             <PrimaryButton
               id="question-button"
               @click="emit('announce')"
-              :isLoading="quizLoading"
+              :is-loading="quizLoading"
               ><div class="flex">
                 <chat-question-outline-icon />
                 <span class="ml-1"

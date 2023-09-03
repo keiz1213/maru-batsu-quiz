@@ -18,7 +18,7 @@
       ○×クイズを楽しもう
     </h1>
     <div class="text-center">
-      <GithubButton @click="emits('login')" :isLoading="isLoading" />
+      <GithubButton @click="emits('login')" :is-loading="isLoading" />
     </div>
   </div>
 </template>

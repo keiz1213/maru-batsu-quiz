@@ -63,10 +63,10 @@
     <QuizTable :quizzes="game.quizzes" />
   </div>
   <div class="my-6">
-    <GameNumberOfWinner :numberOfWinner="game.number_of_winner" />
+    <GameNumberOfWinner :number-of-winner="game.number_of_winner" />
   </div>
   <div class="my-6">
-    <GameVenueUrl :venueUrl="gameVenueUrl" @copy-to-clipboard="copyVenueUrl" />
+    <GameVenueUrl :venue-url="gameVenueUrl" @copy-to-clipboard="copyVenueUrl" />
   </div>
   <div>
     <div class="mt-16 md:flex md:justify-evenly">
@@ -79,7 +79,7 @@
       </div>
       <div class="mt-2">
         <NuxtLink :to="`/games/${game.id}/edit`">
-          <SecondaryButton :buttonType="'button'"
+          <SecondaryButton :button-type="'button'"
             ><div class="flex justify-center">
               <pencil-icon /><span class="ml-2">編集する</span>
             </div></SecondaryButton

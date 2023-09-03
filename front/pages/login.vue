@@ -29,7 +29,7 @@
   <h2 class="text-4xl text-center mt-56">ログインしてください</h2>
   <GithubButton
     @click="login"
-    :isLoading="loading"
+    :is-loading="loading"
     class="block mx-auto my-36"
   />
 </template>

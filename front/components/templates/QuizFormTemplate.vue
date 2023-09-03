@@ -33,7 +33,7 @@
     <QuizForm
       :quiz="quiz"
       :index="index"
-      :quizzesLength="quizzes.length"
+      :quizzes-length="quizzes.length"
       @update-question="updateQuestion"
       @update-correct-answer="updateCorrectAnswer"
       @update-explanation="updateExplanation"
