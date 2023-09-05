@@ -1,4 +1,4 @@
-class Api::V1::GamesController < ApplicationController
+class API::V1::GamesController < ApplicationController
   before_action :correct_user, only: %i[update destroy]
 
   def show

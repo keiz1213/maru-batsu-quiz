@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::CurrentUser::Games' do
+RSpec.describe 'API::V1::CurrentUser::Games' do
   let(:user) { create(:user) }
   let!(:games) { create_list(:game, 5, :with_quizzes, user:) }
 
