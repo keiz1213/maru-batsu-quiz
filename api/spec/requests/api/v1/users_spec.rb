@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::Users' do
+RSpec.describe 'API::V1::Users' do
   describe 'POST /api/v1/users' do
     let(:new_user) { build(:user) }
 

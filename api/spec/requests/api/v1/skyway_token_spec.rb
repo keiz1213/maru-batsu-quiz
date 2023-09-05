@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::SkywayTokens' do
+RSpec.describe 'API::V1::SkywayTokens' do
   describe 'GET /api/v1/skyway_token' do
     let(:user) { create(:user) }
 

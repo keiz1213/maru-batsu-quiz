@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::Games' do
+RSpec.describe 'API::V1::Games' do
   RSpec::Matchers.define_negated_matcher :not_change, :change
   let(:user) { create(:user) }
   let(:another_user) { create(:user) }
