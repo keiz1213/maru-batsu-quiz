@@ -8,7 +8,7 @@
           動作環境
         </h2>
       </div>
-      <div class="px-72">
+      <div class="md:px-72">
         <div class="max-w-full mx-3 mb-5 rounded-2xl p-7">
           <h3 class="text-2xl mb-5">PCでのみプレイできます</h3>
           <div class="flex gap-14">

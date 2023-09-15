@@ -8,54 +8,51 @@
           こんな時に
         </h2>
       </div>
-      <div class="md:flex gap-6">
-      <!-- <div> -->
-        <div class="max-w-full mb-5 rounded-2xl md:w-1/3">
-          <h3 class="text-2xl text-center text-purple-500 mb-5 font-bold">
+      <!-- <div class="md:flex gap-6"> -->
+      <div class="md:px-40">
+        <div class="sm:w-[570px]">
+          <h3 class="text-2xl mb-5 font-bold relative before:hidden sm:before:block before:content-[''] before:w-14 before:h-14 before:bg-green-300 before:rounded-full before:mx-auto before:mt-2 before:absolute before:-top-5 before:-left-4 before:-z-10">
             オンラインイベントの余興
           </h3>
           <div class="flex gap-4">
             <img
-              class="block mx-auto"
               src="../../assets/images/online-event.png"
-              width="150px"
+              width="250px"
               alt="free-icon"
             />
-            <span
+            <span class="mt-10"
               >オンラインでの勉強会やミートアップなど、イベントの余興として最適です。新規参加者もゲームに参加しやすく、和気あいあいと楽しめます。
             </span>
           </div>
         </div>
-        <!-- <div class="flex justify-end"> -->
-          <div class="max-w-full mb-5 rounded-2xl md:w-1/3">
-            <h3 class="text-2xl text-center text-purple-500 mb-5 font-bold">
+        <div class="flex justify-end ">
+          <div class="sm:w-[570px]">
+            <h3 class="text-2xl mb-5 font-bold relative before:hidden sm:before:block before:content-[''] before:w-14 before:h-14 before:bg-green-300 before:rounded-full before:mx-auto before:mt-2 before:absolute before:-top-5 before:-left-4 before:-z-10">
               新入社員歓迎会
             </h3>
             <div class="flex gap-4">
               <img
-                class="block mx-auto mt-3"
                 src="../../assets/images/new-member.png"
-                width="150px"
+                width="250px"
                 alt="network-icon"
               />
-              <span
+              <span class="mt-10"
                 >新入社員歓迎会などにもご利用いただけます。その会社にまつわるクイズや、一般常識を問うクイズなどを作成すると盛り上がるかもしれません。</span
               >
             </div>
           </div>
-        <!-- </div> -->
-        <div class="max-w-full mb-5 rounded-2xl md:w-1/3">
-          <h3 class="text-2xl text-center text-purple-500 mb-5 font-bold">
+        </div>
+        <div class="sm:w-[570px]">
+          <h3 class="text-2xl mb-5 font-bold relative before:hidden sm:before:block before:content-[''] before:w-14 before:h-14 before:bg-green-300 before:rounded-full before:mx-auto before:mt-2 before:absolute before:-top-5 before:-left-4 before:-z-10">
             オンライン飲み会
           </h3>
           <div class="flex gap-4">
             <img
-              class="block mx-auto mt-1"
               src="../../assets/images/friend.png"
-              width="130px"
+              width="250px"
               alt="network-icon"
             />
-            <span
+            <span class="mt-10"
               >仲間と話しながらお酒を飲むだけでも楽しいですが、マルバツクイズで遊ぶと更に楽しくなります。ルールも簡単で誰でもわかるので気軽に遊べます。</span
             >
           </div>

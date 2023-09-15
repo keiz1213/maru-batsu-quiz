@@ -17,7 +17,7 @@
           <img
             class="block mx-auto mt-9"
             src="../../assets/images/free.svg"
-            width="140px"
+            width="120px"
             alt="free-icon"
           />
         </div>
@@ -32,7 +32,7 @@
           <img
             class="block mx-auto mt-5"
             src="../../assets/images/network.svg"
-            width="140px"
+            width="120px"
             alt="network-icon"
           />
         </div>
@@ -46,7 +46,7 @@
           <img
             class="block mx-auto mt-5"
             src="../../assets/images/beginner.svg"
-            width="140px"
+            width="120px"
             alt="beginner-icon"
           />
         </div>
