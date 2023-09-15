@@ -13,8 +13,8 @@
     <h1
       class="text-3xl font-bold my-3 text-gradient text-left leading-normal mt-24 mb-14 ml-7 md:text-5xl md:leading-normal"
     >
-      仲間を誘って<br />
-      オンラインで<br />
+      エンジニアの<br />
+      オンラインイベントで<br />
       ○×クイズを楽しもう
     </h1>
     <div class="text-center">
