@@ -1,13 +1,5 @@
 <template>
   <div id="questioner">
-    <div class="mt-10">
-      <!-- <h2 class="text-2xl">
-        <div class="flex">
-          <chat-question-outline-icon :size="31" />
-          <span class="ml-3">出題者として</span>
-        </div>
-      </h2> -->
-    </div>
     <div class="my-12">
       <HowToPlay
         :title="'1. ゲームを作成する'"

@@ -1,13 +1,5 @@
 <template>
   <div id="answerer">
-    <!-- <div>
-      <h2 class="text-2xl">
-        <div class="flex">
-          <chat-alert-outline-icon :size="31" />
-          <span class="ml-3">回答者として</span>
-        </div>
-      </h2>
-    </div> -->
     <div class="my-12">
       <HowToPlay
         :title="'1. シェアされたURLにアクセスする'"
