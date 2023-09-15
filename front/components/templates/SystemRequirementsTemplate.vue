@@ -15,7 +15,7 @@
             <img
             class="block mt-3"
             src="../../assets/images/pc.svg"
-            width="120px"
+            width="100px"
             alt="pc-icon"
             />
             <span
@@ -29,7 +29,7 @@
             <img
             class="block mt-5"
             src="../../assets/images/chrome.svg"
-            width="120px"
+            width="100px"
             alt="chrome-icon"
             />
             <span
@@ -44,7 +44,7 @@
             <img
             class="block mt-5"
             src="../../assets/images/team.svg"
-            width="120px"
+            width="100px"
             alt="team-icon"
             />
             <span>一度にゲームに参加できる人数は10人前後を推奨しています。</span>
