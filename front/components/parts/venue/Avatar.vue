@@ -23,9 +23,6 @@
     data-state=""
     :id="avatar.avatarId"
   >
-    <p :id="`avatar-name-${avatar.avatarId}`" class="text-center line-clamp-1">
-      {{ avatar.avatarName }}
-    </p>
     <div
       :class="[
         'w-16',
@@ -33,17 +30,20 @@
         'ring',
         'ring-offset-base-100',
         'ring-offset-2',
-        'm-5',
-        'mt-1',
-        { 'ring-primary': !isMyAvatar(avatar) },
-        { 'ring-success': isMyAvatar(avatar) }
+        'mx-auto',
+        { 'ring-neutral-content': !isMyAvatar(avatar) },
+        { 'ring-primary': isMyAvatar(avatar) }
       ]"
     >
       <img
+        :class="['bg-white', { 'opacity-80': !isMyAvatar(avatar) }]"
         :id="`avatar-img-${avatar.avatarId}`"
         :src="avatar.avatarImage"
         alt="avatar"
       />
     </div>
+    <p :id="`avatar-name-${avatar.avatarId}`" class="text-center line-clamp-1">
+      {{ avatar.avatarName }}
+    </p>
   </div>
 </template>

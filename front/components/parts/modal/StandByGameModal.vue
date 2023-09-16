@@ -36,7 +36,7 @@
         <Mascot :animateClass="'animate__rubberBand'" />
       </div>
       <div v-if="isOwner(game)" class="my-5 mx-auto w-2/3">
-        <h2 class="text-center text-xl my-2">
+        <h2 class="text-xl my-2">
           <div class="flex">
             <information-outline-icon :size="28" />
             <span class="ml-2">
@@ -44,7 +44,7 @@
             </span>
           </div>
         </h2>
-        <h2 class="text-center text-xl my-2">
+        <h2 class="text-xl my-2">
           <div class="flex">
             <information-outline-icon :size="28" />
             <span class="ml-2">
@@ -52,7 +52,7 @@
             </span>
           </div>
         </h2>
-        <h2 class="text-center text-xl">
+        <h2 class="text-xl">
           <div class="flex">
             <information-outline-icon :size="28" />
             <span class="ml-2">
@@ -65,6 +65,12 @@
         <h1 class="text-center text-xl">
           接続確認中です。そのままお待ち下さい・・・
         </h1>
+        <div class="text-center">
+          <span
+            id="loading"
+            class="loading loading-bars loading-lg mt-4 text-primary"
+          ></span>
+        </div>
       </div>
       <div class="w-2/3 mx-auto my-5 p-5 bg-slate-100 rounded-2xl">
         <ul>
@@ -142,13 +148,6 @@
       <div
         class="w-2/3 min-h-[400px] m-auto my-10 rounded-lg border border-mac-finder-side"
       >
-        <MacBar :title="'Entry'" />
-        <div class="flex justify-center" aria-label="読み込み中">
-          <span
-            id="loading"
-            class="loading loading-bars loading-lg mt-4 text-primary"
-          ></span>
-        </div>
         <div class="grid grid-cols-4 gap-x-3 p-6">
           <Avatar
             class="animate__bounce"

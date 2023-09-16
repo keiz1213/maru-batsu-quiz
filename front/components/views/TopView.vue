@@ -3,10 +3,10 @@
     <div>
       <TopSectionTemplate />
     </div>
-    <div class="bg-purple-100 mt-10 py-16">
+    <div class="bg-purple-300">
       <ProductFeaturesTemplate />
     </div>
-    <div class="pt-16">
+    <div>
       <UsageScenariosTemplate />
     </div>
     <div class="pt-16 mb-10">

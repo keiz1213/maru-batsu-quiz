@@ -22,7 +22,7 @@
 <template>
   <div class="w-[350px] h-[350px] bg-white rounded-lg flex flex-col mx-2">
     <MacBar :title="'Owner'" />
-    <div v-if="owner" class="flex justify-center mt-2">
+    <div v-if="owner" class="flex justify-center my-5">
       <Avatar :avatar="owner" />
     </div>
     <div class="w-[350px] h-full bg-white rounded-lg">

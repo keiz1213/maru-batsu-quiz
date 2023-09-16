@@ -49,16 +49,22 @@
           </div>
         </div>
       </div>
-      <div id="chat-input" class="h-[90px] flex justify-around items-center">
-        <input
-          v-model="message"
-          type="text"
-          class="input input-bordered w-[250px] bg-mac-finder-top"
-          placeholder="Hello World!"
-        />
-        <button id="chat-send-button" @click="send" class="btn btn-primary">
-          送信
-        </button>
+      <div id="chat-input">
+        <div class="flex mt-5">
+          <input
+            v-model="message"
+            type="text"
+            class="input input-bordered w-[250px] h-12 bg-mac-finder-top block mx-4"
+            placeholder="Hello World!"
+          />
+          <button
+            id="chat-send-button"
+            @click="send"
+            class="btn btn-primary h-12 block mr-4"
+          >
+            送信
+          </button>
+        </div>
       </div>
     </div>
   </div>

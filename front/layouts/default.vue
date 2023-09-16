@@ -1,9 +1,7 @@
 <script setup lang="ts">
   useHead({
     titleTemplate: (title) => {
-      return title
-        ? `${title} | マルバツクイズオンライン`
-        : 'マルバツクイズオンライン'
+      return title ? `${title} | ○×クイズオンライン` : '○×クイズオンライン'
     }
   })
 

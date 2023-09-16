@@ -1,57 +1,66 @@
 <template>
-  <div class="max-w-[1400px] mx-auto">
+  <div class="max-w-[1400px] mx-auto px-4">
     <div>
       <div>
-        <h2 class="text-4xl pb-7 text-center">こんな時に</h2>
-      </div>
-      <div class="md:flex">
-        <div
-          class="max-w-full mx-3 mb-5 bg-purple-100 rounded-2xl p-7 md:w-1/3"
+        <h2
+          class="text-3xl mb-14 pt-14 text-center text-purple-700 font-bold after:content-[''] after:block after:w-28 after:h-2 after:bg-green-500 after:rounded-md after:mx-auto after:mt-2"
         >
-          <h3 class="text-3xl text-center mb-5 text-purple-500 font-bold">
+          こんな時に
+        </h2>
+      </div>
+      <div class="md:px-40">
+        <div class="sm:w-[570px]">
+          <h3
+            class="text-2xl mb-5 font-bold relative before:hidden sm:before:block before:content-[''] before:w-14 before:h-14 before:bg-green-300 before:rounded-full before:mx-auto before:mt-2 before:absolute before:-top-5 before:-left-4 before:-z-10"
+          >
             オンラインイベントの余興
           </h3>
-          <span
-            >オンラインでの勉強会やミートアップなど、イベントの余興として最適です。新規参加者もゲームに参加しやすく、和気あいあいと楽しめます。
-          </span>
-          <img
-            class="block mx-auto mt-3"
-            src="../../assets/images/online-event.png"
-            width="300px"
-            alt="free-icon"
-          />
+          <div class="flex gap-4">
+            <img
+              src="../../assets/images/online-event.png"
+              width="250px"
+              alt="free-icon"
+            />
+            <span class="mt-10"
+              >オンラインでの勉強会やミートアップなど、イベントの余興として最適です。新規参加者もゲームに参加しやすく、和気あいあいと楽しめます。
+            </span>
+          </div>
         </div>
-        <div
-          class="max-w-full mx-3 mb-5 bg-purple-100 rounded-2xl p-7 md:w-1/3"
-        >
-          <h3 class="text-3xl text-center mb-5 text-purple-500 font-bold">
-            新入社員歓迎会
-          </h3>
-          <span
-            >新入社員歓迎会などにもご利用いただけます。その会社にまつわるクイズや、一般常識を問うクイズなどを作成すると盛り上がるかもしれません。</span
+        <div class="flex justify-end">
+          <div class="sm:w-[570px]">
+            <h3
+              class="text-2xl mb-5 font-bold relative before:hidden sm:before:block before:content-[''] before:w-14 before:h-14 before:bg-green-300 before:rounded-full before:mx-auto before:mt-2 before:absolute before:-top-5 before:-left-4 before:-z-10"
+            >
+              新入社員歓迎会
+            </h3>
+            <div class="flex gap-4">
+              <img
+                src="../../assets/images/new-member.png"
+                width="250px"
+                alt="network-icon"
+              />
+              <span class="mt-10"
+                >新入社員歓迎会などにもご利用いただけます。その会社にまつわるクイズや、一般常識を問うクイズなどを作成すると盛り上がるかもしれません。</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="sm:w-[570px]">
+          <h3
+            class="text-2xl mb-5 font-bold relative before:hidden sm:before:block before:content-[''] before:w-14 before:h-14 before:bg-green-300 before:rounded-full before:mx-auto before:mt-2 before:absolute before:-top-5 before:-left-4 before:-z-10"
           >
-          <img
-            class="block mx-auto mt-8"
-            src="../../assets/images/new-member.png"
-            width="300px"
-            alt="network-icon"
-          />
-        </div>
-        <div
-          class="max-w-full mx-3 mb-5 bg-purple-100 rounded-2xl p-7 md:w-1/3"
-        >
-          <h3 class="text-3xl text-center mb-5 text-purple-500 font-bold">
             オンライン飲み会
           </h3>
-          <span
-            >仲間と話しながらお酒を飲むだけでも楽しいですが、マルバツクイズで遊ぶと更に楽しくなります。ルールも簡単で誰でもわかるので気軽に遊べます。</span
-          >
-          <img
-            class="block mx-auto mt-5"
-            src="../../assets/images/friend.png"
-            width="300px"
-            alt="network-icon"
-          />
+          <div class="flex gap-4">
+            <img
+              src="../../assets/images/friend.png"
+              width="250px"
+              alt="network-icon"
+            />
+            <span class="mt-10"
+              >仲間と話しながらお酒を飲むだけでも楽しいですが、マルバツクイズで遊ぶと更に楽しくなります。ルールも簡単で誰でもわかるので気軽に遊べます。</span
+            >
+          </div>
         </div>
       </div>
     </div>

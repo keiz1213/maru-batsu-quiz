@@ -21,7 +21,7 @@
       <div class="flex justify-end mt-4">
         <CirculeCrossButton @click="emit('close-question')" />
       </div>
-      <div>
+      <div class="mb-6">
         <QuizTable :quizzes="quizzes" />
       </div>
     </div>

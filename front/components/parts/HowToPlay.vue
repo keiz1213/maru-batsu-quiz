@@ -13,7 +13,7 @@
 <template>
   <div>
     <h3 class="text-xl my-4">{{ title }}</h3>
-    <div class="bg-purple-100 rounded-2xl p-6">
+    <div class="bg-purple-100 rounded-2xl px-4 py-8 sm:px-44 sm:py-16">
       <div>
         <img
           class="block mx-auto"
