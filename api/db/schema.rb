@@ -10,29 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_03_074411) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_16_213831) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "games", force: :cascade do |t|
-    t.integer "user_id", null: false
     t.string "title", null: false
     t.string "description", null: false
     t.integer "number_of_winner", null: false
     t.string "channel_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
     t.index ["channel_name"], name: "index_games_on_channel_name", unique: true
     t.index ["user_id"], name: "index_games_on_user_id"
   end
 
   create_table "quizzes", force: :cascade do |t|
-    t.integer "game_id", null: false
     t.string "question", null: false
     t.string "correct_answer", null: false
     t.string "explanation", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "game_id", null: false
     t.index ["game_id"], name: "index_quizzes_on_game_id"
   end
 
@@ -45,4 +45,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_03_074411) do
     t.index ["uid"], name: "index_users_on_uid", unique: true
   end
 
+  add_foreign_key "games", "users"
+  add_foreign_key "quizzes", "games"
 end
