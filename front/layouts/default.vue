@@ -2,8 +2,8 @@
   useHead({
     titleTemplate: (title) => {
       return title
-        ? `${title} | マルバツクイズオンライン`
-        : 'マルバツクイズオンライン'
+        ? `${title} | ○×クイズオンライン`
+        : '○×クイズオンライン'
     }
   })
 

@@ -5,7 +5,7 @@
 </script>
 
 <template>
-  <header class="bg-white px-3 fixed w-full z-10 border-b h-[70px]">
+  <header class="bg-white pl-6 pr-4 fixed w-full z-10 border-b h-[70px]">
     <div class="flex items-center justify-between">
       <div>
         <NuxtLink :to="'/'">
