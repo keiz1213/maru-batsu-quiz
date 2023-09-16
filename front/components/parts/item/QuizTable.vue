@@ -40,22 +40,22 @@
       <tbody>
         <tr v-for="(quiz, index) in quizzes" :key="index">
           <th
-            class="break-words whitespace-pre-wrap border-b border-gray-200 font-normal py-3 px-3"
+            class="border-b border-gray-200 font-normal py-3 px-3"
           >
             {{ index + 1 }}
           </th>
           <th
-            class="break-words whitespace-pre-wrap border-b border-gray-200 font-normal py-3 px-3"
+            class="border-b text-left border-gray-200 font-normal py-3 px-3"
           >
             {{ quiz.question }}
           </th>
           <th
-            class="break-words whitespace-pre-wrap border-b border-gray-200 font-normal py-3 px-3"
+            class="border-b border-gray-200 font-normal py-3 px-3"
           >
             {{ quiz.correct_answer }}
           </th>
           <th
-            class="break-words whitespace-pre-wrap border-b border-gray-200 font-normal py-3 px-3"
+            class="border-b text-left border-gray-200 font-normal py-3 px-3"
           >
             {{ quiz.explanation }}
           </th>
