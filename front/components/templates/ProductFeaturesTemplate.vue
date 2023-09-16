@@ -2,7 +2,9 @@
   <div class="max-w-[1400px] mx-auto pb-4">
     <div>
       <div>
-        <h2 class="text-5xl mb-14 pt-14 text-center text-purple-700 font-bold after:content-[''] after:block after:w-36 after:h-2 after:bg-green-500 after:rounded-md after:mx-auto after:mt-2">
+        <h2
+          class="text-5xl mb-14 pt-14 text-center text-purple-700 font-bold after:content-[''] after:block after:w-36 after:h-2 after:bg-green-500 after:rounded-md after:mx-auto after:mt-2"
+        >
           FEATURES
         </h2>
       </div>

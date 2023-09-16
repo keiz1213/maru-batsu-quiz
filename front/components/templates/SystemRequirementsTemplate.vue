@@ -13,10 +13,10 @@
           <h3 class="text-2xl mb-5">PCでのみプレイできます</h3>
           <div class="flex gap-14">
             <img
-            class="block mt-3"
-            src="../../assets/images/pc.svg"
-            width="100px"
-            alt="pc-icon"
+              class="block mt-3"
+              src="../../assets/images/pc.svg"
+              width="100px"
+              alt="pc-icon"
             />
             <span
               >PCでのみご利用になれます。ただし、ゲームの作成、更新などのゲームプレイ以外はスマートフォンでも利用できます。
@@ -27,10 +27,10 @@
           <h3 class="text-2xl mb-5">推奨ブラウザ</h3>
           <div class="flex gap-14">
             <img
-            class="block mt-5"
-            src="../../assets/images/chrome.svg"
-            width="100px"
-            alt="chrome-icon"
+              class="block mt-5"
+              src="../../assets/images/chrome.svg"
+              width="100px"
+              alt="chrome-icon"
             />
             <span
               >ブラウザでご利用になれます。推奨のブラウザはgoogle
@@ -42,12 +42,14 @@
           <h3 class="text-2xl mb-5">同時接続人数</h3>
           <div class="flex gap-14">
             <img
-            class="block mt-5"
-            src="../../assets/images/team.svg"
-            width="100px"
-            alt="team-icon"
+              class="block mt-5"
+              src="../../assets/images/team.svg"
+              width="100px"
+              alt="team-icon"
             />
-            <span>一度にゲームに参加できる人数は10人前後を推奨しています。</span>
+            <span
+              >一度にゲームに参加できる人数は10人前後を推奨しています。</span
+            >
           </div>
         </div>
       </div>

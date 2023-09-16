@@ -11,7 +11,9 @@
       <!-- <div class="md:flex gap-6"> -->
       <div class="md:px-40">
         <div class="sm:w-[570px]">
-          <h3 class="text-2xl mb-5 font-bold relative before:hidden sm:before:block before:content-[''] before:w-14 before:h-14 before:bg-green-300 before:rounded-full before:mx-auto before:mt-2 before:absolute before:-top-5 before:-left-4 before:-z-10">
+          <h3
+            class="text-2xl mb-5 font-bold relative before:hidden sm:before:block before:content-[''] before:w-14 before:h-14 before:bg-green-300 before:rounded-full before:mx-auto before:mt-2 before:absolute before:-top-5 before:-left-4 before:-z-10"
+          >
             オンラインイベントの余興
           </h3>
           <div class="flex gap-4">
@@ -25,9 +27,11 @@
             </span>
           </div>
         </div>
-        <div class="flex justify-end ">
+        <div class="flex justify-end">
           <div class="sm:w-[570px]">
-            <h3 class="text-2xl mb-5 font-bold relative before:hidden sm:before:block before:content-[''] before:w-14 before:h-14 before:bg-green-300 before:rounded-full before:mx-auto before:mt-2 before:absolute before:-top-5 before:-left-4 before:-z-10">
+            <h3
+              class="text-2xl mb-5 font-bold relative before:hidden sm:before:block before:content-[''] before:w-14 before:h-14 before:bg-green-300 before:rounded-full before:mx-auto before:mt-2 before:absolute before:-top-5 before:-left-4 before:-z-10"
+            >
               新入社員歓迎会
             </h3>
             <div class="flex gap-4">
@@ -43,7 +47,9 @@
           </div>
         </div>
         <div class="sm:w-[570px]">
-          <h3 class="text-2xl mb-5 font-bold relative before:hidden sm:before:block before:content-[''] before:w-14 before:h-14 before:bg-green-300 before:rounded-full before:mx-auto before:mt-2 before:absolute before:-top-5 before:-left-4 before:-z-10">
+          <h3
+            class="text-2xl mb-5 font-bold relative before:hidden sm:before:block before:content-[''] before:w-14 before:h-14 before:bg-green-300 before:rounded-full before:mx-auto before:mt-2 before:absolute before:-top-5 before:-left-4 before:-z-10"
+          >
             オンライン飲み会
           </h3>
           <div class="flex gap-4">
