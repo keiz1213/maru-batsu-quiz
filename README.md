@@ -42,10 +42,10 @@ $ git clone https://github.com/keiz1213/maru-batsu-quiz.git
 $ cd maru-batsu-quiz/
 ```
 ### 環境変数
+ルートディレクトリで以下のように`.env`に環境変数を設定してください
 ```
 $ touch .env
 ```
-以下のように`.env`に環境変数を設定してください
 ```
 # common
 CONTAINER_PORT=3000
@@ -74,7 +74,7 @@ $ docker-compose up
 ```
 
 ## テスト
-### Cypressでテストを行うために以下のファイルを作成してください
+### Cypressでテストを行うために`front`ディレクトリに以下のファイルを作成してください
 
  cypress.env.json
 ```
@@ -113,6 +113,7 @@ $ docker-compose run --rm npm run test:unit
 ```
 #### E2Eテスト
 ```
+$ docker-compose up
 $ cd front
 $ npm run test:e2e
 ```
