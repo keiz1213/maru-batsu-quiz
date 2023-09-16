@@ -8,7 +8,7 @@ class API::V1::GamesController < ApplicationController
 
   def create
     game = Game.new(game_params)
-    build_quizzes(game)
+    game.build_quizzes(quizzes_params)
 
     if game.save
       render json: game, status: :created
@@ -19,7 +19,7 @@ class API::V1::GamesController < ApplicationController
 
   def update
     @game.quizzes.destroy_all
-    build_quizzes(@game)
+    @game.build_quizzes(quizzes_params)
 
     if @game.update(update_game_params)
       render json: @game, status: :ok
@@ -61,12 +61,6 @@ class API::V1::GamesController < ApplicationController
       :description,
       :number_of_winner
     )
-  end
-
-  def build_quizzes(game)
-    quizzes_params.each do |quiz_params|
-      game.quizzes.build(quiz_params)
-    end
   end
 
   def correct_user
