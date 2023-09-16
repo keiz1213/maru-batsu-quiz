@@ -8,7 +8,6 @@
           こんな時に
         </h2>
       </div>
-      <!-- <div class="md:flex gap-6"> -->
       <div class="md:px-40">
         <div class="sm:w-[570px]">
           <h3
