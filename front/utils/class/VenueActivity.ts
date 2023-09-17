@@ -113,14 +113,14 @@ class VenueActivity {
     closeQuestion()
   }
 
-  setQuizLoading = () => {
-    const { setQuizLoading } = useQuizLoading()
-    setQuizLoading()
+  startQuizLoading = () => {
+    const { startQuizLoading } = useQuizLoading()
+    startQuizLoading()
   }
 
-  clearQuizLoading = () => {
-    const { clearQuizLoading } = useQuizLoading()
-    clearQuizLoading()
+  stopQuizLoading = () => {
+    const { stopQuizLoading } = useQuizLoading()
+    stopQuizLoading()
   }
 
   startConnectionLoading = () => {

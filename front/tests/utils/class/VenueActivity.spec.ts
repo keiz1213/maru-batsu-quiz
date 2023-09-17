@@ -79,8 +79,8 @@ const mocks = vi.hoisted(() => {
     setAllPlayers: vi.fn(),
     openQuestion: vi.fn(),
     closeQuestion: vi.fn(),
-    setQuizLoading: vi.fn(),
-    clearQuizLoading: vi.fn(),
+    startQuizLoading: vi.fn(),
+    stopQuizLoading: vi.fn(),
     startConnectionLoading: vi.fn(),
     stopConnectionLoading: vi.fn(),
     addProgress: vi.fn(),
@@ -124,8 +124,8 @@ vi.mock('~/composables/venue-states', async () => {
     },
     useQuizLoading: () => {
       return {
-        setQuizLoading: mocks.setQuizLoading,
-        clearQuizLoading: mocks.clearQuizLoading
+        startQuizLoading: mocks.startQuizLoading,
+        stopQuizLoading: mocks.stopQuizLoading
       }
     },
     useConnectionLoading: () => {
@@ -392,17 +392,17 @@ describe('closeQuestion', () => {
   })
 })
 
-describe('setQuizLoading', () => {
+describe('startQuizLoading', () => {
   it('can set loading of quiz', () => {
-    venueActivity.setQuizLoading()
-    expect(mocks.setQuizLoading).toHaveBeenCalledOnce()
+    venueActivity.startQuizLoading()
+    expect(mocks.startQuizLoading).toHaveBeenCalledOnce()
   })
 })
 
-describe('clearQuizLoading', () => {
+describe('stopQuizLoading', () => {
   it('can clear loading of quiz', () => {
-    venueActivity.clearQuizLoading()
-    expect(mocks.clearQuizLoading).toHaveBeenCalledOnce()
+    venueActivity.stopQuizLoading()
+    expect(mocks.stopQuizLoading).toHaveBeenCalledOnce()
   })
 })
 

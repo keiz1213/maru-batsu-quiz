@@ -452,8 +452,8 @@ describe('announceJudge', () => {
 
 describe('announce', () => {
   it('can announce the quiz', async () => {
-    const setQuizLoadingSpy = vi.spyOn(venueActivity, 'setQuizLoading')
-    const clearQuizLoadingSpy = vi.spyOn(venueActivity, 'clearQuizLoading')
+    const startQuizLoadingSpy = vi.spyOn(venueActivity, 'startQuizLoading')
+    const stopQuizLoadingSpy = vi.spyOn(venueActivity, 'stopQuizLoading')
     const delaySpy = vi.spyOn(avatar, 'delay')
     delaySpy.mockImplementation((): Promise<void> => {
       return new Promise((resolve) => resolve())
@@ -472,7 +472,7 @@ describe('announce', () => {
     const quiz = game.quizzes[0]
     await avatar.announce(currentQuizNumber, quiz)
 
-    expect(setQuizLoadingSpy).toHaveBeenCalledOnce()
+    expect(startQuizLoadingSpy).toHaveBeenCalledOnce()
     expect(announceQuizNumberSpy).toHaveBeenCalledWith(currentQuizNumber + 1)
     expect(announceShortPauseSpy).toHaveBeenCalledOnce()
     expect(announceQuestionSpy).toHaveBeenCalledWith(quiz.question)
@@ -482,6 +482,6 @@ describe('announce', () => {
     expect(announceCorrectAnswerSpy).toHaveBeenCalledWith(quiz.correct_answer)
     expect(announceExplanationSpy).toHaveBeenCalledWith(quiz.explanation)
     expect(announceJudgeSpy).toHaveBeenCalledWith(quiz.correct_answer)
-    expect(clearQuizLoadingSpy).toHaveBeenCalledOnce()
+    expect(stopQuizLoadingSpy).toHaveBeenCalledOnce()
   })
 })

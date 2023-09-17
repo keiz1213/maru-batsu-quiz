@@ -290,18 +290,18 @@ export const useQuizLoading = () => {
     return false
   })
 
-  const setQuizLoading = () => {
+  const startQuizLoading = () => {
     quizLoading.value = true
   }
 
-  const clearQuizLoading = () => {
+  const stopQuizLoading = () => {
     quizLoading.value = false
   }
 
   return {
     quizLoading,
-    setQuizLoading,
-    clearQuizLoading
+    startQuizLoading,
+    stopQuizLoading
   }
 }
 
