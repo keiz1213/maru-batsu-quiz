@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import { NotificationType } from '~/types/notificationType'
   import { Game } from '~/types/game'
   import { deleteGame } from '~/utils/api/services/game'
 
@@ -18,7 +19,7 @@
     try {
       setLoading()
       await deleteGame(gameId)
-      setToast('ゲームを削除しました!', 'success')
+      setToast('ゲームを削除しました!', NotificationType.Success)
       await resetGamesStore()
       clearLoading()
       navigateTo('/home')
@@ -26,7 +27,7 @@
       clearLoading()
       notifyOnSpot(
         'ゲームの削除に失敗しました。再度やり直してください。',
-        'error'
+        NotificationType.Error
       )
     }
   }

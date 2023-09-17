@@ -1,17 +1,19 @@
+import { NotificationType } from "~/types/notificationType"
+
 export const useToast = () => {
   const toast = useState<{
     isSet: boolean
     message: string
-    type: string
+    type: NotificationType | null
   }>('toast', () => {
     return {
       isSet: false,
       message: '',
-      type: ''
+      type: null
     }
   })
 
-  const setToast = (message: string, type: string) => {
+  const setToast = (message: string, type: NotificationType) => {
     toast.value.isSet = true
     toast.value.message = message
     toast.value.type = type
@@ -20,17 +22,17 @@ export const useToast = () => {
   const clearToast = () => {
     toast.value.isSet = false
     toast.value.message = ''
-    toast.value.type = ''
+    toast.value.type = null
   }
 
-  const notify = (message: string, type: string) => {
+  const notify = (message: string, type: NotificationType) => {
     const toast = useNuxtApp().$toast
 
     switch (type) {
-      case 'success':
+      case NotificationType.Success:
         toast.success(message, {})
         break
-      case 'error':
+      case NotificationType.Error:
         toast.error(message, {
           autoClose: false
         })
@@ -38,7 +40,7 @@ export const useToast = () => {
     }
   }
 
-  const notifyOnSpot = (message: string, type: string) => {
+  const notifyOnSpot = (message: string, type: NotificationType) => {
     notify(message, type)
     clearToast()
   }

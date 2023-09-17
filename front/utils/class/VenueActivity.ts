@@ -1,3 +1,4 @@
+import { NotificationType } from "~/types/notificationType"
 import { AvatarParams } from '~/types/avatarParams'
 import { ParticipantMetaData } from '~/types/participantMetaData'
 import { ChatMessage } from '~/types/chatMessage'
@@ -142,7 +143,7 @@ class VenueActivity {
     const { notifyOnSpot } = useToast()
     notifyOnSpot(
       'エラーが発生しました。ゲームを中断し、再度アクセスしてください',
-      'error'
+      NotificationType.Error
     )
   }
 }

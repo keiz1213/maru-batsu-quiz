@@ -1,3 +1,4 @@
+import { NotificationType } from "~/types/notificationType"
 import { getGame } from '~/utils/api/services/game'
 import SkywayChannel from '~/utils/class/SkywayChannel'
 
@@ -20,7 +21,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
     } else {
       setToast(
         '参加者がまだ残っています。参加者が退出してから入室してください。',
-        'error'
+        NotificationType.Error
       )
       return navigateTo('/home')
     }
@@ -32,7 +33,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
   } else {
     setToast(
       '主催者がまだ入室していないか、既にゲームが始まっています。',
-      'error'
+      NotificationType.Error
     )
     return navigateTo('/home')
   }

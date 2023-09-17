@@ -1,4 +1,5 @@
 // @vitest-environment nuxt
+import { NotificationType } from "~/types/notificationType"
 import { expect, it, vi } from 'vitest'
 import PlayerAvatar from '~/utils/class/PlayerAvatar'
 import Referee from '~/utils/class/Referee'
@@ -143,7 +144,7 @@ it('can start game', () => {
   expect(mocks.startGame).toHaveBeenCalledOnce()
   expect(mocks.notifyOnSpot).toHaveBeenCalledWith(
     '接続が完了しました。ゲームを開始できます。',
-    'success'
+    NotificationType.Success
   )
 })
 
