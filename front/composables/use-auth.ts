@@ -2,7 +2,7 @@ import { NotificationType } from '~/types/notificationType'
 import { postUser, deleteUser } from '@/utils/api/services/user'
 
 export const useAuth = () => {
-  const { setLoading, clearLoading } = useLoading()
+  const { startLoading, stopLoading } = useLoading()
   const { setToast, notifyOnSpot } = useToast()
   const { clearCurrentUserStore } = useCurrentUser()
   const { clearGamesStore } = useGame()
@@ -18,11 +18,11 @@ export const useAuth = () => {
 
   const login = async () => {
     try {
-      setLoading()
+      startLoading()
       await firebaseLogin()
       await postUser()
       setToast('ログインしました！', NotificationType.Success)
-      clearLoading()
+      stopLoading()
       if (isForwarding()) {
         navigateTo(redirectPath.value)
         clearRedirectPath()
@@ -31,39 +31,39 @@ export const useAuth = () => {
       }
     } catch {
       isLoggedIn.value ? await firebaseLogout() : null
-      clearLoading()
       notifyOnSpot('ログインに失敗しました', NotificationType.Error)
+      stopLoading()
     }
   }
 
   const logout = async () => {
     try {
-      setLoading()
+      startLoading()
       await firebaseLogout()
       clearCurrentUserStore()
       clearGamesStore()
       setToast('ログアウトしました！', NotificationType.Success)
       navigateTo('/')
-      clearLoading()
+      stopLoading()
     } catch {
-      clearLoading()
       notifyOnSpot('ログアウトに失敗しました', NotificationType.Error)
+      stopLoading()
     }
   }
 
   const withdrawal = async (userId: number) => {
     try {
-      setLoading()
+      startLoading()
       await deleteUser(userId)
       await firebaseWithdrawal()
       clearCurrentUserStore()
       clearGamesStore()
       navigateTo('/withdrawal')
-      clearLoading()
+      stopLoading()
     } catch {
       user.value ? await postUser() : null
-      clearLoading()
       notifyOnSpot('退会に失敗しました', NotificationType.Error)
+      stopLoading()
     }
   }
 

@@ -2,8 +2,8 @@
 import { expect, it } from 'vitest'
 
 afterEach(() => {
-  const { clearLoading } = useLoading()
-  clearLoading()
+  const { stopLoading } = useLoading()
+  stopLoading()
 })
 
 it('default loading is false', () => {
@@ -11,21 +11,21 @@ it('default loading is false', () => {
   expect(loading.value).toBeFalsy()
 })
 
-describe('setLoading', () => {
+describe('startLoading', () => {
   it('switching from false to true for loading.', () => {
-    const { loading, setLoading } = useLoading()
+    const { loading, startLoading } = useLoading()
     expect(loading.value).toBeFalsy()
-    setLoading()
+    startLoading()
     expect(loading.value).toBeTruthy()
   })
 })
 
-describe('clearLoading', () => {
+describe('stopLoading', () => {
   it('switching from true to false for loading.', () => {
-    const { loading, setLoading, clearLoading } = useLoading()
-    setLoading()
+    const { loading, startLoading, stopLoading } = useLoading()
+    startLoading()
     expect(loading.value).toBeTruthy()
-    clearLoading()
+    stopLoading()
     expect(loading.value).toBeFalsy()
   })
 })

@@ -8,8 +8,8 @@ afterEach(() => {
 
 const mocks = vi.hoisted(() => {
   return {
-    setLoading: vi.fn(),
-    clearLoading: vi.fn(),
+    startLoading: vi.fn(),
+    stopLoading: vi.fn(),
     setToast: vi.fn(),
     notifyOnSpot: vi.fn(),
     currentUser: vi.fn(),
@@ -33,8 +33,8 @@ vi.mock('~/composables/use-loading', () => {
   return {
     useLoading: () => {
       return {
-        setLoading: mocks.setLoading,
-        clearLoading: mocks.clearLoading
+        startLoading: mocks.startLoading,
+        stopLoading: mocks.stopLoading
       }
     }
   }
@@ -115,10 +115,10 @@ describe('login', () => {
     const { login } = useAuth()
     await login()
 
-    expect(mocks.setLoading).toHaveBeenCalledOnce()
+    expect(mocks.startLoading).toHaveBeenCalledOnce()
     expect(mocks.firebaseLogin).toHaveBeenCalledOnce()
     expect(mocks.postUser).toHaveBeenCalledOnce()
-    expect(mocks.clearLoading).toHaveBeenCalledOnce()
+    expect(mocks.stopLoading).toHaveBeenCalledOnce()
     expect(mocks.setToast).toHaveBeenCalledWith(
       'ログインしました！',
       NotificationType.Success
@@ -130,9 +130,9 @@ describe('login', () => {
     const { login } = useAuth()
     await login()
 
-    expect(mocks.setLoading).toHaveBeenCalledOnce()
+    expect(mocks.startLoading).toHaveBeenCalledOnce()
     expect(mocks.firebaseLogin).toHaveBeenCalledOnce()
-    expect(mocks.clearLoading).toHaveBeenCalledOnce()
+    expect(mocks.stopLoading).toHaveBeenCalledOnce()
     expect(mocks.notifyOnSpot).toHaveBeenCalledWith(
       'ログインに失敗しました',
       NotificationType.Error
@@ -144,9 +144,9 @@ describe('login', () => {
     const { login } = useAuth()
     await login()
 
-    expect(mocks.setLoading).toHaveBeenCalledOnce()
+    expect(mocks.startLoading).toHaveBeenCalledOnce()
     expect(mocks.firebaseLogin).toHaveBeenCalledOnce()
-    expect(mocks.clearLoading).toHaveBeenCalledOnce()
+    expect(mocks.stopLoading).toHaveBeenCalledOnce()
     expect(mocks.notifyOnSpot).toHaveBeenCalledWith(
       'ログインに失敗しました',
       NotificationType.Error
@@ -159,10 +159,10 @@ describe('login', () => {
     setRedirectPath('/games/1')
     await login()
 
-    expect(mocks.setLoading).toHaveBeenCalledOnce()
+    expect(mocks.startLoading).toHaveBeenCalledOnce()
     expect(mocks.firebaseLogin).toHaveBeenCalledOnce()
     expect(mocks.postUser).toHaveBeenCalledOnce()
-    expect(mocks.clearLoading).toHaveBeenCalledOnce()
+    expect(mocks.stopLoading).toHaveBeenCalledOnce()
     expect(mocks.setToast).toHaveBeenCalledWith(
       'ログインしました！',
       NotificationType.Success
@@ -176,11 +176,11 @@ describe('logout', () => {
     const { logout } = useAuth()
     await logout()
 
-    expect(mocks.setLoading).toHaveBeenCalledOnce()
+    expect(mocks.startLoading).toHaveBeenCalledOnce()
     expect(mocks.firebaseLogout).toHaveBeenCalledOnce()
     expect(mocks.clearCurrentUserStore).toHaveBeenCalledOnce()
     expect(mocks.clearGamesStore).toHaveBeenCalledOnce()
-    expect(mocks.clearLoading).toHaveBeenCalledOnce()
+    expect(mocks.stopLoading).toHaveBeenCalledOnce()
     expect(mocks.navigateTo).toHaveBeenCalledWith('/')
     expect(mocks.setToast).toHaveBeenCalledWith(
       'ログアウトしました！',
@@ -193,11 +193,11 @@ describe('logout', () => {
     const { logout } = useAuth()
     await logout()
 
-    expect(mocks.setLoading).toHaveBeenCalledOnce()
+    expect(mocks.startLoading).toHaveBeenCalledOnce()
     expect(mocks.firebaseLogout).toHaveBeenCalledOnce()
     expect(mocks.clearCurrentUserStore).not.toHaveBeenCalledOnce()
     expect(mocks.clearGamesStore).not.toHaveBeenCalledOnce()
-    expect(mocks.clearLoading).toHaveBeenCalledOnce()
+    expect(mocks.stopLoading).toHaveBeenCalledOnce()
     expect(mocks.navigateTo).not.toHaveBeenCalledOnce()
     expect(mocks.notifyOnSpot).toHaveBeenCalledWith(
       'ログアウトに失敗しました',
@@ -212,13 +212,13 @@ describe('withdrawal', () => {
     const userId = 1
 
     await withdrawal(userId)
-    expect(mocks.setLoading).toHaveBeenCalledOnce()
+    expect(mocks.startLoading).toHaveBeenCalledOnce()
     expect(mocks.deleteUser).toHaveBeenCalledWith(userId)
     expect(mocks.firebaseWithdrawal).toHaveBeenCalledOnce()
     expect(mocks.clearCurrentUserStore).toHaveBeenCalledOnce()
     expect(mocks.clearGamesStore).toHaveBeenCalledOnce()
     expect(mocks.navigateTo).toHaveBeenCalledWith('/withdrawal')
-    expect(mocks.clearLoading).toHaveBeenCalledOnce()
+    expect(mocks.stopLoading).toHaveBeenCalledOnce()
   })
 
   it('if Firebase Withdrawal fails, user should not be able to withdrawal', async () => {
@@ -228,12 +228,12 @@ describe('withdrawal', () => {
     const userId = 1
 
     await withdrawal(userId)
-    expect(mocks.setLoading).toHaveBeenCalledOnce()
+    expect(mocks.startLoading).toHaveBeenCalledOnce()
     expect(mocks.deleteUser).toHaveBeenCalledWith(userId)
     expect(mocks.firebaseWithdrawal).toHaveBeenCalledOnce()
     expect(mocks.clearCurrentUserStore).not.toHaveBeenCalledOnce()
     expect(mocks.clearGamesStore).not.toHaveBeenCalledOnce()
-    expect(mocks.clearLoading).toHaveBeenCalledOnce()
+    expect(mocks.stopLoading).toHaveBeenCalledOnce()
     expect(mocks.navigateTo).not.toHaveBeenCalledWith('/withdrawal')
     expect(mocks.postUser).toHaveBeenCalledOnce()
     expect(mocks.notifyOnSpot).toHaveBeenCalledWith(
@@ -248,12 +248,12 @@ describe('withdrawal', () => {
     const userId = 1
 
     await withdrawal(userId)
-    expect(mocks.setLoading).toHaveBeenCalledOnce()
+    expect(mocks.startLoading).toHaveBeenCalledOnce()
     expect(mocks.deleteUser).toHaveBeenCalledWith(userId)
     expect(mocks.firebaseWithdrawal).not.toHaveBeenCalledOnce()
     expect(mocks.clearCurrentUserStore).not.toHaveBeenCalledOnce()
     expect(mocks.clearGamesStore).not.toHaveBeenCalledOnce()
-    expect(mocks.clearLoading).toHaveBeenCalledOnce()
+    expect(mocks.stopLoading).toHaveBeenCalledOnce()
     expect(mocks.notifyOnSpot).toHaveBeenCalledWith(
       '退会に失敗しました',
       NotificationType.Error
