@@ -283,9 +283,9 @@ describe('promptOwnerSubscriptionToPlayers', () => {
 describe('promptPlayersForMutualSubscriptions', () => {
   it('can prompt all players to subscribe with each other.', async () => {
     const startGameSpy = vi.spyOn(venueActivity, 'startGame')
-    const clearConnectionLoadingSpy = vi.spyOn(
+    const stopConnectionLoadingSpy = vi.spyOn(
       venueActivity,
-      'clearConnectionLoading'
+      'stopConnectionLoading'
     )
     const calculateProgressSpy = vi.spyOn(venueActivity, 'calculateProgress')
 
@@ -298,13 +298,13 @@ describe('promptPlayersForMutualSubscriptions', () => {
     avatar.promptPlayersForMutualSubscriptions(2)
     expect(startGameSpy).toHaveBeenCalledOnce()
     expect(dataStreamMockMethod.promptStartGame).toHaveBeenCalledOnce()
-    expect(clearConnectionLoadingSpy).toHaveBeenCalledOnce()
+    expect(stopConnectionLoadingSpy).toHaveBeenCalledOnce()
   })
 })
 
 describe('startConnection', () => {
   it('can start connection', async () => {
-    const venueActivitySpy = vi.spyOn(venueActivity, 'setConnectionLoading')
+    const venueActivitySpy = vi.spyOn(venueActivity, 'startConnectionLoading')
     const subscribeToAllPlayersSpy = vi.spyOn(avatar, 'subscribeToAllPlayers')
     const promptOwnerSubscriptionToPlayersSpy = vi.spyOn(
       avatar,

@@ -156,7 +156,7 @@ class OwnerAvatar extends Avatar {
     if (index > maxIndex) {
       this.venueActivity!.startGame(this)
       this.skywayDataStream!.promptStartGame()
-      this.venueActivity!.clearConnectionLoading()
+      this.venueActivity!.stopConnectionLoading()
     } else {
       this.venueActivity!.calculateProgress(numberOfParticipant - 1)
       this.skywayDataStream!.promptSubscribeToAllPlayers(index)
@@ -165,7 +165,7 @@ class OwnerAvatar extends Avatar {
 
   startConnection = async (players: Avatar[]) => {
     try {
-      this.venueActivity!.setConnectionLoading()
+      this.venueActivity!.startConnectionLoading()
       await this.skywayChannel!.updateChannelMetadata('')
       await this.subscribeToAllPlayers()
       await this.promptOwnerSubscriptionToPlayers()

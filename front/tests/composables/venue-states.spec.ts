@@ -406,8 +406,8 @@ describe('useTimer', () => {
 
 describe('useConnectionLoading', () => {
   afterEach(() => {
-    const { clearConnectionLoading } = useConnectionLoading()
-    clearConnectionLoading()
+    const { stopConnectionLoading } = useConnectionLoading()
+    stopConnectionLoading()
   })
 
   it('default connectionLoading is false', () => {
@@ -416,18 +416,18 @@ describe('useConnectionLoading', () => {
   })
 
   it('switching from false to true for loading.', () => {
-    const { connectionLoading, setConnectionLoading } = useConnectionLoading()
+    const { connectionLoading, startConnectionLoading } = useConnectionLoading()
     expect(connectionLoading.value).toBeFalsy()
-    setConnectionLoading()
+    startConnectionLoading()
     expect(connectionLoading.value).toBeTruthy()
   })
 
   it('switching from true to false for loading.', () => {
-    const { connectionLoading, setConnectionLoading, clearConnectionLoading } =
+    const { connectionLoading, startConnectionLoading, stopConnectionLoading } =
       useConnectionLoading()
-    setConnectionLoading()
+    startConnectionLoading()
     expect(connectionLoading.value).toBeTruthy()
-    clearConnectionLoading()
+    stopConnectionLoading()
     expect(connectionLoading.value).toBeFalsy()
   })
 })

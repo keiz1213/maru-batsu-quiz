@@ -123,14 +123,14 @@ class VenueActivity {
     clearQuizLoading()
   }
 
-  setConnectionLoading = () => {
-    const { setConnectionLoading } = useConnectionLoading()
-    setConnectionLoading()
+  startConnectionLoading = () => {
+    const { startConnectionLoading } = useConnectionLoading()
+    startConnectionLoading()
   }
 
-  clearConnectionLoading = () => {
-    const { clearConnectionLoading } = useConnectionLoading()
-    clearConnectionLoading()
+  stopConnectionLoading = () => {
+    const { stopConnectionLoading } = useConnectionLoading()
+    stopConnectionLoading()
   }
 
   calculateProgress = (numberOfPlayers: number) => {

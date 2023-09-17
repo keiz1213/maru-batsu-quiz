@@ -270,18 +270,18 @@ export const useConnectionLoading = () => {
     return false
   })
 
-  const setConnectionLoading = () => {
+  const startConnectionLoading = () => {
     connectionLoading.value = true
   }
 
-  const clearConnectionLoading = () => {
+  const stopConnectionLoading = () => {
     connectionLoading.value = false
   }
 
   return {
     connectionLoading,
-    setConnectionLoading,
-    clearConnectionLoading
+    startConnectionLoading,
+    stopConnectionLoading
   }
 }
 

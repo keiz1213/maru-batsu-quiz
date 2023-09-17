@@ -81,8 +81,8 @@ const mocks = vi.hoisted(() => {
     closeQuestion: vi.fn(),
     setQuizLoading: vi.fn(),
     clearQuizLoading: vi.fn(),
-    setConnectionLoading: vi.fn(),
-    clearConnectionLoading: vi.fn(),
+    startConnectionLoading: vi.fn(),
+    stopConnectionLoading: vi.fn(),
     addProgress: vi.fn(),
     notifyOnSpot: vi.fn()
   }
@@ -130,8 +130,8 @@ vi.mock('~/composables/venue-states', async () => {
     },
     useConnectionLoading: () => {
       return {
-        setConnectionLoading: mocks.setConnectionLoading,
-        clearConnectionLoading: mocks.clearConnectionLoading
+        startConnectionLoading: mocks.startConnectionLoading,
+        stopConnectionLoading: mocks.stopConnectionLoading
       }
     },
     useConnectionProgress: () => {
@@ -406,17 +406,17 @@ describe('clearQuizLoading', () => {
   })
 })
 
-describe('setConnectionLoading', () => {
+describe('startConnectionLoading', () => {
   it('can set loading of connection', () => {
-    venueActivity.setConnectionLoading()
-    expect(mocks.setConnectionLoading).toHaveBeenCalledOnce()
+    venueActivity.startConnectionLoading()
+    expect(mocks.startConnectionLoading).toHaveBeenCalledOnce()
   })
 })
 
-describe('clearConnectionLoading', () => {
+describe('stopConnectionLoading', () => {
   it('can clear loading of connection', () => {
-    venueActivity.clearConnectionLoading()
-    expect(mocks.clearConnectionLoading).toHaveBeenCalledOnce()
+    venueActivity.stopConnectionLoading()
+    expect(mocks.stopConnectionLoading).toHaveBeenCalledOnce()
   })
 })
 
