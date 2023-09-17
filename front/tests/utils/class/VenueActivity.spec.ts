@@ -1,5 +1,5 @@
 // @vitest-environment nuxt
-import { NotificationType } from "~/types/notificationType"
+import { NotificationType } from '~/types/notificationType'
 import { AvatarParams } from '~/types/avatarParams'
 import { expect, it, vi } from 'vitest'
 import VenueActivity from '~/utils/class/VenueActivity'

@@ -1,4 +1,4 @@
-import { NotificationType } from "~/types/notificationType"
+import { NotificationType } from '~/types/notificationType'
 import { postUser, deleteUser } from '@/utils/api/services/user'
 
 export const useAuth = () => {

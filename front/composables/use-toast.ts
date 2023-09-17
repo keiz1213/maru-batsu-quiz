@@ -1,4 +1,4 @@
-import { NotificationType } from "~/types/notificationType"
+import { NotificationType } from '~/types/notificationType'
 
 export const useToast = () => {
   const toast = useState<{

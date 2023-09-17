@@ -1,4 +1,4 @@
-import { NotificationType } from "~/types/notificationType"
+import { NotificationType } from '~/types/notificationType'
 import { getGame } from '~/utils/api/services/game'
 import SkywayChannel from '~/utils/class/SkywayChannel'
 

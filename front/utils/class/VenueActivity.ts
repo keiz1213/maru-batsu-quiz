@@ -1,4 +1,4 @@
-import { NotificationType } from "~/types/notificationType"
+import { NotificationType } from '~/types/notificationType'
 import { AvatarParams } from '~/types/avatarParams'
 import { ParticipantMetaData } from '~/types/participantMetaData'
 import { ChatMessage } from '~/types/chatMessage'

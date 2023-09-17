@@ -1,5 +1,5 @@
 // @vitest-environment nuxt
-import { NotificationType } from "~/types/notificationType"
+import { NotificationType } from '~/types/notificationType'
 import { useToast } from '~/composables/use-toast'
 import { expect, it } from 'vitest'
 

@@ -1,5 +1,5 @@
 // @vitest-environment nuxt
-import { NotificationType } from "~/types/notificationType"
+import { NotificationType } from '~/types/notificationType'
 import { vi, expect, it } from 'vitest'
 
 afterEach(() => {
@@ -119,7 +119,10 @@ describe('login', () => {
     expect(mocks.firebaseLogin).toHaveBeenCalledOnce()
     expect(mocks.postUser).toHaveBeenCalledOnce()
     expect(mocks.clearLoading).toHaveBeenCalledOnce()
-    expect(mocks.setToast).toHaveBeenCalledWith('ログインしました！', NotificationType.Success)
+    expect(mocks.setToast).toHaveBeenCalledWith(
+      'ログインしました！',
+      NotificationType.Success
+    )
   })
 
   it('if Firebase Login fails, user should not be able to login', async () => {
@@ -160,7 +163,10 @@ describe('login', () => {
     expect(mocks.firebaseLogin).toHaveBeenCalledOnce()
     expect(mocks.postUser).toHaveBeenCalledOnce()
     expect(mocks.clearLoading).toHaveBeenCalledOnce()
-    expect(mocks.setToast).toHaveBeenCalledWith('ログインしました！', NotificationType.Success)
+    expect(mocks.setToast).toHaveBeenCalledWith(
+      'ログインしました！',
+      NotificationType.Success
+    )
     expect(mocks.navigateTo).toHaveBeenCalledWith('/games/1')
   })
 })
