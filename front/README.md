@@ -1,42 +1,129 @@
-# Nuxt 3 Minimal Starter
+# ○× クイズオンライン(フロントエンド)
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+こちらは[○× クイズオンライン](https://github.com/keiz1213/maru-batsu-quiz)のフロントエンドリポジトリです。
 
-## Setup
+## 開発環境(フロントエンド)
 
-Make sure to install the dependencies:
+### 言語・フレームワーク
 
-```bash
-# yarn
-yarn install
+- Nuxt.js 3.5.2
+- TypeScript
+- Tailwind CSS
+- daisyUI
 
-# npm
-npm install
+### 環境構築
 
-# pnpm
-pnpm install
+- Docker
+- Docker Compose
+
+### インフラ
+
+- [vercel](https://vercel.com/)
+
+### テスト
+
+- Vitest
+- Cypress
+
+### リンター・フォーマッター
+
+- ESLint
+- Prettier
+
+### 外部サービス
+
+- [SkyWay](https://skyway.ntt.com/ja/)
+- [Firebase Authentication](https://firebase.google.com/?hl=ja)
+
+## 環境構築
+
+### 環境変数
+
+ルートディレクトリで以下のように`.env`に環境変数を設定してください
+
+```
+$ touch .env
 ```
 
-## Development Server
+```
+# common
+CONTAINER_PORT=3000
+API_PORT=3000
+FRONT_PORT=8080
 
-Start the development server on `http://localhost:3000`
+# firebase
+FIREBASE_API_KEY=<firebase-api-key>
+FIREBASE_AUTH_DOMAIN=<firebase-auth-domain>
+FIREBASE_PROJECT_ID<firebase-project-id>
 
-```bash
-npm run dev
+# skyway
+SKYWAY_ID=<skyway-id>
+SKYWAY_SECRET=<skyway-secret>
 ```
 
-## Production
+[SkyWay](https://skyway.ntt.com/ja/)  
+[Firebase Authentication](https://firebase.google.com/?hl=ja)
 
-Build the application for production:
+### セットアップ
 
-```bash
-npm run build
+※Docker、docker-compose が必要になります
+
+```
+$ docker-compose build
+$ docker-compose run --rm front npm install
 ```
 
-Locally preview production build:
+## テスト
 
-```bash
-npm run preview
+### Cypress でテストを行うために`front`ディレクトリに以下のファイルを作成してください
+
+cypress.env.json
+
+```
+{
+  "FIREBASE_API_KEY": "<firebase-api-key>",
+  "FIREBASE_AUTH_DOMAIN": "<firebase-auth-domain>",
+  "FIREBASE_PROJECT_ID": "<firebase-project-id>",
+  "TEST_UID": "<test-uid>"
+}
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+serviceAccount.json
+
+```
+{
+  "type": "<type>",
+  "project_id": "<project-id>",
+  "private_key_id": "<private-key-id>",
+  "private_key": "<private-key>",
+  "client_email": "<client-email>",
+  "client_id": "<client-id>",
+  "auth_uri": "<auth-uri>",
+  "token_uri": "<token-uri>",
+  "auth_provider_x509_cert_url": "<auth-provider-x509-cert-url>",
+  "client_x509_cert_url": "<client-x509-cert-url>",
+  "universe_domain": "<universe-domain>"
+}
+```
+
+[Firebase Authentication](https://firebase.google.com/?hl=ja)
+
+### 単体テスト
+
+```
+$ docker-compose run --rm npm run test:unit
+```
+
+### E2E テスト
+
+```
+$ docker-compose up
+$ cd front
+$ npm run test:e2e
+```
+
+## Lint
+
+```
+$ docker-compose run --rm npm run lint
+```

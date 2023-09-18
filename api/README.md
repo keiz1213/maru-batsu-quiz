@@ -1,24 +1,59 @@
-# README
+# ○×クイズオンライン(API)
+こちらは[○×クイズオンライン](https://github.com/keiz1213/maru-batsu-quiz)のAPIリポジトリです。
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 開発環境(API)
+### 言語・フレームワーク
+- Ruby 3.2.2
+- Ruby on Rails 7.0.5
+### 環境構築
+- Docker
+- Docker Compose
+### インフラ
+- [fly.io](https://fly.io/)
+### テスト
+- RSpec
+### リンター・フォーマッター
+- RuboCop
+### 外部サービス
+- [SkyWay](https://skyway.ntt.com/ja/)
+- [Firebase Authentication](https://firebase.google.com/?hl=ja)
 
-Things you may want to cover:
+## 環境構築
+### 環境変数
+ルートディレクトリで以下のように`.env`に環境変数を設定してください
+```
+$ touch .env
+```
 
-* Ruby version
+```
+# common
+CONTAINER_PORT=3000
+API_PORT=3000
+FRONT_PORT=8080
 
-* System dependencies
+# firebase
+FIREBASE_API_KEY=<firebase-api-key>
+FIREBASE_AUTH_DOMAIN=<firebase-auth-domain>
+FIREBASE_PROJECT_ID<firebase-project-id>
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# skyway
+SKYWAY_ID=<skyway-id>
+SKYWAY_SECRET=<skyway-secret>
+```
+[SkyWay](https://skyway.ntt.com/ja/)  
+[Firebase Authentication](https://firebase.google.com/?hl=ja)
+### セットアップ
+※Docker、docker-composeが必要になります
+```
+$ docker-compose build
+$ docker-compose run --rm api bin/rails db:create
+$ docker-compose run --rm api bin/rails db:migrate
+```
+## テスト
+```
+$ docker-compose run --rm api bundle exec rspec
+```
+## Lint
+```
+$ docker-compose run --rm api bundle exec rubocop
+```
