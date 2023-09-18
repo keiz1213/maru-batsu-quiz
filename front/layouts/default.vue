@@ -12,7 +12,7 @@
 
   watch(route, () => {
     if (toast.value.isSet) {
-      notify(toast.value.message, toast.value.type)
+      notify(toast.value.message, toast.value.type!)
       clearToast()
     }
   })

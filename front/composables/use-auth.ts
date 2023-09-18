@@ -1,3 +1,4 @@
+import { NotificationType } from '~/types/notificationType'
 import { postUser, deleteUser } from '@/utils/api/services/user'
 
 export const useAuth = () => {
@@ -20,7 +21,7 @@ export const useAuth = () => {
       setLoading()
       await firebaseLogin()
       await postUser()
-      setToast('ログインしました！', 'success')
+      setToast('ログインしました！', NotificationType.Success)
       clearLoading()
       if (isForwarding()) {
         navigateTo(redirectPath.value)
@@ -31,7 +32,7 @@ export const useAuth = () => {
     } catch {
       isLoggedIn.value ? await firebaseLogout() : null
       clearLoading()
-      notifyOnSpot('ログインに失敗しました', 'error')
+      notifyOnSpot('ログインに失敗しました', NotificationType.Error)
     }
   }
 
@@ -41,12 +42,12 @@ export const useAuth = () => {
       await firebaseLogout()
       clearCurrentUserStore()
       clearGamesStore()
-      setToast('ログアウトしました！', 'success')
+      setToast('ログアウトしました！', NotificationType.Success)
       navigateTo('/')
       clearLoading()
     } catch {
       clearLoading()
-      notifyOnSpot('ログアウトに失敗しました', 'error')
+      notifyOnSpot('ログアウトに失敗しました', NotificationType.Error)
     }
   }
 
@@ -62,7 +63,7 @@ export const useAuth = () => {
     } catch {
       user.value ? await postUser() : null
       clearLoading()
-      notifyOnSpot('退会に失敗しました', 'error')
+      notifyOnSpot('退会に失敗しました', NotificationType.Error)
     }
   }
 

@@ -1,4 +1,5 @@
 // @vitest-environment nuxt
+import { NotificationType } from '~/types/notificationType'
 import { vi, expect, it } from 'vitest'
 
 afterEach(() => {
@@ -118,7 +119,10 @@ describe('login', () => {
     expect(mocks.firebaseLogin).toHaveBeenCalledOnce()
     expect(mocks.postUser).toHaveBeenCalledOnce()
     expect(mocks.clearLoading).toHaveBeenCalledOnce()
-    expect(mocks.setToast).toHaveBeenCalledWith('ログインしました！', 'success')
+    expect(mocks.setToast).toHaveBeenCalledWith(
+      'ログインしました！',
+      NotificationType.Success
+    )
   })
 
   it('if Firebase Login fails, user should not be able to login', async () => {
@@ -131,7 +135,7 @@ describe('login', () => {
     expect(mocks.clearLoading).toHaveBeenCalledOnce()
     expect(mocks.notifyOnSpot).toHaveBeenCalledWith(
       'ログインに失敗しました',
-      'error'
+      NotificationType.Error
     )
   })
 
@@ -145,7 +149,7 @@ describe('login', () => {
     expect(mocks.clearLoading).toHaveBeenCalledOnce()
     expect(mocks.notifyOnSpot).toHaveBeenCalledWith(
       'ログインに失敗しました',
-      'error'
+      NotificationType.Error
     )
   })
 
@@ -159,7 +163,10 @@ describe('login', () => {
     expect(mocks.firebaseLogin).toHaveBeenCalledOnce()
     expect(mocks.postUser).toHaveBeenCalledOnce()
     expect(mocks.clearLoading).toHaveBeenCalledOnce()
-    expect(mocks.setToast).toHaveBeenCalledWith('ログインしました！', 'success')
+    expect(mocks.setToast).toHaveBeenCalledWith(
+      'ログインしました！',
+      NotificationType.Success
+    )
     expect(mocks.navigateTo).toHaveBeenCalledWith('/games/1')
   })
 })
@@ -177,7 +184,7 @@ describe('logout', () => {
     expect(mocks.navigateTo).toHaveBeenCalledWith('/')
     expect(mocks.setToast).toHaveBeenCalledWith(
       'ログアウトしました！',
-      'success'
+      NotificationType.Success
     )
   })
 
@@ -194,7 +201,7 @@ describe('logout', () => {
     expect(mocks.navigateTo).not.toHaveBeenCalledOnce()
     expect(mocks.notifyOnSpot).toHaveBeenCalledWith(
       'ログアウトに失敗しました',
-      'error'
+      NotificationType.Error
     )
   })
 })
@@ -231,7 +238,7 @@ describe('withdrawal', () => {
     expect(mocks.postUser).toHaveBeenCalledOnce()
     expect(mocks.notifyOnSpot).toHaveBeenCalledWith(
       '退会に失敗しました',
-      'error'
+      NotificationType.Error
     )
   })
 
@@ -249,7 +256,7 @@ describe('withdrawal', () => {
     expect(mocks.clearLoading).toHaveBeenCalledOnce()
     expect(mocks.notifyOnSpot).toHaveBeenCalledWith(
       '退会に失敗しました',
-      'error'
+      NotificationType.Error
     )
   })
 })

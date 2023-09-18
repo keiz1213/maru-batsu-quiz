@@ -1,4 +1,6 @@
 // @vitest-environment nuxt
+import { NotificationType } from '~/types/notificationType'
+import { AvatarParams } from '~/types/avatarParams'
 import { expect, it, vi } from 'vitest'
 import VenueActivity from '~/utils/class/VenueActivity'
 import OwnerAvatar from '~/utils/class/OwnerAvatar'
@@ -9,7 +11,6 @@ import Announce from '~/utils/class/Announce'
 import Timer from '~/utils/class/Timer'
 import PlayerAvatar from '~/utils/class/PlayerAvatar'
 import Avatar from '~/utils/class/Avatar'
-import { AvatarParams } from '~/types/avatarParams'
 
 afterEach(() => {
   vi.restoreAllMocks()
@@ -433,7 +434,7 @@ describe('notifyError', () => {
     venueActivity.notifyError()
     expect(mocks.notifyOnSpot).toHaveBeenCalledWith(
       'エラーが発生しました。ゲームを中断し、再度アクセスしてください',
-      'error'
+      NotificationType.Error
     )
   })
 })

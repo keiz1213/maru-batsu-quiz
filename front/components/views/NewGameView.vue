@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import { NotificationType } from '~/types/notificationType'
   import { Game } from '~/types/game'
   import { Quiz } from '~/types/quiz'
   import { postGame } from '~/utils/api/services/game'
@@ -35,7 +36,7 @@
       setLoading()
       const createdGame = await postGame(currentUser.value.id, newGame)
       await resetGamesStore()
-      setToast('ゲームを作成しました!', 'success')
+      setToast('ゲームを作成しました!', NotificationType.Success)
       navigateTo(`/games/${createdGame.id}`)
       clearLoading()
     } catch {
@@ -43,7 +44,7 @@
       clearLoading()
       notifyOnSpot(
         'ゲームの作成に失敗しました。再度やり直してください。',
-        'error'
+        NotificationType.Error
       )
     }
   }
@@ -99,7 +100,9 @@
       :game="newGame"
       @update-game="updateGameProps"
       @submit="createGame(newGame)"
-      @invalid-submit="notifyOnSpot('入力内容を確認してください', 'error')"
+      @invalid-submit="
+        notifyOnSpot('入力内容を確認してください', NotificationType.Error)
+      "
     />
   </TheContainer>
 </template>

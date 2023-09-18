@@ -1,4 +1,5 @@
 // @vitest-environment nuxt
+import { NotificationType } from '~/types/notificationType'
 import { useToast } from '~/composables/use-toast'
 import { expect, it } from 'vitest'
 
@@ -34,7 +35,7 @@ it('default toast', () => {
   const defaultToast = {
     isSet: false,
     message: '',
-    type: ''
+    type: null
   }
   const { toast } = useToast()
   expect(toast.value).toEqual(defaultToast)
@@ -43,11 +44,11 @@ it('default toast', () => {
 describe('setToast', () => {
   it('can set toast.', () => {
     const { toast, setToast } = useToast()
-    setToast('test', 'success')
+    setToast('test', NotificationType.Success)
     const expectedToast = {
       isSet: true,
       message: 'test',
-      type: 'success'
+      type: NotificationType.Success
     }
     expect(toast.value).toEqual(expectedToast)
   })
@@ -55,16 +56,16 @@ describe('setToast', () => {
 describe('clearToast', () => {
   it('can clear toast.', () => {
     const { toast, setToast, clearToast } = useToast()
-    setToast('test', 'success')
+    setToast('test', NotificationType.Success)
     const defaultToast = {
       isSet: false,
       message: '',
-      type: ''
+      type: null
     }
     const expectedToast = {
       isSet: true,
       message: 'test',
-      type: 'success'
+      type: NotificationType.Success
     }
     expect(toast.value).toEqual(expectedToast)
     clearToast()
@@ -74,14 +75,14 @@ describe('clearToast', () => {
 describe('notify', () => {
   it('can notify suceess toast.', () => {
     const { notify } = useToast()
-    notify('test toast!', 'success')
+    notify('test toast!', NotificationType.Success)
     expect(mocks.success).toHaveBeenCalledWith('test toast!', {})
     expect(mocks.error).not.toHaveBeenCalledOnce()
   })
 
   it('can notify error toast.', () => {
     const { notify } = useToast()
-    notify('test toast!', 'error')
+    notify('test toast!', NotificationType.Error)
     expect(mocks.error).toHaveBeenCalledWith('test toast!', {
       autoClose: false
     })
@@ -95,9 +96,9 @@ describe('notifyOnSpot', () => {
     const defaultToast = {
       isSet: false,
       message: '',
-      type: ''
+      type: null
     }
-    notifyOnSpot('on spot!', 'error')
+    notifyOnSpot('on spot!', NotificationType.Error)
     expect(mocks.error).toHaveBeenCalledWith('on spot!', {
       autoClose: false
     })

@@ -1,3 +1,4 @@
+import { NotificationType } from '~/types/notificationType'
 import { Game } from '~/types/game'
 import Avatar from '~/utils/class/Avatar'
 import PlayerAvatar from '~/utils/class/PlayerAvatar'
@@ -20,7 +21,10 @@ class Referee {
     this.draggable.setDropzone('maru', avatar)
     this.draggable.setDropzone('batsu', avatar)
     startGame()
-    notifyOnSpot('接続が完了しました。ゲームを開始できます。', 'success')
+    notifyOnSpot(
+      '接続が完了しました。ゲームを開始できます。',
+      NotificationType.Success
+    )
   }
 
   checkEndOfGame = () => {
