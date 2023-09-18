@@ -8,14 +8,14 @@ class API::V1::UsersController < ApplicationController
 
     name = name_from_payload || 'anonymous'
 
-    user = User.find_or_initialize_by(uid: uid_from_payload)
-    user.assign_attributes(
+    @user = User.find_or_initialize_by(uid: uid_from_payload)
+    @user.assign_attributes(
       name:,
       avatar_url: avatar_url_from_payload
     )
 
-    if user.save
-      render json: user.as_json(include: :games), status: :ok
+    if @user.save
+      render 'create', status: :ok
     else
       render json: { status: 'unprocessable_entity' }, status: :unprocessable_entity
     end
