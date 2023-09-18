@@ -14,7 +14,7 @@ export const useCurrentUser = () => {
   })
 
   const isOwner = (game: Game | undefined) => {
-    return currentUser.value.id == game?.user_id
+    return currentUser.value.id === game?.user_id
   }
 
   const setCurrentUserStore = (user: User) => {
