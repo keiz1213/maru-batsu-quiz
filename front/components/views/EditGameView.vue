@@ -4,7 +4,7 @@
   import { putGame } from '~/utils/api/services/game'
 
   const { setToast, notifyOnSpot } = useToast()
-  const { setLoading, clearLoading } = useLoading()
+  const { startLoading, stopLoading } = useLoading()
   const { getGameStore, resetGamesStore } = useGame()
   const route = useRoute()
   const isEditing = ref(false)
@@ -20,14 +20,14 @@
   const updateGame = async (game: Game): Promise<void> => {
     try {
       done()
-      setLoading()
+      startLoading()
       await putGame(game)
       await resetGamesStore()
       setToast('ゲームを更新しました!', NotificationType.Success)
       navigateTo(`/games/${game.id}`)
-      clearLoading()
+      stopLoading()
     } catch {
-      clearLoading()
+      stopLoading()
       editing()
       notifyOnSpot(
         'ゲームの更新に失敗しました。再度やり直してください。',

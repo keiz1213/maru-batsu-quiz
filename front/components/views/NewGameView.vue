@@ -6,7 +6,7 @@
 
   const { currentUser } = useCurrentUser()
   const { setToast, notifyOnSpot } = useToast()
-  const { setLoading, clearLoading } = useLoading()
+  const { startLoading, stopLoading } = useLoading()
   const { resetGamesStore } = useGame()
   const defaultInitialQuizCount = 3
   const isEditing = ref(false)
@@ -33,15 +33,15 @@
   const createGame = async (newGame: Game): Promise<void> => {
     try {
       done()
-      setLoading()
+      startLoading()
       const createdGame = await postGame(currentUser.value.id, newGame)
       await resetGamesStore()
       setToast('ゲームを作成しました!', NotificationType.Success)
       navigateTo(`/games/${createdGame.id}`)
-      clearLoading()
+      stopLoading()
     } catch {
       editing()
-      clearLoading()
+      stopLoading()
       notifyOnSpot(
         'ゲームの作成に失敗しました。再度やり直してください。',
         NotificationType.Error

@@ -113,24 +113,24 @@ class VenueActivity {
     closeQuestion()
   }
 
-  setQuizLoading = () => {
-    const { setQuizLoading } = useQuizLoading()
-    setQuizLoading()
+  startQuizLoading = () => {
+    const { startQuizLoading } = useQuizLoading()
+    startQuizLoading()
   }
 
-  clearQuizLoading = () => {
-    const { clearQuizLoading } = useQuizLoading()
-    clearQuizLoading()
+  stopQuizLoading = () => {
+    const { stopQuizLoading } = useQuizLoading()
+    stopQuizLoading()
   }
 
-  setConnectionLoading = () => {
-    const { setConnectionLoading } = useConnectionLoading()
-    setConnectionLoading()
+  startConnectionLoading = () => {
+    const { startConnectionLoading } = useConnectionLoading()
+    startConnectionLoading()
   }
 
-  clearConnectionLoading = () => {
-    const { clearConnectionLoading } = useConnectionLoading()
-    clearConnectionLoading()
+  stopConnectionLoading = () => {
+    const { stopConnectionLoading } = useConnectionLoading()
+    stopConnectionLoading()
   }
 
   calculateProgress = (numberOfPlayers: number) => {

@@ -79,10 +79,10 @@ const mocks = vi.hoisted(() => {
     setAllPlayers: vi.fn(),
     openQuestion: vi.fn(),
     closeQuestion: vi.fn(),
-    setQuizLoading: vi.fn(),
-    clearQuizLoading: vi.fn(),
-    setConnectionLoading: vi.fn(),
-    clearConnectionLoading: vi.fn(),
+    startQuizLoading: vi.fn(),
+    stopQuizLoading: vi.fn(),
+    startConnectionLoading: vi.fn(),
+    stopConnectionLoading: vi.fn(),
     addProgress: vi.fn(),
     notifyOnSpot: vi.fn()
   }
@@ -124,14 +124,14 @@ vi.mock('~/composables/venue-states', async () => {
     },
     useQuizLoading: () => {
       return {
-        setQuizLoading: mocks.setQuizLoading,
-        clearQuizLoading: mocks.clearQuizLoading
+        startQuizLoading: mocks.startQuizLoading,
+        stopQuizLoading: mocks.stopQuizLoading
       }
     },
     useConnectionLoading: () => {
       return {
-        setConnectionLoading: mocks.setConnectionLoading,
-        clearConnectionLoading: mocks.clearConnectionLoading
+        startConnectionLoading: mocks.startConnectionLoading,
+        stopConnectionLoading: mocks.stopConnectionLoading
       }
     },
     useConnectionProgress: () => {
@@ -392,31 +392,31 @@ describe('closeQuestion', () => {
   })
 })
 
-describe('setQuizLoading', () => {
+describe('startQuizLoading', () => {
   it('can set loading of quiz', () => {
-    venueActivity.setQuizLoading()
-    expect(mocks.setQuizLoading).toHaveBeenCalledOnce()
+    venueActivity.startQuizLoading()
+    expect(mocks.startQuizLoading).toHaveBeenCalledOnce()
   })
 })
 
-describe('clearQuizLoading', () => {
+describe('stopQuizLoading', () => {
   it('can clear loading of quiz', () => {
-    venueActivity.clearQuizLoading()
-    expect(mocks.clearQuizLoading).toHaveBeenCalledOnce()
+    venueActivity.stopQuizLoading()
+    expect(mocks.stopQuizLoading).toHaveBeenCalledOnce()
   })
 })
 
-describe('setConnectionLoading', () => {
+describe('startConnectionLoading', () => {
   it('can set loading of connection', () => {
-    venueActivity.setConnectionLoading()
-    expect(mocks.setConnectionLoading).toHaveBeenCalledOnce()
+    venueActivity.startConnectionLoading()
+    expect(mocks.startConnectionLoading).toHaveBeenCalledOnce()
   })
 })
 
-describe('clearConnectionLoading', () => {
+describe('stopConnectionLoading', () => {
   it('can clear loading of connection', () => {
-    venueActivity.clearConnectionLoading()
-    expect(mocks.clearConnectionLoading).toHaveBeenCalledOnce()
+    venueActivity.stopConnectionLoading()
+    expect(mocks.stopConnectionLoading).toHaveBeenCalledOnce()
   })
 })
 

@@ -270,18 +270,18 @@ export const useConnectionLoading = () => {
     return false
   })
 
-  const setConnectionLoading = () => {
+  const startConnectionLoading = () => {
     connectionLoading.value = true
   }
 
-  const clearConnectionLoading = () => {
+  const stopConnectionLoading = () => {
     connectionLoading.value = false
   }
 
   return {
     connectionLoading,
-    setConnectionLoading,
-    clearConnectionLoading
+    startConnectionLoading,
+    stopConnectionLoading
   }
 }
 
@@ -290,18 +290,18 @@ export const useQuizLoading = () => {
     return false
   })
 
-  const setQuizLoading = () => {
+  const startQuizLoading = () => {
     quizLoading.value = true
   }
 
-  const clearQuizLoading = () => {
+  const stopQuizLoading = () => {
     quizLoading.value = false
   }
 
   return {
     quizLoading,
-    setQuizLoading,
-    clearQuizLoading
+    startQuizLoading,
+    stopQuizLoading
   }
 }
 

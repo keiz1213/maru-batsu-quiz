@@ -156,7 +156,7 @@ class OwnerAvatar extends Avatar {
     if (index > maxIndex) {
       this.venueActivity!.startGame(this)
       this.skywayDataStream!.promptStartGame()
-      this.venueActivity!.clearConnectionLoading()
+      this.venueActivity!.stopConnectionLoading()
     } else {
       this.venueActivity!.calculateProgress(numberOfParticipant - 1)
       this.skywayDataStream!.promptSubscribeToAllPlayers(index)
@@ -165,7 +165,7 @@ class OwnerAvatar extends Avatar {
 
   startConnection = async (players: Avatar[]) => {
     try {
-      this.venueActivity!.setConnectionLoading()
+      this.venueActivity!.startConnectionLoading()
       await this.skywayChannel!.updateChannelMetadata('')
       await this.subscribeToAllPlayers()
       await this.promptOwnerSubscriptionToPlayers()
@@ -231,7 +231,7 @@ class OwnerAvatar extends Avatar {
   }
 
   announce = async (currentQuizNumber: number, quiz: Quiz) => {
-    this.venueActivity!.setQuizLoading()
+    this.venueActivity!.startQuizLoading()
     const question = quiz.question
     const correctAnswer = quiz.correct_answer
     const explanation = quiz.explanation
@@ -253,7 +253,7 @@ class OwnerAvatar extends Avatar {
     await this.delay(3000)
     this.announceExplanation(explanation)
     this.announceJudge(correctAnswer)
-    this.venueActivity!.clearQuizLoading()
+    this.venueActivity!.stopQuizLoading()
   }
 }
 

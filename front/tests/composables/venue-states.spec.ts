@@ -406,8 +406,8 @@ describe('useTimer', () => {
 
 describe('useConnectionLoading', () => {
   afterEach(() => {
-    const { clearConnectionLoading } = useConnectionLoading()
-    clearConnectionLoading()
+    const { stopConnectionLoading } = useConnectionLoading()
+    stopConnectionLoading()
   })
 
   it('default connectionLoading is false', () => {
@@ -416,26 +416,26 @@ describe('useConnectionLoading', () => {
   })
 
   it('switching from false to true for loading.', () => {
-    const { connectionLoading, setConnectionLoading } = useConnectionLoading()
+    const { connectionLoading, startConnectionLoading } = useConnectionLoading()
     expect(connectionLoading.value).toBeFalsy()
-    setConnectionLoading()
+    startConnectionLoading()
     expect(connectionLoading.value).toBeTruthy()
   })
 
   it('switching from true to false for loading.', () => {
-    const { connectionLoading, setConnectionLoading, clearConnectionLoading } =
+    const { connectionLoading, startConnectionLoading, stopConnectionLoading } =
       useConnectionLoading()
-    setConnectionLoading()
+    startConnectionLoading()
     expect(connectionLoading.value).toBeTruthy()
-    clearConnectionLoading()
+    stopConnectionLoading()
     expect(connectionLoading.value).toBeFalsy()
   })
 })
 
 describe('useQuizLoading', () => {
   afterEach(() => {
-    const { clearQuizLoading } = useQuizLoading()
-    clearQuizLoading()
+    const { stopQuizLoading } = useQuizLoading()
+    stopQuizLoading()
   })
 
   it('default quizLoading is false', () => {
@@ -444,17 +444,17 @@ describe('useQuizLoading', () => {
   })
 
   it('switching from false to true for loading.', () => {
-    const { quizLoading, setQuizLoading } = useQuizLoading()
+    const { quizLoading, startQuizLoading } = useQuizLoading()
     expect(quizLoading.value).toBeFalsy()
-    setQuizLoading()
+    startQuizLoading()
     expect(quizLoading.value).toBeTruthy()
   })
 
   it('switching from true to false for loading.', () => {
-    const { quizLoading, setQuizLoading, clearQuizLoading } = useQuizLoading()
-    setQuizLoading()
+    const { quizLoading, startQuizLoading, stopQuizLoading } = useQuizLoading()
+    startQuizLoading()
     expect(quizLoading.value).toBeTruthy()
-    clearQuizLoading()
+    stopQuizLoading()
     expect(quizLoading.value).toBeFalsy()
   })
 })

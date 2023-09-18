@@ -3,17 +3,17 @@ export const useLoading = () => {
     return false
   })
 
-  const setLoading = () => {
+  const startLoading = () => {
     loading.value = true
   }
 
-  const clearLoading = () => {
+  const stopLoading = () => {
     loading.value = false
   }
 
   return {
     loading,
-    setLoading,
-    clearLoading
+    startLoading,
+    stopLoading
   }
 }
