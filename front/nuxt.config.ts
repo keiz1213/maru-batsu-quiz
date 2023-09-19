@@ -2,6 +2,10 @@
 export default defineNuxtConfig({
   app: {
     head: {
+      htmlAttrs: {
+        lang: 'ja',
+        prefix: 'og: https://ogp.me/ns#'
+      },
       meta: [
         {
           name: 'description',
@@ -9,53 +13,53 @@ export default defineNuxtConfig({
             'オンラインで○×クイズが遊べるサービスです。誰が、どれくらいの人数の人が、○ or ✗ と答えているか、また回答に迷っている様子がリアルタイムで見れる機能が備わっています。'
         },
         {
-          name: 'og:title',
+          property: 'og:title',
           content: '○×クイズオンライン'
         },
         {
-          name: 'og:type',
+          property: 'og:type',
           content: 'website'
         },
         {
-          name: 'og:site_name',
+          property: 'og:site_name',
           content: '○×クイズオンライン'
         },
         {
-          name: 'og:description',
+          property: 'og:description',
           content:
             'オンラインで○×クイズが遊べるサービスです。誰が、どれくらいの人数の人が、○ or ✗ と答えているか、また回答に迷っている様子がリアルタイムで見れる機能が備わっています。'
         },
         {
-          name: 'og:image',
+          property: 'og:image',
           content: 'https://www.marubatsu-quiz-online.com/logo-ogp.png'
         },
         {
-          name: 'og:url',
+          property: 'og:url',
           content: 'https://www.marubatsu-quiz-online.com'
         },
         {
-          name: 'twitter:card',
+          property: 'twitter:card',
           content: 'summary'
         },
         {
-          name: 'twitter:title',
+          property: 'twitter:title',
           content: '○×クイズオンライン'
         },
         {
-          name: 'twitter:description',
+          property: 'twitter:description',
           content:
             'オンラインで○×クイズが遊べるサービスです。誰が、どれくらいの人数の人が、○ or ✗ と答えているか、また回答に迷っている様子がリアルタイムで見れる機能が備わっています。'
         },
         {
-          name: 'twitter:image',
+          property: 'twitter:image',
           content: 'https://www.marubatsu-quiz-online.com/logo-ogp.png'
         },
         {
-          name: 'twitter:site',
+          property: 'twitter:site',
           content: '@Nakamura'
         },
         {
-          name: 'twitter:title',
+          property: 'twitter:title',
           content: '○×クイズオンライン'
         }
       ]
