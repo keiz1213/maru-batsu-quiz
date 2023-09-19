@@ -9,7 +9,7 @@ RSpec.describe 'API::V1::CurrentUser::Games' do
       it 'can get games of current_user' do
         authenticated_user_stub(user)
         number_of_games = games.length
-        get api_v1_current_user_games_path
+        get api_v1_current_user_games_path, headers: { 'ACCEPT' => 'application/json' }
         expect(response.parsed_body.length).to eq(number_of_games)
       end
     end
