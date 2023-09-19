@@ -8,21 +8,21 @@ RSpec.describe 'API::V1::Users' do
       it 'can create a user' do
         user_stub_from_id_token(new_user)
         expect do
-          post api_v1_users_path, headers: { 'ACCEPT' => 'application/json' }
+          post api_v1_users_path(format: :json)
         end.to change(User, :count).by(1)
       end
 
       it 'can find a user' do
         old_user = create(:user)
         user_stub_from_id_token(old_user)
-        post api_v1_users_path, headers: { 'ACCEPT' => 'application/json' }
+        post api_v1_users_path(format: :json)
         expect(response.parsed_body['id']).to eq(old_user.id)
       end
 
       it "when the user not registered a name on GitHub create a user with the name 'anonymous'" do
         new_user.name = nil
         user_stub_from_id_token(new_user)
-        post api_v1_users_path, headers: { 'ACCEPT' => 'application/json' }
+        post api_v1_users_path(format: :json)
         expect(response.parsed_body['name']).to eq('anonymous')
       end
 
