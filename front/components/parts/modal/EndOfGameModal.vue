@@ -11,7 +11,7 @@
 <template>
   <VueFinalModal
     class="flex justify-center items-center"
-    content-class="mx-auto my-6 p-4 bg-white rounded-lg space-y-2 absolute inset-0 max-w-[850px]"
+    content-class="mx-auto my-6 p-4 bg-white rounded-lg space-y-2 absolute inset-0 w-[850px]"
     content-transition="vfm-fade"
     overlay-transition="vfm-fade"
   >
@@ -35,7 +35,7 @@
         <QuizTable :quizzes="quizzes" />
       </div>
       <div class="mb-10 mt-3">
-        <span class=" text-md underline hover:cursor-pointer w-20"
+        <span class="text-md underline hover:cursor-pointer w-20"
           ><NuxtLink :to="'/'">←Top</NuxtLink></span
         >
       </div>
