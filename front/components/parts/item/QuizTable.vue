@@ -11,12 +11,12 @@
     <label for="item-quizzes" class="block text-md mb-2 ml-2">クイズ</label>
     <table
       id="item-quizzes"
-      class="w-full table-fixed border-separate rounded-lg border-t border-x border-gray-200 border-spacing-0 overflow-hidden"
+      class="w-full border-separate rounded-lg border-t border-x border-gray-200 border-spacing-0 overflow-hidden"
     >
       <thead>
         <tr>
           <th
-            class="bg-primary text-center break-words text-white whitespace-pre-wrap py-3"
+            class="bg-primary text-center break-words text-white whitespace-pre-wrap py-3 w-[70px]"
           >
             出題順
           </th>
@@ -26,7 +26,7 @@
             問題
           </th>
           <th
-            class="bg-primary text-center break-words text-white whitespace-pre-wrap py-3"
+            class="bg-primary text-center break-words text-white whitespace-pre-wrap py-3 w-[70px]"
           >
             正解
           </th>

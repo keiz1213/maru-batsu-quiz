@@ -17,11 +17,11 @@
           </h3>
           <div class="flex gap-4">
             <img
+              class="w-[150px] sm:w-[250px]"
               src="../../assets/images/online-event.png"
-              width="250px"
               alt="free-icon"
             />
-            <span class="mt-10"
+            <span
               >オンラインでの勉強会やミートアップなど、イベントの余興として最適です。新規参加者もゲームに参加しやすく、和気あいあいと楽しめます。
             </span>
           </div>
@@ -35,11 +35,11 @@
             </h3>
             <div class="flex gap-4">
               <img
+                class="w-[150px] sm:w-[250px]"
                 src="../../assets/images/new-member.png"
-                width="250px"
                 alt="network-icon"
               />
-              <span class="mt-10"
+              <span
                 >新入社員歓迎会などにもご利用いただけます。その会社にまつわるクイズや、一般常識を問うクイズなどを作成すると盛り上がるかもしれません。</span
               >
             </div>
@@ -53,11 +53,11 @@
           </h3>
           <div class="flex gap-4">
             <img
+              class="w-[150px] sm:w-[250px]"
               src="../../assets/images/friend.png"
-              width="250px"
               alt="network-icon"
             />
-            <span class="mt-10"
+            <span
               >仲間と話しながらお酒を飲むだけでも楽しいですが、マルバツクイズで遊ぶと更に楽しくなります。ルールも簡単で誰でもわかるので気軽に遊べます。</span
             >
           </div>

@@ -28,7 +28,7 @@
 <template>
   <VueFinalModal
     class="flex justify-center"
-    content-class="w-3/4 h-3/4 m-auto bg-white rounded-lg space-y-2 absolute inset-0"
+    content-class="h-3/4 m-auto bg-white rounded-lg space-y-2 absolute inset-0 w-[850px]"
   >
     <div class="absolute inset-0 overflow-auto">
       <div class="flex justify-between mx-5 mt-5">

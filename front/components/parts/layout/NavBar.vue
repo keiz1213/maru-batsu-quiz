@@ -22,7 +22,6 @@
           <NuxtLink v-if="route.path === '/'" :to="'/how-to-play'">
             <div class="my-2.5 mr-2 btn btn-outline btn-primary">
               <div class="flex justify-center">
-                <baseball-diamond-outline-icon class="mt-0.5" />
                 <span class="text-xl ml-1">HOW TO PLAY</span>
               </div>
             </div>
