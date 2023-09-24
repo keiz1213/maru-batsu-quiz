@@ -70,7 +70,6 @@ GEM
     bootsnap (1.16.0)
       msgpack (~> 1.2)
     builder (3.2.4)
-    chronic (0.10.2)
     concurrent-ruby (1.2.2)
     connection_pool (2.4.1)
     crass (1.0.6)
@@ -104,6 +103,9 @@ GEM
     io-console (0.6.0)
     irb (1.6.4)
       reline (>= 0.3.0)
+    jbuilder (2.11.5)
+      actionview (>= 5.0.0)
+      activesupport (>= 5.0.0)
     json (2.6.3)
     jwt (2.7.0)
     loofah (2.21.3)
@@ -255,8 +257,6 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    whenever (1.0.0)
-      chronic (>= 0.6.3)
     zeitwerk (2.6.8)
 
 PLATFORMS
@@ -268,6 +268,7 @@ DEPENDENCIES
   dockerfile-rails
   factory_bot_rails
   firebase_id_token (~> 3.0.0)
+  jbuilder
   jwt
   pg (~> 1.1)
   puma (~> 5.0)
@@ -281,7 +282,6 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   tzinfo-data
-  whenever
 
 RUBY VERSION
    ruby 3.2.2p53

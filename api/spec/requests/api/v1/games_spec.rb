@@ -11,7 +11,7 @@ RSpec.describe 'API::V1::Games' do
     context 'when an authenticated user' do
       it 'loads a game' do
         authenticated_user_stub(user)
-        get api_v1_game_path(game)
+        get api_v1_game_path(game, format: :json)
         expect(response.parsed_body['id']).to eq(game.id)
       end
     end
@@ -29,7 +29,7 @@ RSpec.describe 'API::V1::Games' do
       it 'create a game with quizzes' do
         authenticated_user_stub(user)
         expect do
-          post api_v1_games_path, params: game_with_quizzes_params(user)
+          post api_v1_games_path(format: :json), params: game_with_quizzes_params(user)
         end.to change(Game, :count).by(1)
                                    .and change(Quiz, :count).by(2)
       end
@@ -60,7 +60,7 @@ RSpec.describe 'API::V1::Games' do
       it 'creater of the game can update the game' do
         authenticated_user_stub(user)
         game_params[:game][:title] = 'update title'
-        put api_v1_game_path(game), params: game_params
+        put api_v1_game_path(game, format: :json), params: game_params
         expect(Game.find(game.id).title).not_to eq(game_title)
       end
 

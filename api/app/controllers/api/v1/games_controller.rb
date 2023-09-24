@@ -2,16 +2,15 @@ class API::V1::GamesController < ApplicationController
   before_action :correct_user, only: %i[update destroy]
 
   def show
-    game = Game.find(params[:id])
-    render json: game.as_json(include: :quizzes), status: :ok
+    @game = Game.find(params[:id])
   end
 
   def create
-    game = Game.new(game_params)
-    game.build_quizzes(quizzes_params)
+    @game = Game.new(game_params)
+    @game.build_quizzes(quizzes_params)
 
-    if game.save
-      render json: game, status: :created
+    if @game.save
+      render 'show', status: :created
     else
       render json: { status: 'unprocessable_entity' }, status: :unprocessable_entity
     end
@@ -22,7 +21,7 @@ class API::V1::GamesController < ApplicationController
     @game.build_quizzes(quizzes_params)
 
     if @game.update(update_game_params)
-      render json: @game, status: :ok
+      render 'show', status: :ok
     else
       render json: { status: 'unprocessable_entity' }, status: :unprocessable_entity
     end
