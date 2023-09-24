@@ -7,6 +7,10 @@
     winners: PlayerAvatar[]
     quizzes: Quiz[]
   }>()
+
+  const backToHome = () => {
+    navigateTo('/home', { external: true })
+  }
 </script>
 <template>
   <VueFinalModal
@@ -35,8 +39,10 @@
         <QuizTable :quizzes="quizzes" />
       </div>
       <div class="mb-10 mt-3">
-        <span class="text-md underline hover:cursor-pointer w-20"
-          ><NuxtLink :to="'/'">←Top</NuxtLink></span
+        <span
+          @click="backToHome"
+          class="text-md underline hover:cursor-pointer w-20"
+          >←Top</span
         >
       </div>
     </div>
