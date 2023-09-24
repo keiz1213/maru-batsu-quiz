@@ -7,11 +7,14 @@
         <div
           class="w-[8px] h-[8px] rounded-full bg-green-500 absolute top-1 left-[47%]"
         ></div>
-        <img
-          src="../../../assets/images/demo1.png"
-          class="w-[250px] sm:w-[430px] md:w-[630px] block mx-auto"
-          alt="demo"
-        />
+        <a href="https://gyazo.com/58b721ff3fc6616600436bbf8e53cda8"
+          ><a href="https://gyazo.com/2c51fb738e0081935e90eb4d57bfa486"
+            ><video width="650" autoplay muted loop playsinline controls>
+              <source
+                src="https://i.gyazo.com/2c51fb738e0081935e90eb4d57bfa486.mp4"
+                type="video/mp4"
+              /></video></a
+        ></a>
       </div>
     </div>
     <div class="">
