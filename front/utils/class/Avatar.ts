@@ -1,4 +1,5 @@
 import { User } from '~/types/user'
+import { Quiz } from '~/types/quiz'
 import VenueActivity from './VenueActivity'
 import SkywayChannel from './SkywayChannel'
 import SkywayDataStream from './SkywayDataStream'
@@ -65,6 +66,11 @@ class Avatar {
     )
     this.venueActivity!.reflectChatMessage(chatMessage)
     this.skywayDataStream!.writeChatMessage(chatMessage)
+  }
+
+  createExercisedQuizzes = (quizzes: Quiz[]) => {
+    const { currentQuizNumber } = useCurrentQuizNumber()
+    return quizzes.slice(0, currentQuizNumber.value)
   }
 }
 

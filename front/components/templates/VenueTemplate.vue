@@ -26,7 +26,7 @@
   <EndOfGameModal
     v-model="endOfGame"
     :winners="winners"
-    :quizzes="game.quizzes"
+    :quizzes="avatar.createExercisedQuizzes(game.quizzes)"
     :background="'interactive'"
   />
   <StandByGameModal
