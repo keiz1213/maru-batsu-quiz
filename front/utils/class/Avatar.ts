@@ -50,9 +50,12 @@ class Avatar {
   }
 
   leaveChannel = () => {
-    this.skywayChannel!.updateChannelMetadata('error')
-    localStorage.clear()
-    this.skywayChannel!.agent!.leave()
+    const { endOfGame } = useGameState()
+    if (!endOfGame.value) {
+      this.skywayChannel!.updateChannelMetadata('error')
+      localStorage.clear()
+      this.skywayChannel!.agent!.leave()
+    }
   }
 
   sendChatMessage = (newMessage: string) => {
