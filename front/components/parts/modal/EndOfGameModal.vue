@@ -15,7 +15,7 @@
 <template>
   <VueFinalModal
     class="flex justify-center items-center"
-    content-class="mx-auto my-6 p-4 bg-white rounded-lg space-y-2 absolute inset-0 w-[850px]"
+    content-class="w-3/4 mx-auto my-6 p-4 bg-white rounded-lg space-y-2 absolute inset-0 max-w-[1100px]"
     content-transition="vfm-fade"
     overlay-transition="vfm-fade"
   >
