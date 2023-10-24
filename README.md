@@ -1,6 +1,6 @@
 # ○×クイズオンライン
 
-![demo](front/assets/images/demo1.png)
+![7a593b5033499a1b86538c78221597bb](https://github.com/keiz1213/maru-batsu-quiz/assets/72614612/aee3d321-b7e3-46e6-b98b-0cef9a7e4097)
 
 ○×クイズオンラインというサービスは、複数人でオンライン上で集まって○×クイズが遊べるパーティーゲームです。  
 ユーザーはブラウザ上で自分のアバターを○エリア、✗エリアに移動させることによって回答ができます。  
@@ -30,6 +30,11 @@
 - RSpec
 - Vitest
 - Cypress
+
+### リンター・フォーマッター
+- ESLint
+- Prettier
+- rubocop
 
 ### 外部サービス
 - [SkyWay](https://skyway.ntt.com/ja/)
